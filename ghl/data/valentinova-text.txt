@@ -1,0 +1,232 @@
+----- p1 -----
+KLIENT
+p.Valentínová
+DÁTUM
+06/2026
+AUTOR
+Miriam Czompoly
+ZADANIE
+Návrh interiéru
+Byt Miko
+
+----- p2 -----
+KLIENT
+p.Valentínová
+DÁTUM
+06/2026
+AUTOR
+Miriam Czompoly
+ZADANIE
+Návrh interiéru
+  Byt Miko
+
+----- p3 -----
+KLIENT
+p.Valentínová
+DÁTUM
+06/2026
+AUTOR
+Miriam Czompoly
+01
+ZADANIE
+Návrh interiéru
+NÁZOV
+Pôvodný stav - spál
+ňa
+
+----- p4 -----
+KLIENT
+p.Valentínová
+DÁTUM
+06/2026
+AUTOR
+Miriam Czompoly
+02
+ZADANIE
+Návrh interiéru
+NÁZOV
+Pôvodný stav - 
+obývacia izba
+
+----- p5 -----
+KLIENT
+p.Valentínová
+DÁTUM
+06/2026
+AUTOR
+Miriam Czompoly
+03
+ZADANIE
+Návrh interiéru
+NÁZOV
+Pôvodný stav - 
+kuchy
+ňa
+
+----- p6 -----
+KLIENT
+p.Valentínová
+DÁTUM
+06/2026
+AUTOR
+Miriam Czompoly
+04
+ZADANIE
+Návrh interiéru
+NÁZOV
+Pôvodný stav - 
+kúpel
+ňa
+
+----- p7 -----
+KLIENT
+p.Valentínová
+DÁTUM
+06/2026
+AUTOR
+Miriam Czompoly
+05
+ZADANIE
+Návrh interiéru
+NÁZOV
+Pôvodný stav - 
+kúpel
+ňa 2 + WC
+
+----- p8 -----
+KLIENT
+p.Valentínová
+DÁTUM
+06/2026
+AUTOR
+Miriam Czompoly
+06
+ZADANIE
+Návrh interiéru
+NÁZOV
+Pôvodný stav - 
+chodba
+
+----- p9 -----
+KLIENT
+p.Valentínová
+DÁTUM
+06/2026
+AUTOR
+Miriam Czompoly
+07
+ZADANIE
+Návrh interiéru
+NÁZOV
+Pôvodné prvky zachované v novom 
+návrhu
+
+----- p10 -----
+KLIENT
+p.Valentínová
+DÁTUM
+06/2026
+AUTOR
+Miriam Czompoly
+08
+ZADANIE
+Návrh interiéru
+NÁZOV
+Pôdorys
+
+----- p11 -----
+KLIENT
+p.Valentínová
+DÁTUM
+06/2026
+AUTOR
+Miriam Czompoly
+09
+ZADANIE
+Návrh interiéru
+NÁZOV
+Pôdorys
+
+----- p12 -----
+KLIENT
+p.Valentínová
+DÁTUM
+06/2026
+AUTOR
+Miriam Czompoly
+10
+ZADANIE
+Návrh interiéru
+NÁZOV
+Ilustra
+čný vizuál
+
+----- p13 -----
+KLIENT
+p.Valentínová
+DÁTUM
+06/2026
+AUTOR
+Miriam Czompoly
+11
+ZADANIE
+Návrh interiéru
+NÁZOV
+Ilustra
+čný vizuál
+
+----- p14 -----
+KLIENT
+p.Valentínová
+DÁTUM
+06/2026
+AUTOR
+Miriam Czompoly
+12
+ZADANIE
+Návrh interiéru
+NÁZOV
+Ilustra
+čný vizuál
+
+----- p15 -----
+KLIENT
+p.Valentínová
+DÁTUM
+06/2026
+AUTOR
+Miriam Czompoly
+13
+ZADANIE
+Návrh interiéru
+NÁZOV
+Ilustra
+čný vizuál
+
+----- p16 -----
+KLIENT
+p.Valentínová
+DÁTUM
+06/2026
+AUTOR
+Miriam Czompoly
+14
+ZADANIE
+Návrh interiéru
+NÁZOV
+Ilustra
+čný vizuál
+
+----- p17 -----
+KLIENT
+p.Valentínová
+DÁTUM
+06/2026
+AUTOR
+Miriam Czompoly
+15
+ZADANIE
+Návrh interiéru
+NÁZOV
+Ilustra
+čný vizuál

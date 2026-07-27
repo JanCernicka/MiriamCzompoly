@@ -256,7 +256,7 @@ body.nav-open .mobile-menu a.m-link { animation: menuIn .5s var(--ease) forwards
 .hero-figure { position: relative; }
 .hero-figure .ph { aspect-ratio: 4 / 5; border-radius: var(--radius-lg); }
 .hero-figure .ph-badge {
-  position: absolute; left: -22px; bottom: 32px; background: var(--paper); color: var(--ink);
+  position: absolute; z-index: 3; left: -22px; bottom: 32px; background: var(--paper); color: var(--ink);
   padding: 1rem 1.3rem; border-radius: var(--radius); box-shadow: var(--shadow-md);
   display: flex; align-items: center; gap: 0.9rem; max-width: 250px;
 }
@@ -284,6 +284,9 @@ body.nav-open .mobile-menu a.m-link { animation: menuIn .5s var(--ease) forwards
   background-image: radial-gradient(rgba(38,32,25,.05) 1px, transparent 1px);
   background-size: 22px 22px; opacity: .5;
 }
+/* .ph s reálnou fotkou */
+.ph > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; z-index: 1; }
+.ph.has-img::after { display: none; }
 .ph-inner { position: relative; z-index: 1; text-align: center; padding: 1.2rem; }
 .ph-inner svg { margin: 0 auto 0.6rem; opacity: .55; }
 .ph-chip {

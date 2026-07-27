@@ -1,0 +1,113 @@
+{
+  "workflows": [
+    {
+      "id": "8a5f6b48-9ef2-4680-924e-335db2821483",
+      "name": "1 - Minul\u00fd z\u00e1kazn\u00edci - Vyp\u00fdtanie recenzie",
+      "status": "published",
+      "version": 13,
+      "createdAt": "2025-08-06T08:12:34.476Z",
+      "updatedAt": "2026-03-01T18:46:08.640Z",
+      "locationId": "o86atLjsdR9IoUTWgYna"
+    },
+    {
+      "id": "90f46199-5ceb-4e13-b75d-d41e72182f1b",
+      "name": "2 - Kliknut\u00fd link na recenziu",
+      "status": "published",
+      "version": 3,
+      "createdAt": "2025-08-06T08:12:34.670Z",
+      "updatedAt": "2025-08-11T15:08:02.457Z",
+      "locationId": "o86atLjsdR9IoUTWgYna"
+    },
+    {
+      "id": "5ff7968b-d7e5-4f6b-aca9-43e7c1dfd208",
+      "name": "3 - Pri\u0161la negat\u00edvna recenzia",
+      "status": "published",
+      "version": 14,
+      "createdAt": "2025-08-06T08:12:34.843Z",
+      "updatedAt": "2025-08-11T15:08:21.724Z",
+      "locationId": "o86atLjsdR9IoUTWgYna"
+    },
+    {
+      "id": "80648074-0f64-48ff-9545-254aad09250f",
+      "name": "Ebook Delivery Slovak Workflow",
+      "status": "published",
+      "version": 4,
+      "createdAt": "2026-03-30T16:16:43.203Z",
+      "updatedAt": "2026-03-30T17:43:27.827Z",
+      "locationId": "o86atLjsdR9IoUTWgYna"
+    },
+    {
+      "id": "9a597e15-76e9-47f8-a4e2-9e0a67d11e15",
+      "name": "Facebook Pixel CAPI",
+      "status": "draft",
+      "version": 3,
+      "createdAt": "2025-08-06T08:12:36.279Z",
+      "updatedAt": "2025-08-24T08:16:58.700Z",
+      "locationId": "o86atLjsdR9IoUTWgYna"
+    },
+    {
+      "id": "d2456895-8b8d-4052-81f2-b8511ba4bc6a",
+      "name": "Po konzult\u00e1cii",
+      "status": "published",
+      "version": 5,
+      "createdAt": "2026-04-17T16:38:49.125Z",
+      "updatedAt": "2026-04-17T18:15:53.884Z",
+      "locationId": "o86atLjsdR9IoUTWgYna"
+    },
+    {
+      "id": "31f2052b-091e-4737-9822-b5a79808406d",
+      "name": "Pred konzult\u00e1ciou",
+      "status": "published",
+      "version": 5,
+      "createdAt": "2026-04-17T16:38:35.012Z",
+      "updatedAt": "2026-05-05T08:48:23.378Z",
+      "locationId": "o86atLjsdR9IoUTWgYna"
+    },
+    {
+      "id": "ee28a197-6437-4435-a35f-ae8444acad1d",
+      "name": "Pripomienka term\u00ednu 2 hodiny a 10 min\u00fat pred",
+      "status": "published",
+      "version": 14,
+      "createdAt": "2025-08-06T08:12:35.868Z",
+      "updatedAt": "2026-04-29T16:24:34.051Z",
+      "locationId": "o86atLjsdR9IoUTWgYna"
+    },
+    {
+      "id": "d264b538-c4b3-4cd0-9ccd-9a86cd7a28b2",
+      "name": "Reaktiv\u00e1cia datab\u00e1zy",
+      "status": "draft",
+      "version": 5,
+      "createdAt": "2025-08-06T08:12:36.634Z",
+      "updatedAt": "2026-04-28T17:48:18.659Z",
+      "locationId": "o86atLjsdR9IoUTWgYna"
+    },
+    {
+      "id": "a6b0415f-568f-475b-929d-20b226ad045c",
+      "name": "Reaktiv\u00e1cia star\u00fdch kontaktov",
+      "status": "published",
+      "version": 9,
+      "createdAt": "2026-04-15T14:14:16.823Z",
+      "updatedAt": "2026-04-17T18:29:24.535Z",
+      "locationId": "o86atLjsdR9IoUTWgYna"
+    },
+    {
+      "id": "dcdcde22-e542-4448-a0d6-168cb717d03d",
+      "name": "WebStr\u00e1nka - Odoslan\u00fd formul\u00e1r bez rezerv\u00e1cie term\u00ednu v kalend\u00e1ri",
+      "status": "draft",
+      "version": 7,
+      "createdAt": "2025-08-19T17:21:25.517Z",
+      "updatedAt": "2026-02-28T14:28:36.501Z",
+      "locationId": "o86atLjsdR9IoUTWgYna"
+    },
+    {
+      "id": "8ca1a216-b7cd-45f6-86bb-3f6a6fb2ebda",
+      "name": "WebStr\u00e1nka - Telefonick\u00e1 konzult\u00e1cia potvrdenie term\u00ednu",
+      "status": "published",
+      "version": 10,
+      "createdAt": "2025-08-19T17:28:46.312Z",
+      "updatedAt": "2026-04-03T10:55:24.383Z",
+      "locationId": "o86atLjsdR9IoUTWgYna"
+    }
+  ],
+  "traceId": "3f704864-d215-4fd3-96c3-a833a748e11f"
+}

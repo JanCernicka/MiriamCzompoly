@@ -1,0 +1,21 @@
+{
+  "forms": [
+    {
+      "id": "1sgxkxuxZUmIfUBFwl4d",
+      "locationId": "o86atLjsdR9IoUTWgYna",
+      "name": "Formul\u00e1r - E-book"
+    },
+    {
+      "id": "DYOKjbynS6CosReTWBii",
+      "locationId": "o86atLjsdR9IoUTWgYna",
+      "name": "Formul\u00e1r - 15 min konzult\u00e1cia"
+    },
+    {
+      "id": "gWP3IhnhLklpdMSnFhBc",
+      "locationId": "o86atLjsdR9IoUTWgYna",
+      "name": "Form 1"
+    }
+  ],
+  "total": 3,
+  "traceId": "2421536c-eae7-4a3a-ba34-8209e886be78"
+}

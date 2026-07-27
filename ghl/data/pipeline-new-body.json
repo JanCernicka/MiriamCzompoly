@@ -1,0 +1,74 @@
+{
+  "name": "Hlavný predajný proces",
+  "stages": [
+    {
+      "id": "e8f6e92b-860a-4014-a2db-332b16cc2ffc",
+      "name": "Lead",
+      "position": 0,
+      "showInFunnel": true,
+      "showInPieChart": true
+    },
+    {
+      "id": "3e4dff82-13e7-47c6-858a-67ba2a36d877",
+      "name": "Diagnostika rezervovaná",
+      "position": 1,
+      "showInFunnel": true,
+      "showInPieChart": true
+    },
+    {
+      "id": "5c5c424e-6ef5-4201-bb49-a2e063cac0d6",
+      "name": "Diagnostika potvrdená",
+      "position": 2,
+      "showInFunnel": true,
+      "showInPieChart": true
+    },
+    {
+      "id": "0fec74c8-1d54-4924-a7fb-9971f0c0b574",
+      "name": "Diagnostika zaplatená (249 €)",
+      "position": 3,
+      "showInFunnel": true,
+      "showInPieChart": true
+    },
+    {
+      "id": "c2f81567-78ce-44b5-84fd-0aec65b0983a",
+      "name": "Diagnostika absolvovaná",
+      "position": 4,
+      "showInFunnel": false,
+      "showInPieChart": true
+    },
+    {
+      "id": "254e1287-dd22-49f2-8b66-fb6836c91d61",
+      "name": "Ponuka projektu poslaná",
+      "position": 5,
+      "showInFunnel": false,
+      "showInPieChart": true
+    },
+    {
+      "id": "5a6f09f4-766b-477e-805f-ea2841277bb4",
+      "name": "Projekt vyhraný (WON)",
+      "position": 6,
+      "showInFunnel": true,
+      "showInPieChart": true
+    },
+    {
+      "id": "3676c2a9-30fb-4a6e-8993-2f8f97ad0364",
+      "name": "Realizácia",
+      "position": 7,
+      "showInFunnel": false,
+      "showInPieChart": true
+    },
+    {
+      "id": "be72aba6-1947-4536-ae4d-1fd5771ab5d7",
+      "name": "Recenzia / Referral",
+      "position": 8,
+      "showInFunnel": false,
+      "showInPieChart": true
+    },
+    {
+      "name": "Projekt prehraný (LOST)",
+      "position": 9,
+      "showInFunnel": false,
+      "showInPieChart": true
+    }
+  ]
+}

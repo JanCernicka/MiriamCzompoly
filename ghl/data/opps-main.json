@@ -1,0 +1,1 @@
+API Error (422): ['property locationId should not exist', 'property pipelineId should not exist', 'location_id must be a string', 'location_id should not be empty']

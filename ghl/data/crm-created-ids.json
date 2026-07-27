@@ -1,0 +1,27 @@
+{
+  "custom_values": [
+    {"name":"Cena diagnostika","id":"Dz318S4CViN2CifsnQEr","key":"{{ custom_values.cena_diagnostika }}"},
+    {"name":"Cena miestnosť","id":"j8YnoE1a3IJyhnDUlkiU","key":"{{ custom_values.cena_miestnos }}"},
+    {"name":"Cena kompletná premena","id":"l495hkOZvtFZBM2TVRek","key":"{{ custom_values.cena_kompletn_premena }}"},
+    {"name":"Cena na kľúč","id":"dzno6XGLRClkI8MwviiM","key":"{{ custom_values.cena_na_k }}"},
+    {"name":"Počet projektov mesačne","id":"FWF5FcJq8f1joQ7RFCso","key":"{{ custom_values.poet_projektov_mesane }}"},
+    {"name":"Referral kredit","id":"iDSbNFTEo3XfsNiSWpsU","key":"{{ custom_values.referral_kredit }}"},
+    {"name":"Link diagnostika","id":"UmiPUOUFchtOg8YI1TmL","key":"{{ custom_values.link_diagnostika }}"},
+    {"name":"Link 5 chýb","id":"vNSZ6YziiUG4Ig9kiVtD","key":"{{ custom_values.link_5_chb }}"},
+    {"name":"Link ebook PDF","id":"dSWEpprj0geWWGEYVWq0","key":"{{ custom_values.link_ebook_pdf }}"},
+    {"name":"Link kalendár diagnostika","id":"OVH1vpelldfnm09dXlGi","key":"{{ custom_values.link_kalendr_diagnostika }}"}
+  ],
+  "tags": [
+    {"name":"lead-magnet","id":"Pxv3WsAlqXYG70vQZbqu"},
+    {"name":"nurture-aktiv","id":"uK7u69Wn88vAKfsO4MXs"},
+    {"name":"reaktivacia","id":"EJNRjnZSrXGlHE8s3Zb9"},
+    {"name":"diagnostika-rezervovana","id":"kPZkC0Ivq7fFWjWTMCxX"},
+    {"name":"diagnostika-hotova","id":"zOi8B74lhgW4K2oNug47"},
+    {"name":"ponuka-poslana","id":"r3t4jiXb2rTu2wIvllBp"},
+    {"name":"klient","id":"UePwHQ6cyaoezXQDMdY7"},
+    {"name":"no-show","id":"tXBrwjKAZGQ0NXM1DL5M"},
+    {"name":"referral-ask","id":"wl1OeSdhohltHluDsPqR"},
+    {"name":"recenzia-ask","id":"UH9oiqENUZtj7LYHtREn"},
+    {"name":"odhlaseny","id":"wHYbpXOblgl9e2e9RNGu"}
+  ]
+}

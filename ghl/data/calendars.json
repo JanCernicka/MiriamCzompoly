@@ -1,0 +1,295 @@
+{
+  "calendars": [
+    {
+      "id": "NNmAku1PqToqxu3ppBl8",
+      "locationId": "o86atLjsdR9IoUTWgYna",
+      "groupId": "",
+      "teamMembers": [
+        {
+          "priority": 0.5,
+          "selected": true,
+          "userId": "hSQHxikFZUetHZUYqJZO",
+          "isZoomAdded": "meet",
+          "locationConfigurations": [
+            {
+              "location": "",
+              "position": 0,
+              "kind": "google_conference",
+              "meetingId": "google_conference_0"
+            }
+          ],
+          "isPrimary": true,
+          "meetingLocation": ""
+        }
+      ],
+      "eventType": "RoundRobin_OptimizeForAvailability",
+      "name": "Bezplatn\u00e1 konzult\u00e1cia s interi\u00e9rovou dizajn\u00e9rkou",
+      "description": "<p style=\"margin:0px;color:#10182899; margin: 0px;color: #10182899;\"><span style=\"font-size: 18px; font-family: Montserrat; color: rgb(0, 0, 0)\">Konzult\u00e1cie pl\u00e1nujem s predstihom, aby bol priestor na pr\u00edpravu.</span></p><p style=\"margin:0px;color:#10182899\"><span style=\"font-size: 18px; font-family: Montserrat; color: rgb(0, 0, 0)\">Vyber si term\u00edn, ktor\u00fd ti vyhovuje.</span></p><p style=\"margin:0px;color:#10182899\"><span style=\"font-size: 18px; font-family: Montserrat; color: rgb(0, 0, 0)\">Po potvrden\u00ed rezerv\u00e1cie ti obratom pr\u00edde e-mail s odkazom na online hovor.</span></p><p style=\"margin:0px;color:#10182899\"><span style=\"font-size: 18px; font-family: Montserrat; color: rgb(0, 0, 0)\">Pros\u00edm, pozna\u010d si term\u00edn do svojho kalend\u00e1ra.</span></p>",
+      "widgetSlug": "konzultaciakalendar6qx8w3",
+      "calendarType": "personal",
+      "widgetType": "default",
+      "eventTitle": "\ud83d\udcde\ud83d\udcde\ud83d\udcde {{contact.name}}",
+      "eventColor": "#D50000",
+      "slotDuration": 15,
+      "slotDurationUnit": "mins",
+      "slotInterval": 15,
+      "slotIntervalUnit": "mins",
+      "slotBufferUnit": "mins",
+      "appoinmentPerSlot": 1,
+      "appoinmentPerDay": "",
+      "appointmentPerSlot": 1,
+      "appointmentPerDay": "",
+      "openHours": [
+        {
+          "daysOfTheWeek": [
+            1
+          ],
+          "hours": [
+            {
+              "openHour": 9,
+              "openMinute": 0,
+              "closeHour": 17,
+              "closeMinute": 0
+            }
+          ]
+        },
+        {
+          "daysOfTheWeek": [
+            2
+          ],
+          "hours": [
+            {
+              "openHour": 9,
+              "openMinute": 0,
+              "closeHour": 17,
+              "closeMinute": 0
+            }
+          ]
+        },
+        {
+          "daysOfTheWeek": [
+            3
+          ],
+          "hours": [
+            {
+              "openHour": 9,
+              "openMinute": 0,
+              "closeHour": 17,
+              "closeMinute": 0
+            }
+          ]
+        },
+        {
+          "daysOfTheWeek": [
+            4
+          ],
+          "hours": [
+            {
+              "openHour": 9,
+              "openMinute": 0,
+              "closeHour": 17,
+              "closeMinute": 0
+            }
+          ]
+        },
+        {
+          "daysOfTheWeek": [
+            5
+          ],
+          "hours": [
+            {
+              "openHour": 9,
+              "openMinute": 0,
+              "closeHour": 17,
+              "closeMinute": 0
+            }
+          ]
+        }
+      ],
+      "enableRecurring": false,
+      "recurring": {
+        "count": 1,
+        "bookingOption": "skip",
+        "bookingOverlapDefaultStatus": "",
+        "interval": null,
+        "freq": "DAILY",
+        "monthDays": [],
+        "weekDays": []
+      },
+      "formId": "DYOKjbynS6CosReTWBii",
+      "stickyContact": false,
+      "isLivePaymentMode": false,
+      "autoConfirm": true,
+      "googleInvitationEmails": true,
+      "allowReschedule": true,
+      "allowCancellation": true,
+      "shouldAssignContactToTeamMember": false,
+      "shouldSkipAssigningContactForExisting": false,
+      "notes": "Telef\u00f3n:- {{contact.phone}}\nEmail:- {{contact.email}}\n\nPotrebujete vykona\u0165 zmenu?\nPrelo\u017ei\u0165:-\n{{reschedule_link}}\n\nZru\u0161i\u0165:-\n{{cancellation_link}}",
+      "pixelId": "1635921510774833",
+      "formSubmitType": "RedirectURL",
+      "formSubmitRedirectUrl": "https://www.miriamczompoly.sk/podakovanie",
+      "formSubmitThanksMessage": "\u010eakujem! Pr\u00edde ti potvrdzovac\u00ed email aj sms. Ak m\u00e1\u0161 nejak\u00e9 ot\u00e1zky sta\u010d\u00ed na jedno z nich odp\u00edsa\u0165 a ja sa ozvem \u010do najsk\u00f4r!",
+      "availabilities": [],
+      "guestType": "collect_detail",
+      "consentLabel": "I confirm that I want to receive content from this company using any contact information I provide.",
+      "calendarCoverImage": "",
+      "lookBusyConfig": {
+        "enabled": true,
+        "lookBusyPercentage": 30
+      },
+      "allowBookingAfterUnit": "days",
+      "allowBookingAfter": 0,
+      "allowBookingFor": 10,
+      "allowBookingForUnit": "days",
+      "preBufferUnit": "mins",
+      "isActive": true
+    },
+    {
+      "id": "ZSPaMWEuejcfthaFxKZt",
+      "locationId": "o86atLjsdR9IoUTWgYna",
+      "groupId": "",
+      "teamMembers": [
+        {
+          "priority": 0.5,
+          "selected": true,
+          "userId": "hSQHxikFZUetHZUYqJZO",
+          "isZoomAdded": "meet",
+          "locationConfigurations": [
+            {
+              "location": "",
+              "position": 0,
+              "kind": "google_conference",
+              "meetingId": "google_conference_0"
+            }
+          ],
+          "isPrimary": true,
+          "meetingLocation": ""
+        }
+      ],
+      "eventType": "RoundRobin_OptimizeForAvailability",
+      "name": "Bezplatn\u00e1 konzult\u00e1cia s Miriam Czompoly",
+      "description": "<p style=\"margin:0px;color:#10182899; margin: 0px;color: #10182899;\"><span style=\"font-size: 18px; font-family: Montserrat; color: rgb(0, 0, 0)\">Vyber si term\u00edn, ktor\u00fd ti vyhovuje.</span></p><p style=\"margin:0px;color:#10182899; margin: 0px;color: #10182899;\"><span style=\"font-size: 18px; font-family: Montserrat; color: rgb(0, 0, 0)\">Po potvrden\u00ed rezerv\u00e1cie ti obratom pr\u00edde e-mail s odkazom na online hovor.</span></p><p style=\"margin:0px;color:#10182899; margin: 0px;color: #10182899;\"><span style=\"font-size: 18px; font-family: Montserrat; color: rgb(0, 0, 0)\">Pred konzult\u00e1ciou si pros\u00edm skontrolujte pripojenie a mikrof\u00f3n.</span></p>",
+      "widgetSlug": "konzultaciakalendar",
+      "calendarType": "personal",
+      "widgetType": "default",
+      "eventTitle": "\ud83d\udcde\ud83d\udcde\ud83d\udcde {{contact.name}}",
+      "eventColor": "#D50000",
+      "slotDuration": 15,
+      "slotDurationUnit": "mins",
+      "slotInterval": 15,
+      "slotIntervalUnit": "mins",
+      "slotBufferUnit": "mins",
+      "appoinmentPerSlot": 1,
+      "appoinmentPerDay": "",
+      "appointmentPerSlot": 1,
+      "appointmentPerDay": "",
+      "openHours": [
+        {
+          "daysOfTheWeek": [
+            1
+          ],
+          "hours": [
+            {
+              "openHour": 9,
+              "openMinute": 0,
+              "closeHour": 17,
+              "closeMinute": 0
+            }
+          ]
+        },
+        {
+          "daysOfTheWeek": [
+            2
+          ],
+          "hours": [
+            {
+              "openHour": 9,
+              "openMinute": 0,
+              "closeHour": 17,
+              "closeMinute": 0
+            }
+          ]
+        },
+        {
+          "daysOfTheWeek": [
+            3
+          ],
+          "hours": [
+            {
+              "openHour": 9,
+              "openMinute": 0,
+              "closeHour": 17,
+              "closeMinute": 0
+            }
+          ]
+        },
+        {
+          "daysOfTheWeek": [
+            4
+          ],
+          "hours": [
+            {
+              "openHour": 9,
+              "openMinute": 0,
+              "closeHour": 17,
+              "closeMinute": 0
+            }
+          ]
+        },
+        {
+          "daysOfTheWeek": [
+            5
+          ],
+          "hours": [
+            {
+              "openHour": 9,
+              "openMinute": 0,
+              "closeHour": 17,
+              "closeMinute": 0
+            }
+          ]
+        }
+      ],
+      "enableRecurring": false,
+      "recurring": {
+        "count": 1,
+        "bookingOption": "skip",
+        "bookingOverlapDefaultStatus": "",
+        "interval": null,
+        "freq": "DAILY",
+        "monthDays": [],
+        "weekDays": []
+      },
+      "formId": "DYOKjbynS6CosReTWBii",
+      "stickyContact": false,
+      "isLivePaymentMode": false,
+      "autoConfirm": true,
+      "googleInvitationEmails": true,
+      "allowReschedule": true,
+      "allowCancellation": true,
+      "shouldAssignContactToTeamMember": false,
+      "shouldSkipAssigningContactForExisting": false,
+      "notes": "Telef\u00f3n:- {{contact.phone}}\nEmail:- {{contact.email}}\n\nPotrebujete vykona\u0165 zmenu?\nPrelo\u017ei\u0165:-\n{{reschedule_link}}\n\nZru\u0161i\u0165:-\n{{cancellation_link}}",
+      "pixelId": "1635921510774833",
+      "formSubmitType": "RedirectURL",
+      "formSubmitRedirectUrl": "https://www.miriamczompoly.sk/podakovanie",
+      "formSubmitThanksMessage": "\u010eakujem! Pr\u00edde ti potvrdzovac\u00ed email aj sms. Ak m\u00e1\u0161 nejak\u00e9 ot\u00e1zky sta\u010d\u00ed na jedno z nich odp\u00edsa\u0165 a ja sa ozvem \u010do najsk\u00f4r!",
+      "availabilities": [],
+      "guestType": "collect_detail",
+      "consentLabel": "I confirm that I want to receive content from this company using any contact information I provide.",
+      "calendarCoverImage": "",
+      "lookBusyConfig": {
+        "enabled": true,
+        "lookBusyPercentage": 30
+      },
+      "allowBookingAfterUnit": "days",
+      "allowBookingAfter": 0,
+      "allowBookingFor": 10,
+      "allowBookingForUnit": "days",
+      "preBufferUnit": "mins",
+      "isActive": true
+    }
+  ],
+  "traceId": "1a0aeeae-aa81-4cba-b3f2-541279020759"
+}

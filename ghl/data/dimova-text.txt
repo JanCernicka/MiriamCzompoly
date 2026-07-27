@@ -1,0 +1,280 @@
+----- p1 -----
+KLIENT
+p.Dimová
+DÁTUM
+06/2026
+AUTOR
+Miriam Czompoly
+ZADANIE
+Návrh interiéru
+Vstupná hala
+
+----- p2 -----
+KLIENT
+p.Dimová
+DÁTUM
+06/2026
+AUTOR
+Miriam Czompoly
+ZADANIE
+Návrh interiéru
+  Vstupná hala
+
+----- p3 -----
+KLIENT
+p.Dimová
+DÁTUM
+06/2026
+AUTOR
+Miriam Czompoly
+01
+ZADANIE
+Návrh interiéru
+NÁZOV
+Pôvodný stav
+
+----- p4 -----
+KLIENT
+p.Dimová
+DÁTUM
+06/2026
+AUTOR
+Miriam Czompoly
+02
+ZADANIE
+Návrh interiéru
+NÁZOV
+Pôdorys
+
+----- p5 -----
+KLIENT
+p.Dimová
+DÁTUM
+06/2026
+AUTOR
+Miriam Czompoly
+03
+ZADANIE
+Návrh interiéru
+NÁZOV
+Ilustra
+čný vizuál
+
+----- p6 -----
+KLIENT
+p.Dimová
+DÁTUM
+06/2026
+AUTOR
+Miriam Czompoly
+04
+ZADANIE
+Návrh interiéru
+NÁZOV
+Ilustra
+čný vizuál
+
+----- p7 -----
+KLIENT
+p.Dimová
+DÁTUM
+06/2026
+AUTOR
+Miriam Czompoly
+05
+ZADANIE
+Návrh interiéru
+NÁZOV
+Poh
+ľady
+
+----- p8 -----
+KLIENT
+p.Dimová
+DÁTUM
+06/2026
+AUTOR
+Miriam Czompoly
+06
+ZADANIE
+Návrh interiéru
+NÁZOV
+Poh
+ľady
+
+----- p9 -----
+KLIENT
+p.Dimová
+DÁTUM
+06/2026
+AUTOR
+Miriam Czompoly
+07
+ZADANIE
+Návrh interiéru
+NÁZOV
+Poh
+ľady
+
+----- p10 -----
+KLIENT
+p.Dimová
+DÁTUM
+06/2026
+AUTOR
+Miriam Czompoly
+08
+ZADANIE
+Návrh interiéru
+NÁZOV
+Poh
+ľady
+úložný priestor
+vo výklenku 
+Hlboký (1140 mm) úzky (825 mm) 
+výklenok bude využitý iba v h
+ĺbke 800 
+mm po vytvorení nábytku na mieru.
+Časť pri okne bude fixná, kvôli potrebe 
+dostatočného otvárania pri radiátore.
+V prípade potreby sa zadná časť môže 
+urobiť ako odnímateľná/otváravá po 
+vybratí poličiek a vybavenia. V tom 
+prípade bude treba doriešiť so stolárom.
+
+----- p11 -----
+KLIENT
+p.Dimová
+DÁTUM
+06/2026
+AUTOR
+Miriam Czompoly
+09
+ZADANIE
+Návrh interiéru
+NÁZOV
+Poh
+ľady
+úložný priestor
+vo výklenku
+
+----- p12 -----
+KLIENT
+p.Dimová
+DÁTUM
+06/2026
+AUTOR
+Miriam Czompoly
+10
+ZADANIE
+Návrh interiéru
+NÁZOV
+Poh
+ľady
+úložný priestor
+vo výklenku
+
+----- p13 -----
+KLIENT
+p.Dimová
+DÁTUM
+06/2026
+AUTOR
+Miriam Czompoly
+11
+ZADANIE
+Návrh interiéru
+NÁZOV
+Rormery
+
+----- p14 -----
+KLIENT
+p.Dimová
+DÁTUM
+06/2026
+AUTOR
+Miriam Czompoly
+12
+ZADANIE
+Návrh interiéru
+NÁZOV
+Rozmery
+
+----- p15 -----
+KLIENT
+p.Dimová
+DÁTUM
+06/2026
+AUTOR
+Miriam Czompoly
+13
+ZADANIE
+Návrh interiéru
+NÁZOV
+Poh
+ľady
+Varianta A - zrkadlo
+Varianta B - Skri
+ňa
+Vo
+ľba klientky je B - úložný priestor
+
+----- p16 -----
+KLIENT
+p.Dimová
+DÁTUM
+06/2026
+AUTOR
+Miriam Czompoly
+14
+ZADANIE
+Návrh interiéru
+NÁZOV
+Poh
+ľady
+Varianta A
+zrkadlo + kazety
+Varianta B
+zrkadlo
+Varianta C
+tapeta + kazety
+
+----- p17 -----
+KLIENT
+p.Dimová
+DÁTUM
+06/2026
+AUTOR
+Miriam Czompoly
+15
+ZADANIE
+Návrh interiéru
+NÁZOV
+Rozmery
+
+----- p18 -----
+KLIENT
+p.Dimová
+DÁTUM
+06/2026
+AUTOR
+Miriam Czompoly
+16
+ZADANIE
+Návrh interiéru
+NÁZOV
+zrkadlo a vešanie
+
+----- p19 -----
+KLIENT
+p.Dimová
+DÁTUM
+06/2026
+AUTOR
+Miriam Czompoly
+17
+ZADANIE
+Návrh interiéru
+NÁZOV
+Zariaďovacie
+predmety

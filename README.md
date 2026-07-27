@@ -1,39 +1,38 @@
-# Miriam Czompoly — Interiérový dizajn Trnava
+# Miriam Czompoly — kompletný marketingový systém
 
-Premium, conversion-focused marketing website for interior designer Miriam Czompoly.
-Static, self-contained, and ready to deploy to any static host (Cloudflare Pages, GitHub
-Pages, Netlify, …).
+Repo obsahuje **všetko konkrétne pre klientku Miriam Czompoly** (interiérová dizajnérka, Trnava).
+Znovupoužiteľné princípy a nástroje pre GoHighLevel žijú v samostatnom repe **GHLtool**.
 
-## Pages
-| File | Route | Purpose |
-|------|-------|---------|
-| `index.html` | `/` | Domov — hero, problém, kvalifikácia, služby (4 cenové balíky), garancie, proces, realizácie (case-study modaly), recenzie, o mne, lead-magnet, FAQ, záverečné CTA |
-| `diagnostika.html` | `/diagnostika` | Predajná stránka platenej diagnostiky (249 €) |
-| `5-chyb.html` | `/5-chyb` | Opt-in na lead magnet + „ďakujem“ stav |
+## Čo je kde
 
-## Structure
+| cesta | obsah |
+|--|--|
+| `index.html` · `diagnostika.html` · `5-chyb.html` · `assets/` · `robots.txt` | **živý web** (nasadený na Cloudflare Pages, s napojeným GHL kalendárom, formulárom a Meta Pixelom) |
+| `ghl/00-master-brief.md` | zadanie a priebežný log celej zákazky |
+| `ghl/reports/` | všetky analýzy, plány a záznamy o tom, čo bolo nasadené naživo |
+| `ghl/ebook/` | lead magnet „5 najdrahších chýb…" + skript, ktorý ho generuje |
+| `ghl/data/` | exporty z GHL (pipeline, kontakty, workflowy, custom values) |
+| `ghl/materials/` | pôvodné podklady od klientky (návrhy, kalkulácie, popis práce) |
+
+## Živé prostredie
+
+| vec | hodnota |
+|--|--|
+| GHL sub-account | `o86atLjsdR9IoUTWgYna` |
+| Meta ad account | `1210955550121224` |
+| Web (staging) | https://miriam-web-staging.pages.dev |
+| Cieľová doména | `miriamczompoly.sk` (DNS cutover ešte neprebehol) |
+
+## Aktuálny stav
+
+- **8 workflowov** postavených v GHL, všetky **draft** — čakajú na odsúhlasenie cien klientkou
+- **Meta kampaň** postavená, všetko **PAUSED**
+- **Web** beží na staging URL s `noindex`
+
+Podrobnosti a zoznam otvorených úloh: `ghl/reports/AUDIT-golive-readiness.md` a `ghl/reports/FIXES-applied.md`.
+
+## Web: ako nasadiť
+```bash
+npx wrangler pages deploy . --project-name=miriam-web-staging --branch=main
 ```
-index.html · diagnostika.html · 5-chyb.html
-assets/
-  css/style.css      – celý dizajnový systém
-  js/main.js         – sticky header, mobilné menu, FAQ akordeón, modaly, validácia formulárov, scroll reveal
-  img/favicon.svg    – favicon (placeholder monogram)
-  img/og-cover.svg   – Open Graph náhľad (placeholder)
-```
-
-## Tech
-- Clean semantic HTML, mobile-first, fully responsive.
-- No build step. Vanilla JS, no frameworks. Google Fonts (Cormorant Garamond + Inter) with system fallbacks.
-- Accessible: skip link, focus states, ARIA on nav/modals/accordion, alt/labels.
-- Slovak (`lang="sk"`), diacritics preserved.
-
-## Placeholders to fill (`[B]`)
-Photos (hero, portrét, pred/po v case studies), menné recenzie + súhlasy, chýbajúce krstné
-mená a citáty v kartách „Miestnosť“ a „Na kľúč“. Kontaktný telefón/e-mail v pätičke a
-závere (nahradia GHL merge fields). Rezervačný kalendár na `/diagnostika` a opt-in/kalendár
-workflow.
-
-## Local preview
-```
-python3 -m http.server 8099   # potom otvor http://localhost:8099
-```
+`--branch=main` je povinný, inak vznikne len preview deployment.
