@@ -140,9 +140,12 @@ em { font-style: italic; }
 .section--dark .btn--outline { --btn-fg: var(--paper); border-color: rgba(250,246,239,.5); }
 .section--dark .btn--outline:hover { background: var(--paper); color: var(--ink); }
 .btn--light { --btn-bg: var(--paper); --btn-fg: var(--ink); }
-.btn--light:hover { background: var(--brass); color:#fff; }
+/* hover cez --brass-deep, nie --brass: biela na --brass má kontrast len 3,3:1 */
+.btn--light:hover { background: var(--brass-deep); color:#fff; }
 .btn--sm { padding: 0.8em 1.4em; font-size: 0.82rem; }
-.btn--block { display: flex; width: 100%; }
+/* Tlačidlo na celú šírku sa musí vedieť zalomiť. S nowrap si vynucuje vlastnú
+   min-content šírku a na úzkych telefónoch roztiahne celú stránku do strán. */
+.btn--block { display: flex; width: 100%; white-space: normal; min-width: 0; }
 
 /* text link (secondary, must not compete with CTA) */
 .textlink {
@@ -494,6 +497,18 @@ body.nav-open .mobile-menu a.m-link { animation: menuIn .5s var(--ease) forwards
 .form-note { font-size: 0.82rem; color: var(--muted); margin-top: 0.3rem; text-align: center; }
 .leadmagnet .form label { color: rgba(250,246,239,.6); }
 .leadmagnet .form-note { color: rgba(250,246,239,.55); }
+
+/* Opt-in na tmavej karte: pole a tlačidlo majú tvoriť jeden celok.
+   Rovnaký tvar, rovnaká výška, CTA nikdy nesmie byť menšie než pole nad ním. */
+.leadmagnet .form { gap: 0.75rem; }
+.leadmagnet .form .field {
+  border-radius: 50px; padding: 0 1.5em; height: 58px;
+  border-color: transparent; font-size: 1rem;
+}
+.leadmagnet .form .btn--block {
+  min-height: 58px; padding: 0.9em 1.2em;
+  font-size: 0.95rem; letter-spacing: 0.02em;
+}
 .form-success { display: none; }
 .form.is-success .form-fields { display: none; }
 .form.is-success .form-success { display: block; }

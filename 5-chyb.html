@@ -89,6 +89,18 @@
           <div class="optin-card reveal d2">
             <iframe src="https://api.leadconnectorhq.com/widget/form/geA4rea6TYWIKcskupXQ" style="width:100%;height:520px;border:none;border-radius:var(--radius);background:transparent" id="inline-geA4rea6TYWIKcskupXQ" data-layout="{'id':'INLINE'}" data-form-id="geA4rea6TYWIKcskupXQ" title="Formulár – 5 chýb"></iframe>
             <script src="https://link.msgsndr.com/js/form_embed.js"></script>
+            <script>
+              /* Kto prišiel z opt-inu na domovskej stránke, má e-mail v URL.
+                 Bez tohto by ho musel napísať druhýkrát. Prepisujeme len vtedy,
+                 keď e-mail naozaj prišiel, inak iframe necháme tak, ako je. */
+              (function () {
+                var email = new URLSearchParams(location.search).get('email');
+                if (!email || email.indexOf('@') < 1) return;
+                var f = document.getElementById('inline-geA4rea6TYWIKcskupXQ');
+                if (!f) return;
+                f.src = f.src + (f.src.indexOf('?') > -1 ? '&' : '?') + 'email=' + encodeURIComponent(email);
+              })();
+            </script>
           </div>
         </div>
       </div>
