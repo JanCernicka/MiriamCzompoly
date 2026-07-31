@@ -538,6 +538,9 @@ body.nav-open .mobile-menu a.m-link { animation: menuIn .5s var(--ease) forwards
 .finalcta .btn { margin-top: 2rem; }
 .finalcta .scarcity { margin-top: 1.6rem; font-size: 0.95rem; color: rgba(250,246,239,.72); }
 .finalcta .contact-line { margin-top: 0.6rem; display: inline-flex; flex-wrap: wrap; justify-content: center; gap: 0.4rem 1rem; font-size: 0.92rem; }
+/* sekundarny kontakt: musi byt citatelny, ale nesmie konkurovat hlavnemu CTA */
+.finalcta .contact-line a { color: rgba(250,246,239,.72); border-bottom: 1px solid rgba(250,246,239,.25); padding-bottom: 1px; transition: color .3s var(--ease), border-color .3s var(--ease); }
+.finalcta .contact-line a:hover { color: var(--paper); border-color: var(--brass-soft); }
 .merge-field { color: var(--brass-soft); border-bottom: 1px dotted rgba(201,168,118,.5); cursor: help; }
 
 /* ---------- Footer ---------- */

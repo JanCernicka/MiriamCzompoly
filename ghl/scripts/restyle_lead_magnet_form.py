@@ -14,10 +14,10 @@ Dve veci, ktore stali najviac casu (viz principles/general-principles-website.md
    `labelFontFamily`, ...). Font schovany v inline HTML nadpisu neuvidi a
    stranka spadne na fallback. Preto sa font nastavuje na oboch miestach.
 """
-import json, os, sys
+import json, os, sys, time
 sys.path.insert(0, "/home/user/GHLtool")
 from cli_anything.gohighlevel.utils.ghl_internal_client import InternalGHLClient, TokenManager
-from cli_anything.gohighlevel.utils.form_builder import FormBuilder
+from cli_anything.gohighlevel.utils.form_builder import FormBuilder, fields as F
 
 FORM_ID = "geA4rea6TYWIKcskupXQ"
 
@@ -120,6 +120,16 @@ def main() -> None:
     fs["shortLabel"].update({"fontFamily": "Inter", "color": INK_SOFT + "FF",
                              "mobileFontFamily": "Inter", "fontSize": 12})
 
+    # Krstne meno: pouziva sa v celej lead-magnet sekvencii, takze musi byt
+    # povinne. Priezvisko nezbierame, v e-maile ho aj tak nepouzijeme.
+    # tag "first_name" je to, co GHL mapuje na pole kontaktu.
+    if not any(f.get("tag") == "first_name" for f in frm["fields"]):
+        name = F.text_field("first_name", "Meno", placeholder="Tvoje meno",
+                            required=True)
+        head_at = next((i for i, f in enumerate(frm["fields"])
+                        if f.get("tag") == "header"), -1)
+        frm["fields"].insert(head_at + 1, name)
+
     for f in frm["fields"]:
         if f.get("tag") == "header":
             # Stranka nad formularom uz nesie cely slub (H1 + odrazky), preto
@@ -159,9 +169,20 @@ def main() -> None:
 
     fb.update_form(FORM_ID, form["name"], fd)
 
-    again = fb.read_form(FORM_ID)["form"]["formData"]["form"]
-    assert len(again["fields"]) == before, "POZOR: formular stratil polia"
-    print("polia:", len(again["fields"]))
+    # GHL cita z repliky, ktora sa nestiha. Hned po ulozeni vracia GET este
+    # stare data, takze overenie musi skusat opakovane, inak hlasi falosny
+    # neuspech pri zmene, ktora presla.
+    for attempt in range(6):
+        time.sleep(2)
+        again = fb.read_form(FORM_ID)["form"]["formData"]["form"]
+        tags = [f.get("tag") for f in again["fields"]]
+        if "first_name" in tags and again["customStyle"] == CUSTOM_CSS.strip():
+            break
+    else:
+        print("(overenie po %d pokusoch stale ukazuje stare data)" % (attempt + 1))
+    assert len(again["fields"]) >= before, "POZOR: formular stratil polia"
+    assert "first_name" in tags, "POZOR: krstne meno sa neulozilo"
+    print("polia:", tags)
     print("customStyle:", len(again["customStyle"]), "znakov")
     print("padding:", again["style"]["mobilePadding"])
 
