@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Kým podpíšeš preberací protokol · checklist zadarmo · Miriam Czompoly</title>
+<meta name="description" content="Checklist toho, čo si vypýtať od developera a kedy presne. Dokumentácia, elektrika, strop, podlahy, dvere, kúpeľňa, okná aj preberacie konanie. Zadarmo do e-mailu." />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23262019'/%3E%3Ctext x='16' y='23' font-family='Georgia,serif' font-size='18' fill='%23A9885E' text-anchor='middle'%3EM%3C/text%3E%3C/svg%3E" />
+
+<meta property="og:type" content="website" />
+<meta property="og:locale" content="sk_SK" />
+<meta property="og:title" content="Kým podpíšeš preberací protokol" />
+<meta property="og:description" content="Čo si vypýtať od developera a kedy presne. Zadarmo." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+
+<header class="top">
+  <div class="container">
+    <span class="brand">
+      <span class="brand-name">Miriam Czompoly</span>
+      <span class="brand-sub">Interiérový dizajn · Trnava</span>
+    </span>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="container hero-grid">
+
+      <div>
+        <span class="eyebrow">Zadarmo na stiahnutie</span>
+        <h1>Kým podpíšeš <em>preberací protokol</em></h1>
+        <p class="lead">
+          Spísala som checklist toho, čo si od developera vypýtať a kedy presne.
+          Väčšina vecí zo zoznamu sa pri preberaní už riešiť nedá. Vtedy len zisťuješ,
+          čo sa stalo.
+        </p>
+
+        <ul class="checklist">
+          <li><span class="tick"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Ktorú dokumentáciu si vypýtať hneď, aj tú, na ktorú sa zabúda</li>
+          <li><span class="tick"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Čo sa musí rozhodnúť pred uzávierkou klientských zmien</li>
+          <li><span class="tick"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Čo si nechať nenamontovať, ak si už po uzávierke</li>
+          <li><span class="tick"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Čo merať na preberacom konaní a čo si odtiaľ odniesť</li>
+        </ul>
+
+        <div class="pill-row">
+          <span class="pill">Dokumentácia</span>
+          <span class="pill">Elektrika</span>
+          <span class="pill">Strop a svetlo</span>
+          <span class="pill">Voda a odpady</span>
+          <span class="pill">Priečky</span>
+          <span class="pill">Dvere</span>
+          <span class="pill">Podlahy</span>
+          <span class="pill">Kúpeľňa</span>
+          <span class="pill">Okná</span>
+          <span class="pill">Preberacie konanie</span>
+        </div>
+      </div>
+
+      <div class="optin">
+        <h2>Kam ti ho mám poslať?</h2>
+        <p class="muted">Pošlem ti ho hneď do e-mailu. Telefón nepotrebujem.</p>
+
+        <form class="form" id="optin-form" novalidate>
+          <div>
+            <label class="field-label" for="email">E-mail</label>
+            <input class="field" type="email" id="email" name="email"
+                   placeholder="tvoj@email.sk" autocomplete="email" required />
+            <p class="error-msg" id="err-email">Zadaj platnú e-mailovú adresu.</p>
+          </div>
+
+          <div>
+            <span class="field-label">Kedy preberáš byt?</span>
+            <div class="choices">
+              <label class="choice"><input type="radio" name="timing" value="do-3-mesiacov" required /><span>Do 3 mesiacov</span></label>
+              <label class="choice"><input type="radio" name="timing" value="do-roka" /><span>Do roka</span></label>
+              <label class="choice"><input type="radio" name="timing" value="neviem" /><span>Ešte neviem</span></label>
+              <label class="choice"><input type="radio" name="timing" value="uz-byvam" /><span>Už v ňom bývam</span></label>
+            </div>
+            <p class="error-msg" id="err-timing">Vyber jednu možnosť.</p>
+          </div>
+
+          <!-- pasca na roboty, človek toto pole nikdy nevidí -->
+          <div class="hp" aria-hidden="true">
+            <label>Nevypĺňaj<input type="text" name="website" tabindex="-1" autocomplete="off" /></label>
+          </div>
+
+          <button class="btn" type="submit" id="submit">Poslať mi checklist</button>
+          <p class="error-msg" id="err-form">Niečo sa pokazilo. Skús to prosím znova o chvíľu.</p>
+          <p class="form-note">Žiadny spam. Odhlásiš sa jedným klikom.</p>
+        </form>
+
+        <div class="done" id="done">
+          <div class="done-icon">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <h3>Je to na ceste</h3>
+          <p class="muted">Checklist ti prišiel do e-mailu. Ak ho tam nevidíš do pár minút, pozri sa
+            aj do priečinka Promo alebo Spam.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container">
+      <span class="eyebrow">Prečo to riešiť teraz</span>
+      <h2 style="margin-top:1rem">Rozhoduje uzávierka klientských zmien</h2>
+      <p class="lead" style="max-width:760px">
+        Je to termín, po ktorom developer prestane prijímať zmeny. Býva mesiace pred
+        odovzdaním a veľa kupujúcich sa o ňom dozvie, keď už prešiel.
+      </p>
+
+      <div class="cards">
+        <div class="card">
+          <span class="num">01</span>
+          <h3>Elektrika</h3>
+          <p>Najlacnejšia položka celej rekonštrukcie, ak sa rieši teraz. Do betónového
+             stropu sa dodatočne sekať nesmie a nedá.</p>
+        </div>
+        <div class="card">
+          <span class="num">02</span>
+          <h3>Podlahy a prechody</h3>
+          <p>Šedá lišta cez celý byt nie je nutnosť. Je to následok toho, že sa o výškach
+             nikto nerozprával včas.</p>
+        </div>
+        <div class="card">
+          <span class="num">03</span>
+          <h3>Kúpeľňa</h3>
+          <p>Revízne dvierka sa spravidla osadia tam, kde to bolo pohodlné inštalatérovi,
+             a rozbijú celú stenu.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container narrow">
+      <div class="author">
+        <div class="author-photo">M</div>
+        <div>
+          <h3 style="font-family:var(--font-body);font-size:1.05rem;font-weight:600">Miriam Czompoly</h3>
+          <p style="margin-top:.4rem">
+            Interiérová dizajnérka z Trnavy. Od roku 2010 navrhujem interiéry a posledné
+            roky chodím s klientkami na obhliadky ešte pred preberaním, lebo práve tam sa
+            dá ušetriť najviac peňazí. Tento zoznam je to, na čo sa ich vždy pýtam ako prvé.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="container">
+    © <span id="year">2026</span> Miriam Czompoly · Interiérový dizajn Trnava ·
+    <a href="mailto:dizajn@miriamczompoly.sk">dizajn@miriamczompoly.sk</a>
+    <p style="margin-top:.6rem;font-size:.8rem">
+      Toto nie je právne poradenstvo. Rozsah možných zmien a lehoty určuje tvoja kúpna
+      zmluva a podmienky konkrétneho developera.
+    </p>
+  </div>
+</footer>
+
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+
+(function () {
+  var form = document.getElementById('optin-form');
+  var done = document.getElementById('done');
+  var btn = document.getElementById('submit');
+  var errEmail = document.getElementById('err-email');
+  var errTiming = document.getElementById('err-timing');
+  var errForm = document.getElementById('err-form');
+
+  function show(el, on) { el.classList.toggle('show', on); }
+  function isEmail(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v); }
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var email = form.email.value.trim();
+    var timing = (form.querySelector('input[name="timing"]:checked') || {}).value;
+
+    show(errForm, false);
+    show(errEmail, !isEmail(email));
+    show(errTiming, !timing);
+    if (!isEmail(email) || !timing) return;
+
+    btn.disabled = true;
+    btn.textContent = 'Posielam...';
+
+    fetch('/api/prihlasit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: email, timing: timing, website: form.website.value })
+    })
+      .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, body: j }; }); })
+      .then(function (res) {
+        if (!res.ok || !res.body.ok) throw new Error(res.body && res.body.error || 'fail');
+        form.classList.add('hide');
+        done.classList.add('show');
+        if (window.fbq) fbq('track', 'Lead');
+      })
+      .catch(function () {
+        show(errForm, true);
+        btn.disabled = false;
+        btn.textContent = 'Poslať mi checklist';
+      });
+  });
+})();
+</script>
+</body>
+</html>
