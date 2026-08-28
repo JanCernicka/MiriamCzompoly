@@ -16,13 +16,20 @@ Dĺžka 15 až 45 sekúnd.
 [3-10 s]   PROBLÉM    bolesť, ktorú divák pozná
 [10-20 s]  RIEŠENIE   čo robí a čím sa to líši
 [20-30 s]  DÔKAZ      konkrétny detail zo stavby, nie tvrdenie o sebe
-[30-40 s]  PONUKA     checklist zadarmo
+[30-40 s]  PONUKA     diagnostika 249 €, odpočet z projektu
 [40-45 s]  CTA        klikni na odkaz
 ```
 
 ⚠️ **Dôkaz robíme detailom, nie číslom.** Miriam zatiaľ nemá doložený počet klientok
 (viď [`README.md`](README.md)). Konkrétny detail zo stavby, ktorý laik nepozná, dokazuje
 odbornosť rovnako dobre a nedá sa spochybniť.
+
+🔴 **Cena musí zaznieť v každom z desiatich videí**, aj to, že sa odpočíta z projektu.
+Ak ju video zamlčí a cena padne až na stránke, človek sa cíti nachytaný a odíde.
+Mení sa hook a cesta k ponuke, nie to, že tam je.
+
+🔴 **V žiadnom videu nesmie zaznieť „zadarmo" o stretnutí.** V staršom natočenom videu
+to podľa auditu zaznelo a bije sa to s platenou diagnostikou. Také video sa nepoužije.
 
 ---
 
@@ -31,7 +38,7 @@ odbornosť rovnako dobre a nedá sa spochybniť.
 **Prostredie:** rozostavaný byt alebo holobyt, ideálne pri okne
 **Oblečenie:** pracovné, bunda
 **Dôraz:** už sa to nedá vrátiť
-**Dĺžka:** cca 40 s
+**Dĺžka:** cca 45 s
 
 > **HOOK (0-3 s)**
 > „Toto okno začína o dvadsať centimetrov nižšie, než si tá pani myslela."
@@ -48,11 +55,13 @@ odbornosť rovnako dobre a nedá sa spochybniť.
 > „Takýchto vecí je v novostavbe asi štyridsať. Revízne dvierka v kúpeľni, ktoré rozbijú
 > obklad. Zásuvka za telkou tridsať centimetrov nad podlahou. Šedá lišta cez celý byt."
 >
-> **PONUKA (30-38 s)**
-> „Spísala som ich všetky do checklistu. Čo si vypýtať, a hlavne kedy. Je zadarmo."
+> **PONUKA (30-40 s)**
+> „Preto k ľuďom chodím do bytu ešte pred preberaním. Deväťdesiat minút, podklady
+> od developera na stole, a odchádzaš so zoznamom, čo si vypýtať. Stojí to
+> dvestoštyridsaťdeväť eur a ak potom robíme projekt, odpočítam ti ich celé."
 >
-> **CTA (38-42 s)**
-> „Klikni na odkaz pod videom a pošlem ti ho na e-mail."
+> **CTA (40-45 s)**
+> „Odkaz máš pod videom. Povedz mi, kedy preberáš."
 
 ---
 
@@ -61,7 +70,7 @@ odbornosť rovnako dobre a nedá sa spochybniť.
 **Prostredie:** doma alebo v ateliéri, pri stole s výkresmi
 **Oblečenie:** civilné, sveter
 **Dôraz:** termín, ktorý ľuďom ujde
-**Dĺžka:** cca 35 s
+**Dĺžka:** cca 42 s
 
 > **HOOK (0-3 s)**
 > „Najsmutnejší telefonát je tri dni po preberaní bytu."
@@ -78,11 +87,12 @@ odbornosť rovnako dobre a nedá sa spochybniť.
 > „Do betónového stropu sa dodatočne sekať nesmie. Takže ak chceš svetlo nad jedálenským
 > stolom a nie je v podklade pre elektrikára, nebude tam nikdy."
 >
-> **PONUKA (30-36 s)**
-> „Spísala som zoznam, čo si od developera vypýtať a dokedy. Pošlem ti ho zadarmo."
+> **PONUKA (30-38 s)**
+> „Kým je čas, prídem k tebe do bytu. Deväťdesiat minút a odídeš s tým, čo si
+> od developera vypýtať a dokedy. Dvestoštyridsaťdeväť eur."
 >
-> **CTA (36-40 s)**
-> „Odkaz máš pod videom."
+> **CTA (38-42 s)**
+> „A ak z toho stretnutia neodídeš s jasnom, peniaze ti vrátim. Odkaz máš pod videom."
 
 **Prečo sú tie dve verzie naozaj iné:** A je natočená na mieste, ukazuje konkrétnu vec
 a tlačí na stratu. B je natočená pri stole, hovorí o termíne a tlačí na čas. Iné prostredie,
@@ -101,7 +111,7 @@ Prvé tri sekundy rozhodujú. Preto sú naprieč typmi, nie osemkrát to isté.
 | **3** | oslovenie cieľovky | „Toto je pre teba, ak preberáš byt v najbližšom roku." |
 | **4** | negatívny filter | „Ak už v tom byte rok bývaš, toto video ti nepomôže. Povedzme si prečo." |
 | **5** | konkrétne číslo | „Štyridsať vecí, ktoré si máš vypýtať od developera. Tri z nich sú kritické." |
-| **6** | ponuka rovno | „Dávam zadarmo zoznam, čo si vypýtať od developera. Poviem ti, prečo ho robím." |
+| **6** | ponuka rovno | „Za dvestoštyridsaťdeväť eur k tebe prídem do bytu ešte pred preberaním. Poviem ti, čo za to dostaneš." |
 | **7** | námietka | „Myslíš si, že ti developer sám povie, čo potrebuješ? Povie. Ale až keď sa spýtaš." |
 | **8** | osobný príbeh | „Pätnásť rokov robím interiéry a stále ma najviac mrzí ten istý telefonát." |
 
@@ -115,6 +125,8 @@ Príklady, ako sa telo mení podľa hooku:
 - **Hook 7** (námietka) pokračuje tým, ktoré podklady developer bežne nedá, kým si
   o ne nenapíšeš, teda rozvinuté steny a skladbu podlahy.
 - **Hook 5** (číslo) pokračuje troma najkritickejšími vecami zo zoznamu, nie celým zoznamom.
+- **Hook 6** (ponuka rovno) povie cenu v prvej vete a zvyšok videa ju obhajuje: čo je
+  v tých 90 minútach, že sa odpočíta z projektu a že peniaze vráti, ak to nedá zmysel.
 
 ---
 
