@@ -1,86 +1,89 @@
 # Reklamný lievik pre Miriam Czompoly
 
-Postavené podľa `playbook/` v GHLtool. Tri výstupy plus vizualizácia:
+Postavené podľa `playbook/` v GHLtool.
 
 | Súbor | Čo v ňom je |
 |---|---|
 | [`01_funnel.md`](01_funnel.md) | celý lievik: štyri stránky, kvíz, platba, napojenie na GHL, kampaň |
 | [`02_skript.md`](02_skript.md) | dve verzie skriptu, 8 hookov, plán natáčania |
 | [`03_copy.md`](03_copy.md) | copy do reklamy, jedno na všetky kreatívy |
-| [`lievik.html`](lievik.html) | to isté ako klikacia vizualizácia |
+| [`domov.html`](domov.html) | to isté ako klikacia vizualizácia |
+| `_archiv/` | zrušený smer, viď nižšie |
 
 ---
 
-## 🔴 Rozhodnutie, ktoré treba pochopiť skôr než čokoľvek iné
+## Čo predávame
 
-**Reklama predáva interiérovú diagnostiku za 249 €. Nič v tomto lieviku sa nedáva
-zadarmo výmenou za klik.**
+**Interiérovú diagnostiku za 249 €.** Deväťdesiat minút u klientky doma.
+Nič sa nedáva zadarmo výmenou za klik.
 
-Playbook hovorí, že 13 zo 14 analyzovaných reklám ponúka niečo zadarmo. Miriam pritom
-celý reframe postavila na tom, že **prestala rozdávať konzultácie zadarmo**, lebo na nich
-dávala AI vizualizácie a dispozičný návrh, teda presne to, za čo sa má platiť. Sama to
-pomenovala:
+| | |
+|---|---|
+| **Komu** | ženy v Trnave a okolí, ktoré už majú kde bývať, majú aj pekné veci, a doma sa aj tak necítia doma |
+| **Ponuka** | 90 minút na mieste, analýza priestoru, akčný plán priorít, „čo prestať kupovať" |
+| **Bonus zadarmo** | PDF „5 najdrahších chýb, ktoré ľudia robia pri zariaďovaní domova" |
+| **Odpočet** | celých 249 € sa odpočíta z ceny projektu, ak bude pokračovať |
+| **Garancia** | ak neodíde s jasnom, čo ďalej, povie to na mieste a peniaze dostane späť |
+| **Kapacita** | 9 diagnostík mesačne |
 
-> *„klientom to asi stačilo, pretože sa už neozvali na kompletný návrh."*
+**Nič z toho nie je vymyslené.** Cena, dĺžka, obsah aj garancia sú doslovne z jej
+stránky `/diagnostika`, PDF existuje a je nahostované, kalendár „Interiérová
+diagnostika" v GHL je 90 minút, Po až Pia 9 až 17.
 
-### Prečo som predošlé dve verzie zahodil
+---
 
-| Verzia | Ponuka | Prečo je zlá |
-|---|---|---|
-| V1 | checklist v PDF | Stiahnutý súbor nedostane Miriam pred klientku a nezarobí ani cent. |
-| V2 | 20 minút online zadarmo | Horšie, lebo to vyzerá ako riešenie. Je to **tá istá bezplatná konzultácia s novým názvom.** |
-| **V3** | **diagnostika 249 €** | Kampaň má kde zarobiť. Filtruje platba, nie Miriamin čas. |
+## 🔴 Zrušený smer: preberanie bytu od developera
 
-Pri V1 aj V2 odchádza 600 € mesačne na reklamu a späť príde iba zoznam ľudí, ktorých
-ešte len treba presvedčiť. **To nie je lievik, to je náklad.**
+Predošlá verzia lievika cielila na ženy, ktoré preberajú byt v novostavbe, a ponúkala
+checklist „Kým podpíšeš preberací protokol". **Tento smer sme zrušili celý.** Súbory
+sú v `_archiv/`, nič sa nemaže, ale nič z toho sa nepoužíva.
 
-### Vzor: Edi TV / eRevenue
+Prečo bol slabší:
 
-Najpokročilejší príklad v playbooku. Ich reklama tiež nič nerozdáva. Predáva platený
-vstup a zadarmo dáva až to, čo prichádza po ňom: *„ak by ste sa na konci so mnou
-rozhodli spolupracovať, tento systém odo mňa získate úplne zdarma."*
+| | |
+|---|---|
+| úzky segment | novostavby v Trnave sú malé publikum, pri 20 €/deň sa to ťažko škáluje |
+| bolesť sa musela vysvetliť | „uzávierka klientských zmien" väčšina ľudí nepozná, video ju musí najprv naučiť |
+| bola to iná služba | vyžadovala výstup, ktorý Miriam zatiaľ nerobí a nemá na webe |
+| PDF bolo nové | musel som ho vyrobiť, namiesto toho, aby sme použili to, čo už funguje |
 
-**Zadarmo je odmena za pokračovanie, nie návnada na klik.** Miriam má presne tú istú
-mechaniku už teraz na webe, len ju nikde nepredáva: **249 € sa celé odpočítajú z ceny
-projektu.**
+Nový smer je oproti tomu **jej vlastný biznis, ako ho už opísala na svojom webe.**
+Bolesť pozná každá druhá žena, ponuka existuje, PDF existuje, kalendár existuje.
+
+---
+
+## Ako je systém postavený
+
+Vzor je najpokročilejší príklad v playbooku, **Edi TV / eRevenue**. Ich reklama tiež
+nič nerozdáva. Predáva platený vstup a zadarmo dáva až to, čo prichádza po ňom:
+*„ak by ste sa na konci so mnou rozhodli spolupracovať, tento systém odo mňa získate
+úplne zdarma."*
+
+**Zadarmo je odmena za pokračovanie, nie návnada na klik.**
 
 | Edi TV | Miriam |
 |---|---|
 | platený vstup: kurz | platený vstup: diagnostika 249 € |
-| systém zdarma pri spolupráci | 249 € odpočítané z ceny projektu |
+| systém zdarma pri spolupráci | 249 € odpočítaných z ceny projektu |
 | garancia: výsledky do 14 dní alebo nič neplatíte | garancia: neodídeš s jasnom, peniaze späť |
-| scarcity: 16 miest | uzávierka klientských zmien, kapacita až po potvrdení |
-| vstupná podmienka v PS | geografia a načasovanie v PS |
+| scarcity: 16 miest | 9 diagnostík mesačne |
+| vstupná podmienka v PS | „ak hľadáš niekoho, kto ti nakreslí pekné obrázky, nie som to ja" |
 
-### Čo v tomto lieviku ostáva zadarmo
+### Kde je v tom PDF
 
-| | |
-|---|---|
-| ✅ Zadarmo, ako **bonus ku kúpe** | **checklist**, doručený hneď po rezervácii |
-| ✅ Zadarmo, ako **záchytná sieť** | ten istý checklist o 24 h aj tým, čo nekúpili |
-| ❌ Nikdy zadarmo | dispozičný návrh, vizualizácie, prejdenie výkresov, akékoľvek stretnutie |
+PDF „5 najdrahších chýb" má v systéme **dve úlohy naraz**:
 
-Kniha 1: *rozdávaj poznanie problému, predávaj implementáciu.* Checklist je poznanie
-problému, teda zoznam otázok. Diagnostika je implementácia, teda odpovede na ne priamo
-v jej byte. **Presne v tejto hranici sa Miriam predtým rozdala.**
+1. **V reklame je to bonus**, ktorý príde na e-mail hneď, ešte než sa žena rozhodne
+   o diagnostike. Znižuje riziko kliku na nulu.
+2. **V lieviku je to záchytná sieť.** Kto dá e-mail a diagnostiku nekúpi, dostane PDF
+   tak či tak a ostáva v sekvencii. Žiadny zaplatený lead sa nezahodí.
 
----
+Kniha 1: *rozdávaj poznanie problému, predávaj implementáciu.* PDF pomenuje chyby.
+Diagnostika je to, že jej ich Miriam ukáže priamo v jej byte a povie, čo s nimi.
+Presne v tejto hranici sa Miriam predtým rozdala, keď dávala na bezplatnej konzultácii
+AI vizualizácie a dispozičný návrh. Sama to pomenovala:
 
-## Ponuka, presne ako ju uvidí klientka
-
-Nič z toho nie je vymyslené. Cena, dĺžka, obsah aj garancia sú doslovne z jej stránky
-`/diagnostika` a z kalendára „Interiérová diagnostika" v GHL (90 minút, Po až Pia 9 až 17).
-
-| Čo dostane | Zdroj |
-|---|---|
-| 90 minút s Miriam priamo v byte, s podkladmi od developera na stole | web + GHL |
-| Analýza dispozície a reálnych potrieb | web |
-| Akčný plán priorít: čo riešiť v akom poradí | web |
-| Zoznam „čo prestať kupovať" | web |
-| 🔴 Zoznam zmien pre developera: čo si vypýtať, ako to napísať, dokedy | **nové, potvrdiť** |
-| Bonus: checklist „Kým podpíšeš preberací protokol", hneď po rezervácii | hotové PDF |
-| Odpočet celých 249 € z ceny projektu | web |
-| Garancia vrátenia peňazí | web, znenie treba upraviť |
+> *„klientom to asi stačilo, pretože sa už neozvali na kompletný návrh."*
 
 ---
 
@@ -93,23 +96,13 @@ Hovoria, čo musí nastať, aby kampaň nebola stratová.
 |---|---|
 | **Náklad** | 600 € mesačne, teda 20 €/deň |
 | **Bod zlomu** | **3 diagnostiky mesačne** (3 × 249 € = 747 €). Od tretej si reklama platí sama. |
-| **Skutočný zárobok** | Kompletná premena je u nej **od 3 900 €**. Jedna predaná zaplatí pol roka reklamy. |
+| **Strop kapacity** | 9 diagnostík mesačne = 2 241 € z diagnostík, ak sa naplní |
+| **Skutočný zárobok** | miestnosť od **1 090 €**, kompletná premena od **3 900 €**, na kľúč od **8 000 €** |
+
+Jedna kompletná premena zaplatí **pol roka reklamy**. Diagnostika je vstupenka,
+nie produkt.
 
 **Sledovaným číslom nie je cena za lead, ale koľko stojí jedna predaná diagnostika.**
-
----
-
-## Prečo práve segment „preberám byt od developera"
-
-| Vlastnosť segmentu | Prečo je to dobré |
-|---|---|
-| **majú termín, ktorý beží** | uzávierka klientských zmien je tvrdý deadline, netreba vytvárať naliehavosť |
-| **práve minuli veľké peniaze** | rozpočet na interiér je čerstvo v hlave, nie o päť rokov |
-| **majú konkrétny problém teraz** | nerozhodujú sa „či", ale „čo presne žiadať" |
-| **249 € je oproti cene bytu nič** | to isté číslo znie inak človeku, ktorý práve podpísal hypotéku |
-
-Bežná reklama na interiérový dizajn oslovuje ľudí, ktorí „raz niekedy" chcú prerobiť byt.
-Táto oslovuje ľudí, ktorým **o mesiac vyprší lehota**.
 
 ---
 
@@ -118,7 +111,7 @@ Táto oslovuje ľudí, ktorým **o mesiac vyprší lehota**.
 **Predať 249 € studenej návštevnosti z Instagramu je podstatne ťažšie než rozdať PDF.**
 Bude to menej ľudí. Preto lievik nevedie z reklamy rovno na platbu, ale cez dotazník,
 ktorý zachytí e-mail skôr, než sa cena vôbec spomenie. Kto nekúpi, ostáva v sekvencii
-a checklist dostane tak či tak.
+a PDF dostane tak či tak.
 
 **Rozhodovací bod:** po 14 dňoch, teda po zhruba 280 € minutých. Ak dovtedy prišli
 e-maily, ale **ani jedna predaná diagnostika**, chyba nie je v cene, ale v tom, že
@@ -131,27 +124,31 @@ druhá verzia stránky, mení sa ponuka.
 
 | Časť | Stav |
 |---|---|
-| Landing page a PDF | ✅ živé, `miriam-checklist.pages.dev` |
-| Kvíz na samostatnej stránke | 🔨 navrhnuté v `01_funnel.md`, treba dostavať |
-| **Stránka `/ponuka` s platbou** | 🔴 neexistuje, je to nový blokér |
-| Workflowy v GHL | 🔴 čakajú na prístupy, viď `../lievik-checklist/README.md` |
-| Skripty a hooky | ✅ hotové, čakajú na natočenie |
 | Copy | ✅ hotové, čaká na overenie tvrdení u Miriam |
+| Skripty a hooky | ✅ hotové, čakajú na natočenie |
+| PDF „5 najdrahších chýb" | ✅ existuje a je nahostované |
+| Kalendár „Interiérová diagnostika" | ✅ existuje, 🔴 ale bez notifikácií |
+| Pipeline v GHL | ✅ existuje |
+| Landing page a dotazník | 🔴 stavia sa nanovo na túto bolesť |
+| Stránka `/ponuka` s platbou | 🔴 neexistuje |
+| Workflowy v GHL | 🔴 čakajú na prístupy |
 | Kampaň | ⛔ nespúšťať, kým nie je hotové všetko vyššie |
 
 ---
 
 ## Čo musí potvrdiť Miriam, než sa čokoľvek spustí
 
-1. **Že sa diagnostika platí vopred.** Doteraz to bolo „nefakturujem", teda platba až po
-   stretnutí. Reklama predáva vstup, takže sa platí pred termínom. To je pre ňu skutočná zmena.
-2. **Garancia v novom znení:** „povedz mi to na mieste a peniaze ti vrátim". Musí vedieť,
+1. **9 diagnostík mesačne.** Číslo ide do reklamy ako scarcity, takže musí byť pravdivé
+   a musí sa dodržať. Keď sa naplní, kampaň sa pozastaví alebo sa text prepíše.
+   Playbook, zákaz č. 3: falošná scarcity je zakázaná.
+2. **Že sa diagnostika platí pri rezervácii.** Doteraz to bolo „nefakturujem", teda
+   platba až po stretnutí. Reklama predáva vstup, takže sa platí pred termínom.
+   To je pre ňu skutočná zmena.
+3. **Garancia v novom znení:** „povedz mi to na mieste a peniaze ti vrátim". Musí vedieť,
    že to znamená reálne vracať už prijaté platby, a musí to dodržať.
-3. **Zoznam zmien pre developera.** Jediná časť ponuky, ktorú zatiaľ nemá na webe. Ak to
-   nevie dodať, vypúšťa sa z copy aj zo stránky.
-4. **Koľko diagnostík mesačne stihne.** Bez toho čísla ostáva scarcity iba uzávierka
-   klientských zmien. Playbook, zákaz č. 3: falošná scarcity je zakázaná.
+4. **Tri konkrétne chyby z copy** ako veci, ktoré reálne vídava: sedačka o 20 cm väčšia,
+   svetlo uprostred stropu, skriňa, do ktorej sa nezmestí polovica vecí.
 5. **Že jazdí do celého okruhu 30 km od Trnavy** a za akých podmienok.
-6. **Vetu „od roku 2010 navrhujem interiéry"** a to, že chodí do bytu pred preberaním.
-7. **Či smie použiť recenzie s menom.** Ak recenzie nie sú, sekcia sa radšej vynechá
-   než vymyslí.
+6. **Či smie použiť recenziu Ivety Pappovej s menom.** Ak nie je súhlas, sekcia so
+   sociálnym dôkazom sa vynechá, nevymyslí.
+7. **Súhlas majiteľky bytu**, ak sa bude točiť u klientky doma.

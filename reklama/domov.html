@@ -1,0 +1,919 @@
+<title>Deväťdesiat minút doma</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=Karla:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" />
+
+<style>
+/* ============ tokens: warm plaster ground, espresso ink, olive accent ============ */
+:root{
+  --paper:#EAE5DD; --surface:#F7F3ED; --surface-2:#E0D9CE; --sunk:#DED6CA;
+  --ink:#2B2521; --body:#574E46; --muted:#8A7F74;
+  --line:#CFC5B7; --line-soft:#DED6CA;
+  --accent:#556427; --accent-soft:#E1E4CE; --accent-ink:#4A5722; --on-accent:#F7F3ED;
+  --flag:#9C3524; --flag-soft:#F3DFDA;
+  --ok:#1F5C53; --ok-soft:#D9E7E2;
+  --lift:0 1px 1px rgba(43,37,33,.04), 0 14px 30px -22px rgba(43,37,33,.35);
+  --display:'Fraunces',Georgia,'Times New Roman',serif;
+  --text:'Karla','Helvetica Neue',Arial,sans-serif;
+  --mono:'IBM Plex Mono',ui-monospace,'SFMono-Regular',monospace;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --paper:#191512; --surface:#221D19; --surface-2:#2C2621; --sunk:#15110F;
+    --ink:#F0E9DF; --body:#C5BAAD; --muted:#93877B;
+    --line:#3A322B; --line-soft:#2E2822;
+    --accent:#AFC377; --accent-soft:#2A3119; --accent-ink:#C2D48F; --on-accent:#15110F;
+    --flag:#E4917F; --flag-soft:#35211C;
+    --ok:#6FC2B4; --ok-soft:#142D29;
+    --lift:0 1px 1px rgba(0,0,0,.5), 0 16px 34px -24px rgba(0,0,0,.85);
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#191512; --surface:#221D19; --surface-2:#2C2621; --sunk:#15110F;
+  --ink:#F0E9DF; --body:#C5BAAD; --muted:#93877B;
+  --line:#3A322B; --line-soft:#2E2822;
+  --accent:#AFC377; --accent-soft:#2A3119; --accent-ink:#C2D48F; --on-accent:#15110F;
+  --flag:#E4917F; --flag-soft:#35211C;
+  --ok:#6FC2B4; --ok-soft:#142D29;
+  --lift:0 1px 1px rgba(0,0,0,.5), 0 16px 34px -24px rgba(0,0,0,.85);
+}
+
+*,*::before,*::after{box-sizing:border-box}
+body{
+  margin:0; background:var(--paper); color:var(--body);
+  font-family:var(--text); font-size:16.5px; line-height:1.66;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,h4{font-family:var(--display); color:var(--ink); margin:0; text-wrap:balance}
+h1{font-size:clamp(2.3rem,1.4rem+3.8vw,4rem); font-weight:600; line-height:1.02; letter-spacing:-.022em}
+h2{font-size:clamp(1.55rem,1.1rem+1.9vw,2.3rem); font-weight:600; line-height:1.1; letter-spacing:-.016em}
+h3{font-size:1.18rem; font-weight:600; line-height:1.32; letter-spacing:-.008em}
+h4{font-family:var(--text); font-size:.95rem; font-weight:700; letter-spacing:.005em; color:var(--ink)}
+p{margin:0 0 1em}
+a{color:var(--accent-ink)}
+strong{color:var(--ink); font-weight:700}
+em{font-style:italic}
+code{font-family:var(--mono); font-size:.84em; background:var(--surface-2); padding:.12em .4em; color:var(--ink)}
+:focus-visible{outline:2px solid var(--accent); outline-offset:3px}
+
+.wrap{max-width:1120px; margin:0 auto; padding:0 clamp(18px,4.5vw,44px)}
+.prose{max-width:70ch}
+
+/* ============ header ============ */
+header.hero{background:var(--surface); border-bottom:1px solid var(--line); position:relative; overflow:hidden}
+.hero-in{padding:clamp(2.4rem,6vw,5rem) 0 clamp(2rem,4vw,3rem); position:relative; z-index:1}
+.eyebrow{
+  font-family:var(--mono); font-size:.66rem; letter-spacing:.19em; text-transform:uppercase;
+  color:var(--muted); margin:0 0 1.4rem; line-height:1.9
+}
+.eyebrow b{color:var(--accent-ink); font-weight:600}
+h1 i{font-style:italic; font-weight:400; color:var(--accent-ink)}
+.hero p.lede{max-width:56ch; margin-top:1.4rem; font-size:1.08rem; color:var(--body)}
+.hero-grid{display:flex; flex-wrap:wrap; gap:2rem 3rem; align-items:flex-end; margin-top:2.4rem}
+.facts{display:grid; grid-template-columns:repeat(auto-fit,minmax(104px,1fr)); gap:1px;
+  background:var(--line); border:1px solid var(--line); flex:1 1 340px}
+.facts div{background:var(--surface); padding:.65rem .8rem}
+.facts dt{font-family:var(--mono); font-size:.6rem; letter-spacing:.13em; text-transform:uppercase; color:var(--muted); margin:0 0 .2rem}
+.facts dd{margin:0; font-family:var(--display); font-size:1rem; font-weight:600; color:var(--ink); font-variant-numeric:tabular-nums}
+.facts dd.hot{color:var(--flag)}
+@media(prefers-reduced-motion:no-preference){
+  .hero-in>*{animation:rise .55s cubic-bezier(.2,.7,.3,1) both}
+  .hero-in>*:nth-child(2){animation-delay:.06s}
+  .hero-in>*:nth-child(3){animation-delay:.12s}
+  .hero-in>*:nth-child(4){animation-delay:.18s}
+  @keyframes rise{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:none}}
+}
+
+/* ============ nav ============ */
+nav.toc{position:sticky; top:0; z-index:20; background:var(--paper); border-bottom:1px solid var(--line)}
+nav.toc .wrap{overflow-x:auto; -webkit-overflow-scrolling:touch}
+nav.toc ol{display:flex; list-style:none; margin:0; padding:0; min-width:max-content; gap:0}
+nav.toc a{display:block; padding:.72rem .95rem; text-decoration:none; white-space:nowrap;
+  font-size:.83rem; font-weight:500; color:var(--muted); border-bottom:2px solid transparent}
+nav.toc a:hover{color:var(--ink); background:var(--surface)}
+nav.toc a.on{color:var(--ink); border-bottom-color:var(--accent)}
+
+/* ============ sections ============ */
+main{padding-bottom:5rem}
+section{padding:clamp(2.6rem,5.5vw,4.6rem) 0; border-bottom:1px solid var(--line-soft)}
+.mark{font-family:var(--mono); font-size:.64rem; letter-spacing:.19em; text-transform:uppercase;
+  color:var(--accent-ink); display:flex; align-items:center; gap:.6rem; margin-bottom:.9rem}
+.mark::before{content:""; width:9px; height:9px; background:var(--accent); flex:0 0 auto}
+.sub{color:var(--muted); font-size:1rem; max-width:66ch; margin:.7rem 0 2.2rem}
+h3.head{margin:2.6rem 0 1rem}
+h3.head:first-of-type{margin-top:2rem}
+
+/* ============ pull quotes: her own words ============ */
+.voice{display:grid; gap:.1rem; margin:1.8rem 0; border-left:2px solid var(--accent); padding-left:1.4rem}
+.voice q{font-family:var(--display); font-style:italic; font-size:1.12rem; line-height:1.5;
+  color:var(--ink); quotes:none; display:block; padding:.35rem 0}
+.voice cite{font-family:var(--mono); font-style:normal; font-size:.66rem; letter-spacing:.15em;
+  text-transform:uppercase; color:var(--muted); margin-top:.7rem; display:block}
+
+/* ============ callouts ============ */
+.note{background:var(--surface); border:1px solid var(--line); border-left:3px solid var(--accent);
+  padding:1.05rem 1.3rem; margin:1.7rem 0; font-size:.96rem}
+.note.warn{border-left-color:var(--flag); background:var(--flag-soft); border-color:var(--flag-soft)}
+.note.good{border-left-color:var(--ok); background:var(--ok-soft); border-color:var(--ok-soft)}
+.note p:last-child{margin-bottom:0}
+.note .lbl{font-family:var(--mono); font-size:.63rem; letter-spacing:.15em; text-transform:uppercase;
+  display:block; margin-bottom:.45rem; color:var(--accent-ink)}
+.note.warn .lbl{color:var(--flag)}
+.note.good .lbl{color:var(--ok)}
+
+/* ============ the ledger: the offer's actual arithmetic ============ */
+.ledger{background:var(--surface); border:1px solid var(--line); box-shadow:var(--lift);
+  padding:1.5rem 1.6rem; max-width:640px; margin:1.8rem 0}
+.ledger h3{margin-bottom:.2rem}
+.ledger .cap{font-family:var(--mono); font-size:.63rem; letter-spacing:.15em; text-transform:uppercase; color:var(--muted); margin-bottom:1.1rem}
+.ledger ul{list-style:none; margin:0; padding:0; display:grid; gap:0}
+.ledger li{display:grid; grid-template-columns:1fr auto; gap:1.2rem; align-items:baseline;
+  padding:.62rem 0; border-bottom:1px dotted var(--line); font-size:.94rem}
+.ledger li span:last-child{font-family:var(--mono); font-size:.78rem; color:var(--muted);
+  letter-spacing:.06em; text-transform:uppercase; white-space:nowrap}
+.ledger li.bonus{color:var(--ink)}
+.ledger li.bonus span:last-child{color:var(--accent-ink)}
+.ledger .sum{display:grid; grid-template-columns:1fr auto; gap:1rem; align-items:baseline; padding-top:1rem; margin-top:.3rem}
+.ledger .sum b{font-family:var(--text); font-size:.9rem; font-weight:500; color:var(--body)}
+.ledger .sum i{font-family:var(--display); font-style:normal; font-weight:600; font-size:1.45rem;
+  color:var(--ink); font-variant-numeric:tabular-nums}
+.ledger .sum.final i{color:var(--accent-ink)}
+.ledger .sum.strike i{text-decoration:line-through; text-decoration-thickness:1.5px; color:var(--muted)}
+.ledger .why{font-size:.85rem; color:var(--muted); margin:.5rem 0 0}
+
+/* ============ money cards ============ */
+.cards{display:grid; gap:1rem; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); margin:1.7rem 0}
+.cards>*{min-width:0}
+.card{background:var(--surface); border:1px solid var(--line); padding:1.25rem 1.35rem; box-shadow:var(--lift)}
+.card.pick{border-color:var(--accent); border-width:2px; padding:calc(1.25rem - 1px) calc(1.35rem - 1px)}
+.card .tag{font-family:var(--mono); font-size:.6rem; letter-spacing:.15em; text-transform:uppercase;
+  display:inline-block; padding:.2rem .5rem; margin-bottom:.75rem; background:var(--surface-2); color:var(--muted)}
+.card.pick .tag{background:var(--accent-soft); color:var(--accent-ink)}
+.card h3{margin-bottom:.4rem; font-variant-numeric:tabular-nums}
+.card p{font-size:.92rem; margin-bottom:0}
+
+/* ============ funnel: a real sequence, so it gets numbers ============ */
+.flow{border:1px solid var(--line); background:var(--surface); margin:1.8rem 0}
+.step{display:grid; grid-template-columns:auto 1fr; gap:1.15rem; padding:1.1rem 1.35rem; border-bottom:1px solid var(--line-soft)}
+.step:last-child{border-bottom:0}
+.step .n{font-family:var(--mono); font-size:.72rem; font-weight:600; color:var(--accent-ink); padding-top:.3rem; font-variant-numeric:tabular-nums}
+.step h4{margin-bottom:.28rem}
+.step p{font-size:.9rem; margin:0; color:var(--muted)}
+.step .url{font-family:var(--mono); font-size:.76rem; color:var(--ink); background:var(--surface-2); padding:.08rem .35rem}
+.step.buy{background:var(--accent-soft)}
+.step.buy .n,.step.buy h4{color:var(--accent-ink)}
+.step.buy p{color:var(--body)}
+
+/* ============ copy block ============ */
+.block{background:var(--surface); border:1px solid var(--line); margin:1.6rem 0; box-shadow:var(--lift)}
+.block-bar{display:flex; justify-content:space-between; align-items:center; gap:1rem;
+  padding:.6rem .95rem; border-bottom:1px solid var(--line); background:var(--surface-2)}
+.block-bar span{font-family:var(--mono); font-size:.65rem; letter-spacing:.14em; text-transform:uppercase; color:var(--muted)}
+.block pre{margin:0; padding:1.3rem 1.4rem; overflow-x:auto; font-family:var(--mono); font-size:.81rem;
+  line-height:1.78; color:var(--ink); white-space:pre-wrap; word-break:break-word}
+button.cp{font-family:var(--text); font-size:.75rem; font-weight:700; cursor:pointer; letter-spacing:.02em;
+  background:var(--accent); color:var(--on-accent); border:0; padding:.38rem .85rem}
+button.cp:hover{opacity:.87}
+button.cp.done{background:var(--ok); color:var(--surface)}
+
+/* ============ scripts ============ */
+.script{background:var(--surface); border:1px solid var(--line); padding:1.4rem 1.5rem; margin:1.3rem 0; box-shadow:var(--lift)}
+.script-head{display:flex; flex-wrap:wrap; gap:.6rem 1.2rem; align-items:baseline;
+  margin-bottom:1.1rem; padding-bottom:.95rem; border-bottom:1px solid var(--line-soft)}
+.script-head h3{flex:1 1 auto}
+.chips{display:flex; flex-wrap:wrap; gap:.35rem}
+.chip{font-family:var(--mono); font-size:.62rem; letter-spacing:.09em; text-transform:uppercase;
+  background:var(--surface-2); color:var(--muted); padding:.24rem .52rem}
+.beat{display:grid; grid-template-columns:84px 1fr; gap:1.1rem; padding:.75rem 0; border-bottom:1px dotted var(--line)}
+.beat:last-child{border-bottom:0}
+.beat .t{font-family:var(--mono); font-size:.68rem; color:var(--accent-ink); padding-top:.28rem; font-variant-numeric:tabular-nums}
+.beat .t b{display:block; color:var(--muted); font-weight:400; font-size:.59rem; letter-spacing:.12em; text-transform:uppercase; margin-top:.2rem}
+.beat q{quotes:none; font-family:var(--display); font-size:1rem; line-height:1.55; color:var(--ink)}
+
+/* ============ tables ============ */
+.tw{overflow-x:auto; margin:1.5rem 0; border:1px solid var(--line)}
+table{border-collapse:collapse; width:100%; min-width:520px; background:var(--surface); font-size:.88rem}
+th,td{text-align:left; padding:.65rem .9rem; border-bottom:1px solid var(--line-soft); vertical-align:top}
+th{font-family:var(--mono); font-size:.63rem; font-weight:600; letter-spacing:.13em; text-transform:uppercase;
+  color:var(--muted); background:var(--surface-2); white-space:nowrap}
+tbody tr:last-child td{border-bottom:0}
+td.mono,th.mono{font-family:var(--mono); font-size:.79rem; font-variant-numeric:tabular-nums}
+.hooks td:first-child{font-family:var(--mono); color:var(--accent-ink); font-weight:600; width:2.6rem}
+
+/* ============ checklist ============ */
+ul.check{list-style:none; padding:0; margin:1.1rem 0; display:grid; gap:.55rem}
+ul.check li{display:grid; grid-template-columns:auto 1fr; gap:.75rem; font-size:.93rem; align-items:start}
+ul.check .bx{width:13px; height:13px; border:1px solid var(--line); margin-top:.45rem; flex:0 0 auto}
+ul.check li.done .bx{background:var(--ok); border-color:var(--ok)}
+ul.check li.block .bx{background:var(--flag); border-color:var(--flag)}
+
+.two{display:grid; grid-template-columns:1fr 1fr; gap:2.2rem}
+.two>*{min-width:0}
+.two>.note{margin-top:0}
+.two>.tw{margin-top:0}
+@media(max-width:780px){
+  .two{grid-template-columns:1fr}
+  .beat{grid-template-columns:1fr; gap:.25rem}
+  .beat .t b{display:inline; margin-left:.5rem}
+}
+footer{padding:2.8rem 0 1rem; color:var(--muted); font-size:.86rem}
+footer .rule{height:1px; background:var(--line); margin-bottom:1.3rem}
+@media(prefers-reduced-motion:reduce){*{animation:none!important; transition:none!important}}
+</style>
+
+<header class="hero">
+  <div class="wrap hero-in">
+    <p class="eyebrow"><b>Lievik</b> · Miriam Czompoly · interiérový dizajn, Trnava</p>
+    <h1>Máš pekné veci,<br />no domov to <i>stále nie je</i>.</h1>
+    <p class="lede">Reklamný lievik na ženy, ktoré už majú kde bývať a doma sa aj tak
+      necítia doma. Predáva sa <strong>interiérová diagnostika, 90 minút u nej doma,
+      za 249 €</strong>, ktoré Miriam pri projekte celé odpočíta späť.</p>
+    <div class="hero-grid">
+      <dl class="facts">
+        <div><dt>Ponuka</dt><dd>249 €</dd></div>
+        <div><dt>Dĺžka</dt><dd>90 minút</dd></div>
+        <div><dt>Kapacita</dt><dd>9 / mesiac</dd></div>
+        <div><dt>Lokalita</dt><dd>Trnava +30 km</dd></div>
+        <div><dt>Rozpočet</dt><dd>20 €/deň</dd></div>
+        <div><dt>Kampaň</dt><dd class="hot">Nespúšťať</dd></div>
+      </dl>
+    </div>
+  </div>
+</header>
+
+<nav class="toc">
+  <div class="wrap">
+    <ol>
+      <li><a href="#ponuka">Ponuka</a></li>
+      <li><a href="#lievik">Lievik</a></li>
+      <li><a href="#copy">Copy</a></li>
+      <li><a href="#skripty">Skripty</a></li>
+      <li><a href="#hooky">Hooky</a></li>
+      <li><a href="#natacanie">Natáčanie</a></li>
+      <li><a href="#kampan">Kampaň</a></li>
+      <li><a href="#blokery">Blokéry</a></li>
+    </ol>
+  </div>
+</nav>
+
+<main class="wrap">
+
+<!-- ===================== PONUKA ===================== -->
+<section id="ponuka">
+  <p class="mark">Ponuka</p>
+  <h2>Predávame 90 minút u nej doma</h2>
+  <p class="sub">Reklama nedáva nič zadarmo výmenou za klik. Predáva interiérovú
+    diagnostiku za 249 €. Zadarmo je až to, čo príde po nej.</p>
+
+  <div class="prose">
+    <p>Cieľovku som nevymýšľal. Prebral som tú, ktorú si Miriam už sama pomenovala
+    na svojom webe, len ju dostaneme pred ženu, ktorá na jej web nikdy nepríde.</p>
+  </div>
+
+  <div class="voice">
+    <q>Máš pekné veci, no domov to stále nie je.</q>
+    <q>Investovala si do bývania, ale stále sa necítiš ako doma.</q>
+    <q>Nevieš, čo zmeniť ako prvé, a bojíš sa, že opäť minieš a nepomôže to.</q>
+    <q>Bojíš sa, že ti dizajnér nanúti svoj štýl namiesto tvojho.</q>
+    <cite>miriamczompoly.sk, sekcia „Poznáš to?"</cite>
+  </div>
+
+  <h3 class="head">Ponuka, presne ako ju uvidí klientka</h3>
+  <p class="prose">Nič z toho nie je vymyslené. Cena, dĺžka, obsah aj garancia sú
+  doslovne z jej stránky <code>/diagnostika</code>, PDF existuje a je nahostované,
+  a kalendár „Interiérová diagnostika" v GHL je 90 minút, Po až Pia 9 až 17.</p>
+
+  <div class="ledger">
+    <h3>Interiérová diagnostika</h3>
+    <p class="cap">Čo za tie peniaze dostane</p>
+    <ul>
+      <li><span>90 minút s Miriam priamo u nej doma</span><span>web + GHL</span></li>
+      <li><span>Analýza priestoru a jej reálnych potrieb</span><span>web</span></li>
+      <li><span>Akčný plán priorít: čo riešiť v akom poradí</span><span>web</span></li>
+      <li><span>Zoznam „čo prestať kupovať"</span><span>web</span></li>
+      <li><span>Odpovede od dizajnérky s 15+ rokmi praxe</span><span>web</span></li>
+      <li class="bonus"><span><strong>Bonus:</strong> PDF „5 najdrahších chýb pri zariaďovaní domova"</span><span>zdarma</span></li>
+    </ul>
+    <div class="sum strike"><b>Cena</b><i>249 €</i></div>
+    <div class="sum final"><b>Ak bude pokračovať projektom</b><i>0 €</i></div>
+    <p class="why">Celá suma sa odpočíta z ceny projektu. Kto pokračuje, zaplatil
+    za diagnostiku nakoniec nula. To už na svojom webe má, len to nikde nepredáva.</p>
+  </div>
+
+  <div class="two">
+    <div class="note good">
+      <span class="lbl">Garancia, ktorú už dáva</span>
+      <p>Na jej webe je doslovne: <em>„Ak z našich 90 minút neodídeš s jasnom, čo ďalej,
+      povedz mi to na mieste a diagnostiku ti nefakturujem."</em></p>
+      <p>🔴 <strong>Jedna zmena.</strong> Keď sa platí pri rezervácii, „nefakturujem"
+      nedáva zmysel. Musí to znieť <em>„peniaze ti vrátim"</em>. Tá istá garancia,
+      ale Miriam ju musí takto potvrdiť, lebo ide o vrátenie prijatej platby.</p>
+    </div>
+    <div class="note">
+      <span class="lbl">Kapacita: 9 diagnostík mesačne</span>
+      <p>Playbook zakazuje falošnú scarcity. Toto číslo falošné nie je: diagnostika je
+      <strong>90 minút na mieste</strong>, Miriam k žene cestuje, takže jeden termín je
+      reálne pol dňa. Na webe už píše „beriem iba obmedzený počet diagnostík mesačne",
+      len bez čísla.</p>
+      <p>🔴 <strong>Číslo treba dodržať.</strong> Keď sa deviate miesto naplní, kampaň
+      sa pozastaví alebo sa text prepíše na najbližší voľný mesiac.</p>
+    </div>
+  </div>
+
+  <h3 class="head">Odkiaľ je systém odpozeraný</h3>
+  <p class="prose">Vzor je najpokročilejší príklad v playbooku, <strong>Edi TV /
+  eRevenue</strong>. Ich reklama tiež nič nerozdáva. Predáva platený vstup a zadarmo dáva
+  až to, čo príde po ňom: <em>„ak by ste sa na konci so mnou rozhodli spolupracovať,
+  tento systém odo mňa získate úplne zdarma."</em> Zadarmo je odmena za pokračovanie,
+  nie návnada na klik.</p>
+
+  <div class="tw">
+    <table>
+      <thead><tr><th>Edi TV / eRevenue</th><th>Miriam</th></tr></thead>
+      <tbody>
+        <tr><td>„Toto nie je pre apatických podnikateľov, ktorí to vzdali."</td><td>„Toto nie je pre ženy, ktoré to so svojím domovom už vzdali."</td></tr>
+        <tr><td>platený vstup: kurz</td><td>platený vstup: diagnostika 249 €</td></tr>
+        <tr><td>systém zdarma pri spolupráci</td><td>celých 249 € odpočítaných z ceny projektu</td></tr>
+        <tr><td>„buď uvidíte výsledky do 14 dní, alebo od vás nechcem ani korunu"</td><td>„ak neodídeš s jasnom, peniaze ti vrátim"</td></tr>
+        <tr><td>„mám iba 16 voľných miest"</td><td>„mesačne stihnem 9 diagnostík"</td></tr>
+        <tr><td>vstupná podmienka v PS</td><td>„ak hľadáš niekoho, kto ti nakreslí pekné obrázky, nie som to ja"</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="head">Kde má PDF miesto</h3>
+  <div class="two">
+    <div>
+      <p><strong>V reklame je to bonus.</strong> Príde na e-mail hneď, ešte než sa žena
+      rozhodne o diagnostike. Znižuje riziko kliku prakticky na nulu.</p>
+    </div>
+    <div>
+      <p><strong>V lieviku je to záchytná sieť.</strong> Kto dá e-mail a diagnostiku
+      nekúpi, dostane PDF tak či tak a ostáva v sekvencii. Žiadny zaplatený lead
+      sa nezahodí.</p>
+    </div>
+  </div>
+  <div class="note">
+    <span class="lbl">Hranica, na ktorej sa Miriam predtým rozdala</span>
+    <p>Kniha 1: <strong>rozdávaj poznanie problému, predávaj implementáciu.</strong>
+    PDF pomenuje chyby. Diagnostika je to, že jej ich Miriam ukáže priamo v jej byte
+    a povie, čo s nimi. Keď je hranica vedená takto, nemá kde ju prekročiť.</p>
+    <p>Na bezplatnej konzultácii dávala AI vizualizácie a dispozičný návrh, teda presne
+    to, za čo sa má platiť. Sama to pomenovala: <em>„klientom to asi stačilo, pretože
+    sa už neozvali na kompletný návrh."</em></p>
+  </div>
+
+  <h3 class="head">Kde sa berú peniaze</h3>
+  <p class="prose">Čísla nižšie <strong>nie sú predpoveď.</strong> Sú to ceny z jej webu
+  a rozpočet z playbooku. Hovoria, čo musí nastať, aby kampaň nebola stratová.</p>
+
+  <div class="cards">
+    <div class="card">
+      <span class="tag">Náklad</span>
+      <h3>600 € mesačne</h3>
+      <p>20 €/deň, pevný parameter z playbooku. Nemení sa.</p>
+    </div>
+    <div class="card pick">
+      <span class="tag">Bod zlomu</span>
+      <h3>3 diagnostiky</h3>
+      <p>3 × 249 € = 747 €. Od tretej predanej diagnostiky si <strong>reklama platí
+      sama</strong>, ešte než sa predá jediný projekt.</p>
+    </div>
+    <div class="card">
+      <span class="tag">Skutočný zárobok</span>
+      <h3>Jeden projekt</h3>
+      <p>Kompletná premena je u nej <strong>od 3 900 €</strong>. Jediná predaná zaplatí
+      <strong>pol roka reklamy</strong>. Diagnostika je vstupenka, nie produkt.</p>
+    </div>
+  </div>
+
+  <div class="note">
+    <span class="lbl">Čo to robí s kvalitou leadov</span>
+    <p>Pri ponuke zadarmo filtruje až Miriam, na stretnutí, svojím časom. Pri ponuke
+    za 249 € filtruje <strong>platba</strong>. Kto zadá kartu, ide o tom rozprávať vážne.</p>
+    <p>Cena za jednu diagnostiku bude podstatne vyššia než cena za stiahnutie PDF. To je
+    v poriadku a treba to čakať. <strong>Sledovaným číslom nie je cena za lead, ale koľko
+    stojí jedna predaná diagnostika.</strong></p>
+  </div>
+
+  <h3 class="head">Čo sme zahodili</h3>
+  <div class="tw">
+    <table>
+      <thead><tr><th>Možnosť</th><th>Prečo nie</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Segment „preberanie bytu od developera"</strong></td><td>Úzke publikum, bolesť sa musela najprv vysvetliť („uzávierka klientských zmien" nikto nepozná) a vyžadovalo to službu, ktorú Miriam zatiaľ nerobí. Nový smer je jej vlastný biznis, ako ho už opísala na webe.</td></tr>
+        <tr><td><strong>Konzultácia zadarmo</strong></td><td>Presne to, čo jej biznis dusilo. Rozdala na nej hotové riešenie a klientky sa už neozvali. Kampaň by navyše nemala kde zarobiť.</td></tr>
+        <tr><td><strong>Zľava z 249 €</strong></td><td>Kniha 1: nikdy nezľavuj, pridaj pomenovaný bonus. Odpočet z projektu je silnejší ako zľava a nestojí ju nič navyše, lebo peniaze aj tak ide zarobiť na projekte.</td></tr>
+        <tr><td><strong>Symbolická cena, napríklad 29 €</strong></td><td>Filtruje takmer rovnako slabo ako nula, ale rozbíja cenník. Kto raz videl diagnostiku za 29 €, nezaplatí 249 € nabudúce. A za tú cenu nemôže prísť na miesto.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note warn">
+    <span class="lbl">Riziko, ktoré si treba priznať dopredu</span>
+    <p><strong>Predať 249 € studenej návštevnosti z Instagramu je podstatne ťažšie než
+    rozdať PDF.</strong> Bude to menej ľudí. Presne preto lievik nevedie z reklamy rovno
+    na platbu, ale cez dotazník, ktorý zachytí e-mail skôr, než sa cena vôbec spomenie.</p>
+    <p><strong>Rozhodovací bod:</strong> po 14 dňoch, teda po zhruba 280 € minutých.
+    Ak dovtedy prišli e-maily, ale <strong>ani jedna predaná diagnostika</strong>, chyba
+    nie je v cene, ale v tom, že stránka s ponukou nepredáva. Vtedy sa mení stránka,
+    nie cena. Až ak nepredá ani druhá verzia stránky, mení sa ponuka.</p>
+  </div>
+</section>
+
+<!-- ===================== LIEVIK ===================== -->
+<section id="lievik">
+  <p class="mark">Lievik</p>
+  <h2>Štyri stránky, kalendár až po platbe</h2>
+  <p class="sub">Na landing page sa dá odskrolovať a odísť. Na stránke s kvízom nie je
+    nič iné. Stránka s ponukou je samostatná, lebo lievik niečo predáva.
+    <strong>Kalendár neuvidí nikto, kto nezaplatil.</strong></p>
+
+  <div class="flow">
+    <div class="step"><span class="n">00</span><div>
+      <h4>Meta reklama</h4>
+      <p>10+ videí, jedno copy, 20 €/deň. Sľubuje diagnostiku 249 €, PDF zadarmo
+      a odpočet celej sumy z projektu.</p></div></div>
+    <div class="step"><span class="n">01</span><div>
+      <h4>Landing page <span class="url">/</span></h4>
+      <p>Žiadne menu, žiadny odkaz na hlavný web ani Instagram. Poradie sekcií: hero,
+      „Poznáš to?", sociálny dôkaz, kto som, dve námietky, čo dostaneš za 249 €,
+      kapacita, CTA. Cena je nad záhybom, neschováva sa.</p></div></div>
+    <div class="step"><span class="n">02</span><div>
+      <h4>Dotazník <span class="url">/dotaznik</span></h4>
+      <p>Tri obrazovky, jedna otázka na obrazovku. E-mail je prvý a kontakt sa zapíše
+      do GHL hneď po ňom. Rámovanie je kvalifikácia, nie zber kontaktov:
+      <em>„chodím k ženám osobne, tak si najprv overím, či ti viem pomôcť."</em></p></div></div>
+    <div class="step buy"><span class="n">03</span><div>
+      <h4>Ponuka a platba <span class="url">/ponuka</span></h4>
+      <p>Celý stack, cena, garancia, odpočet, 9 miest. Dole formulár s platobným prvkom:
+      meno, telefón, <strong>adresa</strong>, karta.</p></div></div>
+    <div class="step"><span class="n">04</span><div>
+      <h4>Kalendár, až po platbe</h4>
+      <p>Formulár po úspešnej platbe presmeruje na kalendár „Interiérová diagnostika",
+      90 minút. Kto nezaplatil, kalendár nikdy neuvidí.</p></div></div>
+    <div class="step"><span class="n">05</span><div>
+      <h4>GoHighLevel</h4>
+      <p>Kontakt, tagy, pipeline, workflowy. Dve vetvy: kto kúpil a kto nie.</p></div></div>
+  </div>
+
+  <h3 class="head">Dve vetvy, aby sa nezahodil ani jeden zaplatený lead</h3>
+  <div class="tw">
+    <table>
+      <thead><tr><th>Kto</th><th>Čo dostane</th><th>Kam v pipeline</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Zaplatila</strong></td><td>Potvrdenie, <strong>PDF hneď</strong>, čo si pripraviť na stretnutie, pripomienky pred termínom.</td><td class="mono">3 Diagnostika zaplatená</td></tr>
+        <tr><td><strong>Dala e-mail, nekúpila</strong></td><td>PDF tak či tak. Potom sekvencia, ktorá rieši námietky a vracia na ponuku. Žiadny tlak, ale ani ticho.</td><td class="mono">1 Lead</td></tr>
+        <tr><td><strong>Odpadla v dotazníku</strong></td><td>Má e-mail zapísaný po prvom kroku, takže dostane PDF a krátku sekvenciu. Inak je to zaplatený a zahodený lead.</td><td class="mono">1 Lead</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="two">
+    <div>
+      <h3 style="margin-bottom:.8rem">Tri otázky v dotazníku</h3>
+      <div class="tw"><table>
+        <thead><tr><th class="mono">#</th><th>Otázka</th><th>Načo</th></tr></thead>
+        <tbody>
+          <tr><td class="mono">1</td><td>E-mail<br /><span style="color:var(--muted);font-size:.85em">„Pošlem ti 5 najdrahších chýb a podrobnosti."</span></td><td>Lead je zachytený hneď, ešte než padne cena.</td></tr>
+          <tr><td class="mono">2</td><td>Čo doma riešiš?<br /><span style="color:var(--muted);font-size:.85em">jednu miestnosť · celý byt alebo dom · už som zariaďovala a nesedí to · neviem, kde začať</span></td><td>Predáva za nás. Kto klikne posledné dve, si v tej sekunde pomenuje problém vlastnými prstami.</td></tr>
+          <tr><td class="mono">3</td><td>Kedy to chceš riešiť?<br /><span style="color:var(--muted);font-size:.85em">čo najskôr · do pol roka · zatiaľ len zisťujem</span></td><td>Riadi dôraz na stránke s ponukou aj naliehavosť v sekvencii.</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+    <div>
+      <h3 style="margin-bottom:.8rem">Tagy v GHL</h3>
+      <div class="tw"><table>
+        <thead><tr><th>Tag</th><th>Kedy</th></tr></thead>
+        <tbody>
+          <tr><td class="mono">kviz-zacal</td><td>po prvom kroku</td></tr>
+          <tr><td class="mono">diagnostika-lead</td><td>dokončený dotazník</td></tr>
+          <tr><td class="mono">riesi-miestnost</td><td>otázka 2</td></tr>
+          <tr><td class="mono">riesi-cely-byt</td><td>otázka 2</td></tr>
+          <tr><td class="mono">uz-zariadovala</td><td>otázka 2</td></tr>
+          <tr><td class="mono">neviem-zacat</td><td>otázka 2</td></tr>
+          <tr><td class="mono">kedy-*</td><td>otázka 3</td></tr>
+          <tr><td class="mono">diagnostika-zaplatena</td><td>po úspešnej platbe</td></tr>
+          <tr><td class="mono">nekupila-ponuku</td><td>videla ponuku, nezaplatila</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+  </div>
+
+  <div class="note warn">
+    <span class="lbl">Technicky overená cesta, neimprovizovať</span>
+    <p>Formulár s platobným prvkom sa stavia cez interné API, viď
+    <code>docs/produkty-a-platby.md</code> v GHLtool. Stripe je na sub-účte napojený.
+    Tri veci, na ktorých to padá:</p>
+    <p><code>requireCreditCard: true</code> je to, čo znamená „bez karty neprejdeš".<br />
+    <code>formAction.actionType: "1"</code> je presmerovanie na URL a funguje aj na
+    formulári s platbou. Takto sa kalendár ukáže až po zaplatení.<br />
+    🔴 <code>liveModeOn: false</code> je <strong>testovací režim a je to pasca.</strong>
+    Vyzerá úplne rovnako ako ostrý, ale nestrhne ani cent. Overiť skutočnou platbou,
+    nie pohľadom do nastavení.</p>
+  </div>
+
+  <div class="note">
+    <span class="lbl">Odchýlka od playbooku</span>
+    <p><strong>Telefón nezbierame v dotazníku.</strong> Miriam výslovne povedala iba
+    e-mail. Pri platbe ho ale pýtať treba, lebo ide o osobnú návštevu a termín sa musí
+    dať potvrdiť. <strong>Telefón aj adresa teda idú až do objednávkového formulára</strong>,
+    kde ich žena dá rada, lebo už niečo kupuje.</p>
+  </div>
+</section>
+
+<!-- ===================== COPY ===================== -->
+<section id="copy">
+  <p class="mark">Copy</p>
+  <h2>Jedno copy na všetkých desať reklám</h2>
+  <p class="sub">Testuje sa kreatíva, nie text. Dĺžka sedí do odporúčaného rozsahu
+    1 200 až 2 000 znakov.</p>
+
+  <div class="block">
+    <div class="block-bar"><span>Primárny text · 1 859 znakov</span><button class="cp" data-t="ad">Kopírovať</button></div>
+    <pre id="ad">Trnava a okolie, máš doma pekné veci, no domov to stále nie je? 🏡
+
+🛑 Toto nie je pre ženy, ktoré to so svojím domovom už vzdali a zmierili sa s tým, že takto to proste bude.
+
+Hľadám ženy, ktoré:
+✅ chcú domov, ktorý funguje, nie iba vyzerá
+✅ znesú počuť pravdu o tom, čo v ich priestore nefunguje
+✅ chcú mať istotu, že ďalšie euro investujú správne
+
+Si to ty? 🤝 Čítaj ďalej...
+
+Od roku 2010 navrhujem interiéry ženám v Trnave a okolí. A vždy sa opakuje to isté: nie je to o peniazoch a nie je to o vkuse. Kupovala pekné kusy, jeden po druhom, len jej nikto nikdy nepovedal, v akom poradí a prečo. Preto to spolu nesedí.
+
+Sedačka, ktorá je o dvadsať centimetrov väčšia, než mala byť, a odvtedy sa okolo nej chodí bokom. Svetlo uprostred stropu namiesto nad stolom. Krásna skriňa, do ktorej sa nezmestí ani polovica vecí. Každá z tých vecí stála peniaze a ani jedna sa už nedá vrátiť.
+
+Predstav si, že vojdeš do dverí a konečne cítiš, že si doma. Nie v peknom byte. Doma. 😉
+
+Preto robím interiérovú diagnostiku. Deväťdesiat minút u teba doma. Prejdeme priestor, poviem ti, kde je skutočný problém, čo riešiť ako prvé a čo prestať kupovať. Odídeš s plánom, nie s pocitom. Stojí 249 €.
+
+A to najlepšie? Ak sa potom rozhodneš pre návrh odo mňa, celých 249 € ti z ceny odpočítam. Diagnostika ťa teda nakoniec nestojí nič. ✅
+
+A PDF „5 najdrahších chýb, ktoré ľudia robia pri zariaďovaní domova" ti pošlem na e-mail hneď, tak či tak.
+
+Klikni na odkaz a povedz mi, čo doma riešiš: [URL]
+
+👉 Ak z tých deväťdesiatich minút neodídeš s jasnom, čo ďalej, povedz mi to na mieste a peniaze ti vrátim. Celé.
+
+⚠️ Chodím k ženám osobne, takže mesačne stihnem 9 diagnostík. Keď sa naplnia, ďalší voľný termín je až v ďalšom mesiaci.
+
+PS. Ak hľadáš niekoho, kto ti nakreslí pekné obrázky a nechá ťa v tom, nie som to ja. Ukážem ti, kde robíš chyby, aj keď to nebude príjemné počuť.</pre>
+  </div>
+
+  <div class="two">
+    <div>
+      <h3 style="margin-bottom:.7rem">Sprievodné polia</h3>
+      <div class="tw"><table>
+        <tbody>
+          <tr><th>Headline</th><td>Máš pekné veci, no domov to stále nie je 🏡</td></tr>
+          <tr><th>Popis</th><td>90 minút u teba doma. Odídeš s plánom, nie s pocitom.</td></tr>
+          <tr><th>CTA</th><td><strong>Zistiť viac</strong>, nie „Rezervovať". Ďalší krok je dotazník, nie kalendár, a tlačidlo nesmie klamať.</td></tr>
+          <tr><th>Cieľ</th><td class="mono">diagnostika.miriamczompoly.sk</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+    <div>
+      <h3 style="margin-bottom:.7rem">Čo v texte zámerne nie je</h3>
+      <div class="tw"><table>
+        <thead><tr><th>Chýba</th><th>Prečo</th></tr></thead>
+        <tbody>
+          <tr><td>počet klientok</td><td>nemáme doložené, zákaz č. 2</td></tr>
+          <tr><td>úspora v eurách</td><td>nevieme doložiť, blízko finančnému sľubu</td></tr>
+          <tr><td>„jediná v Trnave"</td><td>nedá sa dokázať</td></tr>
+          <tr><td>recenzie s menom</td><td>až keď bude súhlas so zverejnením</td></tr>
+          <tr><td>odkaz na web a Instagram</td><td>lievik nesmie mať únik</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+  </div>
+
+  <h3 class="head">Čo v tomto copy robí prácu</h3>
+  <div class="tw">
+    <table>
+      <thead><tr><th>Miesto v texte</th><th>Čo tam robí</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Prvý riadok</strong></td><td>Je to jej vlastný nadpis z webu. Reklama nehovorí nič nové, len to dostane pred ženu, ktorá na jej web nikdy nepríde.</td></tr>
+        <tr><td><strong>Negatívna kvalifikácia</strong></td><td>Filtruje <strong>postoj, nie peňaženku</strong>. Kto to vzdal, sa v tej vete spozná a sám sa vylúči. Nemusíme písať nič o cene.</td></tr>
+        <tr><td><strong>Tri konkrétne chyby</strong></td><td>Sedačka o 20 cm, svetlo uprostred stropu, skriňa. Žena si v nich spozná vlastný byt. Zároveň nahrádzajú číslo, ktoré nemáme doložené.</td></tr>
+        <tr><td><strong>„A to najlepšie"</strong></td><td>Nie je to ponuka zadarmo, je to <strong>odpočet</strong>. U Edi TV je tam systém zdarma pri spolupráci. Rovnaká mechanika.</td></tr>
+        <tr><td><strong>Garancia</strong></td><td>Na bezplatnom hovore nie je čo garantovať. Pri 249 € je garancia to, čo umožní kliknúť.</td></tr>
+        <tr><td><strong>PS</strong></td><td>Zámerne tvrdšie než zvyšok. Odfiltruje ženu, ktorá chce pochvalu a nie diagnózu. Jej web to hovorí tiež: „Neponúkam len pekné obrázky."</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note">
+    <span class="lbl">Tykanie</span>
+    <p>Playbook odporúča vykanie, ale rozhoduje zavedený hlas klientky. Miriam tyká
+    na webe, v e-mailoch aj na Instagrame. Vykanie by v jej reklame znelo cudzo.</p>
+  </div>
+</section>
+
+<!-- ===================== SKRIPTY ===================== -->
+<section id="skripty">
+  <p class="mark">Skripty</p>
+  <h2>Dve verzie, každá sa točí celá nanovo</h2>
+  <p class="sub">Nie jedno telo s dvoma úvodmi. Iné prostredie, iné oblečenie, iný dôraz,
+    iné vety. Ak by si ich položil vedľa seba, divák musí na prvý pohľad vidieť rozdiel.</p>
+
+  <div class="note">
+    <span class="lbl">Kostra, ktorú napĺňa každé video</span>
+    <p style="font-family:var(--mono);font-size:.79rem;line-height:2">
+      0-3 s hook · 3-11 s problém · 11-21 s diagnóza · 21-31 s dôkaz · 31-41 s ponuka · 41-45 s CTA
+    </p>
+    <p style="margin-top:.7rem"><strong>Dôkaz robíme konkrétnou chybou, nie číslom.</strong>
+    Chyba, v ktorej sa diváčka spozná („aj ja mám svetlo uprostred stropu"), dokazuje
+    odbornosť lepšie než akékoľvek číslo a nedá sa spochybniť.</p>
+  </div>
+
+  <div class="note warn">
+    <span class="lbl">Tri veci, ktoré platia pre všetkých desať videí</span>
+    <p><strong>Cena musí zaznieť vždy</strong>, aj to, že sa odpočíta z projektu.
+    Ak ju video zamlčí a cena padne až na stránke, žena sa cíti nachytaná a odíde.</p>
+    <p><strong>Slovo „zadarmo" o stretnutí nesmie zaznieť nikdy.</strong> V staršom
+    natočenom videu to podľa auditu zaznelo a bije sa to s platenou diagnostikou.</p>
+    <p><strong>Diagnóza sa nesmie zmeniť na obviňovanie.</strong> Vždy „nie je to tvoja
+    chyba, len ti to nikto nepovedal". Meta navyše zakazuje oslovovať človeka jeho
+    domnelou vlastnosťou, a kto sa cíti obvinený, aj tak neklikne.</p>
+  </div>
+
+  <div class="script">
+    <div class="script-head">
+      <h3>Verzia A · „Najdrahšia vec býva tá, ktorá najviac prekáža"</h3>
+      <div class="chips"><span class="chip">Obývačka, ktorá nefunguje</span><span class="chip">Sveter</span><span class="chip">Dôraz: stratené peniaze</span><span class="chip">45 s</span></div>
+    </div>
+    <div class="beat"><div class="t">0-3 s<b>Hook</b></div><div><q>Najdrahšia vec v tejto izbe je zároveň tá, ktorá jej najviac ubližuje.</q></div></div>
+    <div class="beat"><div class="t">3-11 s<b>Problém</b></div><div><q>Sedačka. Kvalitná, krásna, a o dvadsať centimetrov väčšia, než mala byť. Odvtedy sa okolo nej chodí bokom a izba pôsobí o polovicu menšia, než je.</q></div></div>
+    <div class="beat"><div class="t">11-21 s<b>Diagnóza</b></div><div><q>A pritom to nie je o vkuse. Kupovala dobre. Len kupovala v zlom poradí. Najprv sa rieši dispozícia, potom svetlo a až nakoniec nábytok. Skoro všetci to robia presne naopak.</q></div></div>
+    <div class="beat"><div class="t">21-31 s<b>Dôkaz</b></div><div><q>Preto v skoro každom byte vidím to isté. Svetlo uprostred stropu namiesto nad stolom. Skriňa, do ktorej sa nezmestí ani polovica vecí. Pekné kusy, ktoré spolu nesedia, lebo každý sa kupoval inokedy.</q></div></div>
+    <div class="beat"><div class="t">31-41 s<b>Ponuka</b></div><div><q>Preto chodím ženám domov na deväťdesiat minút. Prejdeme priestor a odídeš s plánom, čo riešiť prvé a čo prestať kupovať. Stojí to dvestoštyridsaťdeväť eur a ak potom robíme projekt, odpočítam ti ich celé.</q></div></div>
+    <div class="beat"><div class="t">41-45 s<b>CTA</b></div><div><q>Odkaz máš pod videom. Mesačne stihnem deväť.</q></div></div>
+  </div>
+
+  <div class="script">
+    <div class="script-head">
+      <h3>Verzia B · „Nie je to tvoja chyba"</h3>
+      <div class="chips"><span class="chip">Ateliér, pri pôdorysoch</span><span class="chip">Košeľa</span><span class="chip">Dôraz: úľava</span><span class="chip">42 s</span></div>
+    </div>
+    <div class="beat"><div class="t">0-3 s<b>Hook</b></div><div><q>Ak sa vo vlastnom byte necítiš doma, nie je to tvoja chyba.</q></div></div>
+    <div class="beat"><div class="t">3-11 s<b>Problém</b></div><div><q>Počujem to od žien stále. Investovala do bývania, má pekné veci, a aj tak sa každý večer vracia do priestoru, ktorý ju unavuje. A myslí si, že problém je v nej.</q></div></div>
+    <div class="beat"><div class="t">11-21 s<b>Diagnóza</b></div><div><q>Nie je. Problém je, že jej to nikto nikdy nevysvetlil. Priestor sa neskladá z pekných vecí. Skladá sa z toho, ako sa v ňom naozaj žije. To sa dá pomenovať za jedno popoludnie.</q></div></div>
+    <div class="beat"><div class="t">21-31 s<b>Dôkaz</b></div><div><q>Preto sa dá zariadiť byt za desaťtisíc eur a stále v ňom nefunguje ani jedna miestnosť. A preto sa dá spraviť obrovský rozdiel presunutím troch vecí, ktoré tam už dávno máš.</q></div></div>
+    <div class="beat"><div class="t">31-39 s<b>Ponuka</b></div><div><q>Deväťdesiat minút u teba doma. Poviem ti, kde je skutočný problém a čo riešiť prvé. Dvestoštyridsaťdeväť eur, ktoré ti z projektu odpočítam.</q></div></div>
+    <div class="beat"><div class="t">39-42 s<b>CTA</b></div><div><q>A ak neodídeš s jasnom, peniaze ti vrátim. Odkaz máš pod videom.</q></div></div>
+  </div>
+
+  <div class="note good">
+    <span class="lbl">Prečo sú tie dve verzie naozaj iné</span>
+    <p>A je natočená v priestore, ukazuje konkrétnu vec a tlačí na peniaze, ktoré sa už
+    nedajú vrátiť. B je natočená pri stole, hovorí k pocitu a tlačí na úľavu.
+    Presne takto sa robí zvyšných osem.</p>
+  </div>
+</section>
+
+<!-- ===================== HOOKY ===================== -->
+<section id="hooky">
+  <p class="mark">Hooky</p>
+  <h2>Osem prvých viet naprieč typmi</h2>
+  <p class="sub">Prvé tri sekundy číta niekoľkonásobne viac ľudí než telo. Preto sú hooky
+    naprieč typmi, nie osemkrát to isté. Ku každému sa píše vlastná verzia tela.</p>
+
+  <div class="tw">
+    <table class="hooks">
+      <thead><tr><th class="mono">#</th><th>Typ</th><th>Znenie</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>otázka na bolesť</td><td>„Máš doma pekné veci a aj tak sa tam necítiš dobre? Poviem ti, prečo to tak je."</td></tr>
+        <tr><td>2</td><td>oslovenie lokality</td><td>„Trnava a okolie, ak máš pocit, že tvoj byt nefunguje, toto si pozri."</td></tr>
+        <tr><td>3</td><td>oslovenie cieľovky</td><td>„Toto je pre teba, ak si už raz zariaďovala a výsledok ti aj tak nesedí."</td></tr>
+        <tr><td>4</td><td>negatívny filter</td><td>„Ak si so svojím domovom zmierená a meniť nechceš nič, toto video preskoč."</td></tr>
+        <tr><td>5</td><td>konkrétne číslo</td><td>„Deväťdesiat minút u teba doma a vieš presne, čo zmeniť ako prvé."</td></tr>
+        <tr><td>6</td><td>ponuka rovno</td><td>„Za dvestoštyridsaťdeväť eur k tebe prídem domov a poviem ti pravdu o tvojom priestore."</td></tr>
+        <tr><td>7</td><td>námietka</td><td>„Bojíš sa, že ti dizajnérka nanúti svoj štýl? Ja ti ho nemám ako nanútiť. Poviem ti prečo."</td></tr>
+        <tr><td>8</td><td>osobný príbeh</td><td>„Pätnásť rokov chodím ženám domov a jednu vetu počujem stále dokola."</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note">
+    <span class="lbl">Ako sa telo mení podľa hooku</span>
+    <p><strong>Hook 4</strong> pokračuje tým, čo naozaj znamená „zmieriť sa": nie
+    spokojnosť, ale to, že si prestala všímať veci, ktoré ťa každý deň unavujú.<br />
+    <strong>Hook 6</strong> povie cenu v prvej vete a zvyšok videa ju obhajuje.<br />
+    <strong>Hook 7</strong> pokračuje jej garanciou štýlu z webu: návrh je na 100 % o nej,
+    a ak po prezentácii bude cítiť, že to nie je jej domov, prepracuje ho zdarma.<br />
+    <strong>Hook 8</strong> pokračuje tou vetou: „veď ja mám pekné veci, tak prečo to
+    nevyzerá?" a odpoveďou, prečo pekné veci samy o sebe domov nespravia.</p>
+  </div>
+</section>
+
+<!-- ===================== NATACANIE ===================== -->
+<section id="natacanie">
+  <p class="mark">Natáčanie</p>
+  <h2>Desať videí, dva natáčacie dni</h2>
+  <p class="sub">Minimum je desať. Menej znamená, že algoritmus nemá z čoho vyberať
+    a rozdiely medzi reklamami budú šum, nie signál. Dva kratšie dni sú lepšie
+    než jeden dlhý.</p>
+
+  <div class="tw">
+    <table>
+      <thead><tr><th class="mono">#</th><th>Hook</th><th>Prostredie</th><th>Oblečenie</th><th>Dôraz</th><th class="mono">Deň</th><th>Súbor</th></tr></thead>
+      <tbody>
+        <tr><td class="mono">1</td><td>1 · otázka</td><td>obývačka, ktorá nefunguje</td><td>sveter</td><td>rozpoznanie</td><td class="mono">1</td><td class="mono">01_hook-otazka.mp4</td></tr>
+        <tr><td class="mono">2</td><td>5 · číslo</td><td>tá istá obývačka, iný záber</td><td>sveter</td><td>konkrétnosť</td><td class="mono">1</td><td class="mono">02_hook-90minut.mp4</td></tr>
+        <tr><td class="mono">3</td><td>3 · cieľovka</td><td>chodba alebo predsieň</td><td>sveter</td><td>rozpoznanie</td><td class="mono">1</td><td class="mono">03_hook-cielovka.mp4</td></tr>
+        <tr><td class="mono">4</td><td>4 · filter</td><td>kuchyňa</td><td>sveter</td><td>filter</td><td class="mono">1</td><td class="mono">04_hook-filter.mp4</td></tr>
+        <tr><td class="mono">5</td><td>2 · lokalita</td><td>exteriér, Trnava</td><td>kabát</td><td>lokálnosť</td><td class="mono">1</td><td class="mono">05_hook-lokalita.mp4</td></tr>
+        <tr><td class="mono">6</td><td>8 · príbeh</td><td>ateliér, pri stole</td><td>košeľa</td><td>dôvera</td><td class="mono">2</td><td class="mono">06_hook-pribeh.mp4</td></tr>
+        <tr><td class="mono">7</td><td>6 · ponuka</td><td>ateliér, pri pôdorysoch</td><td>košeľa</td><td>hodnota</td><td class="mono">2</td><td class="mono">07_hook-ponuka.mp4</td></tr>
+        <tr><td class="mono">8</td><td>7 · námietka</td><td>ateliér, pri vzorkách</td><td>košeľa</td><td>dôvera</td><td class="mono">2</td><td class="mono">08_hook-namietka.mp4</td></tr>
+        <tr><td class="mono">9</td><td>1 inak</td><td>doma, pri káve</td><td>košeľa</td><td>úľava</td><td class="mono">2</td><td class="mono">09_hook-otazka-b.mp4</td></tr>
+        <tr><td class="mono">10</td><td>5 inak</td><td>doma</td><td>košeľa</td><td>konkrétnosť</td><td class="mono">2</td><td class="mono">10_hook-90minut-b.mp4</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="two">
+    <div>
+      <h3 style="margin-bottom:.8rem">Pravidlá natáčania</h3>
+      <div class="tw"><table>
+        <tbody>
+          <tr><th>Zvuk</th><td>Najdôležitejšie zo všetkého. V prázdnej izbe je ozvena, treba to skúsiť vopred.</td></tr>
+          <tr><th>Svetlo</th><td>Oknom do tváre. Nikdy okno za chrbtom.</td></tr>
+          <tr><th>Prvý záber</th><td>Musí sa hýbať. Statická hovoriaca hlava od nuly stráca pozornosť.</td></tr>
+          <tr><th>Ukáž to</th><td>Keď hovorí o sedačke, kamera je pri sedačke. Toto je najväčšia výhoda tohto segmentu oproti hovoriacej hlave.</td></tr>
+          <tr><th>Strih</th><td>Rezy každé 3 až 5 sekúnd.</td></tr>
+          <tr><th>Titulky</th><td>Napevno, veľké. Väčšina ľudí pozerá bez zvuku.</td></tr>
+          <tr><th>Papier</th><td>Skript sa naučí, nepredčíta. Zaváhania znejú autenticky.</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+    <div>
+      <h3 style="margin-bottom:.8rem">Čo Meta odmietne</h3>
+      <p>Text cez viac než zhruba 20 % plochy videa, hudba bez licencie, záber s tvárou
+      človeka, ktorý nedal súhlas, a <strong>oslovenie ženy jej domnelou
+      vlastnosťou</strong>. Nikdy „ty, čo nevieš zariadiť byt". Vždy cez pocit
+      alebo cieľ, presne ako to má copy.</p>
+      <div class="note warn" style="margin-top:1.2rem">
+        <span class="lbl">Súhlas majiteľky bytu</span>
+        <p>Ak sa točí v byte klientky, treba <strong>písomný súhlas</strong> so zverejnením
+        záberov, aj keď na nich nie je vidieť tvár. Bez súhlasu sa točí v ateliéri.</p>
+      </div>
+      <div class="note" style="margin-top:1rem">
+        <span class="lbl">Amatérske nie je odflaknuté</span>
+        <p>Amatérske video funguje preto, že v feede vyzerá ako bežný príspevok, nie ako
+        reklama. Ale musí byť počuť, vidieť a musí mať napísaný skript.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== KAMPAN ===================== -->
+<section id="kampan">
+  <p class="mark">Kampaň</p>
+  <h2>Pevné parametre z playbooku</h2>
+  <p class="sub">Rozpočet je viazaný na garanciu, nemení sa. Cielenie sa oproti
+    zrušenému segmentu posunulo, lebo cieľovka je iná.</p>
+
+  <div class="two">
+    <div class="tw"><table>
+      <thead><tr><th>Nastavenie</th><th>Hodnota</th></tr></thead>
+      <tbody>
+        <tr><td>Cieľ</td><td>Leads</td></tr>
+        <tr><td>Denný rozpočet</td><td><strong>20 €</strong> · viazané na garanciu</td></tr>
+        <tr><td>Ad sety</td><td>1</td></tr>
+        <tr><td>Kreatívy</td><td>minimálne 10, každá celé samostatné video</td></tr>
+        <tr><td>Copy</td><td>1, identické na všetkých</td></tr>
+        <tr><td>Konverzná udalosť</td><td><strong>Lead</strong>, nie Purchase</td></tr>
+        <tr><td>Merané pre biznis</td><td>Purchase s hodnotou 249 €</td></tr>
+      </tbody>
+    </table></div>
+    <div class="tw"><table>
+      <thead><tr><th>Cielenie</th><th>Hodnota</th></tr></thead>
+      <tbody>
+        <tr><td>Lokalita</td><td>Trnava + 30 km, <strong>len „bývajú tu"</strong></td></tr>
+        <tr><td>Vek</td><td><strong>30 až 60</strong></td></tr>
+        <tr><td>Pohlavie</td><td>ženy, zhodne s copy</td></tr>
+        <tr><td>Záujmy</td><td>žiadne</td></tr>
+        <tr><td>Advantage+ publikum</td><td>zapnuté</td></tr>
+        <tr><td>Umiestnenia</td><td>Advantage+</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <div class="note warn">
+    <span class="lbl">Tri veci, ktoré sa robia zle najčastejšie</span>
+    <p><strong>Vek 30 až 60</strong>, nie 28 až 50 ako pri zrušenom segmente. Cieľovka
+    už býva, už raz zariaďovala a má na projekt rozpočet. Horná hranica sa nemá kde zavrieť.</p>
+    <p><strong>Lokalita „bývajú tu"</strong>, nie predvolené „bývajú alebo tu boli nedávno".
+    Miriam k žene fyzicky cestuje, takže turista v Trnave nie je cieľovka ani teoreticky.</p>
+    <p><strong>Pohlavie je pod Advantage+ len odporúčanie</strong>, ktoré Meta môže
+    prekročiť. Kvalifikáciu preto musí spraviť text, nie nastavenie.</p>
+  </div>
+
+  <div class="note">
+    <span class="lbl">Prečo sa neoptimalizuje na Purchase, hoci sa predáva</span>
+    <p>Je to lákavé a bola by to chyba. Meta potrebuje <strong>rádovo desiatky konverzií
+    týždenne</strong>, aby sa na nich vedela učiť. Pri 20 €/deň a ponuke za 249 € ich
+    toľko nebude. Ad set by sa nikdy nedostal z learning phase a výkon by sa rozsypal.</p>
+    <p><strong>Optimalizuje sa na Lead</strong>, teda na e-mail z dotazníka.
+    <strong>Vyhodnocuje sa na Purchase.</strong> Pixel musí páliť obe udalosti,
+    Purchase s hodnotou 249 €, aby bolo v Ads Manageri vidieť skutočnú návratnosť
+    a nie iba cenu za e-mail.</p>
+  </div>
+
+  <p class="prose"><strong>Prvých sedem dní nezasahovať.</strong> Algoritmus sa učí.
+  Potom vypnúť spodnú polovicu reklám podľa ceny za výsledok a škálovať najviac
+  o 20 až 25 % každé tri až štyri dni. <strong>Reklamy sa ale nevypínajú podľa ceny
+  za e-mail, ak už majú aspoň jednu predanú diagnostiku.</strong> Lacný e-mail,
+  z ktorého nikto nekúpi, je drahší než drahý e-mail, ktorý kúpi.</p>
+</section>
+
+<!-- ===================== BLOKERY ===================== -->
+<section id="blokery">
+  <p class="mark">Blokéry</p>
+  <h2>Čo musí byť hotové, než sa minie prvé euro</h2>
+  <p class="sub">Zelená je hotová, červená blokuje. Predošlý lievik bol postavený na inom
+    segmente, takže landing page aj dotazník sa stavajú nanovo.</p>
+
+  <div class="two">
+    <div>
+      <h3 style="margin-bottom:.6rem">Systém</h3>
+      <ul class="check">
+        <li class="done"><span class="bx"></span><div>PDF „5 najdrahších chýb" existuje a je nahostované</div></li>
+        <li class="done"><span class="bx"></span><div>Kalendár „Interiérová diagnostika" existuje, 90 min, Po až Pia 9 až 17</div></li>
+        <li class="done"><span class="bx"></span><div>Pipeline so stavmi existuje, Stripe je na sub-účte napojený</div></li>
+        <li class="block"><span class="bx"></span><div><strong>Prístupy do GHL sú preč.</strong> Kontajner sa recykloval. Bez nich workflowy neexistujú.</div></li>
+        <li class="block"><span class="bx"></span><div>Landing page a dotazník postaviť <strong>nanovo</strong> na túto bolesť</div></li>
+        <li class="block"><span class="bx"></span><div>Kvíz musí zapisovať kontakt po <strong>prvom</strong> kroku</div></li>
+        <li class="block"><span class="bx"></span><div>Stránka <code>/ponuka</code> s platobným formulárom, <code>requireCreditCard</code></div></li>
+        <li class="block"><span class="bx"></span><div>🔴 <strong>Ostrá skúšobná platba.</strong> <code>liveModeOn: false</code> vyzerá rovnako a nestrhne nič.</div></li>
+        <li class="block"><span class="bx"></span><div>Presmerovanie na kalendár po platbe, a overiť, že kalendár <strong>nie je dostupný priamym odkazom</strong></div></li>
+        <li class="block"><span class="bx"></span><div>Kalendár má <strong>zapnuté notifikácie</strong>. Podľa auditu mal nula, takže kupujúca nedostane ani potvrdenie.</div></li>
+        <li class="block"><span class="bx"></span><div>Notifikácia Miriam pri novom lede aj pri platbe</div></li>
+        <li class="block"><span class="bx"></span><div>Vetva pre tých, čo nekúpili: PDF a sekvencia na námietky</div></li>
+        <li class="block"><span class="bx"></span><div>Vlastná subdoména <code>diagnostika.miriamczompoly.sk</code>, nie <code>pages.dev</code></div></li>
+        <li class="block"><span class="bx"></span><div>Pixel, udalosť Lead aj Purchase s hodnotou 249 €</div></li>
+        <li class="block"><span class="bx"></span><div>Obchodné podmienky a reklamačný poriadok. Predáva sa služba online, nie je to voliteľné.</div></li>
+      </ul>
+    </div>
+    <div>
+      <h3 style="margin-bottom:.6rem">Čo musí potvrdiť Miriam</h3>
+      <ul class="check">
+        <li class="block"><span class="bx"></span><div><strong>9 diagnostík mesačne.</strong> Číslo ide do reklamy ako scarcity, musí byť pravdivé a musí sa dodržať.</div></li>
+        <li class="block"><span class="bx"></span><div><strong>Že sa platí pri rezervácii.</strong> Doteraz to bolo „nefakturujem", teda platba až po stretnutí. To je pre ňu skutočná zmena.</div></li>
+        <li class="block"><span class="bx"></span><div><strong>Garancia v novom znení:</strong> „povedz mi to na mieste a peniaze ti vrátim". Znamená to reálne vracať prijaté platby.</div></li>
+        <li class="block"><span class="bx"></span><div>Tri konkrétne chyby z copy ako veci, ktoré reálne vídava: sedačka o 20 cm, svetlo uprostred stropu, skriňa</div></li>
+        <li class="block"><span class="bx"></span><div>Že jazdí do celého okruhu 30 km od Trnavy a za akých podmienok</div></li>
+        <li class="block"><span class="bx"></span><div>Či smie použiť recenziu Ivety Pappovej s menom. Ak nie, sekcia so sociálnym dôkazom sa vynechá, nevymyslí.</div></li>
+        <li class="block"><span class="bx"></span><div>Natočiť desať videí, v každom zaznie cena</div></li>
+      </ul>
+
+      <div class="note warn" style="margin-top:1.4rem">
+        <span class="lbl">Najväčšie riziko celého lievika</span>
+        <p>Nie je technické. Je to <strong>platba</strong>. Studená návštevnosť
+        z Instagramu, ktorá zadáva kartu na 249 €, je najtvrdší krok v celom reťazci
+        a všetko ostatné existuje len preto, aby ho uľahčilo.</p>
+        <p>Preto musí byť <strong>stránka <code>/ponuka</code> najlepšie odpracovaná
+        stránka z celého lievika.</strong> Garancia veľká a nad tlačidlom, odpočet 249 €
+        pomenovaný ako cena, ktorú nakoniec nezaplatí, a PDF doručené okamžite.
+        Ak sa niekde oplatí stráviť deň navyše, tak tu.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="wrap">
+  <div class="rule"></div>
+  <p>Postavené podľa <code>playbook/</code> v GHLtool. Výstupy patria do repa klientky,
+  <code>reklama/</code>. Stav k 28. 8. 2026, verzia na segment „doma sa necítim doma".
+  Zrušený smer „preberanie bytu od developera" je v <code>reklama/_archiv/</code>.
+  <strong>Kampaň nespúšťať</strong>, kým nie je odškrtnuté všetko v sekcii Blokéry.</p>
+</footer>
+</main>
+
+<script>
+document.querySelectorAll('button.cp').forEach(function (b) {
+  b.addEventListener('click', function () {
+    var el = document.getElementById(b.dataset.t);
+    navigator.clipboard.writeText(el.innerText).then(function () {
+      var old = b.textContent;
+      b.textContent = 'Skopírované';
+      b.classList.add('done');
+      setTimeout(function () { b.textContent = old; b.classList.remove('done'); }, 1800);
+    });
+  });
+});
+
+var links = [].slice.call(document.querySelectorAll('nav.toc a'));
+var obs = new IntersectionObserver(function (entries) {
+  entries.forEach(function (e) {
+    if (!e.isIntersecting) return;
+    links.forEach(function (l) { l.classList.toggle('on', l.getAttribute('href') === '#' + e.target.id); });
+  });
+}, { rootMargin: '-15% 0px -70% 0px' });
+document.querySelectorAll('main section').forEach(function (s) { obs.observe(s); });
+</script>

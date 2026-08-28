@@ -1,7 +1,8 @@
-# Lievik: preberáš byt a chceš to spraviť raz a poriadne
+# Lievik: interiérová diagnostika za 249 €
 
-Postavené podľa `playbook/04_funnel/`. **Reklama predáva interiérovú diagnostiku za 249 €,
-nie niečo zadarmo.** Prečo práve tak, je v [`README.md`](README.md).
+Postavené podľa `playbook/04_funnel/`. **Reklama predáva 90-minútovú diagnostiku
+u klientky doma. Zadarmo je iba PDF a odpočet z projektu.** Prečo práve tak,
+je v [`README.md`](README.md).
 
 ---
 
@@ -9,26 +10,26 @@ nie niečo zadarmo.** Prečo práve tak, je v [`README.md`](README.md).
 
 ```
 Meta reklama (10+ videí, 1 copy, 20 €/deň)
-        │             sľubuje diagnostiku 249 €, checklist ako bonus, odpočet z projektu
+        │             sľubuje diagnostiku 249 €, PDF zadarmo, odpočet z projektu
         ▼
 /                     LANDING PAGE
         │             žiadne menu, cena uvedená, všetky CTA vedú na /dotaznik
         ▼
 /dotaznik             KVÍZ, tri obrazovky, jedna otázka na obrazovku
-        │             1 z 3  e-mail       -> kontakt do GHL HNEĎ, tag kviz-zacal
-        │             2 z 3  kedy preberá -> tag preberam-*
-        │             3 z 3  podklady     -> tag podklady-*
+        │             1 z 3  e-mail    -> kontakt do GHL HNEĎ, tag kviz-zacal
+        │             2 z 3  čo riešiš -> tag riesi-*
+        │             3 z 3  kedy      -> tag kedy-*
         ▼
 /ponuka               PONUKA A PLATBA
-        │             celý stack, cena, garancia, odpočet
-        │             formulár s platobným prvkom: meno, telefón, adresa bytu, karta
+        │             celý stack, cena, garancia, odpočet, 9 miest
+        │             formulár s platobným prvkom: meno, telefón, adresa, karta
         │
         ├── zaplatila ──► KALENDÁR „Interiérová diagnostika", 90 min
         │                 tag diagnostika-zaplatena, pipeline 3
-        │                 checklist na e-mail HNEĎ
+        │                 PDF a príprava na stretnutie e-mailom HNEĎ
         │
         └── nezaplatila ─► tag nekupila-ponuku, pipeline 1
-                           o 24 h checklist tak či tak, potom sekvencia na námietky
+                           PDF tak či tak, potom sekvencia na námietky
 ```
 
 **Každý krok má jediný cieľ: dostať sa do ďalšieho kroku.**
@@ -38,13 +39,14 @@ Meta reklama (10+ videí, 1 copy, 20 €/deň)
 
 ## Prečo štyri samostatné stránky
 
-Na landing page sa dá odskrolovať a odísť. Na stránke s kvízom nie je nič iné, takže kto
-naň klikne, má presne jednu vec, ktorú môže spraviť. **Stránka s ponukou je nová**, lebo
-lievik teraz niečo predáva a predaj potrebuje vlastnú stránku, nie odsek v päte.
+Na landing page sa dá odskrolovať a odísť. Na stránke s kvízom nie je nič iné, takže
+kto naň klikne, má presne jednu vec, ktorú môže spraviť. Stránka s ponukou je samostatná,
+lebo lievik niečo predáva a predaj potrebuje vlastnú stránku, nie odsek v päte.
 
-⚠️ **Súčasný stav sa od toho líši.** Živá stránka `miriam-checklist.pages.dev` má formulár
-priamo v hero sekcii, teda je to jedna stránka. Stránka s ponukou neexistuje vôbec.
-**Pred spustením reklamy to treba dostavať.**
+🔴 **Nič z toho zatiaľ neexistuje.** Predchádzajúci lievik bol postavený na inom segmente
+(preberanie bytu od developera) a ten smer sme zrušili. Landing page aj dotazník sa
+stavajú nanovo, na túto bolesť. Použiteľné ostáva: PDF „5 najdrahších chýb", kalendár
+„Interiérová diagnostika" a pipeline v GHL.
 
 ---
 
@@ -53,32 +55,33 @@ priamo v hero sekcii, teda je to jedna stránka. Stránka s ponukou neexistuje v
 ### Poradie sekcií
 
 Prevzaté z `playbook/04_funnel/STRUKTURA_LANDING_PAGE.md`, sociálny dôkaz ide **pred**
-„o mne", lebo človek prichádza z reklamy nedôverčivý.
+„o mne", lebo žena prichádza z reklamy nedôverčivá.
 
 | # | Sekcia | Čo tam je |
 |---|---|---|
-| 0 | **Hero** | „Kým podpíšeš preberací protokol" + čo je diagnostika + **cena** + prvé CTA |
-| 1 | **Sociálny dôkaz** | ⚠️ len ak má reálne recenzie. Inak sekciu vynechať, nie vymyslieť. |
-| 2 | **Prečo to riešiť teraz** | uzávierka klientských zmien, tri konkrétne príklady |
-| 3 | **Kto som** | tvár za tým, od roku 2010, chodí do bytu pred preberaním |
-| 4 | **Námietka: „to mi povie developer"** | povie, ale až keď sa spýtaš, a niektoré veci už nepovie vôbec |
-| 5 | **Námietka: „prečo je to platené"** | jej vlastná odpoveď z webu: aby si dostala hodnotu, nie predajný hovor, a suma sa odpočíta z projektu |
-| 6 | **Čo dostaneš za 249 €** | celý stack po položkách |
-| 7 | **CTA** | „Chcem termín" |
+| 0 | **Hero** | „Máš pekné veci, no domov to stále nie je" + čo je diagnostika + **cena** + prvé CTA |
+| 1 | **Poznáš to?** | štyri vety bolesti, doslovne z jej webu, aby sa spoznala |
+| 2 | **Sociálny dôkaz** | ⚠️ len so súhlasom. Iveta Pappová: „Cítila som sa ako u psychologičky pre priestor." |
+| 3 | **Kto som** | tvár za tým, od roku 2010, 15+ rokov, ženám v Trnave a okolí |
+| 4 | **Námietka: „prečo je to platené"** | jej vlastná odpoveď z FAQ: aby si dostala hodnotu, nie predajný hovor, a suma sa odpočíta |
+| 5 | **Námietka: „nanútite mi svoj štýl"** | jej garancia štýlu: návrh je na 100 % o tebe, inak prepracujem zdarma |
+| 6 | **Čo dostaneš za 249 €** | celý stack po položkách + PDF ako bonus |
+| 7 | **Kapacita** | 9 diagnostík mesačne, koľko je voľných |
+| 8 | **CTA** | „Chcem termín" |
 
 ### Pravidlá
 
 - 🔴 **Žiadne menu, žiadny odkaz na hlavný web, žiadne sociálne siete.**
 - Všetky tlačidlá vedú na `/dotaznik`. Text sa môže líšiť, cieľ nie.
 - 🔴 **Cena musí byť nad záhybom.** Kto ju uvidí až pri platbe, cíti sa nachytaný a odíde.
-- Nad záhybom musí byť vidieť to, čo sľúbila reklama: diagnostika, 90 minút, u teba doma.
+- Nad záhybom musí byť to, čo sľúbila reklama: 90 minút, u teba doma, plán priorít.
 
 ### Meta description
 
 Hovorí o probléme, nie o firme:
 
-> Väčšina vecí, ktoré ťa v novom byte budú štvať, sa rozhoduje mesiace pred preberaním.
-> Deväťdesiat minút v byte a vieš, čo si od developera vypýtať.
+> Investovala si do bývania a doma sa aj tak necítiš doma. Deväťdesiat minút
+> a vieš, kde je skutočný problém a čo riešiť ako prvé.
 
 ---
 
@@ -87,37 +90,38 @@ Hovorí o probléme, nie o firme:
 ```
 Otázka 1 z 3
   „Než ti ukážem termíny, tri otázky."
-  „Chodím na miesto osobne, tak si najprv overím, či ti viem pomôcť."
+  „Chodím k ženám osobne, tak si najprv overím, či ti viem pomôcť."
   -> pole: e-mail
   -> 🔴 kontakt sa zapíše do GHL HNEĎ po tomto kroku
 
 Otázka 2 z 3
-  „Kedy preberáš byt?"
-  -> Do 3 mesiacov · Do roka · Ešte neviem · Už v ňom bývam
+  „Čo doma riešiš?"
+  -> Jednu miestnosť · Celý byt alebo dom · Už som zariaďovala a nesedí to · Neviem, kde začať
 
 Otázka 3 z 3
-  „Máš už od developera podklady?"
-  -> Mám všetko · Niečo mám · Nemám nič · Neviem, čo mám mať
+  „Kedy to chceš riešiť?"
+  -> Čo najskôr · Do pol roka · Zatiaľ len zisťujem
 ```
 
 ### Prečo tieto tri otázky
 
 **E-mail prvý, a rámovaný ako kvalifikácia, nie ako zber kontaktov.** Lead je zachytený
-hneď, ešte než vôbec padne cena. Rámovanie „overím si, či ti viem pomôcť" je pravdivé,
-lebo Miriam naozaj jazdí na miesto, a zároveň dvíha jej status. Presne to robí eRevenue
+hneď, ešte než padne cena. Rámovanie „overím si, či ti viem pomôcť" je pravdivé, lebo
+Miriam naozaj cestuje na miesto, a zároveň dvíha jej status. Presne to robí eRevenue
 svojím „Hľadám majiteľov, ktorí…".
 
-**Otázka 2 je segmentácia.** Kto preberá do 3 mesiacov, uvidí ponuku s najväčším dôrazom
-na uzávierku. Ostatní bez tlaku.
+**Otázka 2 predáva za nás.** Kto klikne „už som zariaďovala a nesedí to" alebo „neviem,
+kde začať", si v tej sekunde pomenuje problém vlastnými prstami. Ďalšia obrazovka
+je ponuka.
 
-**Otázka 3 predáva za nás.** Kto klikne „neviem, čo mám mať", si v tej sekunde uvedomí,
-že problém má. Ďalšia obrazovka je ponuka.
+**Otázka 3 riadi dôraz na stránke s ponukou aj naliehavosť v sekvencii.**
+„Čo najskôr" dostane kapacitu vpredu, „zatiaľ zisťujem" dostane najprv PDF a čas.
 
 ### 🔴 Odchýlka od playbooku: telefón až pri platbe
 
-Playbook má telefón v treťom kroku kvízu. **Miriam výslovne povedala iba e-mail**, tak je
-v kvíze iba e-mail. Pri platbe sa telefón aj adresa pýtať musia, lebo ide o osobnú návštevu
-a termín treba potvrdiť. V objednávkovom formulári ich človek dá rád, lebo už niečo kupuje.
+Playbook má telefón v treťom kroku kvízu. **Miriam výslovne povedala iba e-mail**, tak
+je v kvíze iba e-mail. Pri platbe sa telefón aj adresa pýtať musia, lebo ide o osobnú
+návštevu. V objednávkovom formulári ich žena dá rada, lebo už niečo kupuje.
 
 Dôsledok pre tých, čo nekúpia: follow-up ide len e-mailom, žiadna SMS.
 
@@ -139,12 +143,13 @@ v reťazci a všetko ostatné existuje preto, aby ho uľahčilo.
 
 | Prvok | Prečo |
 |---|---|
-| **Celý stack po položkách** | 90 minút na mieste, analýza dispozície, plán priorít, zoznam „čo prestať kupovať", zoznam zmien pre developera |
-| **Cena 249 €** a hneď pod ňou **odpočet z projektu** | Kto pokračuje, zaplatí za diagnostiku nakoniec nula. |
-| **Bonus: checklist hneď po rezervácii** | Hodnota v ten istý deň, nečaká na termín. |
+| **Celý stack po položkách** | 90 minút u nej doma, analýza priestoru a potrieb, akčný plán priorít, „čo prestať kupovať" |
+| **Bonus: PDF „5 najdrahších chýb"** | dostane ho hneď, nečaká na termín |
+| **Cena 249 €** a hneď pod ňou **odpočet z projektu** | kto pokračuje, zaplatí za diagnostiku nakoniec nula |
 | **Garancia, veľká a nad tlačidlom** | „Ak neodídeš s jasnom, povedz mi to na mieste a peniaze ti vrátim." |
-| **Kotva hodnoty** | Jej vlastná veta z webu: jedna zle kúpená sedačka stojí stovky až tisíce eur. |
-| **Formulár s platobným prvkom** | meno, telefón, **adresa bytu**, karta |
+| **Kotva hodnoty** | jej vlastná veta z webu: jedna zle umiestnená stena alebo zle kúpená sedačka stojí stovky až tisíce eur |
+| **Kapacita: 9 miest mesačne** | pravdivá scarcity, musí sa strážiť |
+| **Formulár s platobným prvkom** | meno, telefón, **adresa**, karta |
 
 ### Technicky, overená cesta
 
@@ -179,9 +184,9 @@ ani potvrdenie, ani pripomienku. Pri platenej službe je to neprijateľné.
 kvíz     -> Cloudflare Pages Function -> POST /contacts/upsert -> kontakt + tagy
 platba   -> GHL formulár s platobným prvkom -> tag diagnostika-zaplatena
                                           │
-              tag checklist-developer  -> WF-A: checklist a nurture
-              tag diagnostika-zaplatena -> WF-B: potvrdenie, checklist HNEĎ, príprava na stretnutie
-              tag nekupila-ponuku       -> WF-C: o 24 h checklist, potom námietky
+              tag diagnostika-lead      -> WF-A: PDF a nurture
+              tag diagnostika-zaplatena -> WF-B: potvrdenie, PDF HNEĎ, príprava na stretnutie
+              tag nekupila-ponuku       -> WF-C: PDF, potom námietky
 ```
 
 ### Tagy
@@ -189,36 +194,43 @@ platba   -> GHL formulár s platobným prvkom -> tag diagnostika-zaplatena
 | Tag | Kedy |
 |---|---|
 | `kviz-zacal` | po prvom kroku, kým sa kvíz nedokončí |
-| `checklist-developer` | dokončený dotazník |
-| `preberam-do-3m` · `preberam-do-roka` · `preberam-neviem` · `uz-byvam` | otázka 2 |
-| `podklady-mam` · `podklady-ciastocne` · `podklady-nemam` · `podklady-neviem` | otázka 3 |
-| 🔴 `diagnostika-zaplatena` | nový, po úspešnej platbe |
-| 🔴 `nekupila-ponuku` | nový, videla ponuku a nezaplatila |
+| `diagnostika-lead` | dokončený dotazník |
+| `riesi-miestnost` · `riesi-cely-byt` · `uz-zariadovala` · `neviem-zacat` | otázka 2 |
+| `kedy-teraz` · `kedy-polrok` · `kedy-zistujem` | otázka 3 |
+| `diagnostika-zaplatena` | po úspešnej platbe |
+| `nekupila-ponuku` | videla ponuku a nezaplatila |
+
+⚠️ Staré tagy `checklist-developer`, `preberam-*` a `podklady-*` patrili k zrušenému
+segmentu. **Nemazať** (house rule), ale nepoužívať a v žiadnom novom workflowe na ne
+nespúšťať.
 
 ### Pipeline
 
 Stavy už existujú, netreba nové:
 `1 Lead → 2 Diagnostika rezervovaná → 3 Diagnostika zaplatená → 4 Diagnostika absolvovaná → 5 Ponuka projektu poslaná → 6 Projekt vyhraný`
 
-⚠️ Keďže sa teraz platí **pred** rezerváciou, kupujúca ide rovno do stavu **3**.
+⚠️ Keďže sa platí **pred** rezerváciou, kupujúca ide rovno do stavu **3**.
 Stav 2 ostáva pre kontakty, ktoré prídu inou cestou (napríklad z jej hlavného webu).
 
 ### Minimum, ktoré musí byť napojené
 
 | # | Vec | Stav |
 |---|---|---|
-| 1 | kvíz zapisuje kontakt po **prvom** kroku | 🔨 treba dorobiť, teraz sa zapisuje až na konci |
-| 2 | stránka `/ponuka` s platobným formulárom | 🔴 neexistuje |
-| 3 | presmerovanie na kalendár po platbe | 🔴 |
-| 4 | okamžitý e-mail s checklistom pre kupujúcu | 🔴 workflow čaká na prístupy |
-| 5 | **notifikácia Miriam pri novom lede aj pri platbe** | 🔴 chýba |
-| 6 | kalendár „Interiérová diagnostika" | ✅ existuje, 🔴 ale bez notifikácií |
-| 7 | pripomienky pred termínom | ✅ existujú (WF3) |
-| 8 | vetva pre tých, čo nekúpili | 🔴 |
-| 9 | pipeline so stavmi | ✅ existuje |
+| 1 | landing page a dotazník na novú bolesť | 🔴 stavia sa nanovo |
+| 2 | kvíz zapisuje kontakt po **prvom** kroku | 🔴 |
+| 3 | stránka `/ponuka` s platobným formulárom | 🔴 |
+| 4 | presmerovanie na kalendár po platbe | 🔴 |
+| 5 | okamžitý e-mail s PDF pre kupujúcu | 🔴 workflow čaká na prístupy do GHL |
+| 6 | **notifikácia Miriam pri novom lede aj pri platbe** | 🔴 |
+| 7 | kalendár „Interiérová diagnostika" | ✅ existuje, 🔴 ale bez notifikácií |
+| 8 | pripomienky pred termínom | ✅ existujú (WF3) |
+| 9 | vetva pre tých, čo nekúpili | 🔴 |
+| 10 | PDF „5 najdrahších chýb" | ✅ existuje a je nahostované |
+| 11 | pipeline so stavmi | ✅ existuje |
 
-⚠️ **Nedokončené kvízy sú tiež leady.** Kto dá e-mail a odpadne pri druhej otázke, má tag
-`kviz-zacal` a musí ho chytiť samostatná sekvencia. Inak je to zaplatený a zahodený lead.
+⚠️ **Nedokončené kvízy sú tiež leady.** Kto dá e-mail a odpadne pri druhej otázke, má
+tag `kviz-zacal` a musí ho chytiť samostatná sekvencia. Inak je to zaplatený
+a zahodený lead.
 
 ---
 
@@ -226,14 +238,14 @@ Stav 2 ostáva pre kontakty, ktoré prídu inou cestou (napríklad z jej hlavné
 
 | | |
 |---|---|
-| Teraz | `miriam-checklist.pages.dev` |
-| **Pred spustením reklamy** | **`checklist.miriamczompoly.sk`** |
+| Zrušené | `miriam-checklist.pages.dev`, patrilo k segmentu preberania bytu |
+| **Nové** | **`diagnostika.miriamczompoly.sk`** |
 
 🔴 **Reklama nesmie viesť na `pages.dev`.** Znižuje to dôveru, a keď sa na tej stránke
 zadáva platobná karta, je to dvojnásobne dôležité.
 
-Po prepnutí prejsť všetky miesta, kde je adresa zadrátovaná: custom values v GHL, odkaz
-na PDF v e-mailovej šablóne, `link_url` a doména konverzie v reklamách.
+⚠️ Jej hlavný web má už stránku `miriamczompoly.sk/diagnostika`. Lievik je **niečo iné**:
+bez menu, bez únikov, s jedným CTA. Tie dve stránky sa nesmú zameniť ani prelinkovať.
 
 ---
 
@@ -249,7 +261,7 @@ Pevné parametre z playbooku, nemeniť:
 | Kreatívy | **minimálne 10**, každá celé samostatné video |
 | Copy | **1**, identické na všetkých reklamách |
 | Lokalita | Trnava + 30 km, **len „bývajú tu"** |
-| Vek | 28 až 50 |
+| Vek | **30 až 60** |
 | Pohlavie | ženy, zhodne s copy (⚠️ pod Advantage+ to Meta môže prekročiť, kvalifikuje text) |
 | Záujmy | žiadne |
 | Advantage+ publikum | zapnuté |
@@ -257,7 +269,14 @@ Pevné parametre z playbooku, nemeniť:
 | **Konverzná udalosť** | **Lead**, nie Purchase |
 | **Merané pre biznis** | Purchase s hodnotou 249 €, ale neoptimalizuje sa naň |
 | UTM | `utm_source=facebook&utm_medium=cpc&utm_campaign=diagnostika&utm_content={{ad.name}}` |
-| Názvy reklám | `01_hook-otazka`, `02_hook-lokalita`, … nech vieš, ktorý hook vyhral |
+| Názvy reklám | `01_hook-otazka`, `02_hook-90minut`, … nech vieš, ktorý hook vyhral |
+
+**Vek 30 až 60**, nie 28 až 50 ako pri predošlom segmente. Cieľovka už býva, už raz
+zariaďovala a má na projekt rozpočet. To sú skôr tridsiatničky a štyridsiatničky
+s vlastným bývaním, a horná hranica sa nemá kde zavrieť.
+
+**Lokalita „bývajú tu"**, nie predvolené „bývajú alebo tu boli nedávno". Miriam
+k žene fyzicky cestuje, takže turista v Trnave nie je cieľovka ani teoreticky.
 
 ### 🔴 Prečo sa neoptimalizuje na Purchase, hoci sa predáva
 
@@ -274,7 +293,7 @@ diagnostiku.** Lacný e-mail, z ktorého nikto nekúpi, je drahší než drahý 
 ### Checklist pred zapnutím
 
 ```
-✓ landing page rozdelená na štyri stránky
+✓ landing page a dotazník postavené na novú bolesť
 ✓ kvíz zapisuje kontakt po prvom kroku
 ✓ stránka /ponuka s platobným formulárom, requireCreditCard
 ✓ ostrá skúšobná platba prešla, liveModeOn overené
@@ -287,8 +306,8 @@ diagnostiku.** Lacný e-mail, z ktorého nikto nekúpi, je drahší než drahý 
 ✓ pixel nasadený, udalosti Lead aj Purchase, overené v Events Manageri
 ✓ cookie consent, ochrana osobných údajov, obchodné podmienky a reklamačný poriadok
 ✓ 10+ videí nahratých, v každom zaznie cena
-✓ všetky tvrdenia v copy potvrdené Miriam
-✓ Miriam potvrdila platbu vopred a garanciu vrátenia peňazí
+✓ Miriam potvrdila 9 miest mesačne a vie ich ustrážiť
+✓ Miriam potvrdila platbu pri rezervácii a garanciu vrátenia peňazí
 ```
 
 ⚠️ **Obchodné podmienky pribudli.** Predáva sa služba online, takže spotrebiteľské
