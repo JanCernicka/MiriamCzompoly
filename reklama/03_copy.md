@@ -1,3 +1,6 @@
+> ⚠️ **Ponuka sa zmenila.** Pôvodná verzia ponúkala iba checklist v PDF. Prečo to nestačí
+> a čo je namiesto toho, je v [`lievik.html`](lievik.html), sekcia 01.
+
 # Copy do reklamy
 
 **Jedno copy na celú kampaň.** Rovnaký text ide na všetkých 10+ reklám. Testuje sa
@@ -15,7 +18,7 @@ Trnava a okolie, kúpila si byt v novostavbe a preberáš ho v najbližšom roku
 Hľadám ženy, ktoré:
 ✅ chcú byt, ktorý funguje, nie iba vyzerá
 ✅ sú ochotné spýtať sa developera skôr, než niečo podpíšu
-✅ radšej strávia hodinu nad výkresmi teraz, než mesiace opravami potom
+✅ radšej strávia dvadsať minút nad výkresmi teraz, než mesiace opravami potom
 
 Si to ty? 🤝 Čítaj ďalej...
 
@@ -25,13 +28,15 @@ Okno začína o dvadsať centimetrov nižšie, než si predstavovala, a komoda p
 
 Predstav si, že prídeš na preberacie konanie s vlastným zoznamom v ruke, vieš presne, na čo sa pýtať, a nič ťa neprekvapí. 😉
 
-A to najlepšie? Spísala som to celé do checklistu. Dokumentácia, elektrika, strop, podlahy, dvere, kúpeľňa, okná aj samotné preberacie konanie. Rozdelené podľa toho, kedy sa ktorá vec musí riešiť. Zadarmo. ✅
+A to najlepšie? Pozriem sa ti na podklady od developera. Dvadsať minút online, zadarmo. Povieme si, čo ti v nich chýba a čo si máš vypýtať, kým je ešte čas. ✅
 
-Klikni na odkaz a pošlem ti ho na e-mail: [URL]
+A checklist so všetkým, na čo sa pýtať, ti pošlem na e-mail tak či tak.
+
+Klikni na odkaz a vyber si termín: [URL]
 
 ⚠️ Ak preberáš do troch mesiacov, neodkladaj to. Rozhoduje uzávierka klientských zmien, teda termín, po ktorom developer prestane prijímať zmeny. Býva mesiace pred odovzdaním a väčšina ľudí sa o ňom dozvie, keď už prešiel.
 
-PS. Ak už v byte rok bývaš, checklist ti veľa nedá. Je pre tie, ktoré majú preberanie ešte pred sebou.
+PS. Ak už v byte rok bývaš, kontrola podkladov ti veľa nedá. Je pre tie, ktoré majú preberanie ešte pred sebou.
 ```
 
 **Dĺžka:** cca 1 750 znakov, v odporúčanom rozsahu 1 200 až 2 000.
@@ -42,9 +47,9 @@ PS. Ak už v byte rok bývaš, checklist ti veľa nedá. Je pre tie, ktoré maj�
 
 | Pole | Hodnota |
 |---|---|
-| **Headline** | `Checklist pred preberaním bytu 🔑` |
-| **Popis** | `Čo si vypýtať od developera a kedy. Zadarmo.` |
-| **CTA tlačidlo** | **Získať ponuku** *(nie „Rezervovať", nič sa nerezervuje)* |
+| **Headline** | `Kontrola podkladov zadarmo 🔑` |
+| **Popis** | `20 minút online. Povieme si, čo ti v podkladoch chýba.` |
+| **CTA tlačidlo** | **Rezervovať** |
 | **Cieľová URL** | `checklist.miriamczompoly.sk` + UTM |
 
 ---
@@ -59,7 +64,7 @@ PS. Ak už v byte rok bývaš, checklist ti veľa nedá. Je pre tie, ktoré maj�
 | 5 | most | „Si to ty? 🤝 Čítaj ďalej..." | ✅ |
 | 6 | dôkaz a mechanizmus | „od roku 2010" + chodí na obhliadky pred preberaním | |
 | 7 | predstav si | príchod na preberacie konanie s vlastným zoznamom | |
-| 8 | ponuka zadarmo | checklist | |
+| 8 | ponuka zadarmo | kontrola podkladov 20 min + checklist ako bonus | |
 | 9 | CTA | „Klikni na odkaz a pošlem ti ho na e-mail" | ✅ |
 | 10 | garancia | **vynechaná zámerne**, viď nižšie | |
 | 11 | scarcity | uzávierka klientských zmien | ✅ |

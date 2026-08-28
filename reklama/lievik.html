@@ -1,0 +1,719 @@
+<title>Lievik pred preberaním</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=JetBrains+Mono:wght@400;500;700&display=swap" />
+
+<style>
+:root{
+  --paper:#F4F6F8; --surface:#FFFFFF; --surface-2:#EDF1F5;
+  --ink:#111A24; --body:#33465A; --muted:#61748A;
+  --rule:#D6DEE7; --rule-soft:#E6ECF2;
+  --accent:#2A5DA8; --accent-soft:#E7EEF9;
+  --flag:#A32821; --flag-soft:#FAEBEA;
+  --ok:#2F6B4F; --ok-soft:#E7F1EC;
+  --shadow:0 1px 2px rgba(17,26,36,.05), 0 12px 32px -18px rgba(17,26,36,.28);
+  --display:'Archivo',system-ui,sans-serif;
+  --serif:'Source Serif 4',Georgia,serif;
+  --mono:'JetBrains Mono',ui-monospace,monospace;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --paper:#0E141B; --surface:#161F29; --surface-2:#1C2733;
+    --ink:#E8EEF5; --body:#B9C6D4; --muted:#8497A9;
+    --rule:#2A3846; --rule-soft:#212D39;
+    --accent:#7FA8E0; --accent-soft:#1A2739;
+    --flag:#E8837B; --flag-soft:#2B1B1B;
+    --ok:#7FC0A0; --ok-soft:#16271F;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 14px 34px -20px rgba(0,0,0,.7);
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0E141B; --surface:#161F29; --surface-2:#1C2733;
+  --ink:#E8EEF5; --body:#B9C6D4; --muted:#8497A9;
+  --rule:#2A3846; --rule-soft:#212D39;
+  --accent:#7FA8E0; --accent-soft:#1A2739;
+  --flag:#E8837B; --flag-soft:#2B1B1B;
+  --ok:#7FC0A0; --ok-soft:#16271F;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 14px 34px -20px rgba(0,0,0,.7);
+}
+
+*,*::before,*::after{box-sizing:border-box}
+body{
+  margin:0; background:var(--paper); color:var(--body);
+  font-family:var(--serif); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,h4{font-family:var(--display); color:var(--ink); margin:0; text-wrap:balance; letter-spacing:-.015em}
+h1{font-size:clamp(2rem,1.3rem+3vw,3.1rem); font-weight:700; line-height:1.04}
+h2{font-size:clamp(1.5rem,1.15rem+1.5vw,2.05rem); font-weight:700; line-height:1.12}
+h3{font-size:1.16rem; font-weight:600; line-height:1.3}
+h4{font-size:.95rem; font-weight:600}
+p{margin:0 0 1em}
+a{color:var(--accent)}
+strong{color:var(--ink); font-weight:600}
+code{font-family:var(--mono); font-size:.86em; background:var(--surface-2); padding:.12em .38em; border-radius:3px; color:var(--ink)}
+
+/* ---- dimension rule: the page is about measuring, so dividers measure ---- */
+.dim{display:flex; align-items:center; gap:0; margin:0; height:12px}
+.dim::before,.dim::after{content:""; width:1px; height:11px; background:var(--rule); flex:0 0 auto}
+.dim i{flex:1; height:1px; background:var(--rule); display:block}
+
+.wrap{max-width:1180px; margin:0 auto; padding:0 clamp(18px,4vw,40px)}
+.lede{max-width:66ch}
+
+/* ---- header ---- */
+header.sheet{border-bottom:1px solid var(--rule); background:var(--surface)}
+.sheet-top{display:flex; flex-wrap:wrap; gap:1.5rem 2.5rem; align-items:flex-end; padding:clamp(2rem,4vw,3.4rem) 0 1.6rem}
+.sheet-top .t{flex:1 1 380px}
+.stamp{
+  font-family:var(--mono); font-size:.66rem; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--muted); display:flex; gap:.5rem; align-items:center; margin-bottom:1rem
+}
+.stamp b{color:var(--accent); font-weight:700}
+.meta-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(112px,1fr)); gap:1px; background:var(--rule); border:1px solid var(--rule); flex:0 1 420px}
+.meta-grid div{background:var(--surface); padding:.6rem .75rem}
+.meta-grid dt{font-family:var(--mono); font-size:.6rem; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); margin:0 0 .2rem}
+.meta-grid dd{margin:0; font-family:var(--display); font-size:.92rem; font-weight:600; color:var(--ink)}
+
+/* ---- nav ---- */
+nav.toc{position:sticky; top:0; z-index:20; background:var(--paper); border-bottom:1px solid var(--rule)}
+/* scroll patri na vnutorny obal, inak sa ol vytlaci von a roztiahne celu stranku */
+nav.toc .wrap{overflow-x:auto; -webkit-overflow-scrolling:touch}
+nav.toc ol{display:flex; gap:0; list-style:none; margin:0; padding:0; min-width:max-content}
+nav.toc a{
+  display:flex; gap:.5rem; align-items:baseline; padding:.7rem 1rem; text-decoration:none;
+  font-family:var(--display); font-size:.83rem; font-weight:500; color:var(--muted);
+  border-bottom:2px solid transparent; white-space:nowrap
+}
+nav.toc a span{font-family:var(--mono); font-size:.68rem; color:var(--accent)}
+nav.toc a:hover{color:var(--ink); background:var(--surface)}
+nav.toc a.on{color:var(--ink); border-bottom-color:var(--accent)}
+
+main{padding-bottom:5rem}
+section{padding:clamp(2.6rem,5vw,4.2rem) 0; border-bottom:1px solid var(--rule-soft)}
+.sec-head{display:flex; gap:1rem; align-items:baseline; margin-bottom:.6rem}
+.sec-no{font-family:var(--mono); font-size:.72rem; font-weight:700; color:var(--accent); letter-spacing:.1em; flex:0 0 auto; padding-top:.35rem}
+.sub{color:var(--muted); font-size:.97rem; max-width:64ch; margin:.5rem 0 2rem}
+
+/* ---- cards ---- */
+.cards{display:grid; gap:1rem; grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+.card{background:var(--surface); border:1px solid var(--rule); padding:1.3rem 1.4rem; box-shadow:var(--shadow)}
+.card.pick{border-color:var(--accent); border-width:2px; padding:calc(1.3rem - 1px) calc(1.4rem - 1px)}
+.card .tag{
+  font-family:var(--mono); font-size:.62rem; letter-spacing:.13em; text-transform:uppercase;
+  padding:.2rem .5rem; display:inline-block; margin-bottom:.7rem
+}
+.tag.rec{background:var(--accent-soft); color:var(--accent)}
+.tag.alt{background:var(--surface-2); color:var(--muted)}
+.tag.no{background:var(--flag-soft); color:var(--flag)}
+.card h3{margin-bottom:.45rem}
+.card p{font-size:.93rem; margin-bottom:.7rem}
+.card p:last-child{margin-bottom:0}
+.card dl{margin:.9rem 0 0; padding-top:.8rem; border-top:1px solid var(--rule-soft); font-size:.86rem; display:grid; grid-template-columns:auto 1fr; gap:.3rem .8rem}
+.card dt{font-family:var(--mono); font-size:.63rem; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); padding-top:.25rem}
+.card dd{margin:0}
+
+/* ---- callouts ---- */
+.note{border-left:3px solid var(--accent); background:var(--surface); padding:1rem 1.2rem; margin:1.6rem 0; font-size:.95rem}
+.note.warn{border-left-color:var(--flag); background:var(--flag-soft)}
+.note.good{border-left-color:var(--ok); background:var(--ok-soft)}
+.note p:last-child{margin-bottom:0}
+.note .lbl{font-family:var(--mono); font-size:.63rem; letter-spacing:.13em; text-transform:uppercase; display:block; margin-bottom:.4rem; color:var(--accent)}
+.note.warn .lbl{color:var(--flag)} .note.good .lbl{color:var(--ok)}
+
+/* ---- flow ---- */
+.flow{display:grid; gap:0; margin:1.8rem 0; border:1px solid var(--rule); background:var(--surface)}
+.step{display:grid; grid-template-columns:auto 1fr; gap:1.1rem; padding:1.1rem 1.3rem; border-bottom:1px solid var(--rule-soft)}
+.step:last-child{border-bottom:0}
+.step .n{font-family:var(--mono); font-size:.7rem; font-weight:700; color:var(--accent); padding-top:.35rem}
+.step h4{margin-bottom:.25rem}
+.step p{font-size:.9rem; margin:0; color:var(--muted)}
+.step .url{font-family:var(--mono); font-size:.76rem; color:var(--ink); background:var(--surface-2); padding:.1rem .35rem}
+
+/* ---- copy block ---- */
+.block{background:var(--surface); border:1px solid var(--rule); margin:1.4rem 0; box-shadow:var(--shadow)}
+.block-bar{display:flex; justify-content:space-between; align-items:center; gap:1rem; padding:.6rem .9rem; border-bottom:1px solid var(--rule); background:var(--surface-2)}
+.block-bar span{font-family:var(--mono); font-size:.66rem; letter-spacing:.12em; text-transform:uppercase; color:var(--muted)}
+.block pre{margin:0; padding:1.2rem 1.3rem; overflow-x:auto; font-family:var(--mono); font-size:.82rem; line-height:1.72; color:var(--ink); white-space:pre-wrap; word-break:break-word}
+button.cp{
+  font-family:var(--display); font-size:.74rem; font-weight:600; cursor:pointer;
+  background:var(--accent); color:#fff; border:0; padding:.35rem .8rem; letter-spacing:.02em
+}
+button.cp:hover{opacity:.88}
+button.cp:focus-visible{outline:2px solid var(--ink); outline-offset:2px}
+button.cp.done{background:var(--ok)}
+
+/* ---- script ---- */
+.script{background:var(--surface); border:1px solid var(--rule); padding:1.4rem; margin:1.2rem 0; box-shadow:var(--shadow)}
+.script-head{display:flex; flex-wrap:wrap; gap:.5rem 1.2rem; align-items:baseline; margin-bottom:1rem; padding-bottom:.9rem; border-bottom:1px solid var(--rule-soft)}
+.script-head h3{flex:1 1 auto}
+.chips{display:flex; flex-wrap:wrap; gap:.35rem}
+.chip{font-family:var(--mono); font-size:.63rem; letter-spacing:.08em; text-transform:uppercase; background:var(--surface-2); color:var(--muted); padding:.22rem .5rem}
+.beat{display:grid; grid-template-columns:78px 1fr; gap:1rem; padding:.7rem 0; border-bottom:1px dashed var(--rule-soft)}
+.beat:last-child{border-bottom:0}
+.beat .t{font-family:var(--mono); font-size:.68rem; color:var(--accent); padding-top:.3rem; font-variant-numeric:tabular-nums}
+.beat .t b{display:block; color:var(--muted); font-weight:500; font-size:.6rem; letter-spacing:.1em; margin-top:.15rem}
+.beat q{font-style:normal; quotes:none}
+
+/* ---- tables ---- */
+.tw{overflow-x:auto; margin:1.4rem 0; border:1px solid var(--rule)}
+table{border-collapse:collapse; width:100%; min-width:520px; background:var(--surface); font-size:.88rem}
+th,td{text-align:left; padding:.62rem .85rem; border-bottom:1px solid var(--rule-soft); vertical-align:top}
+th{font-family:var(--display); font-size:.72rem; font-weight:600; letter-spacing:.07em; text-transform:uppercase; color:var(--muted); background:var(--surface-2); white-space:nowrap}
+tbody tr:last-child td{border-bottom:0}
+td.mono,th.mono{font-family:var(--mono); font-size:.79rem; font-variant-numeric:tabular-nums}
+.hooks td:first-child{font-family:var(--mono); color:var(--accent); font-weight:700; width:2.4rem}
+
+/* ---- checklist ---- */
+ul.check{list-style:none; padding:0; margin:1.2rem 0; display:grid; gap:.5rem}
+ul.check li{display:grid; grid-template-columns:auto 1fr; gap:.7rem; font-size:.94rem; align-items:start}
+ul.check .bx{width:14px; height:14px; border:1px solid var(--rule); margin-top:.42rem; flex:0 0 auto}
+ul.check li.done .bx{background:var(--ok); border-color:var(--ok)}
+ul.check li.block .bx{background:var(--flag); border-color:var(--flag)}
+
+.two{display:grid; grid-template-columns:1fr 1fr; gap:2rem}
+.two>*{min-width:0}          /* bez toho tabulka s min-width nepusti stlpec zmensit */
+.cards>*{min-width:0}
+.tw{max-width:100%}
+@media(max-width:760px){.two{grid-template-columns:1fr}.beat{grid-template-columns:1fr;gap:.2rem}.beat .t b{display:inline;margin-left:.4rem}}
+footer{padding:2.5rem 0; color:var(--muted); font-size:.85rem}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+
+<header class="sheet">
+  <div class="wrap">
+    <div class="sheet-top">
+      <div class="t">
+        <div class="stamp"><b>Lievik</b> · Miriam Czompoly · interiérový dizajn</div>
+        <h1>Kým podpíšeš<br />preberací protokol</h1>
+        <p class="lede" style="margin-top:1rem;font-size:1.06rem">
+          Reklamný lievik na ženy, ktoré preberajú byt v novostavbe. Ponuka, tri stránky,
+          copy, dva skripty a osem hookov. Postavené podľa playbooku, s ponukou prerobenou
+          tak, aby dostala Miriam pred klientku a nie iba do jej stiahnutých súborov.
+        </p>
+      </div>
+      <dl class="meta-grid">
+        <div><dt>Segment</dt><dd>Novostavba</dd></div>
+        <div><dt>Lokalita</dt><dd>Trnava +30 km</dd></div>
+        <div><dt>Rozpočet</dt><dd>20 €/deň</dd></div>
+        <div><dt>Kreatív</dt><dd>10 minimum</dd></div>
+        <div><dt>Copy</dt><dd>1 na všetky</dd></div>
+        <div><dt>Stav</dt><dd style="color:var(--flag)">Nespúšťať</dd></div>
+      </dl>
+    </div>
+  </div>
+</header>
+
+<nav class="toc">
+  <div class="wrap">
+    <ol>
+      <li><a href="#ponuka"><span>01</span> Ponuka</a></li>
+      <li><a href="#lievik"><span>02</span> Lievik</a></li>
+      <li><a href="#copy"><span>03</span> Copy</a></li>
+      <li><a href="#skripty"><span>04</span> Skripty</a></li>
+      <li><a href="#hooky"><span>05</span> Hooky</a></li>
+      <li><a href="#natacanie"><span>06</span> Natáčanie</a></li>
+      <li><a href="#kampan"><span>07</span> Kampaň</a></li>
+      <li><a href="#blokery"><span>08</span> Blokéry</a></li>
+    </ol>
+  </div>
+</nav>
+
+<main class="wrap">
+
+<!-- 01 PONUKA -->
+<section id="ponuka">
+  <div class="sec-head"><span class="sec-no">01</span><h2>Ponuka</h2></div>
+  <p class="sub">Toto je jediné rozhodnutie, ktoré rozhoduje o všetkom ostatnom. Copy, skripty
+    aj stránka sa odvíjajú od toho, čo v reklame sľúbime.</p>
+
+  <div class="note warn">
+    <span class="lbl">Oprava predošlého návrhu</span>
+    <p>Prvá verzia ponúkala <strong>checklist v PDF a nič viac</strong>. To je slabá ponuka.
+    Playbook to hovorí priamo: ponuka má človeka <strong>fyzicky dostať pred klienta</strong>.
+    Stiahnutý súbor ho nedostane nikam. Zo štrnástich analyzovaných reklám dáva
+    trinásť niečo zadarmo, ale takmer vždy je to <em>stretnutie, obhliadka alebo prvá
+    návšteva</em>, nie dokument.</p>
+  </div>
+
+  <div class="dim"><i></i></div>
+
+  <h3 style="margin:2rem 0 .3rem">Napätie, ktoré treba vyriešiť</h3>
+  <div class="two" style="margin-top:1rem">
+    <div>
+      <p><strong>Playbook chce ponuku zadarmo.</strong> Bez nej lievik nefunguje, je to motor
+      celého systému a nízkoprahový vstup výmenou za kontakt.</p>
+    </div>
+    <div>
+      <p><strong>Miriam prestala rozdávať zadarmo.</strong> Na bezplatnej konzultácii dávala AI
+      vizualizácie a dispozičný návrh, teda presne to, za čo sa má platiť. Sama to
+      pomenovala: <em>„klientom to asi stačilo, pretože sa už neozvali na kompletný návrh."</em></p>
+    </div>
+  </div>
+
+  <div class="note good">
+    <span class="lbl">Riešenie</span>
+    <p>Kniha 1: <strong>rozdávaj poznanie problému, predávaj implementáciu.</strong>
+    Zadarmo teda ide <strong>verdikt o jej podkladoch</strong>, nie návrh. Miriam sa pozrie,
+    čo od developera má a čo jej chýba, a povie to nahlas. Nekreslí, nenavrhuje,
+    neposúva nábytok. To je platené.</p>
+  </div>
+
+  <div class="dim"><i></i></div>
+
+  <h3 style="margin:2.2rem 0 1rem">Tri ponuky, ktoré na tento segment sadnú</h3>
+  <div class="cards">
+
+    <div class="card pick">
+      <span class="tag rec">Odporúčam</span>
+      <h3>Kontrola podkladov</h3>
+      <p><strong>20 minút online, zadarmo.</strong> Pošle, čo od developera dostala. Miriam sa
+      pozrie a povie, čo v tom chýba a čo si má vypýtať, kým je čas.</p>
+      <p>K tomu dostane checklist, aby mala hodnotu aj vtedy, keď si termín nevyberie.</p>
+      <dl>
+        <dt>Vzor</dt><dd>Garuda: posturálna analýza zdarma. You Care: vstupná diagnostika zdarma.</dd>
+        <dt>Náklad</dt><dd>20 minút, žiadna kreslená práca</dd>
+        <dt>Ďalší krok</dt><dd>prejdenie celých výkresov a zoznam zmien pre developera, platené</dd>
+        <dt>Riziko</dt><dd>musí sa udržať a nezačať navrhovať</dd>
+      </dl>
+    </div>
+
+    <div class="card">
+      <span class="tag alt">Záloha</span>
+      <h3>Bonus k diagnostike</h3>
+      <p>Žiadna práca zadarmo. Diagnostika za <strong>249 €</strong> a k nej
+      <strong>prejdenie výkresov od developera v cene</strong>, inak samostatná služba.</p>
+      <p>Menej leadov, ale kvalitnejších. Nasadiť vtedy, ak kontrola podkladov prinesie
+      priveľa ľudí, ktorí len zbierajú informácie.</p>
+      <dl>
+        <dt>Vzor</dt><dd>Kaštieľ Hanus: wellness zdarma k pobytu. Planeta dinosaurů: 30 min programu navyše.</dd>
+        <dt>Náklad</dt><dd>nulový, bonus sa dodáva až po platbe</dd>
+      </dl>
+    </div>
+
+    <div class="card">
+      <span class="tag alt">Na stránku</span>
+      <h3>Odpočet z projektu</h3>
+      <p>Diagnostika 249 € a <strong>celú sumu odpočítam z projektu</strong>, ak sa pre
+      neho rozhodne. Toto už na webe má.</p>
+      <p>Nie je to ponuka do reklamy, je to <strong>odstránenie poslednej námietky</strong>
+      na stránke a na stretnutí. Zníži riziko bez toho, aby znížila cenu.</p>
+      <dl>
+        <dt>Vzor</dt><dd>Edi TV: systém zdarma, ak sa rozhodneš spolupracovať</dd>
+      </dl>
+    </div>
+  </div>
+
+  <h3 style="margin:2.4rem 0 1rem">Čo som zvažoval a zahodil</h3>
+  <div class="tw">
+    <table>
+      <thead><tr><th>Typ ponuky</th><th>Prečo sem nesadne</th></tr></thead>
+      <tbody>
+        <tr><td><strong>1+1 alebo 2+1</strong></td><td>Funguje pri službe, kam sa človek vracia: pilates, tetovanie, kozmetika. Diagnostika je jednorazová návšteva u nej doma. Druhá zadarmo nedáva zmysel a znie zúfalo.</td></tr>
+        <tr><td><strong>Zľava z ceny</strong></td><td>Kniha 1: nikdy nezľavuj, pridaj pomenovaný bonus. Zľava znižuje vnímanú hodnotu, bonus ju zvyšuje. A pri 249 € je zľava aj tak bezvýznamná.</td></tr>
+        <tr><td><strong>Konzultácia zadarmo</strong></td><td>Presne to, čo jej biznis dusilo. Rozdávala na nej hotové riešenie.</td></tr>
+        <tr><td><strong>Len checklist v PDF</strong></td><td>Nedostane ju pred klientku. Ostáva ako okamžitá odmena vnútri lievika, nie ako ponuka v reklame.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- 02 LIEVIK -->
+<section id="lievik">
+  <div class="sec-head"><span class="sec-no">02</span><h2>Lievik</h2></div>
+  <p class="sub">Tri samostatné stránky, nie jedna dlhá. Na landing page sa dá odskrolovať
+    a odísť. Na stránke s kvízom nie je nič iné, takže kto naň klikne, má presne jednu vec,
+    ktorú môže spraviť.</p>
+
+  <div class="flow">
+    <div class="step"><span class="n">00</span><div>
+      <h4>Meta reklama</h4>
+      <p>10+ videí, jedno copy, 20 €/deň. Sľubuje kontrolu podkladov zadarmo.</p></div></div>
+    <div class="step"><span class="n">01</span><div>
+      <h4>Landing page <span class="url">/</span></h4>
+      <p>Žiadne menu, žiadny odkaz na hlavný web ani na Instagram. Všetky CTA vedú na dotazník.
+      Poradie sekcií: hero, sociálny dôkaz, prečo teraz, kto som, dve námietky, čo je vnútri, CTA.</p></div></div>
+    <div class="step"><span class="n">02</span><div>
+      <h4>Dotazník <span class="url">/dotaznik</span></h4>
+      <p>Tri obrazovky, jedna otázka na obrazovku. E-mail je prvý a kontakt sa zapíše do GHL
+      hneď po ňom, nie až na konci.</p></div></div>
+    <div class="step"><span class="n">03</span><div>
+      <h4>Poďakovanie <span class="url">/dakujem</span></h4>
+      <p>Checklist ide na e-mail. Kto preberá do 3 mesiacov, dostane rovno kalendár
+      na kontrolu podkladov. Ostatní nie, tým by termín zbytočne zaťažoval.</p></div></div>
+    <div class="step"><span class="n">04</span><div>
+      <h4>GoHighLevel</h4>
+      <p>Kontakt, tagy, dva workflowy. Tag spúšťa sekvenciu, žiadne vetvenie.</p></div></div>
+  </div>
+
+  <div class="two">
+    <div>
+      <h3 style="margin-bottom:.7rem">Tri otázky v dotazníku</h3>
+      <div class="tw"><table>
+        <thead><tr><th class="mono">#</th><th>Otázka</th><th>Načo</th></tr></thead>
+        <tbody>
+          <tr><td class="mono">1</td><td>E-mail<br /><span style="color:var(--muted);font-size:.85em">„Na tento e-mail ti pošlem checklist."</span></td><td>Lead je zachytený hneď, aj keď kvíz nedokončí.</td></tr>
+          <tr><td class="mono">2</td><td>Kedy preberáš byt?<br /><span style="color:var(--muted);font-size:.85em">do 3 mesiacov · do roka · ešte neviem · už bývam</span></td><td>Segmentácia, riadi druhý workflow.</td></tr>
+          <tr><td class="mono">3</td><td>Máš už od developera podklady?<br /><span style="color:var(--muted);font-size:.85em">mám všetko · niečo · nič · neviem, čo mám mať</span></td><td>Kvalifikuje na platenú službu. Kto klikne „neviem", si v tej sekunde uvedomí, že problém má.</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+    <div>
+      <h3 style="margin-bottom:.7rem">Tagy v GHL</h3>
+      <div class="tw"><table>
+        <thead><tr><th>Tag</th><th>Kedy</th></tr></thead>
+        <tbody>
+          <tr><td class="mono">kviz-zacal</td><td>po prvom kroku</td></tr>
+          <tr><td class="mono">checklist-developer</td><td>dokončený dotazník</td></tr>
+          <tr><td class="mono">preberam-do-3m</td><td>otázka 2, spúšťa druhý workflow</td></tr>
+          <tr><td class="mono">preberam-do-roka</td><td>otázka 2</td></tr>
+          <tr><td class="mono">preberam-neviem</td><td>otázka 2</td></tr>
+          <tr><td class="mono">uz-byvam</td><td>otázka 2</td></tr>
+          <tr><td class="mono">podklady-*</td><td>otázka 3</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+  </div>
+
+  <div class="note warn">
+    <span class="lbl">Odchýlka od playbooku</span>
+    <p><strong>Telefón nezbierame.</strong> Playbook ho má v treťom kroku, Miriam výslovne
+    povedala iba e-mail. Dôsledky: follow-up ide len mailom, žiadna SMS, a v žiadnom e-maile
+    nesmie byť zlučovacie pole s menom, lebo meno tiež nezbierame. Vyrenderovalo by sa „Ahoj ,".</p>
+  </div>
+
+  <div class="note">
+    <span class="lbl">Nedokončené kvízy sú tiež leady</span>
+    <p>Kto dá e-mail a odpadne pri druhej otázke, má tag <code>kviz-zacal</code> a musí ho
+    chytiť samostatná sekvencia. Inak je to zaplatený a zahodený lead.</p>
+  </div>
+</section>
+
+<!-- 03 COPY -->
+<section id="copy">
+  <div class="sec-head"><span class="sec-no">03</span><h2>Copy</h2></div>
+  <p class="sub">Jedno copy na celú kampaň, rovnaké na všetkých desiatich reklamách.
+    Testuje sa kreatíva, nie text. Dĺžka sedí do odporúčaného rozsahu 1 200 až 2 000 znakov.</p>
+
+  <div class="block">
+    <div class="block-bar"><span>Primárny text · 1 706 znakov</span><button class="cp" data-t="ad">Kopírovať</button></div>
+    <pre id="ad">Trnava a okolie, kúpila si byt v novostavbe a preberáš ho v najbližšom roku? 🔑
+
+🛑 Toto nie je pre ľudí, ktorí sa spoliehajú, že to nejako dopadne, a potom to riešia lištou cez celý byt.
+
+Hľadám ženy, ktoré:
+✅ chcú byt, ktorý funguje, nie iba vyzerá
+✅ sú ochotné spýtať sa developera skôr, než niečo podpíšu
+✅ radšej strávia dvadsať minút nad výkresmi teraz, než mesiace opravami potom
+
+Si to ty? 🤝 Čítaj ďalej...
+
+Od roku 2010 navrhujem interiéry a posledné roky chodím s klientkami na obhliadky ešte pred preberaním bytu. Vždy sa opakuje to isté: väčšina vecí, ktoré ich v byte potom štvú, sa dala vyriešiť jedným e-mailom developerovi. Len o tom nikto nevedel včas.
+
+Okno začína o dvadsať centimetrov nižšie, než si predstavovala, a komoda pod neho nesadne. Revízne dvierka v kúpeľni rozbijú celý obklad. Zásuvka za telkou je tridsať centimetrov nad podlahou. A do betónového stropu sa dodatočne sekať nesmie, takže svetlo nad jedálenským stolom tam už nikdy nebude.
+
+Predstav si, že prídeš na preberacie konanie s vlastným zoznamom v ruke, vieš presne, na čo sa pýtať, a nič ťa neprekvapí. 😉
+
+A to najlepšie? Pozriem sa ti na podklady od developera. Dvadsať minút online, zadarmo. Povieme si, čo ti v nich chýba a čo si máš vypýtať, kým je ešte čas. ✅
+
+A checklist so všetkým, na čo sa pýtať, ti pošlem na e-mail tak či tak.
+
+Klikni na odkaz a vyber si termín: [URL]
+
+⚠️ Ak preberáš do troch mesiacov, neodkladaj to. Rozhoduje uzávierka klientských zmien, teda termín, po ktorom developer prestane prijímať zmeny. Býva mesiace pred odovzdaním a väčšina ľudí sa o ňom dozvie, keď už prešiel.
+
+PS. Ak už v byte rok bývaš, kontrola podkladov ti veľa nedá. Je pre tie, ktoré majú preberanie ešte pred sebou.</pre>
+  </div>
+
+  <div class="two">
+    <div>
+      <h3 style="margin-bottom:.6rem">Sprievodné polia</h3>
+      <div class="tw"><table>
+        <tbody>
+          <tr><th>Headline</th><td>Kontrola podkladov zadarmo 🔑</td></tr>
+          <tr><th>Popis</th><td>20 minút online. Povieme si, čo ti v podkladoch chýba.</td></tr>
+          <tr><th>CTA tlačidlo</th><td><strong>Rezervovať</strong></td></tr>
+          <tr><th>Cieľ</th><td class="mono">checklist.miriamczompoly.sk</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+    <div>
+      <h3 style="margin-bottom:.6rem">Čo v texte zámerne nie je</h3>
+      <div class="tw"><table>
+        <thead><tr><th>Chýba</th><th>Prečo</th></tr></thead>
+        <tbody>
+          <tr><td>počet klientok</td><td>nemáme doložené, zákaz č. 2</td></tr>
+          <tr><td>úspora v eurách</td><td>nevieme doložiť</td></tr>
+          <tr><td>„jediná v Trnave"</td><td>nedá sa dokázať</td></tr>
+          <tr><td>garancia</td><td>na bezplatnej kontrole nie je čo garantovať</td></tr>
+          <tr><td>odkaz na web a Instagram</td><td>lievik nesmie mať únik</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+  </div>
+
+  <div class="note">
+    <span class="lbl">Scarcity je termín, nie počet miest</span>
+    <p>Falošná scarcity je tvrdý zákaz. Na tom, koľko 20-minútoviek Miriam týždenne stíha,
+    sa dá postaviť pravdivá kapacitná scarcity, ale <strong>musí to číslo potvrdiť</strong>.
+    Dovtedy je v texte <strong>uzávierka klientských zmien</strong>, čo je reálny termín,
+    ktorý existuje bez ohľadu na nás a väčšine cieľovky práve beží.</p>
+  </div>
+
+  <div class="note">
+    <span class="lbl">Tykanie</span>
+    <p>Playbook odporúča vykanie, ale rozhoduje zavedený hlas klientky. Miriam tyká na webe,
+    v e-mailoch aj na Instagrame. Vykanie by v jej reklame znelo cudzo.</p>
+  </div>
+</section>
+
+<!-- 04 SKRIPTY -->
+<section id="skripty">
+  <div class="sec-head"><span class="sec-no">04</span><h2>Skripty</h2></div>
+  <p class="sub">Dve verzie, každá sa točí celá nanovo. Nie jedno telo s dvoma úvodmi.
+    Iné prostredie, iné oblečenie, iný dôraz, iné vety. Ak by si ich položil vedľa seba,
+    divák musí na prvý pohľad vidieť rozdiel.</p>
+
+  <div class="note">
+    <span class="lbl">Kostra, ktorú napĺňa každé video</span>
+    <p style="font-family:var(--mono);font-size:.8rem;line-height:2">
+      0-3 s hook · 3-10 s problém · 10-20 s riešenie · 20-30 s dôkaz · 30-40 s ponuka · 40-45 s CTA
+    </p>
+    <p style="margin-top:.6rem"><strong>Dôkaz robíme detailom, nie číslom.</strong> Počet klientok
+    nemáme doložený. Konkrétny detail zo stavby, ktorý laik nepozná, dokazuje odbornosť rovnako
+    dobre a nedá sa spochybniť.</p>
+  </div>
+
+  <div class="script">
+    <div class="script-head">
+      <h3>Verzia A · „Okno je o dvadsať centimetrov nižšie"</h3>
+      <div class="chips"><span class="chip">Holobyt, pri okne</span><span class="chip">Pracovné oblečenie</span><span class="chip">Dôraz: strata</span><span class="chip">40 s</span></div>
+    </div>
+    <div class="beat"><div class="t">0-3 s<b>Hook</b></div><div><q>Toto okno začína o dvadsať centimetrov nižšie, než si tá pani myslela.</q></div></div>
+    <div class="beat"><div class="t">3-10 s<b>Problém</b></div><div><q>Kupovala byt z papiera. Predstavovala si, že pod oknom bude komoda. Zistila to v deň preberania. Komoda tam nesadne a sedačka zakrýva pol okna.</q></div></div>
+    <div class="beat"><div class="t">10-20 s<b>Riešenie</b></div><div><q>Pritom to bolo v podkladoch. Len jej nikto nedal rozvinuté steny a ona nevedela, že si ich má vypýtať. To je jeden riadok v e-maile developerovi.</q></div></div>
+    <div class="beat"><div class="t">20-30 s<b>Dôkaz</b></div><div><q>Takýchto vecí je v novostavbe asi štyridsať. Revízne dvierka v kúpeľni, ktoré rozbijú obklad. Zásuvka za telkou tridsať centimetrov nad podlahou. Šedá lišta cez celý byt.</q></div></div>
+    <div class="beat"><div class="t">30-38 s<b>Ponuka</b></div><div><q>Pošli mi, čo máš od developera. Dvadsať minút sa na to spolu pozrieme a poviem ti, čo ti chýba. Zadarmo.</q></div></div>
+    <div class="beat"><div class="t">38-42 s<b>CTA</b></div><div><q>Klikni na odkaz pod videom a vyber si termín.</q></div></div>
+  </div>
+
+  <div class="script">
+    <div class="script-head">
+      <h3>Verzia B · „Volali mi tri dni po preberaní"</h3>
+      <div class="chips"><span class="chip">Ateliér, pri výkresoch</span><span class="chip">Sveter</span><span class="chip">Dôraz: čas</span><span class="chip">35 s</span></div>
+    </div>
+    <div class="beat"><div class="t">0-3 s<b>Hook</b></div><div><q>Najsmutnejší telefonát je tri dni po preberaní bytu.</q></div></div>
+    <div class="beat"><div class="t">3-11 s<b>Problém</b></div><div><q>Vtedy mi ľudia volajú prvýkrát. A ja im musím povedať, že polovicu vecí, ktoré chcú, už spraviť nejde. Nie draho. Vôbec.</q></div></div>
+    <div class="beat"><div class="t">11-21 s<b>Riešenie</b></div><div><q>Lebo o všetkom podstatnom sa rozhoduje pri uzávierke klientských zmien. To je termín, po ktorom developer prestane brať zmeny. A býva mesiace pred odovzdaním.</q></div></div>
+    <div class="beat"><div class="t">21-30 s<b>Dôkaz</b></div><div><q>Do betónového stropu sa dodatočne sekať nesmie. Takže ak chceš svetlo nad jedálenským stolom a nie je v podklade pre elektrikára, nebude tam nikdy.</q></div></div>
+    <div class="beat"><div class="t">30-36 s<b>Ponuka</b></div><div><q>Kým je čas, pozriem sa ti na podklady. Dvadsať minút online, nič za to nechcem.</q></div></div>
+    <div class="beat"><div class="t">36-40 s<b>CTA</b></div><div><q>Odkaz máš pod videom.</q></div></div>
+  </div>
+
+  <div class="note good">
+    <span class="lbl">Prečo sú tie dve verzie naozaj iné</span>
+    <p>A je natočená na mieste, ukazuje konkrétnu vec a tlačí na stratu. B je natočená pri
+    stole, hovorí o termíne a tlačí na čas. Iné prostredie, iné oblečenie, iný dôraz, iné vety.
+    Presne takto sa robí zvyšných osem.</p>
+  </div>
+</section>
+
+<!-- 05 HOOKY -->
+<section id="hooky">
+  <div class="sec-head"><span class="sec-no">05</span><h2>Hooky</h2></div>
+  <p class="sub">Prvé tri sekundy číta päťkrát viac ľudí než telo. Preto sú hooky naprieč
+    typmi, nie osemkrát to isté. Ku každému sa píše vlastná verzia tela.</p>
+
+  <div class="tw">
+    <table class="hooks">
+      <thead><tr><th class="mono">#</th><th>Typ</th><th>Znenie</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>otázka na bolesť</td><td>„Vieš, kedy ti u developera vyprší lehota na zmeny? Väčšina ľudí to zistí neskoro."</td></tr>
+        <tr><td>2</td><td>oslovenie lokality</td><td>„Trnava a okolie, ak si kúpila byt v novostavbe, toto si pozri."</td></tr>
+        <tr><td>3</td><td>oslovenie cieľovky</td><td>„Toto je pre teba, ak preberáš byt v najbližšom roku."</td></tr>
+        <tr><td>4</td><td>negatívny filter</td><td>„Ak už v tom byte rok bývaš, toto video ti nepomôže. Povedzme si prečo."</td></tr>
+        <tr><td>5</td><td>konkrétne číslo</td><td>„Štyridsať vecí, ktoré si máš vypýtať od developera. Tri z nich sú kritické."</td></tr>
+        <tr><td>6</td><td>ponuka rovno</td><td>„Pozriem ti podklady od developera zadarmo. Poviem ti, prečo to robím."</td></tr>
+        <tr><td>7</td><td>námietka</td><td>„Myslíš si, že ti developer sám povie, čo potrebuješ? Povie. Ale až keď sa spýtaš."</td></tr>
+        <tr><td>8</td><td>osobný príbeh</td><td>„Pätnásť rokov robím interiéry a stále ma najviac mrzí ten istý telefonát."</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note">
+    <span class="lbl">Ako sa telo mení podľa hooku</span>
+    <p><strong>Hook 4</strong> pokračuje tým, čo sa dá zachrániť aj po uzávierke: nenechať si
+    namontovať štandard, ktorý aj tak vyhodíš.<br />
+    <strong>Hook 7</strong> pokračuje tým, ktoré podklady developer bežne nedá, kým si o ne
+    nenapíšeš, teda rozvinuté steny a skladbu podlahy.<br />
+    <strong>Hook 5</strong> pokračuje troma najkritickejšími vecami zo zoznamu, nie celým zoznamom.</p>
+  </div>
+</section>
+
+<!-- 06 NATACANIE -->
+<section id="natacanie">
+  <div class="sec-head"><span class="sec-no">06</span><h2>Natáčanie</h2></div>
+  <p class="sub">Minimum je desať videí. Menej znamená, že algoritmus nemá z čoho vyberať
+    a rozdiely medzi reklamami budú šum, nie signál. Dva kratšie dni sú lepšie než jeden dlhý.</p>
+
+  <div class="tw">
+    <table>
+      <thead><tr><th class="mono">#</th><th>Hook</th><th>Prostredie</th><th>Oblečenie</th><th>Dôraz</th><th class="mono">Deň</th><th>Súbor</th></tr></thead>
+      <tbody>
+        <tr><td class="mono">1</td><td>1 · otázka</td><td>holobyt, pri okne</td><td>pracovné</td><td>strata</td><td class="mono">1</td><td class="mono">01_hook-otazka.mp4</td></tr>
+        <tr><td class="mono">2</td><td>2 · lokalita</td><td>pred novostavbou</td><td>pracovné</td><td>lokálnosť</td><td class="mono">1</td><td class="mono">02_hook-lokalita.mp4</td></tr>
+        <tr><td class="mono">3</td><td>5 · číslo</td><td>holobyt, kúpeľňa</td><td>pracovné</td><td>odbornosť</td><td class="mono">1</td><td class="mono">03_hook-cislo.mp4</td></tr>
+        <tr><td class="mono">4</td><td>7 · námietka</td><td>holobyt, chodba</td><td>pracovné</td><td>dôvera</td><td class="mono">1</td><td class="mono">04_hook-namietka.mp4</td></tr>
+        <tr><td class="mono">5</td><td>3 · cieľovka</td><td>schodisko, exteriér</td><td>pracovné</td><td>konkrétnosť</td><td class="mono">1</td><td class="mono">05_hook-cielovka.mp4</td></tr>
+        <tr><td class="mono">6</td><td>8 · príbeh</td><td>ateliér, pri stole</td><td>sveter</td><td>dôvera</td><td class="mono">2</td><td class="mono">06_hook-pribeh.mp4</td></tr>
+        <tr><td class="mono">7</td><td>6 · ponuka</td><td>ateliér, pri výkresoch</td><td>sveter</td><td>hodnota</td><td class="mono">2</td><td class="mono">07_hook-ponuka.mp4</td></tr>
+        <tr><td class="mono">8</td><td>4 · filter</td><td>doma</td><td>sveter</td><td>filter</td><td class="mono">2</td><td class="mono">08_hook-filter.mp4</td></tr>
+        <tr><td class="mono">9</td><td>1 inak</td><td>ateliér</td><td>sveter</td><td>čas</td><td class="mono">2</td><td class="mono">09_hook-otazka-b.mp4</td></tr>
+        <tr><td class="mono">10</td><td>5 inak</td><td>doma</td><td>sveter</td><td>odbornosť</td><td class="mono">2</td><td class="mono">10_hook-cislo-b.mp4</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="two">
+    <div>
+      <h3 style="margin-bottom:.7rem">Pravidlá natáčania</h3>
+      <div class="tw"><table>
+        <tbody>
+          <tr><th>Zvuk</th><td>Najdôležitejšie zo všetkého. Na stavbe je ozvena, treba to skúsiť vopred.</td></tr>
+          <tr><th>Svetlo</th><td>Oknom do tváre. Nikdy okno za chrbtom, v holobyte je to najčastejšia chyba.</td></tr>
+          <tr><th>Prvý záber</th><td>Musí sa hýbať. Statická hovoriaca hlava od nuly stráca pozornosť.</td></tr>
+          <tr><th>Strih</th><td>Rezy každé 3 až 5 sekúnd.</td></tr>
+          <tr><th>Titulky</th><td>Napevno, veľké. Väčšina ľudí pozerá bez zvuku.</td></tr>
+          <tr><th>Papier</th><td>Skript sa naučí, nepredčíta. Zaváhania znejú autenticky.</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+    <div>
+      <h3 style="margin-bottom:.7rem">Čo Meta odmietne</h3>
+      <p>Pri tomto odbore je riziko malé, ale pre istotu: text cez viac než zhruba 20 % plochy
+      videa, hudba bez licencie, záber s tvárou človeka, ktorý nedal súhlas.</p>
+      <p>Zdravotné a finančné sľuby tu nehrozia, ale <strong>nesľubuj konkrétnu úsporu
+      v eurách</strong>, kým to nie je doložené.</p>
+      <div class="note warn" style="margin-top:1rem">
+        <span class="lbl">Amatérske nie je odflaknuté</span>
+        <p>Amatérske video funguje preto, že v feede vyzerá ako bežný príspevok, nie ako reklama.
+        Ale musí byť počuť, vidieť a musí mať napísaný skript.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 07 KAMPAN -->
+<section id="kampan">
+  <div class="sec-head"><span class="sec-no">07</span><h2>Kampaň</h2></div>
+  <p class="sub">Pevné parametre z playbooku. Rozpočet je viazaný na garanciu, nemení sa.</p>
+
+  <div class="two">
+    <div class="tw"><table>
+      <thead><tr><th>Nastavenie</th><th>Hodnota</th></tr></thead>
+      <tbody>
+        <tr><td>Cieľ</td><td>Leads</td></tr>
+        <tr><td>Denný rozpočet</td><td><strong>20 €</strong> · viazané na garanciu</td></tr>
+        <tr><td>Ad sety</td><td>1</td></tr>
+        <tr><td>Kreatívy</td><td>minimálne 10, každá celé samostatné video</td></tr>
+        <tr><td>Copy</td><td>1, identické na všetkých</td></tr>
+        <tr><td>Konverzná udalosť</td><td>Lead</td></tr>
+      </tbody>
+    </table></div>
+    <div class="tw"><table>
+      <thead><tr><th>Cielenie</th><th>Hodnota</th></tr></thead>
+      <tbody>
+        <tr><td>Lokalita</td><td>Trnava + 30 km, <strong>len „bývajú tu"</strong></td></tr>
+        <tr><td>Vek</td><td>28 až 50</td></tr>
+        <tr><td>Pohlavie</td><td>ženy, zhodne s copy</td></tr>
+        <tr><td>Záujmy</td><td>žiadne</td></tr>
+        <tr><td>Advantage+ publikum</td><td>zapnuté</td></tr>
+        <tr><td>Umiestnenia</td><td>Advantage+</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <div class="note warn">
+    <span class="lbl">Dve veci, ktoré sa robia zle najčastejšie</span>
+    <p><strong>Lokalita „bývajú tu", nie predvolené „bývajú alebo tu boli nedávno".</strong>
+    Turista v Trnave si prerobenie bytu nekúpi ani teoreticky.</p>
+    <p><strong>Pohlavie je pod Advantage+ len odporúčanie</strong>, ktoré Meta môže prekročiť.
+    Kvalifikáciu preto musí spraviť text, nie nastavenie.</p>
+  </div>
+
+  <p><strong>Prvých sedem dní nezasahovať.</strong> Algoritmus sa učí. Potom vypnúť spodnú
+  polovicu reklám podľa ceny za výsledok a škálovať najviac o 20 až 25 % každé tri až štyri dni.</p>
+</section>
+
+<!-- 08 BLOKERY -->
+<section id="blokery">
+  <div class="sec-head"><span class="sec-no">08</span><h2>Blokéry</h2></div>
+  <p class="sub">Čo musí byť hotové, než sa minie prvé euro. Zelená je hotová, červená blokuje.</p>
+
+  <div class="two">
+    <div>
+      <h3 style="margin-bottom:.5rem">Systém</h3>
+      <ul class="check">
+        <li class="done"><span class="bx"></span><div>Landing page a PDF checklistu sú živé a overené v prehliadači</div></li>
+        <li class="block"><span class="bx"></span><div><strong>Prístupy do GHL sú preč.</strong> Kontajner sa recykloval. Bez nich formulár nezapisuje a workflowy neexistujú.</div></li>
+        <li class="block"><span class="bx"></span><div>Rozdeliť stránku na tri, teraz je formulár priamo v hero sekcii</div></li>
+        <li class="block"><span class="bx"></span><div>Kvíz musí zapisovať kontakt po <strong>prvom</strong> kroku, nie na konci</div></li>
+        <li class="block"><span class="bx"></span><div>Notifikácia Miriam pri novom lede</div></li>
+        <li class="block"><span class="bx"></span><div>Vlastná subdoména. Reklama nesmie viesť na <code>pages.dev</code>.</div></li>
+        <li class="block"><span class="bx"></span><div>Pixel a udalosť Lead, overené v Events Manageri</div></li>
+        <li class="block"><span class="bx"></span><div>Kalendár na 20-minútovú kontrolu podkladov, samostatný od diagnostiky</div></li>
+      </ul>
+    </div>
+    <div>
+      <h3 style="margin-bottom:.5rem">Čo musí potvrdiť Miriam</h3>
+      <ul class="check">
+        <li class="block"><span class="bx"></span><div><strong>Súhlasí s ponukou?</strong> Kontrola podkladov zadarmo znamená vrátiť sa k bezplatnému stretnutiu, len v inej podobe. Musí vedieť, že sa na ňom <strong>nesmie začať navrhovať</strong>.</div></li>
+        <li class="block"><span class="bx"></span><div>Koľko 20-minútoviek týždenne stíha. Bez toho nemôže byť kapacitná scarcity.</div></li>
+        <li class="block"><span class="bx"></span><div>Cena za prejdenie celých výkresov a zoznam zmien</div></li>
+        <li class="block"><span class="bx"></span><div>Vetu „od roku 2010 navrhujem interiéry" a to, že chodí na obhliadky pred preberaním</div></li>
+        <li class="block"><span class="bx"></span><div>Či má reálne recenzie s menom. Ak nie, sekcia so sociálnym dôkazom sa vynechá, nevymyslí.</div></li>
+        <li class="block"><span class="bx"></span><div>Natočiť desať videí</div></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="note warn">
+    <span class="lbl">Najväčšie riziko celého lievika</span>
+    <p>Nie je technické. Je to <strong>disciplína na tej bezplatnej dvadsaťminútovke</strong>.
+    Presne na nej sa Miriam predtým rozdala. Rozdiel medzi „poviem ti, čo ti v podkladoch
+    chýba" a „poďme sa pozrieť, kam dáme sedačku" rozhoduje o tom, či tento lievik zarobí
+    alebo zopakuje starú chybu.</p>
+  </div>
+</section>
+
+<footer class="wrap">
+  <div class="dim"><i></i></div>
+  <p style="margin-top:1.2rem">Postavené podľa <code>playbook/</code> v GHLtool.
+  Výstupy patria do repa klientky, <code>reklama/</code>.
+  Stav k 26. 8. 2026. <strong>Kampaň nespúšťať</strong>, kým nie je odškrtnuté všetko v sekcii 08.</p>
+</footer>
+</main>
+
+<script>
+document.querySelectorAll('button.cp').forEach(function (b) {
+  b.addEventListener('click', function () {
+    var el = document.getElementById(b.dataset.t);
+    navigator.clipboard.writeText(el.innerText).then(function () {
+      var old = b.textContent;
+      b.textContent = 'Skopírované';
+      b.classList.add('done');
+      setTimeout(function () { b.textContent = old; b.classList.remove('done'); }, 1800);
+    });
+  });
+});
+
+var links = [].slice.call(document.querySelectorAll('nav.toc a'));
+var obs = new IntersectionObserver(function (entries) {
+  entries.forEach(function (e) {
+    if (!e.isIntersecting) return;
+    links.forEach(function (l) { l.classList.toggle('on', l.getAttribute('href') === '#' + e.target.id); });
+  });
+}, { rootMargin: '-15% 0px -70% 0px' });
+document.querySelectorAll('main section').forEach(function (s) { obs.observe(s); });
+</script>
