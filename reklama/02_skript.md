@@ -1,193 +1,279 @@
-# Skripty a hooky
+# Skripty do reklamných videí
 
-Podľa `playbook/03_kreativa/`. Mobil, vertikál 9:16, titulky napevno, hovorí Miriam.
-Dĺžka 15 až 45 sekúnd.
+Postavené na desaťblokovej kostre z `playbook/03_kreativa/SKRIPT_SABLONA.md`
+a na piatich rozobratých príkladoch v `playbook/03_kreativa/priklady/`.
 
-> 🔴 **Každý variant sa točí celý nanovo.** Toto nie sú dva skripty, z ktorých sa
-> vystrihujú úvody. Sú to dve **kostry naplnené inými slovami**, iným prostredím
-> a iným dôrazom. Ak by si dve videá položil vedľa seba, divák musí na prvý pohľad
-> vidieť rozdiel.
+> ⚠️ **Toto je prepis oproti predošlej verzii.** Predtým som písal skripty v šesťtaktovej
+> kostre hook, problém, riešenie, dôkaz, ponuka, CTA. **Tá kostra nie je z playbooku.**
+> Chýbali v nej štyri bloky, ktoré má reálne bežiaca reklama: **elimination, guarantee,
+> time limit a druhé CTA.** Playbook meria, že práve elimination a guarantee vynecháva
+> AI najčastejšie, a práve tie robia rozdiel medzi reklamou a letákom.
+
+| Parameter | Hodnota |
+|---|---|
+| Dĺžka | 45 až 75 s, tu **65 až 68 s** |
+| Tempo | 145 hovorených slov na 60 s |
+| Formát | 9:16 na výšku, 1080x1920, 30 fps |
+| Titulky | napevno, v strede alebo v spodnej tretine, nikdy pri dolnom okraji |
+| Strih | rez každé 2,5 až 5 s, teda 12 až 26 záberov za minútu |
+| Do kampane | minimálne 10 videí, všetky v jednom ad sete |
 
 ---
 
-## Kostra, ktorú napĺňa každé video
+## Čo dostaneš z jedného natáčania
+
+**4 hooky × 4 subhooky × 2 telá = 32 možných variantov.** Do prvej kampane sa
+z nich vyberie desať. Telo sa nahráva **raz**, mení sa iba prvých päť až dvanásť sekúnd.
 
 ```
-[0-3 s]    HOOK       iný v každom variante
-[3-11 s]   PROBLÉM    bolesť, ktorú diváčka pozná z vlastnej obývačky
-[11-21 s]  DIAGNÓZA   prečo to tak je, a že to nie je jej chyba
-[21-31 s]  DÔKAZ      konkrétna chyba z praxe, nie tvrdenie o sebe
-[31-41 s]  PONUKA     diagnostika 249 €, odpočet z projektu
-[41-45 s]  CTA        klikni na odkaz, 9 miest mesačne
+1. kolo (režim rýchly)     telo A + 4 dvojice hook/subhook   = 4 reklamy
+                           telo B + 4 dvojice hook/subhook   = 4 reklamy
+                           + 2 videá s referenciou klientky  = 10 reklám
+2. kolo (o dva týždne)     pozri, ktoré hooky ťahajú, a nahraj k nim nové telo
 ```
 
-⚠️ **Dôkaz robíme konkrétnou chybou, nie číslom.** Počet klientok nemáme doložený.
-Chyba, v ktorej sa diváčka spozná („aj ja mám svetlo uprostred stropu"), dokazuje
-odbornosť lepšie než akékoľvek číslo a nedá sa spochybniť.
-
-🔴 **Cena musí zaznieť v každom z desiatich videí**, aj to, že sa odpočíta z projektu.
-Ak ju video zamlčí a cena padne až na stránke, žena sa cíti nachytaná a odíde.
-
-🔴 **V žiadnom videu nesmie zaznieť „konzultácia zadarmo".** V staršom natočenom videu
-to podľa auditu zaznelo a bije sa to s platenou diagnostikou. Také video sa nepoužije.
-
-⚠️ **Diagnóza sa nesmie zmeniť na obviňovanie.** Vždy „nie je to tvoja chyba, len ti
-to nikto nepovedal". Nikdy „robíš to zle". Meta navyše zakazuje oslovovať človeka jeho
-domnelou vlastnosťou, a tu je to aj obchodne zlé: kto sa cíti obvinený, neklikne.
+⚠️ **Nezostávaj navždy v rýchlom režime.** Ak je desať reklám na 90 % identických,
+algoritmus nemá z čoho vyberať a rozdiely medzi nimi budú šum, nie signál.
 
 ---
 
-# Verzia A: „Najdrahšia vec v byte býva tá, ktorá najviac prekáža"
+## Formát: obe telá sa točia inak, a to zámerne
 
-**Prostredie:** obývačka, ktorá nefunguje, ideálne u klientky so súhlasom, inak ateliér
-**Oblečenie:** civilné, sveter
-**Dôraz:** peniaze, ktoré sa už nedajú vrátiť
-**Dĺžka:** cca 45 s
+Playbook pozná tri formáty. Používame dva, jeden na telo, aby sa videá naozaj líšili.
 
-> **HOOK (0-3 s)**
-> „Najdrahšia vec v tejto izbe je zároveň tá, ktorá jej najviac ubližuje."
->
-> **PROBLÉM (3-11 s)**
-> „Sedačka. Kvalitná, krásna, a o dvadsať centimetrov väčšia, než mala byť.
-> Odvtedy sa okolo nej chodí bokom a izba pôsobí o polovicu menšia, než je."
->
-> **DIAGNÓZA (11-21 s)**
-> „A pritom to nie je o vkuse. Kupovala dobre. Len kupovala v zlom poradí.
-> Najprv sa rieši dispozícia, potom svetlo a až nakoniec nábytok. Skoro všetci
-> to robia presne naopak."
->
-> **DÔKAZ (21-31 s)**
-> „Preto v skoro každom byte vidím to isté. Svetlo uprostred stropu namiesto nad
-> stolom. Skriňa, do ktorej sa nezmestí ani polovica vecí. Pekné kusy, ktoré spolu
-> nesedia, lebo každý sa kupoval inokedy."
->
-> **PONUKA (31-41 s)**
-> „Preto chodím ženám domov na deväťdesiat minút. Prejdeme priestor a odídeš s plánom,
-> čo riešiť prvé a čo prestať kupovať. Stojí to dvestoštyridsaťdeväť eur a ak potom
-> robíme projekt, odpočítam ti ich celé."
->
-> **CTA (41-45 s)**
-> „Odkaz máš pod videom. Mesačne stihnem deväť."
-
----
-
-# Verzia B: „Nie je to tvoja chyba"
-
-**Prostredie:** ateliér, pri stole s pôdorysmi a vzorkami
-**Oblečenie:** košeľa, civilnejšie
-**Dôraz:** úľava, nie strata
-**Dĺžka:** cca 42 s
-
-> **HOOK (0-3 s)**
-> „Ak sa vo vlastnom byte necítiš doma, nie je to tvoja chyba."
->
-> **PROBLÉM (3-11 s)**
-> „Počujem to od žien stále. Investovala do bývania, má pekné veci, a aj tak sa každý
-> večer vracia do priestoru, ktorý ju unavuje. A myslí si, že problém je v nej."
->
-> **DIAGNÓZA (11-21 s)**
-> „Nie je. Problém je, že jej to nikto nikdy nevysvetlil. Priestor sa neskladá
-> z pekných vecí. Skladá sa z toho, ako sa v ňom naozaj žije. To sa dá pomenovať
-> za jedno popoludnie."
->
-> **DÔKAZ (21-31 s)**
-> „Preto sa dá zariadiť byt za desaťtisíc eur a stále v ňom nefunguje ani jedna
-> miestnosť. A preto sa dá spraviť obrovský rozdiel presunutím troch vecí, ktoré
-> tam už dávno máš."
->
-> **PONUKA (31-39 s)**
-> „Deväťdesiat minút u teba doma. Poviem ti, kde je skutočný problém a čo riešiť prvé.
-> Dvestoštyridsaťdeväť eur, ktoré ti z projektu odpočítam."
->
-> **CTA (39-42 s)**
-> „A ak neodídeš s jasnom, peniaze ti vrátim. Odkaz máš pod videom."
-
-**Prečo sú tie dve verzie naozaj iné:** A je natočená v priestore, ukazuje konkrétnu
-vec a tlačí na peniaze, ktoré sa už nedajú vrátiť. B je natočená pri stole, hovorí
-k pocitu a tlačí na úľavu. Iné prostredie, iné oblečenie, iný dôraz, iné vety.
-Presne takto sa robí zvyšných osem.
-
----
-
-# 8 hookov
-
-Prvé tri sekundy rozhodujú. Preto sú naprieč typmi, nie osemkrát to isté.
-
-| # | Typ | Znenie |
+| | Telo A | Telo B |
 |---|---|---|
-| **1** | otázka na bolesť | „Máš doma pekné veci a aj tak sa tam necítiš dobre? Poviem ti, prečo to tak je." |
-| **2** | oslovenie lokality | „Trnava a okolie, ak máš pocit, že tvoj byt nefunguje, toto si pozri." |
-| **3** | oslovenie cieľovky | „Toto je pre teba, ak si už raz zariaďovala a výsledok ti aj tak nesedí." |
-| **4** | negatívny filter | „Ak si so svojím domovom zmierená a meniť nechceš nič, toto video preskoč." |
-| **5** | konkrétne číslo | „Deväťdesiat minút u teba doma a vieš presne, čo zmeniť ako prvé." |
-| **6** | ponuka rovno | „Za dvestoštyridsaťdeväť eur k tebe prídem domov a poviem ti pravdu o tvojom priestore." |
-| **7** | námietka | „Bojíš sa, že ti dizajnérka nanúti svoj štýl? Ja ti ho nemám ako nanútiť. Poviem ti prečo." |
-| **8** | osobný príbeh | „Pätnásť rokov chodím ženám domov a jednu vetu počujem stále dokola." |
+| **Formát** | B: hovoriaca hlava plus zábery | A: komentár nad zábermi, bez tváre |
+| **Kde** | v priestore, ktorý nefunguje | strih z interiérových záberov |
+| **Prečo tak** | pri službe, kde púšťaš cudzieho človeka do bytu, musí byť vidieť tvár | ukáže priestory, ktoré tvár neukáže, a nahovorí sa kedykoľvek |
+| **Oblečenie** | sveter | (nie je vidieť) |
 
-**Ku každému hooku sa píše vlastná verzia tela.** Nie tá istá myšlienka desaťkrát,
-ale desať rôznych ciest k tomu istému záveru.
+Formát A je v playbooku predvolená voľba a je najrýchlejší na výrobu variantov.
+Formát B je tu preto, že **Miriam predáva dôveru**: žena si má do bytu na deväťdesiat
+minút pustiť cudzieho človeka. Tvár to rieši lepšie než akýkoľvek záber.
 
-Príklady, ako sa telo mení podľa hooku:
+---
 
-- **Hook 4** (negatívny filter) pokračuje tým, čo naozaj znamená „zmieriť sa": nie
-  spokojnosť, ale to, že si prestala všímať veci, ktoré ťa každý deň unavujú.
-- **Hook 6** (ponuka rovno) povie cenu v prvej vete a zvyšok videa ju obhajuje: čo je
-  v tých 90 minútach, že sa odpočíta z projektu a že peniaze vráti, ak to nedá zmysel.
-- **Hook 7** (námietka) pokračuje jej garanciou štýlu z webu: návrh je na 100 % o nej,
-  a ak po prezentácii bude cítiť, že to nie je jej domov, prepracuje ho zdarma.
-- **Hook 8** (príbeh) pokračuje tou vetou: „veď ja mám pekné veci, tak prečo to
-  nevyzerá?" a odpoveďou, prečo pekné veci samy o sebe domov nespravia.
+# HOOK: štyri možnosti
+
+Jedna veta. Každá útočí na iný typ diváčky, nie sú to preformulovania tej istej vety.
+
+| # | Hook | Typ | Slov |
+|---|---|---|---|
+| **H1** | „Domov, do ktorého sa tešíš vrátiť. Začni tým, čo ti v ňom naozaj prekáža." | **sľub výsledku** (Dream) | 14 |
+| **H2** | „Dizajnérka nie je náklad navyše. Je to spôsob, ako prestať kupovať veci dvakrát." | **prevrátenie námietky o cene** | 13 |
+| **H3** | „Máš doma pekné veci a domov to aj tak nie je? Problém nie je vo veciach." | **symptóm a jeho príčina** (Fear) | 16 |
+| **H4** | „Ak sa vo vlastnom byte necítiš doma, nie je to tvoja chyba." | **ubezpečenie** | 12 |
+
+---
+
+# SUBHOOK: štyri možnosti
+
+Jedna až dve vety. **Prehĺbi to, čo hook otvoril.** Ak je hook sľub, subhook je strach,
+a naopak.
+
+| # | Subhook | Typ | Slov |
+|---|---|---|---|
+| **S1** | „Koľkokrát si už niečo kúpila v nádeji, že to pomôže? A koľko z toho dnes stojí tam, kde si to nechcela?" | **eskalácia, dve otázky za sebou** | 21 |
+| **S2** | „Predstav si, že za jedno popoludnie vieš, čo zmeniť ako prvé, a prestaneš míňať na veci, ktoré to nespravia." | **sľub** | 19 |
+| **S3** | „Sedačka, okolo ktorej sa chodí bokom. Svetlo uprostred stropu namiesto nad stolom. Skriňa, do ktorej sa nezmestí polovica vecí." | **konkrétne symptómy** | 19 |
+| **S4** | „Nie je to o vkuse ani o peniazoch. Len ti nikto nepovedal, v akom poradí sa priestor skladá." | **prevrátenie viny** | 18 |
+
+---
+
+## Ktorý hook s ktorým subhookom
+
+⚠️ **Nepáruj náhodne.** Hook a subhook musia ísť po sebe logicky. Hook o cene sa páruje
+so subhookom o zbytočne minutých peniazoch, hook o symptóme so subhookom o symptómoch.
+
+| Dvojica | Prečo dáva zmysel | Do 1. kola |
+|---|---|---|
+| **H1 + S2** | sľub otvorí, sľub prehĺbi a doplní o „ako prvé" | ✅ |
+| **H2 + S1** | cena otvorí, subhook ukáže, koľko už minula zle | ✅ |
+| **H3 + S3** | symptóm otvorí, tri konkrétne symptómy prehĺbia | ✅ |
+| **H4 + S4** | ubezpečenie otvorí, subhook povie, kto za to teda môže | ✅ |
+| H1 + S4 | funguje, sľub a potom zbavenie viny | záloha |
+| H3 + S1 | funguje, symptóm a potom minuté peniaze | záloha |
+| ❌ H2 + S3 | cena a potom zoznam symptómov, nenadväzuje | nie |
+| ❌ H4 + S1 | „nie je to tvoja chyba" a hneď „koľkokrát si už kúpila" znie ako výčitka | nie |
+
+---
+
+# TELO A: „Poradie"
+
+**Formát B, hovoriaca hlava plus zábery. 126 slov, s hookom a subhookom 65 až 67 s.**
+
+> **[OFFER]** 41 slov
+> Práve teraz robím interiérovú diagnostiku. Prídem k tebe domov na deväťdesiat minút
+> a odídeš s tromi vecami: kde je skutočný problém, čo riešiť ako prvé a čo prestať
+> kupovať. A ešte predtým ti zdarma pošlem päť najdrahších chýb pri zariaďovaní domova.
+>
+> **[ELIMINATION]** 23 slov
+> U mňa sa nemusíš báť, že ti nanútim cudzí štýl. Nechodím s hotovou predstavou.
+> Tých deväťdesiat minút sa hlavne pýtam, ako reálne žiješ.
+>
+> **[GUARANTEE]** 16 slov
+> A ak neodídeš s jasnom, čo ďalej, povedz mi to na mieste a peniaze ti vrátim.
+>
+> **[BONUS]** 14 slov
+> Navyše, ak sa rozhodneš pre návrh, celých dvestoštyridsaťdeväť eur ti z ceny projektu
+> odpočítam.
+>
+> **[CTA 1]** 7 slov
+> Klikni a rezervuj si diagnostiku ešte dnes.
+>
+> **[TIME LIMIT]** 7 slov
+> Termíny vypisujem vždy len na najbližší mesiac.
+>
+> **[SCARCITY]** 6 slov
+> Chodím osobne, takže mesačne stihnem deväť.
+>
+> **[CTA 2]** 12 slov
+> Tak nečakaj, klikni na tlačidlo pod týmto videom a vyber si termín.
+
+### Zábery k telu A
+
+| Blok | Čo je v obraze |
+|---|---|
+| OFFER | Miriam vchádza do dverí bytu, zúva sa, obzerá sa po miestnosti |
+| ELIMINATION | sedí s klientkou pri stole, počúva, robí si poznámky |
+| GUARANTEE | detail poznámkového bloku s ručne písaným zoznamom |
+| BONUS | detail obrazovky s PDF, alebo listovanie vytlačeným |
+| CTA 1 | znova tvár do kamery |
+| TIME LIMIT + SCARCITY | detail kalendára s termínmi |
+| CTA 2 | tvár do kamery, ruka ukazuje nadol |
+
+---
+
+# TELO B: „Nechodím ti nič predať"
+
+**Formát A, komentár nad zábermi, bez tváre. 129 slov, s hookom a subhookom 66 až 68 s.**
+
+> **[OFFER]** 36 slov
+> Práve teraz robím interiérovú diagnostiku. Deväťdesiat minút u teba doma. Pomenujeme,
+> čo v priestore nefunguje a prečo, a odídeš s poradím krokov, nie s pocitom. K tomu ti
+> zdarma pošlem päť najdrahších chýb pri zariaďovaní domova.
+>
+> **[ELIMINATION]** 31 slov
+> A nemusíš sa báť, že ti prídem niečo predať. Niekedy stačí presunúť tri veci, ktoré už
+> doma máš. Ak to bude tvoj prípad, poviem ti to a projekt ti ponúkať nebudem.
+>
+> **[GUARANTEE]** 14 slov
+> Navyše máš u mňa garanciu. Ak neodídeš s jasnom, čo ďalej, peniaze ti vrátim.
+>
+> **[BONUS]** 14 slov
+> A ak sa pre projekt rozhodneš, celých dvestoštyridsaťdeväť eur ti z jeho ceny odpočítam.
+>
+> **[CTA 1]** 6 slov
+> Klikni a rezervuj si svoj termín.
+>
+> **[TIME LIMIT]** 7 slov
+> Termíny vypisujem vždy len na najbližší mesiac.
+>
+> **[SCARCITY]** 9 slov
+> Chodím k ženám osobne, takže mesačne stihnem deväť diagnostík.
+>
+> **[CTA 2]** 12 slov
+> Tak nečakaj, klikni na tlačidlo pod týmto videom a vyber si termín.
+
+### Zábery k telu B
+
+Potrebných je 15 až 25 krátkych záberov, rez každé 2,5 až 5 sekundy.
+
+| Blok | Čo je v obraze |
+|---|---|
+| OFFER | pomalé prejazdy po miestnosti, detaily: kľučka, okno, roh sedačky |
+| ELIMINATION | ruky presúvajú kreslo, lampu, obraz. **Toto je najdôležitejší záber celého videa**, doslova ukazuje „stačí presunúť tri veci" |
+| GUARANTEE | podanie ruky, alebo zatvorenie poznámkového bloku |
+| BONUS | pôdorys na stole, ceruzka, vzorkovník |
+| CTA a scarcity | kalendár, mobil s otvoreným formulárom |
+
+---
+
+## Prečo je elimination v každom tele iná
+
+Playbook, príklad Garuda: *„Elimination musí trafiť tú námietku, ktorú má **táto**
+cieľovka, nie univerzálnu."* Miriamina cieľovka má dve, a obe sú doslovne na jej webe.
+
+| Telo | Námietka, ktorú zabíja | Odkiaľ vieme, že ju má |
+|---|---|---|
+| **A** | „nanúti mi svoj štýl" | jej vlastná veta v sekcii „Poznáš to?": *„Bojíš sa, že ti dizajnér nanúti svoj štýl namiesto tvojho."* |
+| **B** | „bude to predajný hovor a zaplatím zbytočne" | jej vlastná FAQ: *„Prečo je konzultácia platená? Aby si dostala skutočnú hodnotu, nie predajný hovor."* |
+
+Všimni si stavbu v oboch: **najprv dôvod, potom ubezpečenie.** Ubezpečenie bez dôvodu
+je prázdne. V tele A je dôvod „nechodím s hotovou predstavou, hlavne sa pýtam",
+až potom „nemusíš sa báť".
+
+🔴 **Elimination v tele B sa dobrovoľne pripravuje o zákazku:** *„ak stačí presunúť tri
+veci, poviem ti to a projekt ti ponúkať nebudem."* Presne to robí Eblaka, keď povie,
+že niektoré tesnenia netreba meniť. Je to najsilnejšia veta v celom skripte
+a **Miriam ju musí naozaj dodržať**, inak je to klamstvo.
+
+---
+
+## Odchýlky od playbookovej šablóny, a prečo
+
+| Šablóna hovorí | U nás | Prečo |
+|---|---|---|
+| OFFER je **prvý krok zdarma** | prvý krok je **platený, 249 €** | Celá stratégia stojí na tom, že sa nepredáva bezplatná konzultácia. Slovo „zdarma" v bloku ostáva, ale visí na PDF a na odpočte, presne ako Garuda vešia posturálnu analýzu zdarma na rezerváciu prvého cvičenia. |
+| BONUS naviaž na väčšiu zákazku | odpočet 249 € pri projekte | Presne tak. PDF dostane každý, odpočet len tá, ktorá pokračuje projektom. Bonus tak neznižuje hodnotu diagnostiky. |
+| vykanie vo všetkých príkladoch | **tykanie** | Rozhoduje zavedený hlas klientky. Miriam tyká na webe, v e-mailoch aj na Instagrame. |
+| SCARCITY „prvých 50 klientov" | **„mesačne stihnem deväť"** | Playbook to hovorí priamo: okrúhla päťdesiatka je formulka, ktorú má skoro každý a nikto ju nedodržiava. Deväť je reálna kapacita, lebo diagnostika je 90 minút na mieste. |
+| TIME LIMIT „do konca mesiaca" | **„termíny vypisujem len na najbližší mesiac"** | Garuda bežala 261 dní s „prvých 50 klientov". To je prešlý deadline v živej reklame. Naša formulácia je **politika, nie dátum**, takže platí stále a nemusí sa prepisovať. |
 
 ---
 
 # Plán natáčania
 
-Dva kratšie dni sú lepšie než jeden dlhý. Na druhom natáčaní je človek uvoľnenejší
-a videá vyzerajú inak, čo je presne to, čo chceme.
+Dva natáčacie dni. Telo sa nahráva raz, hooky a subhooky zvlášť.
 
-| # | Hook | Prostredie | Oblečenie | Dôraz | Deň | Súbor |
-|---|---|---|---|---|---|---|
-| 1 | 1, otázka na bolesť | obývačka, ktorá nefunguje | sveter | rozpoznanie | 1 | `01_hook-otazka.mp4` |
-| 2 | 5, číslo | tá istá obývačka, iný záber | sveter | konkrétnosť | 1 | `02_hook-90minut.mp4` |
-| 3 | 3, cieľovka | chodba alebo predsieň | sveter | rozpoznanie | 1 | `03_hook-cielovka.mp4` |
-| 4 | 4, negatívny filter | kuchyňa | sveter | filter | 1 | `04_hook-filter.mp4` |
-| 5 | 2, lokalita | exteriér, Trnava | kabát | lokálnosť | 1 | `05_hook-lokalita.mp4` |
-| 6 | 8, osobný príbeh | ateliér, pri stole | košeľa | dôvera | 2 | `06_hook-pribeh.mp4` |
-| 7 | 6, ponuka rovno | ateliér, pri pôdorysoch | košeľa | hodnota | 2 | `07_hook-ponuka.mp4` |
-| 8 | 7, námietka | ateliér, pri vzorkách | košeľa | dôvera | 2 | `08_hook-namietka.mp4` |
-| 9 | 1 inak, otázka | doma, pri káve | košeľa | úľava | 2 | `09_hook-otazka-b.mp4` |
-| 10 | 5 inak, číslo | doma | košeľa | konkrétnosť | 2 | `10_hook-90minut-b.mp4` |
+| Deň | Čo sa točí | Koľko |
+|---|---|---|
+| **1** | telo A celé, plus všetky 4 hooky a 4 subhooky na tvár | 1 telo + 8 kúskov |
+| **1** | zábery k telu A | 12 az 20 záberov |
+| **2** | zábery k telu B, bez zvuku | 15 az 25 záberov |
+| **2** | komentár k telu B, nahovorený mimo obraz | 1 stopa |
+| **2** | 1 az 2 videá s referenciou klientky, ak je súhlas | 2 |
 
-**Minimum je 10 videí.** Ideál 15 až 30. Menej znamená, že algoritmus nemá z čoho
-vyberať a rozdiely medzi reklamami budú šum, nie signál.
+### Desať reklám do prvého kola
 
-🔴 **Ak sa točí v byte klientky, treba písomný súhlas** so zverejnením záberov,
-aj keď na nich nie je vidieť tvár. Bez súhlasu sa točí v ateliéri.
+| # | Telo | Hook + subhook | Súbor |
+|---|---|---|---|
+| 1 | A | H1 + S2 | `01_A_slub.mp4` |
+| 2 | A | H2 + S1 | `02_A_cena.mp4` |
+| 3 | A | H3 + S3 | `03_A_symptom.mp4` |
+| 4 | A | H4 + S4 | `04_A_ubezpecenie.mp4` |
+| 5 | B | H1 + S2 | `05_B_slub.mp4` |
+| 6 | B | H2 + S1 | `06_B_cena.mp4` |
+| 7 | B | H3 + S3 | `07_B_symptom.mp4` |
+| 8 | B | H4 + S4 | `08_B_ubezpecenie.mp4` |
+| 9 | referencia | bez hooku, hovorí klientka | `09_referencia-iveta.mp4` |
+| 10 | referencia | druhá klientka | `10_referencia-2.mp4` |
+
+🔴 Referencie len so **súhlasom so zverejnením**. Ak súhlas nie je, nahradia sa
+dvojicami H1+S4 a H3+S1 zo zálohy.
 
 ---
 
-## Pravidlá pre natáčanie
+## Pravidlá natáčania
 
 | Vec | Ako |
 |---|---|
-| **Zvuk** | Najdôležitejšie zo všetkého. Ticho alebo mikrofón na klope. V prázdnej izbe je ozvena, treba to skúsiť vopred. |
+| **Zvuk** | Najdôležitejšie zo všetkého. Klopový mikrofón, alebo natáčaj v tichu. V prázdnej izbe je ozvena, treba to skúsiť vopred. |
 | **Svetlo** | Oknom do tváre. Nikdy okno za chrbtom. |
-| **Kompozícia** | Tvár v hornej tretine, oči do objektívu. |
-| **Prvý záber sa musí hýbať** | Statická hovoriaca hlava od nuly stráca pozornosť. Začni pohybom kamery alebo krokom do priestoru. |
-| **Ukáž, o čom hovoríš** | Keď hovorí o sedačke, kamera je pri sedačke. Toto je najväčšia výhoda tohto segmentu oproti hovoriacej hlave. |
-| **Energia** | O niečo živšie než v bežnom rozhovore. |
-| **Strih** | Rezy každé 3 až 5 sekúnd. |
-| **Titulky** | Napevno, veľké. Väčšina ľudí pozerá bez zvuku. |
-| **Nečítať z papiera** | Skript sa naučí, nepredčíta. Zaváhania sú v poriadku, znejú autenticky. |
+| **Prvý záber** | Musí sa hýbať. Hook je pár vety a obrazu, mení sa oboje naraz. |
+| **Ukáž, o čom hovoríš** | Keď hovorí o sedačke, kamera je pri sedačke. Toto je najväčšia výhoda tohto segmentu. |
+| **Strih** | Rez každé 2,5 az 5 s. |
+| **Titulky** | Napevno, veľké, v strede alebo v spodnej tretine. Nikdy pri dolnom okraji, tam ich prekryje rozhranie. |
+| **Nečítať z papiera** | Skript sa naučí, nepredčíta. Zaváhania znejú autenticky. |
 
-⚠️ **Amatérske neznamená odflaknuté.** Amatérske video funguje preto, že vyzerá ako
-bežný príspevok, nie ako reklama. Ale musí byť počuť, vidieť a musí mať napísaný skript.
+⚠️ **Nesnaž sa o 15-sekundové video.** V meranej vzorke playbooku nebolo ani jedno
+pod 30 s a najdlhšie bežiace reklamy mali 66 az 82 s. Toto nie je zábavný obsah,
+je to predajný text, ktorý potrebuje čas na ponuku, garanciu aj výzvu.
 
 ---
 
 ## Čo Meta odmietne
-
-Pri tomto odbore je riziko malé, ale pre istotu:
 
 - text cez viac než zhruba 20 % plochy videa
 - hudba bez licencie
@@ -195,5 +281,28 @@ Pri tomto odbore je riziko malé, ale pre istotu:
 - **oslovenie ženy jej domnelou vlastnosťou.** Nikdy „ty, čo nevieš zariadiť byt".
   Vždy cez pocit alebo cieľ, presne ako to má copy.
 
-Zdravotné a finančné sľuby tu nehrozia, ale **nesľubuj konkrétnu úsporu v eurách**,
-kým to nie je doložené.
+⚠️ **Diagnóza sa nesmie zmeniť na obviňovanie.** Vždy „nie je to tvoja chyba, len ti to
+nikto nepovedal". Kto sa cíti obvinený, neklikne.
+
+🔴 **V žiadnom videu nesmie zaznieť „konzultácia zadarmo".** V staršom natočenom videu
+to podľa auditu zaznelo a bije sa to s platenou diagnostikou. Také video sa nepoužije.
+
+---
+
+## ✅ Kontrola pred odovzdaním skriptu
+
+- [x] Má 10 blokov v správnom poradí
+- [x] **CTA je tam dvakrát**
+- [x] Elimination je tam a má dôvod, nielen ubezpečenie
+- [x] Druhé CTA obsahuje doslova „klikni na tlačidlo pod týmto videom"
+- [x] Scarcity je reálna kapacita, nie okrúhle číslo
+- [x] Time limit je politika, nie dátum, ktorý prejde počas kampane
+- [x] 145 slov na 60 s, spočítané: 156 az 164 slov, teda 65 az 68 s
+- [x] Napísané 4 hooky a 4 subhooky, nie jeden
+- [x] Žiadne dlhé pomlčky
+- [ ] 🔴 Miriam potvrdí **9 diagnostík mesačne** a vie ich ustrážiť
+- [ ] 🔴 Miriam potvrdí, že **termíny vypisuje len na najbližší mesiac**
+- [ ] 🔴 Miriam potvrdí **garanciu vrátenia peňazí** pri platbe vopred
+- [ ] 🔴 Miriam potvrdí vetu z tela B: **„ak stačí presunúť tri veci, projekt ti ponúkať
+      nebudem"**, a bude ju dodržiavať
+- [ ] 🔴 Súhlas klientky, ak sa točí v jej byte alebo ide do referencie

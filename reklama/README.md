@@ -5,7 +5,7 @@ Postavené podľa `playbook/` v GHLtool.
 | Súbor | Čo v ňom je |
 |---|---|
 | [`01_funnel.md`](01_funnel.md) | celý lievik: štyri stránky, kvíz, platba, napojenie na GHL, kampaň |
-| [`02_skript.md`](02_skript.md) | dve verzie skriptu, 8 hookov, plán natáčania |
+| [`02_skript.md`](02_skript.md) | 4 hooky, 4 subhooky, 2 telá v desaťblokovej kostre, plán natáčania |
 | [`03_copy.md`](03_copy.md) | copy do reklamy, jedno na všetky kreatívy |
 | [`domov.html`](domov.html) | to isté ako klikacia vizualizácia |
 | `_archiv/` | zrušený smer, viď nižšie |
@@ -125,7 +125,7 @@ druhá verzia stránky, mení sa ponuka.
 | Časť | Stav |
 |---|---|
 | Copy | ✅ hotové, čaká na overenie tvrdení u Miriam |
-| Skripty a hooky | ✅ hotové, čakajú na natočenie |
+| Skripty a hooky | ✅ hotové v desaťblokovej kostre z playbooku, čakajú na natočenie |
 | PDF „5 najdrahších chýb" | ✅ existuje a je nahostované |
 | Kalendár „Interiérová diagnostika" | ✅ existuje, 🔴 ale bez notifikácií |
 | Pipeline v GHL | ✅ existuje |
@@ -151,4 +151,8 @@ druhá verzia stránky, mení sa ponuka.
 5. **Že jazdí do celého okruhu 30 km od Trnavy** a za akých podmienok.
 6. **Či smie použiť recenziu Ivety Pappovej s menom.** Ak nie je súhlas, sekcia so
    sociálnym dôkazom sa vynechá, nevymyslí.
-7. **Súhlas majiteľky bytu**, ak sa bude točiť u klientky doma.
+7. **Súhlas majiteľky bytu**, ak sa bude točiť u klientky doma alebo pôjde do referencie.
+8. **Že termíny vypisuje len na najbližší mesiac.** Je to časový limit vo videách.
+9. **Vetu z tela B:** „ak stačí presunúť tri veci, poviem ti to a projekt ti ponúkať
+   nebudem". Je to najsilnejšia veta celého skriptu, dobrovoľne sa ňou pripravuje
+   o zákazku, a preto ju musí naozaj dodržať.
