@@ -5,7 +5,7 @@ Postavené podľa `playbook/` v GHLtool.
 | Súbor | Čo v ňom je |
 |---|---|
 | [`01_funnel.md`](01_funnel.md) | celý lievik: štyri stránky, kvíz, platba, napojenie na GHL, kampaň |
-| [`02_skript.md`](02_skript.md) | 4 hooky, 4 subhooky, 2 telá v desaťblokovej kostre, plán natáčania |
+| [`02_skript.md`](02_skript.md) | jedno telo, 8 hookov a 8 subhookov, plán natáčania |
 | [`03_copy.md`](03_copy.md) | copy do reklamy, jedno na všetky kreatívy |
 | [`domov.html`](domov.html) | to isté ako klikacia vizualizácia |
 | `_archiv/` | zrušený smer, viď nižšie |
@@ -152,7 +152,29 @@ druhá verzia stránky, mení sa ponuka.
 6. **Či smie použiť recenziu Ivety Pappovej s menom.** Ak nie je súhlas, sekcia so
    sociálnym dôkazom sa vynechá, nevymyslí.
 7. **Súhlas majiteľky bytu**, ak sa bude točiť u klientky doma alebo pôjde do referencie.
-8. **Že termíny vypisuje len na najbližší mesiac.** Je to časový limit vo videách.
-9. **Vetu z tela B:** „ak stačí presunúť tri veci, poviem ti to a projekt ti ponúkať
-   nebudem". Je to najsilnejšia veta celého skriptu, dobrovoľne sa ňou pripravuje
-   o zákazku, a preto ju musí naozaj dodržať.
+8. **Vetu zo záložného tela B:** „ak stačí presunúť tri veci, poviem ti to a projekt ti
+   ponúkať nebudem". Dobrovoľne sa ňou pripravuje o zákazku, a preto ju musí naozaj
+   dodržať.
+
+---
+
+## 🔴 Otvorený rozpor: 7 alebo 9?
+
+| Kde | Číslo |
+|---|---|
+| **Video** (`02_skript.md`) | „Ponuka platí len pre **prvých 7 klientiek**." |
+| **Copy pod reklamou** (`03_copy.md`) | „mesačne stihnem **9 diagnostík**" |
+| Tento súbor, tabuľky vyššie | 9 |
+
+**Sú to dve rôzne čísla v tej istej reklame.** Treba vybrať jedno.
+Odporúčam **7**: je nižšie, teda naliehavejšie, a ľahšie sa dodrží. Po potvrdení sa
+zjednotí v copy aj v tomto súbore, vrátane stropu kapacity v sekcii „Kde sa berú peniaze"
+(7 × 249 € = 1 743 € namiesto 2 241 €).
+
+## 🔴 Opakovaná úloha: prvého v mesiaci
+
+Vo videu je časový limit **„táto akcia platí do konca mesiaca"**. Je to doslovná formulka
+z playbooku a funguje, ale je to **dátum, ktorý prejde**. Garuda bežala 261 dní s prešlým
+deadlinom a playbook to uvádza ako chybu, ktorú nekopírovať.
+
+Prvého v mesiaci sa kampaň buď obnoví, alebo pauzne. Zapísať ako opakovanú úlohu.

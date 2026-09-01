@@ -616,312 +616,212 @@ PS. Ak hľadáš niekoho, kto ti nakreslí pekné obrázky a nechá ťa v tom, n
 <!-- ===================== SKRIPTY ===================== -->
 <section id="skripty">
   <p class="mark">Skripty</p>
-  <h2>Desať blokov, štyri telá</h2>
-  <p class="sub">Kostra je z playbooku a je zmeraná na 23 prepisoch reálne bežiacich
-    reklám. Telo sa nahráva raz, mení sa iba prvých päť až dvanásť sekúnd.
-    Telá A a B sú vlastné, <strong>C je postavené podľa čerpadiel a D podľa Eblaky</strong>.</p>
-
-  <div class="note warn">
-    <span class="lbl">Prepis oproti predošlej verzii</span>
-    <p>Predtým som písal skripty v šesťtaktovej kostre hook, problém, riešenie, dôkaz,
-    ponuka, CTA. <strong>Tá kostra nie je z playbooku.</strong> Chýbali v nej štyri bloky,
-    ktoré má reálne bežiaca reklama: <strong>elimination, guarantee, time limit
-    a druhé CTA</strong>. Playbook meria, že práve elimination a guarantee vynecháva AI
-    najčastejšie, a práve tie robia rozdiel medzi reklamou a letákom.</p>
-  </div>
-
-  <div class="two">
-    <div class="tw"><table>
-      <thead><tr><th class="mono">#</th><th>Blok</th><th>Povinný</th></tr></thead>
-      <tbody>
-        <tr><td class="mono">1</td><td>HOOK</td><td>vždy · mení sa</td></tr>
-        <tr><td class="mono">2</td><td>SUBHOOK</td><td>vždy · mení sa</td></tr>
-        <tr><td class="mono">3</td><td>OFFER</td><td>vždy</td></tr>
-        <tr><td class="mono">4</td><td>ELIMINATION</td><td>AI ho najčastejšie vynechá</td></tr>
-        <tr><td class="mono">5</td><td>GUARANTEE</td><td>takmer vždy</td></tr>
-        <tr><td class="mono">6</td><td>BONUS</td><td>nepovinný</td></tr>
-        <tr><td class="mono">7</td><td>CTA</td><td>vždy</td></tr>
-        <tr><td class="mono">8</td><td>TIME LIMIT</td><td>takmer vždy</td></tr>
-        <tr><td class="mono">9</td><td>SCARCITY</td><td>vždy</td></tr>
-        <tr><td class="mono">10</td><td>CTA znova</td><td>18 z 23 reklám</td></tr>
-      </tbody>
-    </table></div>
-    <div>
-      <div class="note">
-        <span class="lbl">CTA je tam dvakrát zámerne</span>
-        <p>Prvé príde hneď po garancii, druhé až po časovom limite a obmedzení počtu.
-        Diváčka teda dostane výzvu, potom dôvod ponáhľať sa, a potom výzvu znova.</p>
-      </div>
-      <div class="note">
-        <span class="lbl">Štyri telá, každé s inou úlohou</span>
-        <p><strong>A „Poradie"</strong> · hovoriaca hlava plus zábery. Pri službe, kde si
-        žena púšťa cudzieho človeka do bytu na 90 minút, musí byť vidieť tvár.</p>
-        <p><strong>B „Nechodím ti nič predať"</strong> · komentár nad zábermi, bez tváre.
-        Playbooková predvoľba, ukáže priestory, ktoré tvár neukáže.</p>
-        <p><strong>C „Bez búrania"</strong> · podľa tepelných čerpadiel: Dream hook
-        a Fear subhook, offer ako trojica, garancia je záruka, žiadny bonus.</p>
-        <p><strong>D „Kreslo"</strong> · podľa Eblaky: offer a bonus v jednom dychu,
-        plus vizuálny hook z Kaštieľa Hanus.</p>
-      </div>
-    </div>
-  </div>
+  <h2>Jedno telo, osem hookov</h2>
+  <p class="sub">Desaťbloková kostra z playbooku, zmeraná na 23 prepisoch reálne
+    bežiacich reklám. Telo sa nahráva <strong>raz</strong>, mení sa iba prvých päť
+    až dvanásť sekúnd. Presne takto to robí Eblaka.</p>
 
   <div class="script">
     <div class="script-head">
-      <h3>Telo A · „Poradie"</h3>
-      <div class="chips"><span class="chip">Hovoriaca hlava + zábery</span><span class="chip">V priestore</span><span class="chip">126 slov</span><span class="chip">65-67 s</span></div>
+      <h3>Core · telo pre všetkých osem videí</h3>
+      <div class="chips"><span class="chip">117 slov</span><span class="chip">S hookom 59-63 s</span><span class="chip">Nahráva sa raz</span></div>
     </div>
-    <div class="beat"><div class="t">41 slov<b>Offer</b></div><div><q>Práve teraz robím interiérovú diagnostiku. Prídem k tebe domov na deväťdesiat minút a odídeš s tromi vecami: kde je skutočný problém, čo riešiť ako prvé a čo prestať kupovať. A ešte predtým ti zdarma pošlem päť najdrahších chýb pri zariaďovaní domova.</q></div></div>
-    <div class="beat"><div class="t">23 slov<b>Elimination</b></div><div><q>U mňa sa nemusíš báť, že ti nanútim cudzí štýl. Nechodím s hotovou predstavou. Tých deväťdesiat minút sa hlavne pýtam, ako reálne žiješ.</q></div></div>
-    <div class="beat"><div class="t">16 slov<b>Guarantee</b></div><div><q>A ak neodídeš s jasnom, čo ďalej, povedz mi to na mieste a peniaze ti vrátim.</q></div></div>
-    <div class="beat"><div class="t">14 slov<b>Bonus</b></div><div><q>Navyše, ak sa rozhodneš pre návrh, celých dvestoštyridsaťdeväť eur ti z ceny projektu odpočítam.</q></div></div>
+    <div class="beat"><div class="t">37 slov<b>Offer</b></div><div><q>Práve teraz robím niečo, čo si nenechaj ujsť. Volá sa to interiérová diagnostika. Prídem k tebe domov na deväťdesiat minút a odídeš s tromi vecami: kde je skutočný problém, čo riešiť ako prvé a čo prestať kupovať.</q></div></div>
+    <div class="beat"><div class="t">17 slov<b>Elimination</b></div><div><q>U mňa sa nemusíš báť, že ti nanútim cudzí štýl. Riešime, ako tvoju víziu priviesť k životu.</q></div></div>
+    <div class="beat"><div class="t">7 slov<b>Guarantee</b></div><div><q>Navyše máš u mňa stopercentnú záruku spokojnosti.</q></div></div>
+    <div class="beat"><div class="t">24 slov<b>Bonus</b></div><div><q>A k tomu, ak sa rozhodneš pre celý projekt, celú cenu takejto diagnostiky ti z ceny projektu odpočítam, takže za ňu neplatíš ani cent.</q></div></div>
     <div class="beat"><div class="t">7 slov<b>CTA 1</b></div><div><q>Klikni a rezervuj si diagnostiku ešte dnes.</q></div></div>
-    <div class="beat"><div class="t">7 slov<b>Time limit</b></div><div><q>Termíny vypisujem vždy len na najbližší mesiac.</q></div></div>
-    <div class="beat"><div class="t">6 slov<b>Scarcity</b></div><div><q>Chodím osobne, takže mesačne stihnem deväť.</q></div></div>
+    <div class="beat"><div class="t">6 slov<b>Time limit</b></div><div><q>Táto akcia platí do konca mesiaca.</q></div></div>
+    <div class="beat"><div class="t">7 slov<b>Scarcity</b></div><div><q>Ponuka platí len pre prvých 7 klientiek.</q></div></div>
     <div class="beat"><div class="t">12 slov<b>CTA 2</b></div><div><q>Tak nečakaj, klikni na tlačidlo pod týmto videom a vyber si termín.</q></div></div>
-  </div>
-
-  <div class="script">
-    <div class="script-head">
-      <h3>Telo B · „Nechodím ti nič predať"</h3>
-      <div class="chips"><span class="chip">Komentár nad zábermi</span><span class="chip">Bez tváre</span><span class="chip">129 slov</span><span class="chip">66-68 s</span></div>
-    </div>
-    <div class="beat"><div class="t">36 slov<b>Offer</b></div><div><q>Práve teraz robím interiérovú diagnostiku. Deväťdesiat minút u teba doma. Pomenujeme, čo v priestore nefunguje a prečo, a odídeš s poradím krokov, nie s pocitom. K tomu ti zdarma pošlem päť najdrahších chýb pri zariaďovaní domova.</q></div></div>
-    <div class="beat"><div class="t">31 slov<b>Elimination</b></div><div><q>A nemusíš sa báť, že ti prídem niečo predať. Niekedy stačí presunúť tri veci, ktoré už doma máš. Ak to bude tvoj prípad, poviem ti to a projekt ti ponúkať nebudem.</q></div></div>
-    <div class="beat"><div class="t">14 slov<b>Guarantee</b></div><div><q>Navyše máš u mňa garanciu. Ak neodídeš s jasnom, čo ďalej, peniaze ti vrátim.</q></div></div>
-    <div class="beat"><div class="t">14 slov<b>Bonus</b></div><div><q>A ak sa pre projekt rozhodneš, celých dvestoštyridsaťdeväť eur ti z jeho ceny odpočítam.</q></div></div>
-    <div class="beat"><div class="t">6 slov<b>CTA 1</b></div><div><q>Klikni a rezervuj si svoj termín.</q></div></div>
-    <div class="beat"><div class="t">7 slov<b>Time limit</b></div><div><q>Termíny vypisujem vždy len na najbližší mesiac.</q></div></div>
-    <div class="beat"><div class="t">9 slov<b>Scarcity</b></div><div><q>Chodím k ženám osobne, takže mesačne stihnem deväť diagnostík.</q></div></div>
-    <div class="beat"><div class="t">12 slov<b>CTA 2</b></div><div><q>Tak nečakaj, klikni na tlačidlo pod týmto videom a vyber si termín.</q></div></div>
-  </div>
-
-  <div class="script">
-    <div class="script-head">
-      <h3>Telo C · „Bez búrania"</h3>
-      <div class="chips"><span class="chip">Model: tepelné čerpadlá</span><span class="chip">Dream + Fear</span><span class="chip">127 slov</span><span class="chip">64 s</span></div>
-    </div>
-    <div class="beat"><div class="t">12 slov<b>Hook · Dream</b></div><div><q>Vedela si, že domov sa dá zmeniť na nepoznanie aj bez rekonštrukcie?</q></div></div>
-    <div class="beat"><div class="t">16 slov<b>Subhook · Fear</b></div><div><q>Alebo to odkladáš, lebo sa bojíš, že to bude znamenať búranie, prach a mesiace v neporiadku?</q></div></div>
-    <div class="beat"><div class="t">38 slov<b>Offer</b></div><div><q>Práve teraz robím interiérovú diagnostiku. Prídem k tebe domov a dostaneš tri veci: prejdenie celého priestoru, plán priorít a zoznam, čo prestať kupovať. A päť najdrahších chýb pri zariaďovaní domova ti pošlem zdarma ešte predtým, než sa uvidíme.</q></div></div>
-    <div class="beat"><div class="t">24 slov<b>Elimination</b></div><div><q>U mňa sa nemusíš báť, že to skončí veľkou prestavbou. Väčšina vecí, ktoré ťa doma unavujú, sa dá vyriešiť poradím a rozmiestnením, nie búraním.</q></div></div>
-    <div class="beat"><div class="t">22 slov<b>Guarantee</b></div><div><q>Navyše u mňa máš garanciu funkčného priestoru. Ak po realizácii nebude fungovať tak, ako sme si ho nadefinovali, pracujem ďalej bez doplatku.</q></div></div>
-    <div class="beat"><div class="t">12 slov<b>CTA 1</b></div><div><q>Klikni na tlačidlo pod týmto videom a rezervuj si diagnostiku ešte dnes.</q></div></div>
-    <div class="beat"><div class="t">7 slov<b>Time limit</b></div><div><q>Termíny vypisujem vždy len na najbližší mesiac.</q></div></div>
-    <div class="beat"><div class="t">11 slov<b>Scarcity</b></div><div><q>Ponuka platí len pre deväť klientok mesačne, chodím k nim osobne.</q></div></div>
-    <div class="beat"><div class="t">13 slov<b>CTA 2</b></div><div><q>Tak načo čakať? Klikni na tlačidlo pod týmto videom a vyber si termín.</q></div></div>
   </div>
 
   <div class="note good">
-    <span class="lbl">Čo je v tele C prevzaté z čerpadiel</span>
-    <p><strong>Dream hook a hneď za ním Fear subhook.</strong> Sľub otvorí, strach okamžite
-    zatvorí únikovú cestu „veď to ešte počká". Toto je najsilnejší pár v celej vzorke
-    a prvé štyri dvojice, ktoré som napísal, ho nemali: boli sľub plus sľub.</p>
-    <p><strong>Offer ako trojica</strong>, presne ako „obhliadnutie, nacenenie
-    a špecifikácia": prejdenie priestoru, plán priorít a zoznam, čo prestať kupovať.</p>
-    <p><strong>Guarantee je záruka, nie vrátenie peňazí.</strong> Používa jej
-    <strong>garanciu funkčného priestoru</strong>, druhú garanciu z jej webu, ktorú sme
-    doteraz v žiadnom skripte nepoužili. A telo C zámerne <strong>nemá bonus</strong>,
-    rovnako ako čerpadlá, aby sa líšilo od ostatných.</p>
+    <span class="lbl">Doplnený začiatok</span>
+    <p>Prvá veta bola nedokončená. Doplnil som ju takto:</p>
+    <p style="font-family:var(--display);font-size:1.08rem;color:var(--ink)">„Práve teraz
+    robím niečo, čo si nenechaj ujsť. <strong>Volá sa to interiérová diagnostika.</strong>"</p>
+    <p><strong>„Práve teraz máme niečo, čo si nenechajte ujsť"</strong> je doslovná formulka
+    z playbooku, vyskytuje sa v 6 z 23 meraných reklám. Prevedená do tykania.</p>
+    <p><strong>Rozdelil som ju na dve vety.</strong> „Robím niečo, čo si nenechaj ujsť" je
+    rozkazovací spôsob vo vzťažnej vete a v spisovnej slovenčine to škrípe. Bodka to
+    vyrieši a druhá veta rovno <strong>pomenuje produkt</strong>. To je dôležité: hneď
+    nasleduje „Prídem k tebe domov", takže bez názvu by diváčka nevedela, čo si rezervuje.
+    „Interiérová diagnostika" je názov, ktorý má aj na webe aj v kalendári v GHL.</p>
   </div>
 
-  <div class="script">
-    <div class="script-head">
-      <h3>Telo D · „Kreslo, ktoré tu stojí len preto"</h3>
-      <div class="chips"><span class="chip">Model: Eblaka</span><span class="chip">Vizuálny hook</span><span class="chip">120 slov</span><span class="chip">61 s</span></div>
+  <h3 class="head">Gramatika: dve opravy</h3>
+  <p class="prose">Zvyšok textu som nemenil. Toto sú jediné dve veci, ktoré boli naozaj
+  chybné.</p>
+  <div class="tw">
+    <table>
+      <thead><tr><th>Bolo</th><th>Má byť</th><th>Prečo</th></tr></thead>
+      <tbody>
+        <tr><td>„Riešime ako tvoju víziu priviesť k životu."</td><td><strong>„Riešime, ako tvoju víziu priviesť k životu."</strong></td><td>Vedľajšia veta uvedená spojkou „ako" sa oddeľuje čiarkou.</td></tr>
+        <tr><td>„100%-nú záruku spokojnosti"</td><td><strong>„stopercentnú záruku spokojnosti"</strong></td><td>Tvar <code>100%-nú</code> je nespisovný a hlavne sa nedá prečítať nahlas. V hovorenom skripte sa píše slovom.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note">
+    <span class="lbl">Tri veci, ktoré chybné nie sú, len za zváženie</span>
+    <p><strong>1.</strong> „celú <em>cenu</em> takejto diagnostiky ti z <em>ceny</em>
+    projektu odpočítam" má v jednej vete dvakrát „cena". Pri hovorení to znie ťažkopádne.
+    Alternatíva: <em>„celú sumu ti z ceny projektu odpočítam"</em>.<br />
+    <strong>2.</strong> „takejto diagnostiky" je trochu úradné. Prirodzenejšie:
+    <em>„celú cenu diagnostiky"</em>.<br />
+    <strong>3.</strong> Zvyšok je v poriadku: „s tromi vecami", „prvých 7 klientiek",
+    „vyber si termín", všetko správne.</p>
+  </div>
+
+  <h3 class="head">Tri veci, ktoré nový core zmenil</h3>
+
+  <div class="note warn">
+    <span class="lbl">Scarcity si protirečí s copy</span>
+    <p><strong>Video hovorí „prvých 7 klientiek", copy pod reklamou hovorí „mesačne
+    stihnem 9 diagnostík".</strong> To sú dve rôzne čísla v tej istej reklame. Treba vybrať
+    jedno a zjednotiť. Odporúčam <strong>7</strong>: je nižšie, teda naliehavejšie,
+    a ľahšie sa dodrží. Keď potvrdíš, prepíšem copy.</p>
+    <p>Playbook uprednostňuje kapacitné znenie („stihnem sedem mesačne") pred poradovým
+    („pre prvých sedem"), lebo poradové číslo je vo vzorke formulka, ktorú nikto
+    nedodržiava. Tvoje znenie je v poriadku, <strong>ak sa tých sedem naozaj dodrží.</strong></p>
+  </div>
+
+  <div class="two">
+    <div class="note warn">
+      <span class="lbl">„Do konca mesiaca" treba obnovovať</span>
+      <p>Je to doslovná formulka z playbooku a funguje. Ale je to <strong>dátum, ktorý
+      prejde.</strong> Garuda bežala 261 dní s prešlým deadlinom a playbook to uvádza
+      ako chybu, ktorú nekopírovať.</p>
+      <p>🔴 Prvého v mesiaci sa kampaň buď obnoví, alebo pauzne. Zapísať ako opakovanú
+      úlohu, nie spoliehať sa na pamäť.</p>
     </div>
-    <div class="beat"><div class="t">12 slov<b>Hook · vizuál</b></div><div><q>Áno, toto kreslo tu stojí len preto, že sa nezmestilo nikam inam.</q></div></div>
-    <div class="beat"><div class="t">16 slov<b>Subhook · strata</b></div><div><q>Koľko takých vecí máš doma ty? A koľko z nich si kupovala s úplne inou predstavou?</q></div></div>
-    <div class="beat"><div class="t">36 slov<b>Offer + bonus</b></div><div><q>Práve teraz robím interiérovú diagnostiku. Prídem k tebe domov na deväťdesiat minút a odídeš s plánom, čo riešiť ako prvé, a navyše, ak sa rozhodneš pre návrh odo mňa, celých dvestoštyridsaťdeväť eur ti z ceny odpočítam.</q></div></div>
-    <div class="beat"><div class="t">29 slov<b>Elimination</b></div><div><q>A nemusíš sa báť, že to musíš najprv upratať. Ja k tebe idem presne preto, aby som videla, ako to u teba naozaj vyzerá. Uprataný byt mi nepovie nič.</q></div></div>
-    <div class="beat"><div class="t">23 slov<b>Guarantee</b></div><div><q>Máš u mňa garanciu: ak z tých deväťdesiatich minút neodídeš s jasnom, čo ďalej, povedz mi to na mieste a peniaze ti vrátim.</q></div></div>
-    <div class="beat"><div class="t">8 slov<b>CTA 1</b></div><div><q>Klikni a rezervuj si svoj termín ešte dnes.</q></div></div>
-    <div class="beat"><div class="t">7 slov<b>Time limit</b></div><div><q>Termíny vypisujem vždy len na najbližší mesiac.</q></div></div>
-    <div class="beat"><div class="t">4 slová<b>Scarcity</b></div><div><q>Stihnem deväť diagnostík mesačne.</q></div></div>
-    <div class="beat"><div class="t">13 slov<b>CTA 2</b></div><div><q>Tak nečakaj, klikni na tlačidlo pod týmto videom a rezervuj si diagnostiku teraz.</q></div></div>
+    <div class="note">
+      <span class="lbl">Vo videu už nezaznie cena</span>
+      <p>Predtým tam bolo „stojí 249 eur". Teraz je tam len „za ňu neplatíš ani cent, ak
+      pokračuješ projektom". Je to legitímna voľba, robí to tak väčšina meraných reklám.</p>
+      <p>Má to ale dôsledok: <strong>cena musí byť veľmi jasne na landing page, nad
+      záhybom.</strong> Kto sa o 249 € dozvie až na platobnej stránke, cíti sa nachytaný
+      a odíde. Reťazec je: video ju nepovie, text pod videom áno, stránka ju má veľkým.</p>
+    </div>
   </div>
 
-  <div class="note warn">
-    <span class="lbl">Elimination v tele D nerieši peniaze, ale hanbu</span>
-    <p>Pri službe, kde si žena púšťa cudzieho človeka do svojho neupratého bytu, je
-    najväčšia brzda <strong>„veď to u mňa teraz vyzerá hrozne"</strong>, nie cena.
-    Túto vetu nehovorí nikto, a pritom je to presne to, čo ženu zastaví tesne
-    pred kliknutím.</p>
-    <p>⚠️ Záber k tomuto bloku musí byť <strong>reálny neporiadok so súhlasom
-    majiteľky</strong>, nie naaranžovaný. Naaranžovaný neporiadok je vidieť
-    a celú vetu to zabije.</p>
-  </div>
+  <h3 class="head">Záložné telá do druhého kola</h3>
+  <p class="prose"><strong>Nezostávaj navždy v rýchlom režime.</strong> Ak je desať reklám
+  na 90 % identických, algoritmus nemá z čoho vyberať. Po dvoch týždňoch pozri, ktoré
+  hooky ťahajú, a nahraj k nim celkom nové telo. Tieto tri sú pripravené a líšia sa
+  inou elimination a inou garanciou.</p>
 
-  <h3 class="head">Prečo je elimination v každom tele iná</h3>
-  <p class="prose">Playbook to hovorí na príklade Garudy: <em>elimination musí trafiť tú
-  námietku, ktorú má <strong>táto</strong> cieľovka, nie univerzálnu.</em> Miriamina
-  cieľovka má dve, a obe sú doslovne na jej webe.</p>
-
-  <div class="tw">
-    <table>
-      <thead><tr><th>Telo</th><th>Námietka, ktorú zabíja</th><th>Odkiaľ vieme, že ju má</th></tr></thead>
-      <tbody>
-        <tr><td class="mono">A</td><td>„nanúti mi svoj štýl"</td><td>jej veta v sekcii „Poznáš to?": <em>„Bojíš sa, že ti dizajnér nanúti svoj štýl namiesto tvojho."</em></td></tr>
-        <tr><td class="mono">B</td><td>„bude to predajný hovor a zaplatím zbytočne"</td><td>jej FAQ: <em>„Prečo je konzultácia platená? Aby si dostala skutočnú hodnotu, nie predajný hovor."</em></td></tr>
-        <tr><td class="mono">C</td><td>„skončí to veľkou prestavbou, na ktorú nemám"</td><td>jej veta <em>„bojíš sa, že opäť minieš a nepomôže to"</em>, plus bežná predstava, že dizajnér znamená rekonštrukciu</td></tr>
-        <tr><td class="mono">D</td><td>„veď to u mňa teraz vyzerá hrozne"</td><td>nie je na webe. Je to <strong>brzda špecifická pre návštevu doma</strong>, ktorú nikto nehovorí nahlas.</td></tr>
-      </tbody>
-    </table>
-  </div>
-
-  <div class="note warn">
-    <span class="lbl">Najsilnejšia veta v celom skripte</span>
-    <p>Elimination v tele B sa <strong>dobrovoľne pripravuje o zákazku</strong>:
-    <em>„ak stačí presunúť tri veci, poviem ti to a projekt ti ponúkať nebudem."</em>
-    Presne to robí Eblaka, keď v reklame povie, že niektoré tesnenia netreba meniť.
-    Je to ten typ vety, ktorý AI samo od seba nenapíše, lebo pôsobí proti predaju.</p>
-    <p>🔴 <strong>Miriam ju musí naozaj dodržať</strong>, inak je to klamstvo.</p>
-  </div>
-
-  <p class="prose">Vo všetkých štyroch telách je stavba rovnaká: <strong>najprv dôvod,
-  potom ubezpečenie.</strong> V tele A je dôvod „nechodím s hotovou predstavou, hlavne
-  sa pýtam", v tele C „väčšina vecí sa dá vyriešiť poradím a rozmiestnením", až potom
-  „nemusíš sa báť". Ubezpečenie bez dôvodu je prázdne.</p>
-
-  <h3 class="head">Odchýlky od playbookovej šablóny</h3>
-  <div class="tw">
-    <table>
-      <thead><tr><th>Šablóna hovorí</th><th>U nás</th><th>Prečo</th></tr></thead>
-      <tbody>
-        <tr><td>OFFER je prvý krok <strong>zdarma</strong></td><td>prvý krok je <strong>platený, 249 €</strong></td><td>Celá stratégia stojí na tom, že sa nepredáva bezplatná konzultácia. Slovo „zdarma" v bloku ostáva, ale visí na PDF a na odpočte, presne ako Garuda vešia posturálnu analýzu zdarma na rezerváciu prvého cvičenia.</td></tr>
-        <tr><td>BONUS naviaž na väčšiu zákazku</td><td>odpočet 249 € pri projekte</td><td>PDF dostane každá, odpočet len tá, ktorá pokračuje projektom. Bonus tak neznižuje hodnotu diagnostiky.</td></tr>
-        <tr><td>SCARCITY „prvých 50 klientov"</td><td>„mesačne stihnem deväť"</td><td>Playbook to hovorí priamo: okrúhla päťdesiatka je formulka, ktorú má skoro každý a nikto ju nedodržiava. Deväť je reálna kapacita, lebo diagnostika je 90 minút na mieste.</td></tr>
-        <tr><td>TIME LIMIT „do konca mesiaca"</td><td>„termíny vypisujem len na najbližší mesiac"</td><td>Garuda bežala 261 dní s „prvých 50 klientov", teda s dávno prešlým deadlinom v živej reklame. Naša formulácia je <strong>politika, nie dátum</strong>, takže platí stále a nemusí sa prepisovať.</td></tr>
-        <tr><td>vykanie vo všetkých príkladoch</td><td>tykanie</td><td>Rozhoduje zavedený hlas klientky. Miriam tyká na webe, v e-mailoch aj na Instagrame.</td></tr>
-      </tbody>
-    </table>
+  <div class="cards">
+    <div class="card">
+      <span class="tag">Telo B</span>
+      <h3>Nechodím ti nič predať</h3>
+      <p>Elimination sa <strong>dobrovoľne pripravuje o zákazku</strong>, ako Eblaka:
+      <em>„Niekedy stačí presunúť tri veci, ktoré už doma máš. Ak to bude tvoj prípad,
+      poviem ti to a projekt ti ponúkať nebudem."</em></p>
+    </div>
+    <div class="card">
+      <span class="tag">Telo C</span>
+      <h3>Bez búrania</h3>
+      <p>Garancia je <strong>záruka, nie vrátenie peňazí</strong>, a používa jej druhú
+      garanciu z webu: <em>„garancia funkčného priestoru, pracujem ďalej bez doplatku."</em>
+      Patrí k nemu Dream hook o zmene bez rekonštrukcie, ktorý na hlavný core nesedí.</p>
+    </div>
+    <div class="card">
+      <span class="tag">Telo D</span>
+      <h3>Nemusíš to upratať</h3>
+      <p>Elimination nerieši peniaze ani štýl, ale <strong>hanbu</strong>:
+      <em>„Ja k tebe idem presne preto, aby som videla, ako to u teba naozaj vyzerá.
+      Uprataný byt mi nepovie nič."</em></p>
+    </div>
   </div>
 </section>
 
 <!-- ===================== HOOKY ===================== -->
 <section id="hooky">
   <p class="mark">Hooky</p>
-  <h2>Šesť hookov, šesť subhookov</h2>
-  <p class="sub">Hook je jedna veta, subhook jedna až dve. Každý útočí na iný typ diváčky,
-    nie sú to preformulovania tej istej vety. <strong>H1 az H4 sú voľné</strong>
-    a kombinujú sa s telami A a B. <strong>H5 a H6 sú pevne viazané</strong> na telá C a D.</p>
+  <h2>Osem hookov, osem subhookov</h2>
+  <p class="sub">Každý hook je iného typu, nie sú to preformulovania tej istej vety.
+    <strong>Dvojice sú pevné</strong>, každý subhook je písaný presne na svoj hook.</p>
 
-  <div class="tw">
-    <table class="hooks">
-      <thead><tr><th class="mono">#</th><th>Hook</th><th>Typ</th><th class="mono">Slov</th></tr></thead>
-      <tbody>
-        <tr><td>H1</td><td>„Domov, do ktorého sa tešíš vrátiť. Začni tým, čo ti v ňom naozaj prekáža."</td><td>sľub výsledku</td><td class="mono">14</td></tr>
-        <tr><td>H2</td><td>„Dizajnérka nie je náklad navyše. Je to spôsob, ako prestať kupovať veci dvakrát."</td><td>prevrátenie námietky o cene</td><td class="mono">13</td></tr>
-        <tr><td>H3</td><td>„Máš doma pekné veci a domov to aj tak nie je? Problém nie je vo veciach."</td><td>symptóm a jeho príčina</td><td class="mono">16</td></tr>
-        <tr><td>H4</td><td>„Ak sa vo vlastnom byte necítiš doma, nie je to tvoja chyba."</td><td>ubezpečenie</td><td class="mono">12</td></tr>
-        <tr><td>H5</td><td>„Vedela si, že domov sa dá zmeniť na nepoznanie aj bez rekonštrukcie?"</td><td><strong>Dream</strong> · pevne k telu C</td><td class="mono">12</td></tr>
-        <tr><td>H6</td><td>„Áno, toto kreslo tu stojí len preto, že sa nezmestilo nikam inam."</td><td><strong>vizuálny komentár</strong> · pevne k telu D</td><td class="mono">12</td></tr>
-      </tbody>
-    </table>
+  <div class="note">
+    <span class="lbl">Subhook nie je nepovinný</span>
+    <p>Bez neho ide hook rovno do „Práve teraz robím niečo", čo je skok. Subhook prehĺbi
+    to, čo hook otvoril, a až potom príde ponuka.</p>
   </div>
 
   <div class="tw">
     <table class="hooks">
-      <thead><tr><th class="mono">#</th><th>Subhook</th><th>Typ</th><th class="mono">Slov</th></tr></thead>
+      <thead><tr><th class="mono">#</th><th>Hook</th><th>Subhook</th><th>Typ dvojice</th><th class="mono">Dĺžka</th></tr></thead>
       <tbody>
-        <tr><td>S1</td><td>„Koľkokrát si už niečo kúpila v nádeji, že to pomôže? A koľko z toho dnes stojí tam, kde si to nechcela?"</td><td>eskalácia, dve otázky za sebou</td><td class="mono">21</td></tr>
-        <tr><td>S2</td><td>„Predstav si, že za jedno popoludnie vieš, čo zmeniť ako prvé, a prestaneš míňať na veci, ktoré to nespravia."</td><td>sľub</td><td class="mono">19</td></tr>
-        <tr><td>S3</td><td>„Sedačka, okolo ktorej sa chodí bokom. Svetlo uprostred stropu namiesto nad stolom. Skriňa, do ktorej sa nezmestí polovica vecí."</td><td>konkrétne symptómy</td><td class="mono">19</td></tr>
-        <tr><td>S4</td><td>„Nie je to o vkuse ani o peniazoch. Len ti nikto nepovedal, v akom poradí sa priestor skladá."</td><td>prevrátenie viny</td><td class="mono">18</td></tr>
-        <tr><td>S5</td><td>„Alebo to odkladáš, lebo sa bojíš, že to bude znamenať búranie, prach a mesiace v neporiadku?"</td><td><strong>Fear po Dream hooku</strong> · pevne k telu C</td><td class="mono">16</td></tr>
-        <tr><td>S6</td><td>„Koľko takých vecí máš doma ty? A koľko z nich si kupovala s úplne inou predstavou?"</td><td><strong>otázka na stratu</strong> · pevne k telu D</td><td class="mono">16</td></tr>
+        <tr><td>1</td><td>„Domov, kde má každá vec svoje miesto. Začni tým, že zistíš, čo ti v ňom prekáža."</td><td>„Alebo to odkladáš ďalší rok, lebo nevieš, ktorým koncom začať?"</td><td><strong>Dream a hneď Fear</strong></td><td class="mono">59 s</td></tr>
+        <tr><td>2</td><td>„Dizajnérka nie je náklad navyše. Je to spôsob, ako prestať kupovať veci dvakrát."</td><td>„Koľkokrát si už niečo kúpila v nádeji, že to pomôže? A koľko z toho dnes stojí tam, kde si to nechcela?"</td><td>námietka o cene a eskalácia</td><td class="mono">62 s</td></tr>
+        <tr><td>3</td><td>„Máš doma pekné veci a domov to aj tak nie je? Problém nie je vo veciach."</td><td>„Sedačka, okolo ktorej sa chodí bokom. Svetlo uprostred stropu namiesto nad stolom. Skriňa, do ktorej sa nezmestí polovica vecí."</td><td>symptóm a konkrétne symptómy</td><td class="mono">63 s</td></tr>
+        <tr><td>4</td><td>„Ak sa vo vlastnom byte necítiš doma, nie je to tvoja chyba."</td><td>„Nie je to o vkuse ani o peniazoch. Len ti nikto nepovedal, v akom poradí sa priestor skladá."</td><td>ubezpečenie a prevrátenie viny</td><td class="mono">61 s</td></tr>
+        <tr><td>5</td><td>„Máš pocit, že ti byt prerástol cez hlavu? Vieme ho dostať späť."</td><td>„Predstav si, že za jedno popoludnie vieš, čo zmeniť ako prvé, a zvyšok prestane byť chaos."</td><td>otázka na stratu a sľub</td><td class="mono">60 s</td></tr>
+        <tr><td>6</td><td>„Áno, toto kreslo tu stojí len preto, že sa nezmestilo nikam inam."</td><td>„Koľko takých vecí máš doma ty? A koľko z nich si kupovala s úplne inou predstavou?"</td><td>vizuálny a otázka na stratu</td><td class="mono">60 s</td></tr>
+        <tr><td>7</td><td>„Najčastejšia obava, ktorú od žien počujem: že jej dizajnérka nanúti svoj štýl."</td><td>„A tak radšej nespraví nič a býva ďalší rok v byte, ktorý ju neteší."</td><td>námietka a jej dôsledok</td><td class="mono">59 s</td></tr>
+        <tr><td>8</td><td>„Ak si so svojím domovom zmierená a meniť nechceš nič, toto video preskoč."</td><td>„Ale ak ťa každý večer niečo doma štve a už si si na to zvykla, toto si dopozeraj."</td><td>negatívny filter a jeho obrat</td><td class="mono">61 s</td></tr>
       </tbody>
     </table>
   </div>
 
   <div class="note good">
-    <span class="lbl">S5 je najdôležitejší prírastok</span>
-    <p>Najsilnejší pár v celej vzorke je <strong>Dream hook a hneď za ním Fear
-    subhook</strong>: sľub otvorí a strach okamžite zatvorí únikovú cestu „veď to ešte
-    počká". Presne to robia tepelné čerpadlá vetami „vaše kúrenie môže byť lacné
-    a zároveň štýlové" a hneď „bojíte sa, že váš starý kotol dá čoskoro výpoveď?".</p>
-    <p>Prvé štyri dvojice, ktoré som napísal, boli sľub plus sľub alebo symptóm plus
-    symptóm. To je slabšie a je to chyba, ktorú tento pár opravuje.</p>
+    <span class="lbl">Najsilnejšia dvojica je 1</span>
+    <p>Je to jediná, ktorá je <strong>Dream a hneď Fear</strong>: sľub otvorí a strach
+    okamžite zatvorí únikovú cestu „veď to ešte počká". Presne to robia tepelné čerpadlá
+    vetami <em>„vaše kúrenie môže byť lacné a zároveň štýlové"</em> a hneď
+    <em>„bojíte sa, že váš starý kotol dá čoskoro výpoveď?"</em></p>
   </div>
 
-  <div class="note warn">
-    <span class="lbl">Nepáruj náhodne</span>
-    <p>Hook a subhook musia ísť po sebe logicky. Ak je hook sľub, subhook ho prehĺbi
-    alebo prevráti na strach, nikdy nezačne inú tému.</p>
-  </div>
+  <h3 class="head">Kontrola: sedí každý hook na tento core?</h3>
+  <p class="prose">Core sa zmenil, takže nie všetky staršie hooky prežili. Toto je
+  to, čo bolo treba overiť.</p>
 
   <div class="tw">
     <table>
-      <thead><tr><th>Dvojica</th><th>Prečo dáva zmysel</th><th>Do 1. kola</th></tr></thead>
+      <thead><tr><th>Hook</th><th>Sedí</th><th>Prečo</th></tr></thead>
       <tbody>
-        <tr><td class="mono">H1 + S2</td><td>sľub otvorí, sľub prehĺbi a doplní o „ako prvé"</td><td>✅</td></tr>
-        <tr><td class="mono">H2 + S1</td><td>cena otvorí, subhook ukáže, koľko už minula zle</td><td>✅</td></tr>
-        <tr><td class="mono">H3 + S3</td><td>symptóm otvorí, tri konkrétne symptómy prehĺbia</td><td>✅</td></tr>
-        <tr><td class="mono">H4 + S4</td><td>ubezpečenie otvorí, subhook povie, kto za to teda môže</td><td>✅</td></tr>
-        <tr><td class="mono">H1 + S4</td><td>funguje: sľub a potom zbavenie viny</td><td>záloha</td></tr>
-        <tr><td class="mono">H3 + S1</td><td>funguje: symptóm a potom minuté peniaze</td><td>záloha</td></tr>
-        <tr><td class="mono">H2 + S3</td><td>❌ cena a hneď zoznam symptómov, nenadväzuje</td><td>nie</td></tr>
-        <tr><td class="mono">H4 + S1</td><td>❌ „nie je to tvoja chyba" a hneď „koľkokrát si už kúpila" znie ako výčitka</td><td>nie</td></tr>
+        <tr><td class="mono">H1 sľub</td><td>✅</td><td>Core hneď dodá „odídeš s tromi vecami", čo je presne to, čím sa začína.</td></tr>
+        <tr><td class="mono">H2 cena</td><td>✅</td><td>Core to potvrdí dvakrát: „čo prestať kupovať" a odpočet z projektu.</td></tr>
+        <tr><td class="mono">H3 symptóm</td><td>✅</td><td>Core pomenuje „kde je skutočný problém".</td></tr>
+        <tr><td class="mono">H4 ubezpečenie</td><td>✅</td><td>Sedí na celý tón core, ktorý nikoho neobviňuje.</td></tr>
+        <tr><td class="mono">H5 strata</td><td>✅</td><td>„Vieme ho dostať späť" a core hneď povie ako.</td></tr>
+        <tr><td class="mono">H6 vizuál</td><td>✅</td><td>Ale <strong>iba ak je to kreslo naozaj v zábere</strong> a kamera k nemu príde.</td></tr>
+        <tr><td class="mono">H7 štýl</td><td>✅</td><td><strong>Najtesnejšia väzba na core.</strong> Hook otvorí obavu, elimination v core ju o dvadsať sekúnd zabije.</td></tr>
+        <tr><td class="mono">H8 filter</td><td>✅</td><td>Core na ňom nič nemení, filter funguje samostatne.</td></tr>
+        <tr><td class="mono">„bez rekonštrukcie"</td><td style="color:var(--flag)"><strong>NIE</strong></td><td>Core o búraní ani prestavbe nehovorí ani slovo. Hook by sľuboval niečo, čo telo nepotvrdí. Patrí k telu C.</td></tr>
+        <tr><td class="mono">„za 249 eur k tebe prídem"</td><td style="color:var(--flag)"><strong>NIE</strong></td><td>Core už cenu nespomína. Hook by bol jediné miesto, kde suma zaznie, a to je nekonzistentné.</td></tr>
       </tbody>
     </table>
+  </div>
+
+  <div class="note">
+    <span class="lbl">Prečo H7 na obavu neodpovedá</span>
+    <p>Je to zámer. Odpoveď je v core: <em>„U mňa sa nemusíš báť, že ti nanútim cudzí
+    štýl."</em> Keby odpovedal už hook, tá istá myšlienka odznie vo videu dvakrát
+    za dvadsať sekúnd.</p>
   </div>
 </section>
 
 <!-- ===================== NATACANIE ===================== -->
 <section id="natacanie">
   <p class="mark">Natáčanie</p>
-  <h2>Dva dni, desať reklám</h2>
+  <h2>Jeden deň, osem reklám</h2>
   <p class="sub">Telo sa nahráva raz. Hooky a subhooky sa nahrajú zvlášť a lepia sa
-    pred to isté telo. Z jedného popoludnia tak vznikne osem až desať reklám.</p>
+    pred to isté telo.</p>
 
-  <div class="tw">
-    <table>
-      <thead><tr><th class="mono">Deň</th><th>Čo sa točí</th><th>Koľko</th></tr></thead>
-      <tbody>
-        <tr><td class="mono">1</td><td>telo A celé, plus hooky H1 az H4 a subhooky S1 az S4 na tvár</td><td>1 telo + 8 kúskov</td></tr>
-        <tr><td class="mono">1</td><td>telo C celé, aj s hookom H5 a subhookom S5</td><td>1 telo</td></tr>
-        <tr><td class="mono">1</td><td>zábery k telám A a C: príchod, sedenie s klientkou, presúvanie kresla, hotová miestnosť</td><td>20 az 30 záberov</td></tr>
-        <tr><td class="mono">2</td><td>zábery k telu D vrátane <strong>kresla v rohu</strong> a neupratanej izby</td><td>15 az 20 záberov</td></tr>
-        <tr><td class="mono">2</td><td>zábery k telu B, bez zvuku</td><td>15 az 25 záberov</td></tr>
-        <tr><td class="mono">2</td><td>komentáre k telám B a D, nahovorené mimo obraz</td><td>2 stopy</td></tr>
-      </tbody>
-    </table>
-  </div>
-
-  <h3 class="head">Desať reklám do prvého kola</h3>
-  <div class="tw">
-    <table>
-      <thead><tr><th class="mono">#</th><th>Telo</th><th>Hook + subhook</th><th>Súbor</th></tr></thead>
-      <tbody>
-        <tr><td class="mono">1</td><td>A</td><td class="mono">H1 + S2</td><td class="mono">01_A_slub.mp4</td></tr>
-        <tr><td class="mono">2</td><td>A</td><td class="mono">H2 + S1</td><td class="mono">02_A_cena.mp4</td></tr>
-        <tr><td class="mono">3</td><td>A</td><td class="mono">H3 + S3</td><td class="mono">03_A_symptom.mp4</td></tr>
-        <tr><td class="mono">4</td><td>A</td><td class="mono">H4 + S4</td><td class="mono">04_A_ubezpecenie.mp4</td></tr>
-        <tr><td class="mono">5</td><td>B</td><td class="mono">H1 + S2</td><td class="mono">05_B_slub.mp4</td></tr>
-        <tr><td class="mono">6</td><td>B</td><td class="mono">H2 + S1</td><td class="mono">06_B_cena.mp4</td></tr>
-        <tr><td class="mono">7</td><td>B</td><td class="mono">H3 + S3</td><td class="mono">07_B_symptom.mp4</td></tr>
-        <tr><td class="mono">8</td><td>B</td><td class="mono">H4 + S4</td><td class="mono">08_B_ubezpecenie.mp4</td></tr>
-        <tr><td class="mono">9</td><td><strong>C</strong></td><td class="mono">H5 + S5 · Dream a Fear</td><td class="mono">09_C_bez-burania.mp4</td></tr>
-        <tr><td class="mono">10</td><td><strong>D</strong></td><td class="mono">H6 + S6 · vizuálny</td><td class="mono">10_D_kreslo.mp4</td></tr>
-      </tbody>
-    </table>
-  </div>
-
-  <div class="note warn">
-    <span class="lbl">Dva zábery, bez ktorých telá C a D nefungujú</span>
-    <p><strong>Telo C potrebuje „pred a po" tej istej miestnosti</strong> s iným
-    rozmiestnením. Bez neho hook H5 sľubuje niečo, čo video neukáže, a telo C sa nepoužije.</p>
-    <p><strong>Telo D potrebuje to kreslo.</strong> Vizuálny hook funguje iba vtedy, keď je
-    tá vec naozaj v zábere a kamera k nej príde. Bez toho je to obyčajná veta.</p>
-    <p>Referencie klientok tým vypadli z prvého kola. Sú lepšie ako záloha do druhého,
-    keď už bude jasné, ktorý uhol ťahá, a keď bude vybavený súhlas so zverejnením.</p>
-  </div>
-
-  <div class="note">
-    <span class="lbl">Druhé kolo, o dva týždne</span>
-    <p>Pozri, ktoré hooky ťahajú, a nahraj k nim <strong>celkom nové telo</strong>.
-    Rýchly režim, teda jedno telo a vymenené hooky, je na štart. Ak ostane desať reklám
-    na 90 % identických, algoritmus nemá z čoho vyberať a rozdiely budú šum, nie signál.</p>
+  <div class="flow">
+    <div class="step"><span class="n">01</span><div>
+      <h4>Core celé, na jeden záťah</h4>
+      <p>Jedna nahrávka, cca 50 sekúnd. Toto je zvuk, ktorý bude vo všetkých ôsmich reklamách.</p></div></div>
+    <div class="step"><span class="n">02</span><div>
+      <h4>8 hookov a 8 subhookov, každý zvlášť</h4>
+      <p>16 krátkych kúskov. Hook sa mení <strong>vetou aj obrazom naraz</strong>, prvých
+      5 az 12 s musí byť medzi variantmi naozaj iných.</p></div></div>
+    <div class="step"><span class="n">03</span><div>
+      <h4>Zábery na prestrih</h4>
+      <p>20 az 30 kúskov. Rez každé 2,5 az 5 s.</p></div></div>
   </div>
 
   <div class="two">
@@ -929,35 +829,57 @@ PS. Ak hľadáš niekoho, kto ti nakreslí pekné obrázky a nechá ťa v tom, n
       <h3 style="margin-bottom:.8rem">Zábery, ktoré musia byť</h3>
       <div class="tw"><table>
         <tbody>
-          <tr><th>Telo A · offer</th><td>Miriam vchádza do dverí bytu, zúva sa, obzerá sa po miestnosti</td></tr>
-          <tr><th>Telo A · elimination</th><td>sedí s klientkou pri stole, počúva, robí si poznámky</td></tr>
-          <tr><th>Telo A · bonus</th><td>detail obrazovky s PDF, alebo listovanie vytlačeným</td></tr>
-          <tr><th>Telo B · elimination</th><td><strong>ruky presúvajú kreslo, lampu, obraz.</strong> Toto je najdôležitejší záber celého videa, doslova ukazuje „stačí presunúť tri veci"</td></tr>
-          <tr><th>Telo B · bonus</th><td>pôdorys na stole, ceruzka, vzorkovník</td></tr>
-          <tr><th>Obe · CTA</th><td>kalendár, mobil s otvoreným formulárom</td></tr>
+          <tr><th>Offer</th><td>Miriam vchádza do dverí bytu, zúva sa, obzerá sa po miestnosti</td></tr>
+          <tr><th>„tri veci"</th><td>detail poznámkového bloku, tri odrážky písané rukou</td></tr>
+          <tr><th>Elimination</th><td>sedí s klientkou, počúva, klientka ukazuje rukou po izbe</td></tr>
+          <tr><th>Guarantee</th><td>podanie ruky</td></tr>
+          <tr><th>Bonus</th><td>pôdorys na stole, ceruzka, vzorkovník</td></tr>
+          <tr><th>CTA a scarcity</th><td>kalendár, mobil s otvoreným formulárom</td></tr>
+          <tr><th>K hooku 6</th><td><strong>kreslo v rohu, kam nepatrí.</strong> Kamera k nemu príde. Bez tohto záberu hook 6 nefunguje.</td></tr>
+          <tr><th>K hooku 3</th><td>sedačka, strop so svetlom, skriňa</td></tr>
         </tbody>
       </table></div>
     </div>
     <div>
-      <h3 style="margin-bottom:.8rem">Špecifikácia a pravidlá</h3>
+      <h3 style="margin-bottom:.8rem">Osem reklám z tohto tela</h3>
       <div class="tw"><table>
+        <thead><tr><th class="mono">#</th><th>Dvojica</th><th>Súbor</th></tr></thead>
         <tbody>
-          <tr><th>Formát</th><td>9:16 na výšku, 1080x1920, 30 fps</td></tr>
-          <tr><th>Dĺžka</th><td>45 az 75 s. Naše skripty vychádzajú na 65 az 68 s.</td></tr>
-          <tr><th>Zvuk</th><td>Najdôležitejšie zo všetkého. Klopový mikrofón, alebo natáčaj v tichu.</td></tr>
-          <tr><th>Svetlo</th><td>Oknom do tváre. Nikdy okno za chrbtom.</td></tr>
-          <tr><th>Strih</th><td>Rez každé 2,5 az 5 s, teda 12 az 26 záberov za minútu.</td></tr>
-          <tr><th>Titulky</th><td>Napevno, veľké, v strede alebo v spodnej tretine. Nikdy pri dolnom okraji, tam ich prekryje rozhranie.</td></tr>
-          <tr><th>Hook</th><td>Mení sa <strong>veta aj úvodný záber naraz</strong>. Prvých 5 az 12 s musí byť medzi variantmi iných.</td></tr>
+          <tr><td class="mono">1</td><td>Dream a Fear</td><td class="mono">01_slub.mp4</td></tr>
+          <tr><td class="mono">2</td><td>cena</td><td class="mono">02_cena.mp4</td></tr>
+          <tr><td class="mono">3</td><td>symptóm</td><td class="mono">03_symptom.mp4</td></tr>
+          <tr><td class="mono">4</td><td>ubezpečenie</td><td class="mono">04_ubezpecenie.mp4</td></tr>
+          <tr><td class="mono">5</td><td>strata</td><td class="mono">05_strata.mp4</td></tr>
+          <tr><td class="mono">6</td><td>vizuál</td><td class="mono">06_kreslo.mp4</td></tr>
+          <tr><td class="mono">7</td><td>štýl</td><td class="mono">07_styl.mp4</td></tr>
+          <tr><td class="mono">8</td><td>filter</td><td class="mono">08_filter.mp4</td></tr>
         </tbody>
       </table></div>
-      <div class="note warn" style="margin-top:1.2rem">
+      <p style="font-size:.93rem">Do desiatich chýbajú dve. Doplniť zo záložných tiel,
+      alebo referenciami klientok, ak bude súhlas so zverejnením.</p>
+    </div>
+  </div>
+
+  <div class="two">
+    <div class="tw"><table>
+      <thead><tr><th>Pravidlo</th><th>Ako</th></tr></thead>
+      <tbody>
+        <tr><td>Zvuk</td><td>Najdôležitejšie zo všetkého. Klopový mikrofón, alebo natáčaj v tichu.</td></tr>
+        <tr><td>Svetlo</td><td>Oknom do tváre. Nikdy okno za chrbtom.</td></tr>
+        <tr><td>Prvý záber</td><td>Musí sa hýbať. Hook je pár vety a obrazu.</td></tr>
+        <tr><td>Ukáž to</td><td>Keď hovorí o sedačke, kamera je pri sedačke.</td></tr>
+        <tr><td>Titulky</td><td>Napevno, veľké, v strede alebo v spodnej tretine. Nikdy pri dolnom okraji.</td></tr>
+        <tr><td>Papier</td><td>Skript sa naučí, nepredčíta. Zaváhania znejú autenticky.</td></tr>
+      </tbody>
+    </table></div>
+    <div>
+      <div class="note warn">
         <span class="lbl">Nesnaž sa o pätnásťsekundové video</span>
         <p>V meranej vzorke playbooku nebolo ani jedno pod 30 s a najdlhšie bežiace
         reklamy mali 66 az 82 s. Toto nie je zábavný obsah, je to predajný text,
-        ktorý potrebuje čas na ponuku, garanciu aj výzvu.</p>
+        ktorý potrebuje čas na ponuku, garanciu aj výzvu. Naše vychádzajú na 59 az 63 s.</p>
       </div>
-      <div class="note" style="margin-top:1rem">
+      <div class="note">
         <span class="lbl">Čo Meta odmietne</span>
         <p>Text cez viac než zhruba 20 % plochy videa, hudba bez licencie, záber s tvárou
         človeka bez súhlasu, a <strong>oslovenie ženy jej domnelou vlastnosťou</strong>.
