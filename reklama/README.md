@@ -7,7 +7,8 @@ Postavené podľa `playbook/` v GHLtool.
 | [`01_funnel.md`](01_funnel.md) | celý lievik: štyri stránky, kvíz, platba, napojenie na GHL, kampaň |
 | [`02_skript.md`](02_skript.md) | jedno telo, 8 hookov a 8 subhookov, plán natáčania |
 | [`03_copy.md`](03_copy.md) | copy do reklamy, jedno na všetky kreatívy |
-| [`domov.html`](domov.html) | to isté ako klikacia vizualizácia |
+| [`domov.html`](domov.html) | to isté ako klikacia vizualizácia, **interné** |
+| [`pre-miriam-skripty.html`](pre-miriam-skripty.html) | **na poslanie Miriam**: iba skripty a návod na natáčanie, žiadna stratégia |
 | `_archiv/` | zrušený smer, viď nižšie |
 
 ---

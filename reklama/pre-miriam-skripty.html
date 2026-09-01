@@ -1,0 +1,423 @@
+<title>Osem videí, jedno popoludnie</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Karla:wght@400;500;700&display=swap" />
+
+<style>
+:root{
+  --paper:#F4F1EA; --card:#FFFFFF; --sunk:#E9E3D8;
+  --ink:#241F1A; --body:#4E463D; --soft:#8A8075;
+  --line:#DCD4C6; --hair:#EAE4D8;
+  --brass:#8A6832; --brass-soft:#F0E7D6;
+  --lift:0 1px 2px rgba(36,31,26,.05), 0 18px 34px -26px rgba(36,31,26,.4);
+  --serif:'Instrument Serif',Georgia,'Times New Roman',serif;
+  --sans:'Karla','Helvetica Neue',Arial,sans-serif;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --paper:#151210; --card:#1E1A16; --sunk:#100D0B;
+    --ink:#F3EDE3; --body:#C7BCAE; --soft:#95897B;
+    --line:#332C25; --hair:#282219;
+    --brass:#D3A85C; --brass-soft:#2A2114;
+    --lift:0 1px 2px rgba(0,0,0,.5), 0 18px 36px -26px rgba(0,0,0,.9);
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#151210; --card:#1E1A16; --sunk:#100D0B;
+  --ink:#F3EDE3; --body:#C7BCAE; --soft:#95897B;
+  --line:#332C25; --hair:#282219;
+  --brass:#D3A85C; --brass-soft:#2A2114;
+  --lift:0 1px 2px rgba(0,0,0,.5), 0 18px 36px -26px rgba(0,0,0,.9);
+}
+
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0; background:var(--paper); color:var(--body);
+  font-family:var(--sans); font-size:17px; line-height:1.62; -webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:var(--serif); font-weight:400; color:var(--ink); margin:0; text-wrap:balance; letter-spacing:0}
+h1{font-size:clamp(2.4rem,1.5rem+4.2vw,4.2rem); line-height:1.0}
+h2{font-size:clamp(1.7rem,1.2rem+2.2vw,2.5rem); line-height:1.12}
+h3{font-size:1.3rem; line-height:1.25}
+p{margin:0 0 1em}
+strong{color:var(--ink); font-weight:700}
+em{font-family:var(--serif); font-style:italic; font-size:1.08em}
+:focus-visible{outline:2px solid var(--brass); outline-offset:3px}
+
+.wrap{max-width:720px; margin:0 auto; padding:0 clamp(20px,5vw,32px)}
+.label{font-size:.7rem; font-weight:700; letter-spacing:.18em; text-transform:uppercase; color:var(--brass)}
+
+/* ---------- header ---------- */
+header{background:var(--card); border-bottom:1px solid var(--line)}
+header .wrap{padding-top:clamp(2.6rem,7vw,4.6rem); padding-bottom:clamp(2rem,5vw,3rem)}
+header .label{display:block; margin-bottom:1.1rem}
+h1 em{color:var(--brass)}
+.intro{max-width:34em; margin-top:1.2rem; font-size:1.06rem}
+.facts{display:flex; flex-wrap:wrap; gap:0; margin-top:2rem; border:1px solid var(--line)}
+.facts div{flex:1 1 33%; min-width:110px; padding:.8rem 1rem; border-right:1px solid var(--line)}
+.facts div:last-child{border-right:0}
+.facts dt{font-size:.65rem; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--soft); margin:0 0 .25rem}
+.facts dd{margin:0; font-family:var(--serif); font-size:1.4rem; color:var(--ink)}
+
+/* ---------- toolbar ---------- */
+.bar{position:sticky; top:0; z-index:30; background:var(--paper); border-bottom:1px solid var(--line)}
+.bar .wrap{display:flex; align-items:center; justify-content:space-between; gap:1rem; padding-top:.6rem; padding-bottom:.6rem}
+.bar span{font-size:.78rem; color:var(--soft)}
+.tog{font-family:var(--sans); font-size:.78rem; font-weight:700; cursor:pointer; letter-spacing:.02em;
+  background:transparent; color:var(--ink); border:1px solid var(--line); padding:.42rem .8rem; border-radius:2px}
+.tog:hover{border-color:var(--brass); color:var(--brass)}
+.tog[aria-pressed="true"]{background:var(--brass); border-color:var(--brass); color:var(--card)}
+
+section{padding:clamp(2.6rem,6vw,4rem) 0}
+section + section{border-top:1px solid var(--hair)}
+.lede{color:var(--soft); max-width:36em; margin-top:.7rem}
+
+/* ---------- rules ---------- */
+ol.rules{list-style:none; counter-reset:r; margin:2rem 0 0; padding:0; display:grid; gap:1.4rem}
+ol.rules li{counter-increment:r; display:grid; grid-template-columns:2.1rem 1fr; gap:1rem}
+ol.rules li::before{content:counter(r); font-family:var(--serif); font-size:1.5rem; color:var(--brass); line-height:1.1}
+ol.rules b{display:block; color:var(--ink); font-size:1.05rem; margin-bottom:.15rem}
+ol.rules p{margin:0; font-size:.98rem}
+
+/* ---------- steps ---------- */
+.steps{display:grid; gap:0; margin-top:2rem; border:1px solid var(--line); background:var(--card)}
+.steps > div{display:grid; grid-template-columns:auto 1fr; gap:1.1rem; padding:1.15rem 1.3rem; border-bottom:1px solid var(--hair)}
+.steps > div:last-child{border-bottom:0}
+.steps .n{font-family:var(--serif); font-size:1.35rem; color:var(--brass); line-height:1.2}
+.steps b{display:block; color:var(--ink)}
+.steps p{margin:.15rem 0 0; font-size:.95rem; color:var(--soft)}
+
+/* ---------- script sheets ---------- */
+.sheet{background:var(--card); border:1px solid var(--line); box-shadow:var(--lift); margin-top:1.6rem}
+.sheet-top{display:flex; align-items:center; justify-content:space-between; gap:1rem;
+  padding:.75rem 1.2rem; border-bottom:1px solid var(--line); background:var(--sunk)}
+.sheet-top .label{color:var(--soft)}
+.cp{font-family:var(--sans); font-size:.72rem; font-weight:700; cursor:pointer; letter-spacing:.03em;
+  background:var(--brass); color:#FFF; border:0; padding:.36rem .8rem; border-radius:2px}
+:root[data-theme="dark"] .cp{color:#151210}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .cp{color:#151210}}
+.cp:hover{opacity:.88}
+.cp.ok{background:#3E7A5E}
+.sheet-body{padding:1.4rem 1.35rem}
+.say{font-size:1.12rem; line-height:1.7; color:var(--ink); margin:0 0 1.1rem}
+.say:last-child{margin-bottom:0}
+.say .tag{display:block; font-size:.64rem; font-weight:700; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--brass); margin-bottom:.3rem}
+body.big .say{font-size:1.42rem; line-height:1.62}
+body.big .say .tag{font-size:.68rem}
+
+/* ---------- hook cards ---------- */
+.hooks{display:grid; gap:1rem; margin-top:1.8rem}
+.hook{background:var(--card); border:1px solid var(--line); box-shadow:var(--lift);
+  display:grid; grid-template-columns:auto 1fr; gap:1.2rem; padding:1.25rem 1.35rem; align-items:start}
+.hook .no{font-family:var(--serif); font-size:2.1rem; color:var(--brass); line-height:.95; min-width:1.4em}
+.hook .txt p{font-size:1.08rem; line-height:1.62; color:var(--ink); margin:0 0 .7rem}
+.hook .txt p:last-of-type{margin-bottom:0}
+.hook .txt p.two{color:var(--body)}
+body.big .hook .txt p{font-size:1.34rem; line-height:1.55}
+.hook .kind{font-size:.66rem; font-weight:700; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--soft); display:block; margin-bottom:.55rem}
+
+/* ---------- join diagram ---------- */
+.join{display:flex; flex-wrap:wrap; gap:.6rem; align-items:stretch; margin-top:1.8rem}
+.join div{flex:1 1 150px; border:1px solid var(--line); background:var(--card); padding:1rem 1.1rem}
+.join div.core{flex:2 1 300px; border-color:var(--brass)}
+.join b{display:block; color:var(--ink); font-size:1rem}
+.join span{font-size:.82rem; color:var(--soft)}
+
+/* ---------- checklist ---------- */
+ul.check{list-style:none; padding:0; margin:1.6rem 0 0; display:grid; gap:.75rem}
+ul.check li{display:grid; grid-template-columns:auto 1fr; gap:.85rem; align-items:start; font-size:1rem}
+ul.check li::before{content:""; width:15px; height:15px; margin-top:.4rem; border:1.5px solid var(--brass)}
+
+.close{background:var(--card); border:1px solid var(--line); padding:1.4rem 1.5rem; margin-top:2rem}
+.close p:last-child{margin-bottom:0}
+footer{padding:2.4rem 0 3.4rem; color:var(--soft); font-size:.88rem}
+@media (max-width:520px){
+  .hook{grid-template-columns:1fr; gap:.5rem}
+  .hook .no{font-size:1.6rem}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important; animation:none!important}}
+</style>
+
+<header>
+  <div class="wrap">
+    <span class="label">Pre Miriam · natáčanie reklamných videí</span>
+    <h1>Osem videí,<br /><em>jedno popoludnie</em></h1>
+    <p class="intro">Hlavnú časť povieš <strong>raz</strong>. Potom k nej natočíš osem
+      rôznych úvodov. Z toho vznikne osem reklám, ktoré vyzerajú inak, ale hovoria
+      to isté. Nič viac za tým nie je.</p>
+    <dl class="facts">
+      <div><dt>Videí</dt><dd>8</dd></div>
+      <div><dt>Jedno má</dt><dd>60 s</dd></div>
+      <div><dt>Natáčanie</dt><dd>1 deň</dd></div>
+    </dl>
+  </div>
+</header>
+
+<div class="bar">
+  <div class="wrap">
+    <span>Čítaš to pri natáčaní?</span>
+    <button class="tog" id="big" aria-pressed="false">Väčšie písmo</button>
+  </div>
+</div>
+
+<main class="wrap">
+
+<section>
+  <span class="label">Ako to natočiť</span>
+  <h2>Presne tak, ako si točila predtým</h2>
+  <p class="lede">Nič nové sa učiť netreba. Postavíš sa pred mobil a rozprávaš.
+    Tie tvoje staršie videá boli po tejto stránke úplne v poriadku.</p>
+
+  <ol class="rules">
+    <li><div><b>Mobil na výšku</b>
+      <p>Opri ho o niečo, nedrž ho v ruke. Tvár v hornej tretine obrazu, oči do objektívu.</p></div></li>
+    <li><div><b>Zvuk je najdôležitejší zo všetkého</b>
+      <p>Dôležitejší než obraz. Nech je v byte ticho, žiadna práčka, žiadne auto za oknom.
+      Stoj blízko telefónu, alebo si daj mikrofón na klopu. Radšej to skús na desať sekúnd
+      a vypočuj si to, než natočíš všetkých osem.</p></div></li>
+    <li><div><b>Svetlo z okna do tváre</b>
+      <p>Nikdy nie okno za chrbtom. Postav sa oproti oknu, nie chrbtom k nemu.</p></div></li>
+    <li><div><b>Hlas o niečo energickejší, než ti príde prirodzené</b>
+      <p>Toto je jediná vec, na ktorú si daj naozaj pozor. V reálnom hovore by to znelo
+      prehnane, vo videu to vyznie normálne. Keď to povieš pokojne ako pri káve,
+      vo videu to bude pôsobiť unavene.</p></div></li>
+    <li><div><b>Nečítaj to z papiera</b>
+      <p>Nauč sa to. Nemusí to byť slovo za slovom, hlavne nech sedí zmysel a poradie.
+      Zaváhanie alebo malé prerieknutie je úplne v poriadku, znie to autenticky.
+      Dokonalé prednesenie znie ako reklama a to nechceme.</p></div></li>
+    <li><div><b>Každý kúsok natoč dva alebo tri razy</b>
+      <p>Nesnaž sa o jeden dokonalý pokus. Vyberie sa najlepší, ostatné sa zahodia.</p></div></li>
+    <li><div><b>Pri každom úvode sa trochu posuň</b>
+      <p>Iná izba, iný uhol, iné pozadie, alebo aspoň krok inam. Osem videí nesmie
+      začínať rovnakým záberom, inak to vyzerá ako to isté video osemkrát.</p></div></li>
+  </ol>
+</section>
+
+<section>
+  <span class="label">Poradie</span>
+  <h2>V akom poradí točiť</h2>
+
+  <div class="steps">
+    <div><span class="n">1</span><div>
+      <b>Najprv hlavná časť, celá, na jeden záťah</b>
+      <p>Trvá asi päťdesiat sekúnd. Toto je tá dôležitá nahrávka, pokojne ju sprav
+      päťkrát, kým nebudeš spokojná. Použije sa vo všetkých ôsmich videách.</p></div></div>
+    <div><span class="n">2</span><div>
+      <b>Potom osem úvodov, jeden po druhom</b>
+      <p>Každý má asi desať sekúnd. Medzi nimi sa presuň alebo zmeň uhol.</p></div></div>
+    <div><span class="n">3</span><div>
+      <b>Nakoniec zábery na prestrih</b>
+      <p>Bez rozprávania. Zoznam je úplne dole.</p></div></div>
+  </div>
+</section>
+
+<section>
+  <span class="label">Hlavná časť</span>
+  <h2>Toto povieš v každom videu</h2>
+  <p class="lede">Vždy to isté, vo všetkých ôsmich. Asi päťdesiat sekúnd.</p>
+
+  <div class="sheet">
+    <div class="sheet-top"><span class="label">Hlavná časť · cca 50 s</span>
+      <button class="cp" data-t="core">Kopírovať</button></div>
+    <div class="sheet-body" id="core">
+      <p class="say"><span class="tag">Ponuka</span>Práve teraz robím niečo, čo si nenechaj
+      ujsť. Volá sa to interiérová diagnostika. Prídem k tebe domov na deväťdesiat minút
+      a odídeš s tromi vecami: kde je skutočný problém, čo riešiť ako prvé a čo prestať
+      kupovať.</p>
+      <p class="say"><span class="tag">Čoho sa nemusí báť</span>U mňa sa nemusíš báť, že ti
+      nanútim cudzí štýl. Riešime, ako tvoju víziu priviesť k životu.</p>
+      <p class="say"><span class="tag">Záruka</span>Navyše máš u mňa stopercentnú záruku
+      spokojnosti.</p>
+      <p class="say"><span class="tag">Bonus</span>A k tomu, ak sa rozhodneš pre celý
+      projekt, celú cenu takejto diagnostiky ti z ceny projektu odpočítam, takže za ňu
+      neplatíš ani cent.</p>
+      <p class="say"><span class="tag">Výzva</span>Klikni a rezervuj si diagnostiku
+      ešte dnes.</p>
+      <p class="say"><span class="tag">Dokedy</span>Táto akcia platí do konca mesiaca.</p>
+      <p class="say"><span class="tag">Pre koľkých</span>Ponuka platí len pre prvých
+      7 klientiek.</p>
+      <p class="say"><span class="tag">Výzva ešte raz</span>Tak nečakaj, klikni na tlačidlo
+      pod týmto videom a vyber si termín.</p>
+    </div>
+  </div>
+
+  <div class="close">
+    <p><strong>Tie dve výzvy na konci nie sú omyl.</strong> Prvá príde po záruke, druhá až
+    po tom, čo zaznie „do konca mesiaca" a „len pre sedem". Človek najprv dostane výzvu,
+    potom dôvod ponáhľať sa, a potom výzvu znova. Tak to má byť.</p>
+  </div>
+</section>
+
+<section>
+  <span class="label">Úvody</span>
+  <h2>Osem úvodov, každý iný</h2>
+  <p class="lede">Každý má dve vety a trvá asi desať sekúnd. Povieš ich a hneď nadviažeš
+    hlavnou časťou. Nemiešaj ich, prvá a druhá veta patria k sebe.</p>
+
+  <div class="hooks">
+
+    <div class="hook"><span class="no">1</span><div class="txt">
+      <span class="kind">Sľub a hneď obava</span>
+      <p>„Domov, kde má každá vec svoje miesto. Začni tým, že zistíš, čo ti v ňom prekáža."</p>
+      <p class="two">„Alebo to odkladáš ďalší rok, lebo nevieš, ktorým koncom začať?"</p>
+    </div></div>
+
+    <div class="hook"><span class="no">2</span><div class="txt">
+      <span class="kind">O peniazoch</span>
+      <p>„Dizajnérka nie je náklad navyše. Je to spôsob, ako prestať kupovať veci dvakrát."</p>
+      <p class="two">„Koľkokrát si už niečo kúpila v nádeji, že to pomôže? A koľko z toho
+      dnes stojí tam, kde si to nechcela?"</p>
+    </div></div>
+
+    <div class="hook"><span class="no">3</span><div class="txt">
+      <span class="kind">Konkrétne veci v byte</span>
+      <p>„Máš doma pekné veci a domov to aj tak nie je? Problém nie je vo veciach."</p>
+      <p class="two">„Sedačka, okolo ktorej sa chodí bokom. Svetlo uprostred stropu namiesto
+      nad stolom. Skriňa, do ktorej sa nezmestí polovica vecí."</p>
+    </div></div>
+
+    <div class="hook"><span class="no">4</span><div class="txt">
+      <span class="kind">Upokojenie</span>
+      <p>„Ak sa vo vlastnom byte necítiš doma, nie je to tvoja chyba."</p>
+      <p class="two">„Nie je to o vkuse ani o peniazoch. Len ti nikto nepovedal, v akom
+      poradí sa priestor skladá."</p>
+    </div></div>
+
+    <div class="hook"><span class="no">5</span><div class="txt">
+      <span class="kind">Otázka a odpoveď</span>
+      <p>„Máš pocit, že ti byt prerástol cez hlavu? Vieme ho dostať späť."</p>
+      <p class="two">„Predstav si, že za jedno popoludnie vieš, čo zmeniť ako prvé,
+      a zvyšok prestane byť chaos."</p>
+    </div></div>
+
+    <div class="hook"><span class="no">6</span><div class="txt">
+      <span class="kind">Ukazuješ na konkrétnu vec</span>
+      <p>„Áno, toto kreslo tu stojí len preto, že sa nezmestilo nikam inam."</p>
+      <p class="two">„Koľko takých vecí máš doma ty? A koľko z nich si kupovala s úplne
+      inou predstavou?"</p>
+    </div></div>
+
+    <div class="hook"><span class="no">7</span><div class="txt">
+      <span class="kind">Obava, ktorú počúvaš najčastejšie</span>
+      <p>„Najčastejšia obava, ktorú od žien počujem: že jej dizajnérka nanúti svoj štýl."</p>
+      <p class="two">„A tak radšej nespraví nič a býva ďalší rok v byte, ktorý ju neteší."</p>
+    </div></div>
+
+    <div class="hook"><span class="no">8</span><div class="txt">
+      <span class="kind">Filter</span>
+      <p>„Ak si so svojím domovom zmierená a meniť nechceš nič, toto video preskoč."</p>
+      <p class="two">„Ale ak ťa každý večer niečo doma štve a už si si na to zvykla,
+      toto si dopozeraj."</p>
+    </div></div>
+
+  </div>
+
+  <div class="close">
+    <p><strong>Úvod číslo 6 sa musí točiť pri tej veci.</strong> Nájdi si doma alebo
+    u klientky niečo, čo tam naozaj stojí len preto, že sa nezmestilo inam, a rozprávaj
+    pri tom. Bez toho záberu tá veta nefunguje.</p>
+    <p><strong>Úvod číslo 7 nechaj visieť.</strong> Nedopovedz, že sa to u teba stať
+    nemôže. Odpoveď príde o dvadsať sekúnd v hlavnej časti a je silnejšia, keď ju človek
+    čaká.</p>
+  </div>
+</section>
+
+<section>
+  <span class="label">Ako to do seba zapadne</span>
+  <h2>Jedno video</h2>
+
+  <div class="join">
+    <div><b>Úvod</b><span>jeden z ôsmich · cca 10 s</span></div>
+    <div class="core"><b>Hlavná časť</b><span>vždy tá istá nahrávka · cca 50 s</span></div>
+  </div>
+
+  <p style="margin-top:1.6rem">Osemkrát iný úvod, osemkrát tá istá hlavná časť.
+  Preto stačí jedno popoludnie a preto sa hlavnú časť oplatí natočiť poriadne.</p>
+</section>
+
+<section>
+  <span class="label">Prestrihy</span>
+  <h2>Zábery bez rozprávania</h2>
+  <p class="lede">Krátke, tri až päť sekúnd každý. Pomiešajú sa do videa, aby to nebola
+    celú minútu len hovoriaca hlava.</p>
+
+  <ul class="check">
+    <li>Vchádzaš do dverí bytu, zúvaš sa, obzeráš sa po miestnosti</li>
+    <li>Sedíš s klientkou, počúvaš, ona ukazuje rukou po izbe</li>
+    <li>Detail poznámkového bloku, v ňom tri odrážky napísané rukou</li>
+    <li>Pôdorys na stole, ceruzka, vzorkovník</li>
+    <li>Podanie ruky</li>
+    <li>To kreslo v rohu, kam nepatrí, ku ktorému kamera príde</li>
+    <li>Sedačka, strop so svetlom, skriňa</li>
+    <li>Kalendár, alebo mobil s otvoreným rezervačným formulárom</li>
+  </ul>
+
+  <div class="close">
+    <p>Ak sa točí u klientky doma, potrebujeme od nej <strong>písomný súhlas</strong>
+    so zverejnením záberov, aj keď na nich nie je vidieť tvár.</p>
+  </div>
+</section>
+
+<section>
+  <span class="label">Pred natáčaním</span>
+  <h2>Rýchla kontrola</h2>
+  <ul class="check">
+    <li>Mobil nabitý, dosť miesta v pamäti</li>
+    <li>Natáčaš <strong>na výšku</strong></li>
+    <li>Ticho v byte, skúšobných desať sekúnd vypočutých</li>
+    <li>Stojíš oproti oknu, nie chrbtom k nemu</li>
+    <li>Hlavnú časť vieš spamäti</li>
+    <li>Vieš, v ktorých ôsmich miestach budeš točiť úvody</li>
+  </ul>
+
+  <div class="close">
+    <p><strong>Keby sa niečo pokazilo alebo ti veta nebude sedieť do úst,</strong>
+    pokojne ju povedz po svojom. Dôležité je poradie a to, aby zaznelo všetko:
+    čo dostane, čoho sa nemusí báť, záruka, odpočet z projektu, výzva, dokedy to platí,
+    pre koľkých, a výzva ešte raz.</p>
+  </div>
+</section>
+
+<footer class="wrap">
+  <p>Text sa počas kampane nemení, mení sa len kreatíva. Preto je osem videí,
+  a nie jedno.</p>
+</footer>
+</main>
+
+<script>
+(function () {
+  var b = document.getElementById('big');
+  var on = false;
+  try { on = localStorage.getItem('bigtype') === '1'; } catch (e) {}
+  function apply() {
+    document.body.classList.toggle('big', on);
+    b.setAttribute('aria-pressed', on ? 'true' : 'false');
+    b.textContent = on ? 'Normálne písmo' : 'Väčšie písmo';
+  }
+  apply();
+  b.addEventListener('click', function () {
+    on = !on;
+    apply();
+    try { localStorage.setItem('bigtype', on ? '1' : '0'); } catch (e) {}
+  });
+})();
+
+document.querySelectorAll('.cp').forEach(function (btn) {
+  btn.addEventListener('click', function () {
+    var el = document.getElementById(btn.dataset.t);
+    var lines = [].slice.call(el.querySelectorAll('.say')).map(function (p) {
+      var c = p.cloneNode(true);
+      var t = c.querySelector('.tag');
+      if (t) t.remove();
+      return c.textContent.replace(/\s+/g, ' ').trim();
+    });
+    navigator.clipboard.writeText(lines.join('\n\n')).then(function () {
+      var old = btn.textContent;
+      btn.textContent = 'Skopírované';
+      btn.classList.add('ok');
+      setTimeout(function () { btn.textContent = old; btn.classList.remove('ok'); }, 1800);
+    });
+  });
+});
+</script>
