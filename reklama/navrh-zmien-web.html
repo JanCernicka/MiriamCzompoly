@@ -1,0 +1,457 @@
+<title>Čo zmeniť na webe</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&family=Karla:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" />
+
+<style>
+:root{
+  --paper:#EAE5DD; --card:#F7F3ED; --sunk:#E0D9CE;
+  --ink:#2B2521; --body:#574E46; --muted:#8A7F74;
+  --line:#CFC5B7; --hair:#DED6CA;
+  --go:#4A5722; --go-bg:#E1E4CE;
+  --wait:#8A6212; --wait-bg:#F2E7CE;
+  --stop:#9C3524; --stop-bg:#F3DFDA;
+  --lift:0 1px 1px rgba(43,37,33,.04), 0 14px 30px -22px rgba(43,37,33,.35);
+  --serif:'Fraunces',Georgia,serif;
+  --sans:'Karla','Helvetica Neue',Arial,sans-serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --paper:#191512; --card:#221D19; --sunk:#2C2621;
+    --ink:#F0E9DF; --body:#C5BAAD; --muted:#93877B;
+    --line:#3A322B; --hair:#2E2822;
+    --go:#AFC377; --go-bg:#2A3119;
+    --wait:#D9AE5C; --wait-bg:#33280F;
+    --stop:#E4917F; --stop-bg:#35211C;
+    --lift:0 1px 1px rgba(0,0,0,.5), 0 16px 34px -24px rgba(0,0,0,.85);
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#191512; --card:#221D19; --sunk:#2C2621;
+  --ink:#F0E9DF; --body:#C5BAAD; --muted:#93877B;
+  --line:#3A322B; --hair:#2E2822;
+  --go:#AFC377; --go-bg:#2A3119;
+  --wait:#D9AE5C; --wait-bg:#33280F;
+  --stop:#E4917F; --stop-bg:#35211C;
+  --lift:0 1px 1px rgba(0,0,0,.5), 0 16px 34px -24px rgba(0,0,0,.85);
+}
+
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0; background:var(--paper); color:var(--body);
+  font-family:var(--sans); font-size:16.5px; line-height:1.64; -webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:var(--serif); font-weight:600; color:var(--ink); margin:0; text-wrap:balance; letter-spacing:-.015em}
+h1{font-size:clamp(2.1rem,1.4rem+3.2vw,3.4rem); line-height:1.02}
+h2{font-size:clamp(1.5rem,1.1rem+1.8vw,2.1rem); line-height:1.12}
+h3{font-size:1.14rem; font-weight:600; line-height:1.3}
+p{margin:0 0 1em}
+strong{color:var(--ink); font-weight:700}
+em{font-style:italic}
+code{font-family:var(--mono); font-size:.84em; background:var(--sunk); padding:.1em .38em; color:var(--ink)}
+:focus-visible{outline:2px solid var(--go); outline-offset:3px}
+
+.wrap{max-width:1000px; margin:0 auto; padding:0 clamp(18px,4.5vw,40px)}
+.prose{max-width:68ch}
+
+header{background:var(--card); border-bottom:1px solid var(--line)}
+header .wrap{padding-top:clamp(2.4rem,6vw,4rem); padding-bottom:clamp(1.8rem,4vw,2.6rem)}
+.kicker{font-family:var(--mono); font-size:.66rem; letter-spacing:.19em; text-transform:uppercase;
+  color:var(--muted); margin:0 0 1.2rem; line-height:1.9}
+.kicker b{color:var(--go); font-weight:500}
+.lede{max-width:52ch; margin-top:1.2rem; font-size:1.06rem}
+
+.stopbar{background:var(--stop-bg); border:1px solid var(--stop); border-left-width:3px;
+  padding:1rem 1.25rem; margin-top:1.8rem; max-width:52ch}
+.stopbar p{margin:0; color:var(--ink); font-size:.98rem}
+
+nav.toc{position:sticky; top:0; z-index:20; background:var(--paper); border-bottom:1px solid var(--line)}
+nav.toc .wrap{overflow-x:auto; -webkit-overflow-scrolling:touch}
+nav.toc ol{display:flex; list-style:none; margin:0; padding:0; min-width:max-content}
+nav.toc a{display:block; padding:.7rem .9rem; text-decoration:none; white-space:nowrap;
+  font-size:.82rem; font-weight:500; color:var(--muted); border-bottom:2px solid transparent}
+nav.toc a:hover{color:var(--ink); background:var(--card)}
+nav.toc a.on{color:var(--ink); border-bottom-color:var(--go)}
+
+section{padding:clamp(2.4rem,5vw,4rem) 0; border-bottom:1px solid var(--hair)}
+.mark{font-family:var(--mono); font-size:.64rem; letter-spacing:.19em; text-transform:uppercase;
+  color:var(--go); display:flex; align-items:center; gap:.6rem; margin-bottom:.85rem}
+.mark::before{content:""; width:9px; height:9px; background:var(--go); flex:0 0 auto}
+.sub{color:var(--muted); max-width:64ch; margin:.6rem 0 1.8rem}
+h3.head{margin:2.4rem 0 .9rem}
+
+.tw{overflow-x:auto; margin:1.4rem 0; border:1px solid var(--line)}
+table{border-collapse:collapse; width:100%; min-width:560px; background:var(--card); font-size:.88rem}
+th,td{text-align:left; padding:.62rem .85rem; border-bottom:1px solid var(--hair); vertical-align:top}
+th{font-family:var(--mono); font-size:.62rem; font-weight:500; letter-spacing:.13em; text-transform:uppercase;
+  color:var(--muted); background:var(--sunk); white-space:nowrap}
+tbody tr:last-child td{border-bottom:0}
+td.mono{font-family:var(--mono); font-size:.78rem}
+td q{quotes:none; font-family:var(--serif); font-style:italic; color:var(--ink)}
+
+.pill{font-family:var(--mono); font-size:.6rem; letter-spacing:.1em; text-transform:uppercase;
+  padding:.16rem .45rem; white-space:nowrap; display:inline-block}
+.pill.go{background:var(--go-bg); color:var(--go)}
+.pill.wait{background:var(--wait-bg); color:var(--wait)}
+.pill.stop{background:var(--stop-bg); color:var(--stop)}
+
+.note{background:var(--card); border:1px solid var(--line); border-left:3px solid var(--go);
+  padding:1rem 1.25rem; margin:1.5rem 0; font-size:.96rem}
+.note.warn{border-left-color:var(--stop); background:var(--stop-bg); border-color:var(--stop-bg)}
+.note.ask{border-left-color:var(--wait); background:var(--wait-bg); border-color:var(--wait-bg)}
+.note p:last-child{margin-bottom:0}
+.note .lbl{font-family:var(--mono); font-size:.62rem; letter-spacing:.15em; text-transform:uppercase;
+  display:block; margin-bottom:.4rem; color:var(--go)}
+.note.warn .lbl{color:var(--stop)}
+.note.ask .lbl{color:var(--wait)}
+
+.opt{background:var(--card); border:1px solid var(--line); padding:1.15rem 1.3rem; margin:1rem 0; box-shadow:var(--lift)}
+.opt .now{font-size:.9rem; color:var(--muted); margin-bottom:.9rem; padding-bottom:.8rem; border-bottom:1px dotted var(--line)}
+.opt .now b{font-family:var(--mono); font-size:.62rem; letter-spacing:.14em; text-transform:uppercase; display:block; margin-bottom:.25rem; color:var(--muted)}
+.opt .now span{font-family:var(--serif); font-size:1.02rem; color:var(--ink)}
+.choice{display:grid; grid-template-columns:auto 1fr; gap:.85rem; padding:.55rem 0; align-items:start}
+.choice .tag{font-family:var(--mono); font-size:.62rem; letter-spacing:.1em; text-transform:uppercase;
+  color:var(--muted); padding-top:.28rem; white-space:nowrap}
+.choice.rec .tag{color:var(--go); font-weight:500}
+.choice q{quotes:none; font-family:var(--serif); font-size:1.06rem; color:var(--ink); display:block}
+.choice small{display:block; color:var(--muted); font-size:.86rem; margin-top:.2rem}
+
+ul.ask{list-style:none; padding:0; margin:1.4rem 0; display:grid; gap:.8rem}
+ul.ask li{display:grid; grid-template-columns:auto 1fr; gap:.85rem; align-items:start; font-size:1rem}
+ul.ask li::before{content:""; width:15px; height:15px; margin-top:.42rem; border:1.5px solid var(--wait); flex:0 0 auto}
+
+.two{display:grid; grid-template-columns:1fr 1fr; gap:2rem}
+.two>*{min-width:0}
+@media(max-width:780px){.two{grid-template-columns:1fr}.choice{grid-template-columns:1fr;gap:.2rem}}
+footer{padding:2.4rem 0 3.4rem; color:var(--muted); font-size:.88rem}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+
+<header>
+  <div class="wrap">
+    <p class="kicker"><b>Návrh na schválenie</b> · web Miriam Czompoly · 15. 9. 2026</p>
+    <h1>Čo zmeniť na webe</h1>
+    <p class="lede">Prešiel som stránku aj priečinok REALIZÁCIE na Google Drive.
+      Toto je zoznam toho, čo navrhujem zmeniť. <strong>Zatiaľ som nezmenil nič.</strong></p>
+    <div class="stopbar">
+      <p><strong>Čakám na tvoje odsúhlasenie.</strong> Body, ktoré odklepneš, spravím.
+      Pri žltých potrebujem najprv odpoveď, inak by som si vymýšľal.</p>
+    </div>
+  </div>
+</header>
+
+<nav class="toc">
+  <div class="wrap">
+    <ol>
+      <li><a href="#audit">Čo chýba</a></li>
+      <li><a href="#recenzie">Recenzie</a></li>
+      <li><a href="#kam">Kam ich dať</a></li>
+      <li><a href="#texty">Štyri texty</a></li>
+      <li><a href="#proces">Proces</a></li>
+      <li><a href="#drobne">Drobnosti</a></li>
+      <li><a href="#otazky">Otázky</a></li>
+    </ol>
+  </div>
+</nav>
+
+<main class="wrap">
+
+<!-- ============ AUDIT ============ -->
+<section id="audit">
+  <p class="mark">Krok 1</p>
+  <h2>Čo na stránke chýba</h2>
+  <p class="sub">V <code>index.html</code> je <strong>34 miest označených ako
+    <code>[B]</code></strong>, teda „doplní klientka". Takto vyzerá ich rozdelenie.</p>
+
+  <div class="tw">
+    <table>
+      <thead><tr><th>Kde</th><th>Čo chýba</th><th>Dá sa to teraz?</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Realizácie, 5 príbehov</strong><br /><span style="color:var(--muted)">obývačka, spálňa, kuchyňa, Dimová, Valentínová, na kľúč</span></td><td>Celé sú prázdne: východisko, čo sme spravili, výsledok, pred/po fotky, citát</td><td><span class="pill go">áno, z Drive</span></td></tr>
+        <tr><td><strong>Recenzie</strong></td><td>Jedna reálna (Iveta Pappová), druhá má prázdne meno, tretia je „doplniť z IG"</td><td><span class="pill go">áno, 11 recenzií</span></td></tr>
+        <tr><td><strong>Služby, citáty pri balíkoch</strong></td><td>Chýba citát pri „Miestnosť" a pri „Na kľúč"</td><td><span class="pill go">áno</span></td></tr>
+        <tr><td><strong>Pred a po fotky</strong></td><td>Na celej stránke je <strong>jediný</strong> pár pred/po, a to kuchyňa</td><td><span class="pill wait">fotky sú, treba označiť</span></td></tr>
+        <tr><td><strong>Logo</strong></td><td>Na stránke nie je vôbec. V hlavičke je len text „Miriam Czompoly".</td><td><span class="pill stop">nemám súbor</span></td></tr>
+        <tr><td><strong>Blog v menu</strong></td><td>Odkaz vedie na <code>href="#"</code>, teda nikam. Je tam dvakrát, v hornom aj mobilnom menu.</td><td><span class="pill go">áno, odstrániť</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note">
+    <span class="lbl">Dlhé pomlčky: lepšie, než som čakal</span>
+    <p>Našiel som ich deväť v <code>index.html</code> a jednu v <code>5-chyb.html</code>.
+    <strong>Ani jedna nie je vo viditeľnom texte.</strong> Všetky sú v popisoch obrázkov
+    (<code>alt</code>), napríklad v popise fotky spálne, kde pomlčka oddeľuje názov
+    premeny od detailu.</p>
+    <p>Čítačky pre nevidiacich ich ale čítajú a Google ich indexuje, takže ich aj tak
+    opravím na obyčajnú čiarku alebo dvojbodku. Je to čistá oprava, netreba nič schvaľovať.</p>
+  </div>
+</section>
+
+<!-- ============ RECENZIE ============ -->
+<section id="recenzie">
+  <p class="mark">Krok 2</p>
+  <h2>Jedenásť recenzií z Drive</h2>
+  <p class="sub">V priečinku <code>REALIZÁCIE / realizácie</code> má takmer každý projekt
+    vlastný dokument <code>Recenzia</code>. Sú <strong>menné a konkrétne</strong>, čo je
+    presne to, čo na stránke chýba.</p>
+
+  <p class="prose">Nižšie je ku každej môj návrh skrátenia na web. Plné znenie ostáva
+  v Drive, na stránku ide jedna alebo dve vety, ktoré najviac hovoria.</p>
+
+  <div class="tw">
+    <table>
+      <thead><tr><th>Kto</th><th>Projekt</th><th>Návrh citátu na web</th><th>Pred/po</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Sebastián Farský</strong></td><td>Byt Štajnerka</td><td><q>Spravila presne to, čo som mal v hlave. Len ja som to nevedel takto pomenovať.</q></td><td><span class="pill go">áno</span></td></tr>
+        <tr><td><strong>Hlavatí</strong></td><td>Byt pre staršiu pani, Trnava</td><td><q>Vždy keď prídem k mame do bytu, mám radosť z výsledku. Je to pekný, útulný, moderný bytík, kde sa mama cíti dobre.</q></td><td><span class="pill go">áno</span></td></tr>
+        <tr><td><strong>Jitka Lennerová</strong></td><td>Vidiecky byt, Trnava</td><td><q>Napriek tomu, že sme sa presťahovali z domu do paneláku, cítime sa v ňom oveľa lepšie.</q></td><td><span class="pill go">áno</span></td></tr>
+        <tr><td><strong>Tomáš Segul</strong></td><td>Arboria, 1-izbový</td><td><q>Dizajnérka sa nebála farieb. Pôvodne som sa tmavohnedej steny bál, ale nakoniec je to super.</q></td><td><span class="pill go">áno</span></td></tr>
+        <tr><td><strong>Hugo Štefánek</strong></td><td>Garsónka Hlohovec</td><td><q>Môj prvý byt. Návrh aj realizáciu som zveril do rúk dizajnérky a neľutujem ani euro.</q></td><td><span class="pill go">áno</span></td></tr>
+        <tr><td><strong>Sivokoví</strong></td><td>Arboria, 2-izbový</td><td><q>Byt máme zariadený nadštandardne. Podľa realitnej maklérky patrí k najkrajším v komplexe.</q></td><td><span class="pill wait">len po</span></td></tr>
+        <tr><td><strong>Andrea Križanová</strong></td><td>Byt redizajn</td><td><q>Byt je vzdušný, farebne a dizajnovo lahodiaci oku i duši. Nad moje očakávania.</q></td><td><span class="pill wait">len po</span></td></tr>
+        <tr><td><strong>Tatiana Lániková</strong></td><td>Dievčenská izba, podkrovie</td><td><q>Každý máme nejaký vkus, ale len dizajnér vie, ako z toho urobiť čarovné miesto pre oddych.</q></td><td><span class="pill wait">len po</span></td></tr>
+        <tr><td><strong>Danka Cziborová</strong></td><td>Byt Komárno</td><td><q>Náš byt má smer, charakter a jednoliaty štýl. Kvôli podlahovej krytine sme obvolali pol krajiny.</q></td><td><span class="pill wait">len po</span></td></tr>
+        <tr><td><strong>Miriam Gašparíková</strong></td><td>Kaderníctvo Špačince</td><td><q>Jej kreativita, profesionálny prístup a rýchla reakcia ma naozaj ohromili.</q></td><td><span class="pill go">áno</span></td></tr>
+        <tr><td><strong>Novotní</strong></td><td>Motorest Bučany</td><td><q>Dostávame obdiv od zákazníkov. Vracajú sa nielen kvôli kuchyni, ale aj kvôli interiéru.</q></td><td><span class="pill go">áno</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note warn">
+    <span class="lbl">Dve veci, ktoré musíš vedieť</span>
+    <p><strong>1. Súhlas so zverejnením.</strong> Recenzie sú v Drive, ale to neznamená,
+    že ich smieme dať na web s menom. Pri každej potrebujeme potvrdenie. Stačí správa
+    alebo e-mail od klientky. Bez toho meno nedám a nechám iba iniciály.</p>
+    <p><strong>2. Kaderníctvo a motorest sú komerčné priestory.</strong> Celý web aj
+    reklama cielia na ženy a ich domov. Navrhujem ich dať <strong>úplne dole</strong>,
+    ako dôkaz rozsahu, nie medzi hlavné realizácie. Inak to rozostrí, pre koho tá
+    stránka je.</p>
+  </div>
+</section>
+
+<!-- ============ KAM ============ -->
+<section id="kam">
+  <p class="mark">Krok 3</p>
+  <h2>Ktorá recenzia kam patrí</h2>
+  <p class="sub">Na stránke sú tri miesta, kde recenzia niečo dokazuje. Navrhujem
+    rozdeliť ich takto, aby pri každom balíku stála recenzia z presne takého projektu.</p>
+
+  <h3 class="head">Pri balíkoch služieb</h3>
+  <div class="tw">
+    <table>
+      <thead><tr><th>Balík</th><th>Recenzia</th><th>Prečo práve táto</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Miestnosť</strong><br />od 1 090 €</td><td>Tatiana Lániková</td><td>Podkrovie je presne jedna miestnosť. Hovorí o návrhu aj realizácii jedného priestoru.</td></tr>
+        <tr><td><strong>Kompletná premena</strong><br />od 3 900 €</td><td>Danka Cziborová</td><td>Celý byt v novostavbe, výber materiálov, sanita, podlahy. Presne rozsah tohto balíka.</td></tr>
+        <tr><td><strong>Na kľúč</strong><br />od 8 000 €</td><td>Hlavatí</td><td>Jediná recenzia, ktorá hovorí o <strong>dohľade nad realizáciou a ušetrenom čase</strong>. To je celá podstata balíka na kľúč.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="head">Do sekcie Realizácie, ako príbehy s pred a po</h3>
+  <div class="tw">
+    <table>
+      <thead><tr><th>Dlaždica teraz</th><th>Navrhujem nahradiť</th><th>Recenzia v príbehu</th></tr></thead>
+      <tbody>
+        <tr><td>Premena obývačky</td><td><strong>Byt Štajnerka</strong>, art deco</td><td>Sebastián Farský</td></tr>
+        <tr><td>Premena spálne</td><td><strong>Garsónka Hlohovec</strong>, prvý byt</td><td>Hugo Štefánek</td></tr>
+        <tr><td>Premena kuchyne</td><td><strong>Arboria, 1-izbový</strong>, olivová kuchyňa</td><td>Tomáš Segul</td></tr>
+        <tr><td>Rodina Dimová</td><td>ponechať, citát už na stránke je</td><td>rodina Dimová</td></tr>
+        <tr><td>Valentínová</td><td><strong>Vidiecky byt Trnava</strong></td><td>Jitka Lennerová</td></tr>
+        <tr><td>Ďalšia premena</td><td><strong>Byt pre staršiu pani</strong>, Trnava</td><td>Hlavatí</td></tr>
+        <tr><td>Projekt na kľúč, 2×</td><td><strong>Kaderníctvo</strong> a <strong>Motorest</strong>, ale presunuté dole ako komerčné</td><td>Gašparíková, Novotní</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note ask">
+    <span class="lbl">Tu potrebujem tvoju pomoc</span>
+    <p><strong>V Drive nie je pri fotkách označené, ktorá je „pred" a ktorá „po".</strong>
+    Súbory sa volajú <code>IMG_4952.JPG</code>, <code>image00007.jpeg</code> a podobne.
+    Označené je to len pri videách, tam je v názve <em>PRED</em> a <em>PO</em>.</p>
+    <p>Mám dve možnosti a potrebujem vedieť, ktorú chceš:</p>
+    <p><strong>A.</strong> Vyberiem páry sám podľa toho, čo na fotkách vidím, a pošlem ti
+    ich na odsúhlasenie, než ich nasadím. Trvá to dlhšie, ale nemusíš nič robiť.<br />
+    <strong>B.</strong> Miriam v Drive premenuje súbory na <code>pred-1</code>,
+    <code>po-1</code> a tak ďalej. Je to rýchlejšie a spoľahlivejšie.</p>
+  </div>
+</section>
+
+<!-- ============ TEXTY ============ -->
+<section id="texty">
+  <p class="mark">Krok 4</p>
+  <h2>Štyri texty, ktoré si označil</h2>
+  <p class="sub">Všetky štyri sú malé nadpisy nad hlavným nadpisom. Pri každom je,
+    čo tam je teraz, a dve možnosti. Odporúčanú mám označenú.</p>
+
+  <div class="opt">
+    <p class="now"><b>Teraz, v hero sekcii</b><span>Interiérový dizajn pre ženy · Trnava a okolie</span></p>
+    <div class="choice rec"><span class="tag">Odporúčam</span><div>
+      <q>Interiérový dizajn · Trnava a okolie</q>
+      <small>Vypadne len slovo „pre ženy". Cieľovka ostáva rovnaká a rieši ju text aj fotky,
+      ale nadpis nikoho neodháňa. Muž, ktorý zariaďuje byt s partnerkou, sa nemá prečo cítiť
+      mimo. Pozri Sebastián Farský a Hugo Štefánek, obaja sú v recenziách.</small></div></div>
+    <div class="choice"><span class="tag">Alebo</span><div>
+      <q>Navrhujem interiéry od roku 2010 · Trnava</q>
+      <small>Namiesto kategórie dá hneď dôkaz. Silnejšie, ale menej to hovorí, čo robí.</small></div></div>
+  </div>
+
+  <div class="opt">
+    <p class="now"><b>Teraz, nad „Máš pekné veci, no domov to stále nie je"</b><span>Poznáš to?</span></p>
+    <div class="choice rec"><span class="tag">Odporúčam</span><div>
+      <q>Preč</q>
+      <small>Nadpis pod ním <em>je</em> otázka. „Poznáš to?" nad ňou je otázka nad otázkou
+      a nič nepridáva. Sekcia sa nemaže, ide preč len tento malý riadok.</small></div></div>
+    <div class="choice"><span class="tag">Alebo</span><div>
+      <q>Najčastejšia veta, ktorú počujem</q>
+      <small>Ak tam chceš mať nadpis, tento aspoň niečo tvrdí a rovno dáva dôveru.</small></div></div>
+  </div>
+
+  <div class="opt">
+    <p class="now"><b>Teraz, nad „Vieš, že je čas, keď…"</b><span>Si pripravená?</span></p>
+    <div class="choice rec"><span class="tag">Odporúčam</span><div>
+      <q>Kedy má zmysel ozvať sa</q>
+      <small>„Si pripravená?" znie ako tlak a trochu ako výzva na súboj. Toto je vecné
+      a pomenuje, čo v sekcii naozaj je: tri situácie, kedy je čas.</small></div></div>
+    <div class="choice"><span class="tag">Alebo</span><div>
+      <q>Preč</q>
+      <small>Nadpis pod ním funguje aj samostatne.</small></div></div>
+  </div>
+
+  <div class="opt">
+    <p class="now"><b>Teraz, nad „Od kľúčov po nasťahovanie"</b><span>Prémiový balík · Na kľúč</span></p>
+    <div class="choice rec"><span class="tag">Odporúčam</span><div>
+      <q>Na kľúč</q>
+      <small>Slovo „prémiový" hovorí len „toto je drahé". Nič nesľubuje a pridáva
+      cenovú bariéru skôr, než si človek prečíta, čo za to dostane. „Na kľúč" je pritom
+      úplne zrozumiteľné a hovorí presne to isté.</small></div></div>
+    <div class="choice"><span class="tag">Alebo</span><div>
+      <q>Ty nerobíš nič</q>
+      <small>Odvážnejšie. Je to doslovne veta, ktorá už je v popise balíka, a je to
+      jediný skutočný dôvod, prečo si ho niekto kúpi.</small></div></div>
+  </div>
+</section>
+
+<!-- ============ PROCES ============ -->
+<section id="proces">
+  <p class="mark">Krok 5</p>
+  <h2>Proces</h2>
+
+  <div class="two">
+    <div>
+      <h3 style="margin-bottom:.7rem">Čo je na stránke teraz</h3>
+      <div class="tw"><table>
+        <thead><tr><th class="mono">#</th><th>Krok</th></tr></thead>
+        <tbody>
+          <tr><td class="mono">1</td><td><strong>Diagnostika</strong> (249 €). Stretneme sa u teba, pomenujeme problémy a priority.</td></tr>
+          <tr><td class="mono">2</td><td><strong>Návrh.</strong> Pripravím dispozície a vizualizácie. Prvý hrubý koncept vidíš do 7 dní.</td></tr>
+          <tr><td class="mono">3</td><td><strong>DESIGN BOOK a výkresy.</strong> Dostaneš presný nákupný zoznam a podklady pre remeselníkov.</td></tr>
+          <tr><td class="mono">4</td><td><strong>Realizácia</strong> (voliteľne). Dohliadam, objednávam, koordinujem.</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+    <div>
+      <h3 style="margin-bottom:.7rem">Čo je v Drive</h3>
+      <p>Priečinok <code>REALIZÁCIE / PROCES</code> má dva podpriečinky:</p>
+      <p><strong>výstupy</strong>, tri obrázky. Pozrel som sa na ne, sú to
+      <strong>3D vizualizácie</strong> z návrhu, interiér s pohovkou, krbom a
+      svetelnými lištami.</p>
+      <p><strong>videá</strong>, štrnásť videí z mobilu, zatiaľ bez popisu.</p>
+      <p><strong>Nie je tam napísané, ako má nový proces vyzerať.</strong> Len materiál.</p>
+    </div>
+  </div>
+
+  <div class="note ask">
+    <span class="lbl">Toto neviem spraviť bez teba</span>
+    <p>Napísal si, že proces treba zmeniť, ale v Drive je len materiál, nie popis.
+    <strong>Nebudem si vymýšľať, ako Miriam pracuje.</strong> Potrebujem jedno z dvoch:</p>
+    <p><strong>A.</strong> Napíš mi v bodoch, ako má nový proces vyzerať, koľko krokov
+    a čo je v každom. Prepíšem to a doplním obrázky.<br />
+    <strong>B.</strong> Ak ide len o to, že tie štyri kroky majú byť <strong>vidieť,
+    nie iba prečítať</strong>, tak k nim doplním reálne výstupy: k „Návrhu" 3D vizualizáciu
+    z Drive, k „DESIGN BOOKu" fotku knihy, k „Realizácii" záber zo stavby. To viem spraviť
+    hneď a text ostane.</p>
+    <p>Tipujem, že je to B, ale radšej sa spýtam.</p>
+  </div>
+</section>
+
+<!-- ============ DROBNE ============ -->
+<section id="drobne">
+  <p class="mark">Krok 6</p>
+  <h2>Drobnosti, ktoré spravím rovno</h2>
+  <p class="sub">Toto sú čisté opravy, nič sa pri nich nevymýšľa. Ak nepovieš inak,
+    spravím ich spolu so zvyškom.</p>
+
+  <div class="tw">
+    <table>
+      <thead><tr><th>Čo</th><th>Ako</th></tr></thead>
+      <tbody>
+        <tr><td>Dlhé pomlčky v popisoch obrázkov</td><td>9 v <code>index.html</code>, 1 v <code>5-chyb.html</code>. Nahradím čiarkou alebo dvojbodkou.</td></tr>
+        <tr><td>Mŕtvy odkaz „Blog"</td><td>Vedie na <code>href="#"</code>, teda nikam. Odstránim ho z horného aj mobilného menu. Keď raz blog bude, vrátim ho.</td></tr>
+        <tr><td>Fotky z Drive</td><td>Zmenším a skomprimujem. Originály majú aj 7 MB, to by stránku na mobile zabilo. Na web idú okolo 200 kB.</td></tr>
+        <tr><td>Popisy obrázkov</td><td>Ku každej novej fotke napíšem <code>alt</code>, aby to čítačky prečítali a Google zaindexoval.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note warn">
+    <span class="lbl">Logo: tu som v slepej uličke</span>
+    <p>Na stránke logo nie je vôbec, v hlavičke je len text. <strong>A v Drive som žiadne
+    jej logo nenašiel.</strong> Je tam logo shapelesAI, logo coworkingu a logo DKP,
+    ale nič jej.</p>
+    <p>Jediný kandidát je súbor <code>Asset 1.png</code> v priečinku
+    <em>miriam czompoly podklady</em>. Má 12 kB a názov vyzerá ako export z Illustratora,
+    čo by logu sedelo. <strong>Ale neoveril som, čo na ňom je</strong>, tak netipujem.</p>
+    <p>Potrebujem od teba buď potvrdenie, že <code>Asset 1.png</code> je to logo, alebo
+    súbor. Najlepšie <strong>SVG alebo PNG s priehľadným pozadím</strong>, vo svetlej
+    aj tmavej verzii, ak existujú.</p>
+  </div>
+</section>
+
+<!-- ============ OTAZKY ============ -->
+<section id="otazky">
+  <p class="mark">Čakám na teba</p>
+  <h2>Sedem vecí a môžem začať</h2>
+
+  <ul class="ask">
+    <li><strong>Štyri texty.</strong> Pri každom som označil, čo odporúčam. Stačí napísať
+    „ber odporúčané", alebo mi povedz, kde chceš tú druhú možnosť.</li>
+    <li><strong>Pred a po fotky.</strong> Vyberiem páry sám a pošlem na odsúhlasenie (A),
+    alebo ich Miriam v Drive premenuje (B)?</li>
+    <li><strong>Proces.</strong> Napíšeš mi nové kroky (A), alebo len doplniť obrázky
+    k tým súčasným (B)?</li>
+    <li><strong>Logo.</strong> Je to <code>Asset 1.png</code>, alebo mi pošleš súbor?</li>
+    <li><strong>Súhlasy s recenziami.</strong> Ktoré z tých jedenástich smiem dať na web
+    s celým menom? Pri zvyšku dám iniciály.</li>
+    <li><strong>Kaderníctvo a motorest.</strong> Súhlasíš, aby išli dole ako komerčné
+    priestory, nie medzi hlavné realizácie?</li>
+    <li><strong>Mapovanie recenzií na balíky a dlaždice</strong> v kroku 3. Sedí ti,
+    alebo chceš prehodiť?</li>
+  </ul>
+
+  <div class="note">
+    <span class="lbl">Ako budem postupovať potom</span>
+    <p>Spravím to na vetve v repe a nasadím najprv na <strong>staging</strong>,
+    teda <code>miriam-web-staging.pages.dev</code>. Pozrieš sa na to naživo a až potom
+    to pôjde ďalej. Živú doménu sa nedotknem.</p>
+  </div>
+</section>
+
+<footer class="wrap">
+  <p>Podklady: Google Drive, priečinok REALIZÁCIE (28 projektov, 11 recenzií) a
+  <code>index.html</code> v repe MiriamCzompoly. Stav k 15. 9. 2026.
+  <strong>Zatiaľ nezmenené nič.</strong></p>
+</footer>
+</main>
+
+<script>
+var links = [].slice.call(document.querySelectorAll('nav.toc a'));
+var obs = new IntersectionObserver(function (entries) {
+  entries.forEach(function (e) {
+    if (!e.isIntersecting) return;
+    links.forEach(function (l) { l.classList.toggle('on', l.getAttribute('href') === '#' + e.target.id); });
+  });
+}, { rootMargin: '-15% 0px -70% 0px' });
+document.querySelectorAll('main section').forEach(function (s) { obs.observe(s); });
+</script>
