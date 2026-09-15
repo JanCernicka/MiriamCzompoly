@@ -701,3 +701,33 @@ body.no-scroll { overflow: hidden; }
   * { animation-duration: .001ms !important; transition-duration: .001ms !important; scroll-behavior: auto !important; }
   .reveal { opacity: 1; transform: none; }
 }
+
+/* ===================== doplnky: logo, recenzie, proces ===================== */
+
+/* logo v hlavicke */
+.brand .brand-logo { height: 46px; width: auto; display: block; }
+@media (max-width: 720px) { .brand .brand-logo { height: 38px; } }
+
+/* recenzie: meno a projekt pod nim */
+.review .r-who { display: flex; flex-direction: column; line-height: 1.25; min-width: 0; }
+.review .r-proj {
+  font-weight: 400; font-size: 0.76rem; letter-spacing: 0.02em;
+  color: var(--muted); margin-top: 2px;
+}
+.reviews-komercne { margin-top: 3rem; }
+.reviews-komercne .rk-head {
+  font-family: var(--font-body); font-size: 0.68rem; font-weight: 600;
+  letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted);
+  text-align: center; margin: 0 0 1.25rem;
+}
+.reviews-grid--two { grid-template-columns: repeat(2, 1fr); max-width: 760px; margin-inline: auto; }
+@media (max-width: 900px) { .reviews-grid--two { grid-template-columns: 1fr; } }
+
+/* proces: obrazok ku kroku */
+.step .step-img { margin: 0 0 1rem; overflow: hidden; border-radius: 3px; background: var(--greige-2); }
+.step .step-img img { display: block; width: 100%; height: 150px; object-fit: cover; }
+.step .step-num { position: relative; z-index: 1; }
+@media (max-width: 900px) { .step .step-img img { height: 170px; } }
+
+/* citat pri balikoch */
+.pb-quote cite { display: block; font-family: var(--font-body); font-style: normal; font-size: 0.78rem; letter-spacing: .04em; color: var(--muted); margin-top: 0.4rem; }
