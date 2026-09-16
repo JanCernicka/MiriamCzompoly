@@ -844,7 +844,7 @@ html { scroll-padding-top: 148px; }
 .pm-tile:focus-visible { outline: 2px solid var(--brass); outline-offset: 3px; }
 .pm-tile::after {
   content: ""; position: absolute; inset: 0;
-  background: linear-gradient(to top, rgba(29, 24, 19, .92) 0%, rgba(29, 24, 19, .58) 40%, rgba(29, 24, 19, .06) 74%);
+  background: linear-gradient(to top, rgba(29, 24, 19, .96) 0%, rgba(29, 24, 19, .78) 34%, rgba(29, 24, 19, .34) 62%, rgba(29, 24, 19, .06) 88%);
 }
 .pm-cap {
   position: absolute; left: 0; right: 0; bottom: 0; z-index: 2;
