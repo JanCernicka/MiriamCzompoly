@@ -803,44 +803,6 @@ html { scroll-padding-top: 148px; }
   .lb-prev { left: 0.5rem; } .lb-next { right: 0.5rem; }
 }
 
-/* ===================== Problém: mozaika pred/po + garancie ===================== */
-.problem-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2rem, 5vw, 4.5rem); align-items: center; }
-
-.pp-mosaic { display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; }
-.pp-shot {
-  position: relative; aspect-ratio: 1 / 1; overflow: hidden;
-  border: 0; padding: 0; margin: 0; border-radius: var(--radius);
-  background: var(--sand); cursor: pointer; display: block;
-}
-.pp-shot img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .6s var(--ease); }
-.pp-shot:hover img { transform: scale(1.05); }
-.pp-shot:focus-visible { outline: 2px solid var(--brass); outline-offset: 3px; }
-
-.pp-copy h2 { margin-bottom: 1.2rem; }
-.pp-lead { color: var(--ink-soft); font-size: 1.08rem; line-height: 1.65; }
-.pp-copy .pain-list { margin-top: 1.8rem; }
-.pp-note { margin-top: 1.6rem; color: var(--ink-soft); font-style: italic; }
-.pp-actions { display: flex; flex-wrap: wrap; gap: 0.8rem; margin-top: 1.8rem; }
-
-.pp-guarantees {
-  margin-top: clamp(2.5rem, 5vw, 4rem); padding: clamp(1.8rem, 3.5vw, 2.6rem);
-  background: var(--white); border: 1px solid var(--line); border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-sm);
-}
-.ppg-lead { font-family: var(--font-display); font-size: 1.24rem; color: var(--ink); margin-bottom: 1.4rem; }
-.ppg-items { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(1.2rem, 3vw, 2.4rem); }
-.ppg-item h3 {
-  font-family: var(--font-body); font-size: 0.78rem; font-weight: 700;
-  letter-spacing: 0.14em; text-transform: uppercase; color: var(--brass-deep); margin-bottom: 0.6rem;
-}
-.ppg-item p { color: var(--ink-soft); font-size: 0.98rem; line-height: 1.6; }
-.ppg-more {
-  display: inline-flex; align-items: center; gap: 0.5em; margin-top: 1.6rem;
-  font-size: 0.78rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--brass-deep);
-}
-.ppg-more span { transition: transform .3s var(--ease); }
-.ppg-more:hover span { transform: translateX(3px); }
-
 .page-hero--slim { padding-bottom: clamp(1rem, 2vw, 1.6rem); }
 
 @media (max-width: 900px) {
@@ -856,3 +818,40 @@ html { scroll-padding-top: 148px; }
 }
 /* nadpis podstránky, ktorý sedí v hlavičke sekcie, nesmie byť väčší ako ostatné */
 .section-head h1 { font-size: clamp(2rem, 1.3rem + 3vw, 3.4rem); }
+
+/* ===================== Problém: mozaika pain pointov 4×5 ===================== */
+.pain-mosaic {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: clamp(66px, 6.4vw, 104px); gap: 0.7rem; margin-top: 2.6rem;
+}
+.pm-a { grid-column: 1 / 3; grid-row: 1 / 4; }
+.pm-b { grid-column: 3 / 5; grid-row: 1 / 3; }
+.pm-c { grid-column: 3 / 5; grid-row: 3 / 6; }
+.pm-d { grid-column: 1 / 3; grid-row: 4 / 6; }
+
+.pm-tile {
+  position: relative; overflow: hidden; border-radius: var(--radius-lg);
+  margin: 0; background: var(--sand); box-shadow: var(--shadow-sm);
+}
+.pm-tile img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+.pm-tile::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(29, 24, 19, .92) 0%, rgba(29, 24, 19, .55) 38%, rgba(29, 24, 19, .05) 72%);
+}
+.pm-tile figcaption {
+  position: absolute; left: 0; right: 0; bottom: 0; z-index: 2;
+  padding: clamp(1rem, 2vw, 1.6rem);
+  font-family: var(--font-display); color: var(--paper);
+  font-size: clamp(1.02rem, 0.9rem + 0.45vw, 1.34rem); line-height: 1.32;
+}
+.pm-a figcaption { font-size: clamp(1.2rem, 0.95rem + 1vw, 1.9rem); }
+.pm-tile .ba-tag { z-index: 2; }
+
+.pm-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.8rem; margin-top: 2.4rem; }
+.callout-grid--two { grid-template-columns: 1fr 1fr; margin-top: clamp(2.4rem, 5vw, 3.6rem); }
+
+@media (max-width: 860px) {
+  .pain-mosaic { grid-template-columns: 1fr; grid-auto-rows: auto; gap: 0.8rem; }
+  .pm-a, .pm-b, .pm-c, .pm-d { grid-column: auto; grid-row: auto; aspect-ratio: 4 / 3; }
+  .callout-grid--two { grid-template-columns: 1fr; }
+}
