@@ -803,7 +803,9 @@ html { scroll-padding-top: 148px; }
   .lb-prev { left: 0.5rem; } .lb-next { right: 0.5rem; }
 }
 
-.page-hero--slim { padding-bottom: clamp(1rem, 2vw, 1.6rem); }
+/* podstránka bez veľkého nadpisu: len omrvinky, nech hore nie je prázdne miesto */
+.page-hero--slim { padding-top: clamp(8.6rem, 12vh, 10rem); padding-bottom: 0; }
+.page-hero--slim + .section { padding-top: clamp(1.6rem, 3vw, 2.6rem); }
 
 @media (max-width: 900px) {
   .problem-grid { grid-template-columns: 1fr; }
@@ -831,21 +833,33 @@ html { scroll-padding-top: 148px; }
 
 .pm-tile {
   position: relative; overflow: hidden; border-radius: var(--radius-lg);
-  margin: 0; background: var(--sand); box-shadow: var(--shadow-sm);
+  margin: 0; padding: 0; border: 0; background: var(--sand);
+  box-shadow: var(--shadow-sm); cursor: pointer; display: block; text-align: left;
 }
-.pm-tile img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+.pm-tile img {
+  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block;
+  transition: transform .7s var(--ease);
+}
+.pm-tile:hover img { transform: scale(1.05); }
+.pm-tile:focus-visible { outline: 2px solid var(--brass); outline-offset: 3px; }
 .pm-tile::after {
   content: ""; position: absolute; inset: 0;
-  background: linear-gradient(to top, rgba(29, 24, 19, .92) 0%, rgba(29, 24, 19, .55) 38%, rgba(29, 24, 19, .05) 72%);
+  background: linear-gradient(to top, rgba(29, 24, 19, .92) 0%, rgba(29, 24, 19, .58) 40%, rgba(29, 24, 19, .06) 74%);
 }
-.pm-tile figcaption {
+.pm-cap {
   position: absolute; left: 0; right: 0; bottom: 0; z-index: 2;
-  padding: clamp(1rem, 2vw, 1.6rem);
+  padding: clamp(1rem, 2vw, 1.6rem) clamp(1rem, 2vw, 1.6rem) clamp(2.6rem, 3.6vw, 3.2rem);
   font-family: var(--font-display); color: var(--paper);
   font-size: clamp(1.02rem, 0.9rem + 0.45vw, 1.34rem); line-height: 1.32;
 }
-.pm-a figcaption { font-size: clamp(1.2rem, 0.95rem + 1vw, 1.9rem); }
-.pm-tile .ba-tag { z-index: 2; }
+.pm-a .pm-cap { font-size: clamp(1.2rem, 0.95rem + 1vw, 1.9rem); }
+.pm-more {
+  position: absolute; left: clamp(1rem, 2vw, 1.6rem); bottom: clamp(0.9rem, 1.6vw, 1.3rem); z-index: 3;
+  font-size: 0.72rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--brass-soft); display: inline-flex; align-items: center; gap: 0.45em;
+}
+.pm-more span { transition: transform .3s var(--ease); }
+.pm-tile:hover .pm-more span { transform: translateX(3px); }
 
 .pm-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.8rem; margin-top: 2.4rem; }
 .callout-grid--two { grid-template-columns: 1fr 1fr; margin-top: clamp(2.4rem, 5vw, 3.6rem); }
