@@ -78,13 +78,6 @@ em { font-style: italic; }
   align-items: center;
   gap: 0.7em;
 }
-.eyebrow::before {
-  content: "";
-  width: 26px; height: 1px;
-  background: var(--brass);
-  display: inline-block;
-}
-.eyebrow.center::before { display: none; }
 
 .lead { font-size: clamp(1.1rem, 1rem + 0.5vw, 1.32rem); line-height: 1.65; color: var(--ink-soft); }
 .serif-accent { font-family: var(--font-display); font-style: italic; }
@@ -100,7 +93,6 @@ em { font-style: italic; }
 .section--dark h1, .section--dark h2, .section--dark h3 { color: var(--paper); }
 .section--dark .lead { color: rgba(250, 246, 239, 0.78); }
 .section--dark .eyebrow { color: var(--brass-soft); }
-.section--dark .eyebrow::before { background: var(--brass-soft); }
 
 .section-head { max-width: 760px; margin-bottom: clamp(2.5rem, 4vw, 4rem); }
 .section-head.center { margin-inline: auto; text-align: center; }
@@ -391,7 +383,6 @@ body.nav-open .mobile-menu a.m-link { animation: menuIn .5s var(--ease) forwards
 }
 .premium-banner > * { position: relative; z-index: 1; }
 .pb-info .eyebrow { color: var(--brass-soft); }
-.pb-info .eyebrow::before { background: var(--brass-soft); }
 .pb-name { color: var(--paper); font-size: clamp(1.9rem, 1.4rem + 1.5vw, 2.7rem); margin: 1rem 0 0.5rem; }
 .pb-price { font-family: var(--font-display); font-size: clamp(2.4rem, 2rem + 1.6vw, 3.3rem); font-weight: 600; color: var(--paper); line-height: 1; letter-spacing: -0.02em; }
 .pb-price .from { font-size: 0.78rem; font-family: var(--font-body); font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--brass-soft); display: block; margin-bottom: 0.4rem; }
