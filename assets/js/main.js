@@ -96,6 +96,8 @@
   }
   document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape') {
+      var lbOpen = document.querySelector('.lightbox.open');
+      if (lbOpen) { lbOpen.classList.remove('open'); return; }
       if (overlay && overlay.classList.contains('open')) closeModal();
       if (body.classList.contains('nav-open')) closeNav();
     }
@@ -151,6 +153,63 @@
   } else {
     reveals.forEach(function (el) { el.classList.add('in'); });
   }
+
+  /* ---------- Svetelný box pre fotky realizácií ---------- */
+  var lb = null, lbImg = null, lbCap = null, lbShots = [], lbIndex = 0;
+
+  function buildLightbox() {
+    lb = document.createElement('div');
+    lb.className = 'lightbox';
+    lb.setAttribute('role', 'dialog');
+    lb.setAttribute('aria-modal', 'true');
+    lb.setAttribute('aria-label', 'Zväčšená fotka');
+    lb.innerHTML =
+      '<button type="button" class="lb-btn lb-close" aria-label="Zavrieť">&times;</button>' +
+      '<button type="button" class="lb-btn lb-prev" aria-label="Predchádzajúca fotka">&#8249;</button>' +
+      '<button type="button" class="lb-btn lb-next" aria-label="Ďalšia fotka">&#8250;</button>' +
+      '<img alt="" />' +
+      '<p class="lb-caption"></p>';
+    document.body.appendChild(lb);
+    lbImg = lb.querySelector('img');
+    lbCap = lb.querySelector('.lb-caption');
+    lb.querySelector('.lb-close').addEventListener('click', closeLightbox);
+    lb.querySelector('.lb-prev').addEventListener('click', function (e) { e.stopPropagation(); step(-1); });
+    lb.querySelector('.lb-next').addEventListener('click', function (e) { e.stopPropagation(); step(1); });
+    lb.addEventListener('click', function (e) { if (e.target === lb || e.target === lbImg) closeLightbox(); });
+  }
+
+  function show(i) {
+    if (!lbShots.length) return;
+    lbIndex = (i + lbShots.length) % lbShots.length;
+    var btn = lbShots[lbIndex];
+    var img = btn.querySelector('img');
+    lbImg.src = btn.getAttribute('data-full');
+    lbImg.alt = img ? img.alt : '';
+    lbCap.textContent = (img ? img.alt : '') + '  (' + (lbIndex + 1) + ' z ' + lbShots.length + ')';
+  }
+  function step(d) { show(lbIndex + d); }
+
+  function openLightbox(btn) {
+    var gallery = btn.closest('.ba-gallery');
+    lbShots = gallery ? Array.prototype.slice.call(gallery.querySelectorAll('.ba-shot')) : [btn];
+    if (!lb) buildLightbox();
+    show(lbShots.indexOf(btn));
+    lb.classList.add('open');
+  }
+  function closeLightbox() {
+    if (lb) lb.classList.remove('open');
+    lbShots = [];
+  }
+
+  document.addEventListener('click', function (e) {
+    var btn = e.target.closest ? e.target.closest('.ba-shot') : null;
+    if (btn) { e.preventDefault(); openLightbox(btn); }
+  });
+  document.addEventListener('keydown', function (e) {
+    if (!lb || !lb.classList.contains('open')) return;
+    if (e.key === 'ArrowRight') { e.preventDefault(); step(1); }
+    else if (e.key === 'ArrowLeft') { e.preventDefault(); step(-1); }
+  });
 
   /* ---------- Footer year ---------- */
   var y = document.getElementById('year');
