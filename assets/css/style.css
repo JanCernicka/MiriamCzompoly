@@ -802,3 +802,57 @@ html { scroll-padding-top: 148px; }
   .lightbox { padding: 3.5rem 0.6rem; }
   .lb-prev { left: 0.5rem; } .lb-next { right: 0.5rem; }
 }
+
+/* ===================== Problém: mozaika pred/po + garancie ===================== */
+.problem-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2rem, 5vw, 4.5rem); align-items: center; }
+
+.pp-mosaic { display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; }
+.pp-shot {
+  position: relative; aspect-ratio: 1 / 1; overflow: hidden;
+  border: 0; padding: 0; margin: 0; border-radius: var(--radius);
+  background: var(--sand); cursor: pointer; display: block;
+}
+.pp-shot img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .6s var(--ease); }
+.pp-shot:hover img { transform: scale(1.05); }
+.pp-shot:focus-visible { outline: 2px solid var(--brass); outline-offset: 3px; }
+
+.pp-copy h2 { margin-bottom: 1.2rem; }
+.pp-lead { color: var(--ink-soft); font-size: 1.08rem; line-height: 1.65; }
+.pp-copy .pain-list { margin-top: 1.8rem; }
+.pp-note { margin-top: 1.6rem; color: var(--ink-soft); font-style: italic; }
+.pp-actions { display: flex; flex-wrap: wrap; gap: 0.8rem; margin-top: 1.8rem; }
+
+.pp-guarantees {
+  margin-top: clamp(2.5rem, 5vw, 4rem); padding: clamp(1.8rem, 3.5vw, 2.6rem);
+  background: var(--white); border: 1px solid var(--line); border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+.ppg-lead { font-family: var(--font-display); font-size: 1.24rem; color: var(--ink); margin-bottom: 1.4rem; }
+.ppg-items { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(1.2rem, 3vw, 2.4rem); }
+.ppg-item h3 {
+  font-family: var(--font-body); font-size: 0.78rem; font-weight: 700;
+  letter-spacing: 0.14em; text-transform: uppercase; color: var(--brass-deep); margin-bottom: 0.6rem;
+}
+.ppg-item p { color: var(--ink-soft); font-size: 0.98rem; line-height: 1.6; }
+.ppg-more {
+  display: inline-flex; align-items: center; gap: 0.5em; margin-top: 1.6rem;
+  font-size: 0.78rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--brass-deep);
+}
+.ppg-more span { transition: transform .3s var(--ease); }
+.ppg-more:hover span { transform: translateX(3px); }
+
+.page-hero--slim { padding-bottom: clamp(1rem, 2vw, 1.6rem); }
+
+@media (max-width: 900px) {
+  .problem-grid { grid-template-columns: 1fr; }
+  .ppg-items { grid-template-columns: 1fr; }
+}
+
+/* Podstránky: na mobile ostáva nadpis ako bol, na väčších displejoch je menší.
+   Na domovskej je h1 hlavný nadpis celej stránky, tu len nadpis podstránky. */
+@media (min-width: 900px) {
+  .page-hero h1 { font-size: clamp(2.6rem, 1.4rem + 2.6vw, 3.4rem); max-width: 28ch; }
+  .page-hero .lead { max-width: 64ch; }
+}
+/* nadpis podstránky, ktorý sedí v hlavičke sekcie, nesmie byť väčší ako ostatné */
+.section-head h1 { font-size: clamp(2rem, 1.3rem + 3vw, 3.4rem); }
