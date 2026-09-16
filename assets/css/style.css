@@ -706,8 +706,8 @@ body.no-scroll { overflow: hidden; }
 
 /* logo v hlavicke */
 .brand { align-items: flex-start; }
-.brand .brand-logo { height: 66px; width: auto; display: block; align-self: flex-start; flex: 0 0 auto; object-fit: contain; }
-@media (max-width: 720px) { .brand .brand-logo { height: 48px; } }
+.brand .brand-logo { height: 84px; width: auto; display: block; align-self: flex-start; flex: 0 0 auto; object-fit: contain; }
+@media (max-width: 720px) { .brand .brand-logo { height: 58px; } }
 
 /* recenzie: meno a projekt pod nim */
 .review .r-who { display: flex; flex-direction: column; line-height: 1.25; min-width: 0; }
@@ -754,3 +754,7 @@ body.no-scroll { overflow: hidden; }
 .section--dark p { color: rgba(250, 246, 239, 0.82); }
 .section--dark .muted,
 .section--dark .note { color: rgba(250, 246, 239, 0.62); }
+
+/* vacsie logo = vyssia lepiaca hlavicka, kotvy nesmu skoncit pod nou */
+html { scroll-padding-top: 148px; }
+@media (max-width: 720px) { html { scroll-padding-top: 116px; } }
