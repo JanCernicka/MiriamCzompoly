@@ -260,10 +260,34 @@ body.nav-open .mobile-menu a.m-link { animation: menuIn .5s var(--ease) forwards
 
 /* ---------- Trust bar ---------- */
 .trustbar { background: var(--ink); color: var(--paper); }
-.trustbar .container { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 0.6rem 2.6rem; padding-block: 1.5rem; text-align: center; }
-.trustbar .t-item { display: inline-flex; align-items: center; gap: 0.7rem; font-size: 0.94rem; letter-spacing: 0.02em; color: rgba(250,246,239,.9); }
-.trustbar .t-item .dot { width: 5px; height: 5px; border-radius: 50%; background: var(--brass-soft); }
-.trustbar .t-sep { color: rgba(250,246,239,.3); }
+.trustbar .container { padding-block: clamp(2rem, 4vw, 2.8rem); }
+.tb-quotes { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(1rem, 2.5vw, 2rem); }
+.tb-quote {
+  display: flex; flex-direction: column; align-items: flex-start; gap: 0.7rem;
+  text-align: left; cursor: pointer;
+  background: transparent; border: 0; border-left: 2px solid var(--brass);
+  padding: 0.2rem 0 0.2rem 1.3rem; margin: 0;
+  transition: border-color .3s var(--ease), transform .3s var(--ease);
+}
+.tb-quote:hover { border-left-color: var(--brass-soft); transform: translateX(3px); }
+.tb-quote:focus-visible { outline: 2px solid var(--brass-soft); outline-offset: 6px; }
+.tb-stars { color: var(--brass-soft); font-size: 0.8rem; letter-spacing: 0.12em; }
+.tb-text {
+  font-family: var(--font-display); font-style: italic;
+  font-size: clamp(1.02rem, 0.95rem + 0.35vw, 1.2rem); line-height: 1.45;
+  color: var(--paper);
+}
+.tb-who {
+  display: flex; flex-direction: column; gap: 2px;
+  font-size: 0.82rem; font-weight: 600; letter-spacing: .03em; color: rgba(250, 246, 239, .9);
+}
+.tb-proj { font-weight: 400; font-size: 0.76rem; color: rgba(250, 246, 239, .55); }
+.tb-more {
+  font-size: 0.76rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--brass-soft); display: inline-flex; align-items: center; gap: 0.45em;
+}
+.tb-quote:hover .tb-more span { transform: translateX(3px); }
+.tb-more span { transition: transform .3s var(--ease); }
 
 /* ---------- Placeholder image blocks ---------- */
 .ph {
@@ -683,8 +707,7 @@ body.no-scroll { overflow: hidden; }
   .beforeafter { grid-template-columns: 1fr 1fr; }
   .about-stats { gap: 1.6rem; }
   .footer-top { grid-template-columns: 1fr; }
-  .trustbar .container { flex-direction: column; gap: 0.5rem; }
-  .trustbar .t-sep { display: none; }
+  .tb-quotes { grid-template-columns: 1fr; gap: 1.6rem; }
   .hero-figure .ph-badge { left: 12px; }
 }
 
