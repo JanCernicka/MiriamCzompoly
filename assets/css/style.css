@@ -747,3 +747,10 @@ body.no-scroll { overflow: hidden; }
   .beforeafter.ba--three { grid-template-columns: 1fr 1fr; }
   .beforeafter.ba--three .ph:last-child { grid-column: 1 / -1; aspect-ratio: 16/10; }
 }
+
+/* tmave sekcie: sekundarny text musi byt svetly, nie inkovy */
+.section--dark .steps-inline li .t,
+.section--dark .benefit-list li,
+.section--dark p { color: rgba(250, 246, 239, 0.82); }
+.section--dark .muted,
+.section--dark .note { color: rgba(250, 246, 239, 0.62); }
