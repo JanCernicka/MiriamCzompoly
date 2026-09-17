@@ -434,17 +434,6 @@ body.nav-open .mobile-menu a.m-link { animation: menuIn .5s var(--ease) forwards
 .guarantee p { color: rgba(250,246,239,.76); font-size: 1rem; max-width: none; }
 
 /* ---------- Process ---------- */
-.process-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; counter-reset: step; }
-.step { position: relative; padding-top: 2.8rem; }
-.step .step-num {
-  position: absolute; top: 0; left: 0; font-family: var(--font-display); font-size: 3.4rem; font-weight: 500;
-  color: var(--greige); line-height: 0.8;
-}
-.step::before { content: ""; position: absolute; top: 1.35rem; left: 3.4rem; right: -1.5rem; height: 1px; background: var(--line-2); }
-.step:last-child::before { display: none; }
-.step h3 { font-size: 1.3rem; margin-bottom: 0.6rem; }
-.step p { font-size: 0.96rem; color: var(--ink-soft); }
-.step .step-price { color: var(--brass-deep); font-weight: 600; font-style: normal; }
 
 /* ---------- Realizácie / gallery ---------- */
 .gallery-group { margin-bottom: 3rem; }
@@ -676,8 +665,6 @@ body.no-scroll { overflow: hidden; }
 
 /* ---------- Responsive ---------- */
 @media (max-width: 1080px) {
-  .process-grid { grid-template-columns: repeat(2, 1fr); gap: 2.5rem 1.5rem; }
-  .step::before { display: none; }
   .reviews-grid { grid-template-columns: 1fr 1fr; }
   .footer-top { grid-template-columns: 1fr 1fr; }
   .footer-brand { grid-column: 1 / -1; }
@@ -739,10 +726,6 @@ body.no-scroll { overflow: hidden; }
 @media (max-width: 900px) { .reviews-grid--two { grid-template-columns: 1fr; } }
 
 /* proces: obrazok ku kroku */
-.step .step-img { margin: 0 0 1rem; overflow: hidden; border-radius: 3px; background: var(--greige-2); }
-.step .step-img img { display: block; width: 100%; height: 150px; object-fit: cover; }
-.step .step-num { position: relative; z-index: 1; }
-@media (max-width: 900px) { .step .step-img img { height: 170px; } }
 
 /* citat pri balikoch */
 .pb-quote cite { display: block; font-family: var(--font-body); font-style: normal; font-size: 0.78rem; letter-spacing: .04em; color: var(--muted); margin-top: 0.4rem; }
@@ -869,3 +852,28 @@ html { scroll-padding-top: 148px; }
   .pm-a, .pm-b, .pm-c, .pm-d { grid-column: auto; grid-row: auto; aspect-ratio: 4 / 3; }
   .callout-grid--two { grid-template-columns: 1fr; }
 }
+
+/* ===================== Proces: fotokarty ===================== */
+.process-cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.8rem; margin-top: 3rem; }
+.pc-step {
+  position: relative; aspect-ratio: 3 / 4.4; overflow: hidden;
+  border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); background: var(--sand);
+}
+.pc-step img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+.pc-step::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(29, 24, 19, .95) 0%, rgba(29, 24, 19, .8) 34%, rgba(29, 24, 19, .34) 66%, rgba(29, 24, 19, .05) 100%);
+}
+.pc-body { position: absolute; inset: auto 0 0 0; z-index: 2; padding: clamp(1.1rem, 1.8vw, 1.5rem); }
+.pc-num {
+  display: inline-grid; place-items: center; width: 34px; height: 34px; border-radius: 50%;
+  border: 1px solid var(--brass-soft); color: var(--brass-soft);
+  font-family: var(--font-display); font-size: 1.05rem; margin-bottom: 0.9rem;
+}
+.pc-step h3 { color: var(--paper); font-size: clamp(1.1rem, 1rem + 0.35vw, 1.28rem); margin-bottom: 0.45rem; }
+.pc-step p { color: rgba(250, 246, 239, .8); font-size: 0.91rem; line-height: 1.5; }
+.pc-step .step-price { color: var(--brass-soft); font-weight: 600; font-size: 0.78em; }
+.pc-opt { color: rgba(250, 246, 239, .55); font-style: italic; font-size: 0.72em; }
+
+@media (max-width: 960px) { .process-cards { grid-template-columns: 1fr 1fr; gap: 0.9rem; } }
+@media (max-width: 560px) { .process-cards { grid-template-columns: 1fr; } .pc-step { aspect-ratio: 4 / 3.2; } }
