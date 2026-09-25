@@ -919,3 +919,7 @@ html { scroll-padding-top: 148px; }
 body.page-white { background: var(--white); }
 body.page-white .section--paper2 { background: var(--white); }
 body.page-white .site-header.scrolled { background: rgba(255, 255, 255, 0.9); }
+
+/* Video Miriam na stránke diagnostiky (9:16) */
+.video-figure { width: 100%; max-width: 380px; margin-inline: auto; aspect-ratio: 9/16; border-radius: var(--radius-lg); overflow: hidden; background: var(--ink); box-shadow: var(--shadow-md); }
+.video-figure video { width: 100%; height: 100%; display: block; object-fit: cover; }
