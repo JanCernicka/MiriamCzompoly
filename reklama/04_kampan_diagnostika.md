@@ -25,6 +25,15 @@ Text copy je v náhľade, tu ho zámerne neopakujem (CLAUDE.md: jedna kópia).
 - Miriamine upozornenia idú na jej prihlasovací e-mail dizajn@miriamczompoly.sk. Nemenený, lebo je to jej login do GHL.
 - Cez API sa neoveruje presmerovanie na /dakujem ani Lead, na to treba ručnú rezerváciu na webe.
 
+## Po rezervácii (stav 25. 9. večer)
+- WF3 „Pred diagnostikou (potvrdenie)“ `e8120656-58f4-498f-95c8-2ca6e67123ef` je **zapnutá** (v13), trigger customer_appointment na kalendári diagnostiky. Kroky: 2 min poistka, tag diagnostika-rezervovana, e-mail E9 (Kde: adresa zo formulára), SMS S0 po rezervácii, SMS Miriam (internal_notification, meno, telefón, adresa, termín), deň pred SMS S3, 2 h pred SMS S4. SMS bez diakritiky, pole `body`.
+- Opravené pri tom: SMS mali text v poli `message` (GHL ich neposiela), 2-min wait mal neplatné okno, e-mail mal prílohy a sledovanie ako text.
+- Otestované na Janovom kontakte cez API: e-mail, SMS zákazníčke aj SMS pre Miriam odišli. Test uprataný (termín zrušený, kontakt vyradený z WF3).
+- Dátum GHL dosadzuje po anglicky („September 28, 2026 9:00 AM“). Otvorené.
+- Staré zapnuté workflowy („Pripomienka 2 h 10 min“, „WebStránka - Telefonická konzultácia potvrdenie“) reagujú len na starý kalendár ZSPaMWEuejcfthaFxKZt, na diagnostiku nie.
+- Kalendár má nový formulár `Lmx2QuIpBSbfeBgY04Gq` „Diagnostika: rezervácia s adresou (Claude)“ (klon Miriamino slovenského formulára + ulica, mesto, PSČ). Pôvodný formulár `50VILUSCXj7OUl25PQfr` nezmenený.
+- Pozor pri PUT na kalendár: GHL vynuluje notifications, formSubmitType a ďalšie polia, ktoré nepošleš. Vždy posielať formId, notifications, slotBuffer, formSubmitType, formSubmitRedirectURL a porovnať celý JSON pred a po.
+
 ## Otvorené
 - Testovacia rezervácia: automat ju nespraví, GHL formulár má Cloudflare ochranu proti robotom. Treba ju spraviť ručne, potom overiť Lead v Events Manageri a zrušiť termín.
 - Rezervačný formulár GHL je po anglicky (popisky, US vzor telefónu, povinný anglický súhlas s marketingom).
