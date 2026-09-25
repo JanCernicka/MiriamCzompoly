@@ -923,3 +923,15 @@ body.page-white .site-header.scrolled { background: rgba(255, 255, 255, 0.9); }
 /* Video Miriam na stránke diagnostiky (9:16) */
 .video-figure { width: 100%; max-width: 380px; margin-inline: auto; aspect-ratio: 9/16; border-radius: var(--radius-lg); overflow: hidden; background: var(--ink); box-shadow: var(--shadow-md); }
 .video-figure video { width: 100%; height: 100%; display: block; object-fit: cover; }
+.video-figure { position: relative; cursor: pointer; }
+.video-sound {
+  position: absolute; left: 50%; top: 1rem; transform: translateX(-50%);
+  display: inline-flex; align-items: center; gap: 0.5rem; white-space: nowrap;
+  padding: 0.6rem 1.1rem; border: 1px solid rgba(255,255,255,.35); border-radius: 999px;
+  background: rgba(20,17,14,.55); color: #fff; font: 600 0.88rem/1 var(--font-body);
+  -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+  cursor: pointer; transition: opacity .3s var(--ease);
+}
+.video-sound:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+.video-figure.has-sound { cursor: auto; }
+.video-figure.has-sound .video-sound { opacity: 0; pointer-events: none; }

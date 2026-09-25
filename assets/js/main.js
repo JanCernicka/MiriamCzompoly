@@ -211,6 +211,25 @@
     else if (e.key === 'ArrowLeft') { e.preventDefault(); step(-1); }
   });
 
+  /* ---------- Video: hrá bez zvuku, prvé kliknutie zapne zvuk od začiatku ---------- */
+  document.querySelectorAll('[data-sound-video]').forEach(function (wrap) {
+    var video = wrap.querySelector('video');
+    if (!video) return;
+    var unmuted = false;
+    wrap.addEventListener('click', function (e) {
+      if (unmuted) return;
+      e.preventDefault();
+      unmuted = true;
+      video.muted = false;
+      video.loop = false;
+      video.currentTime = 0;
+      video.controls = true;
+      var pr = video.play();
+      if (pr && pr.catch) pr.catch(function () {});
+      wrap.classList.add('has-sound');
+    });
+  });
+
   /* ---------- Footer year ---------- */
   var y = document.getElementById('year');
   if (y) y.textContent = new Date().getFullYear();
