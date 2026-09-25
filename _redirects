@@ -4,3 +4,11 @@
 /kontakt       /#kontakt      301
 /realizacie    /#realizacie   301
 /blog          /              302
+
+# Rezervačný funnel a interná adresa starého webu v GHL
+/rezervacia      /diagnostika   301
+/remodel-418258  /              301
+
+# Odkaz na recenziu z GHL (custom value "review request link") ukazoval na neexistujúcu stránku,
+# teraz vedie priamo na napísanie recenzie na Google
+/recenzie     https://search.google.com/local/writereview?placeid=ChIJG7YT3qNPZUcRCyUaFlxWyog   302

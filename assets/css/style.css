@@ -877,3 +877,39 @@ html { scroll-padding-top: 148px; }
 
 @media (max-width: 960px) { .process-cards { grid-template-columns: 1fr 1fr; gap: 0.9rem; } }
 @media (max-width: 560px) { .process-cards { grid-template-columns: 1fr; } .pc-step { aspect-ratio: 4 / 3.2; } }
+
+/* ===================== Cookie lišta ===================== */
+.cookie-banner {
+  position: fixed; left: 1.2rem; bottom: 1.2rem; z-index: 400;
+  max-width: 440px; padding: 1.3rem 1.4rem 1.2rem;
+  background: var(--white); color: var(--ink);
+  border: 1px solid var(--line); border-radius: var(--radius-lg); box-shadow: var(--shadow-lg);
+  opacity: 0; transform: translateY(14px); transition: opacity .3s var(--ease), transform .3s var(--ease);
+}
+.cookie-banner.show { opacity: 1; transform: none; }
+.cookie-banner .cb-title { font-family: var(--font-display); font-size: 1.2rem; margin-bottom: 0.35rem; }
+.cookie-banner .cb-text { font-size: 0.86rem; line-height: 1.55; color: var(--ink-soft); }
+.cookie-banner .cb-text a { color: var(--brass-deep); text-decoration: underline; text-underline-offset: 2px; }
+.cookie-banner .cb-actions { display: flex; gap: 0.6rem; margin-top: 1rem; flex-wrap: wrap; }
+.cookie-banner .cb-actions .btn { flex: 1 1 auto; justify-content: center; }
+/* na mobile nad bublinou chatu, aby sa neprekrývali */
+@media (max-width: 620px) {
+  .cookie-banner { left: 0.8rem; right: 0.8rem; bottom: 5.8rem; max-width: none; }
+}
+
+/* ===================== Právny text (GDPR) ===================== */
+.legal { max-width: 760px; }
+.legal h1 { margin-bottom: 0.8rem; }
+.legal .legal-updated { color: var(--muted); font-size: 0.86rem; margin-bottom: 2.4rem; }
+.legal h2 { font-size: clamp(1.4rem, 1.2rem + 0.8vw, 1.8rem); margin: 2.6rem 0 0.9rem; }
+.legal h3 { font-size: 1.15rem; margin: 1.6rem 0 0.5rem; }
+.legal p, .legal li { color: var(--ink-soft); line-height: 1.7; }
+.legal p + p { margin-top: 0.8rem; }
+.legal ul { margin: 0.6rem 0 0 1.2rem; list-style: disc; }
+.legal li + li { margin-top: 0.35rem; }
+.legal a { color: var(--brass-deep); text-decoration: underline; text-underline-offset: 2px; }
+.legal .legal-box { margin-top: 1rem; padding: 1.1rem 1.3rem; background: var(--white); border: 1px solid var(--line); border-radius: var(--radius); }
+.legal table { width: 100%; border-collapse: collapse; margin-top: 0.8rem; font-size: 0.92rem; }
+.legal th, .legal td { text-align: left; padding: 0.6rem 0.7rem; border-bottom: 1px solid var(--line); vertical-align: top; color: var(--ink-soft); }
+.legal th { color: var(--ink); font-weight: 600; font-size: 0.82rem; letter-spacing: .04em; }
+@media (max-width: 620px) { .legal table { font-size: 0.84rem; } .legal th, .legal td { padding: 0.5rem 0.4rem; } }
