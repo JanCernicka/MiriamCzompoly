@@ -1,0 +1,6 @@
+# Staging adresa sa nesmie dostať do Googlu. Ostrá doména (www.miriamczompoly.sk) toto pravidlo nemá.
+https://miriam-web-staging.pages.dev/*
+  X-Robots-Tag: noindex, nofollow
+
+https://:hash.miriam-web-staging.pages.dev/*
+  X-Robots-Tag: noindex, nofollow
