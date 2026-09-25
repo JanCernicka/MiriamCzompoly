@@ -3,13 +3,15 @@
 Náhľad na schválenie (copy, nastavenie, rozhodnutia): https://claude.ai/artifact/Wn4nwdF7iN2uHCjpBJUhtT
 Text copy je v náhľade, tu ho zámerne neopakujem (CLAUDE.md: jedna kópia).
 
-**Stav 25. 9. 2026 večer:** copy schválené, kampaň postavená, **všetko PAUSED**. Celá cesta otestovaná (rezervácia na webe, /dakujem, Lead v Mete, e-mail a SMS s adresou, zrušenie nič neposiela). Čaká už len na Janovo „spusti“.
+**Stav 25. 9. 2026 večer: SPUSTENÁ** (Jano: „spusti“). Kampaň, zostava aj všetkých 35 reklám majú status ACTIVE, 15 €/deň na kampani. Pri spätnom čítaní hneď po zapnutí: 30 reklám ACTIVE, 33-35 (lofi) IN_PROCESS, 01 a 06 PENDING_REVIEW (Meta ich po zmene stavu ešte raz kontroluje). Chyby doručovania žiadne. Celá cesta pred spustením otestovaná (rezervácia na webe, /dakujem, Lead v Mete, e-mail a SMS s adresou, zrušenie nič neposiela).
+
+**Ďalej podľa playbooku:** prvých 7 dní do kampane nezasahovať (učenie). Potom vyhodnotiť hooky podľa reklám. Keď je 7 rezervácií za mesiac, pozastaviť. 1. v mesiaci skontrolovať formuláciu „do konca mesiaca“.
 
 ## Čo je v Mete (ad účet 1210955550121224)
 - Kampaň `120250318272510477` „Miriam Czompoly: Leads - Diagnostika 249 - september 2026“, cieľ Leads, **15 €/deň na úrovni kampane** (CBO, Jano 25. 9.; playbook radí rozpočet na ad sete, pri jednom ad sete je to to isté).
 - Ad set `120250318289870477` (bez vlastného rozpočtu): Trnava + 50 mi (80 km, max. čo Meta dovolí), bývajúci, bez AT/CZ/HU, ženy, vek 30-65 ako návrh, Advantage+ publikum a umiestnenia, OFFSITE_CONVERSIONS na pixel 2324280084711918 (konzultácia, Miriamin) s udalosťou LEAD, DSA Miriam Czompoly.
 - Umiestnenia: **Advantage+ (automatické)** podľa playbooku (Jano 25. 9.). Krátko boli skopírované zo starej zostavy „AI reklama“ (len FB a IG), vrátené, lebo principles §7 zakazuje stavať umiestnenia novej ponuky na dátach starej. Ak po 7 dňoch napr. Audience Network prinesie kliky bez rezervácií, vypnúť podľa dát tejto kampane.
-- Pred spustením overené: kampaň, zostava aj 35 reklám PAUSED, reklamy prešli kontrolou Mety (žiadna v kontrole ani zamietnutá), žiadne chyby doručovania.
+- Pred spustením overené (vtedy všetko PAUSED): reklamy prešli kontrolou Mety (žiadna v kontrole ani zamietnutá), žiadne chyby doručovania.
 - 35 reklám (všetky videá z Drivu), identické schválené copy, headline „Interiérová diagnostika u teba doma 🏡“, tlačidlo Zistiť viac, odkaz /diagnostika s UTM, utm_content = názov reklamy (napr. `01_h1-slub_pokojny`). Stránka Poradňa tvojho bývania + IG miriamczompoly.design.
 - Mapovanie videí na Meta video ID: 35 ks nahraných z Drivu cez verejný odkaz (Drive priečinok je zdieľaný „ktokoľvek s odkazom“, dá sa vypnúť).
 
