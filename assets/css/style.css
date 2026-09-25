@@ -906,6 +906,7 @@ html { scroll-padding-top: 148px; }
 .legal p, .legal li { color: var(--ink-soft); line-height: 1.7; }
 .legal p + p { margin-top: 0.8rem; }
 .legal ul { margin: 0.6rem 0 0 1.2rem; list-style: disc; }
+.legal ol { margin: 0.6rem 0 0 1.2rem; list-style: decimal; }
 .legal li + li { margin-top: 0.35rem; }
 .legal a { color: var(--brass-deep); text-decoration: underline; text-underline-offset: 2px; }
 .legal .legal-box { margin-top: 1rem; padding: 1.1rem 1.3rem; background: var(--white); border: 1px solid var(--line); border-radius: var(--radius); }
@@ -913,3 +914,8 @@ html { scroll-padding-top: 148px; }
 .legal th, .legal td { text-align: left; padding: 0.6rem 0.7rem; border-bottom: 1px solid var(--line); vertical-align: top; color: var(--ink-soft); }
 .legal th { color: var(--ink); font-weight: 600; font-size: 0.82rem; letter-spacing: .04em; }
 @media (max-width: 620px) { .legal table { font-size: 0.84rem; } .legal th, .legal td { padding: 0.5rem 0.4rem; } }
+
+/* Stránky lievika majú biele pozadie (pravidlo z 23. 9. 2026) */
+body.page-white { background: var(--white); }
+body.page-white .section--paper2 { background: var(--white); }
+body.page-white .site-header.scrolled { background: rgba(255, 255, 255, 0.9); }

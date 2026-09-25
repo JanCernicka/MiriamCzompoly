@@ -26,6 +26,9 @@
     /* eslint-enable */
     window.fbq('init', PIXEL_ID);
     window.fbq('track', 'PageView');
+    /* stránka môže ohlásiť konverziu, napr. <body data-fb-event="Lead"> na ďakovnej stránke */
+    var fbEvent = document.body && document.body.getAttribute('data-fb-event');
+    if (fbEvent) window.fbq('track', fbEvent);
   }
 
   function closeBanner(el) {
@@ -66,6 +69,9 @@
       }
     });
   }
+
+  /* vnútri rámčeka (napr. presmerovanie kalendára) nič, stránka sa otvorí v celom okne */
+  if (window.top !== window.self) return;
 
   var choice = getChoice();
   if (choice === 'granted') loadPixel();
