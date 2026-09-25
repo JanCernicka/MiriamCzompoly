@@ -925,13 +925,19 @@ body.page-white .site-header.scrolled { background: rgba(255, 255, 255, 0.9); }
 .video-figure video { width: 100%; height: 100%; display: block; object-fit: cover; }
 .video-figure { position: relative; cursor: pointer; }
 .video-sound {
-  position: absolute; left: 50%; top: 1rem; transform: translateX(-50%);
-  display: inline-flex; align-items: center; gap: 0.5rem; white-space: nowrap;
-  padding: 0.6rem 1.1rem; border: 1px solid rgba(255,255,255,.35); border-radius: 999px;
-  background: rgba(20,17,14,.55); color: #fff; font: 600 0.88rem/1 var(--font-body);
-  -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
-  cursor: pointer; transition: opacity .3s var(--ease);
+  position: absolute; inset: 0; z-index: 2;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1rem;
+  padding: 1.5rem; border: 0; background: rgba(20,17,14,.38); color: #fff; text-align: center;
+  font: 600 clamp(1.15rem, 1rem + 1vw, 1.45rem)/1.25 var(--font-body);
+  text-shadow: 0 1px 8px rgba(0,0,0,.45);
+  cursor: pointer; transition: opacity .35s var(--ease);
 }
+.video-sound .vs-icon {
+  width: 84px; height: 84px; border-radius: 50%; display: grid; place-items: center;
+  background: rgba(255,255,255,.18); border: 2px solid rgba(255,255,255,.7);
+  -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+}
+.video-sound .vs-icon svg { width: 38px; height: 38px; }
 .video-sound:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
 .video-figure.has-sound { cursor: auto; }
 .video-figure.has-sound .video-sound { opacity: 0; pointer-events: none; }
