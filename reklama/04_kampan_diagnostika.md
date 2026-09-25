@@ -3,7 +3,7 @@
 Náhľad na schválenie (copy, nastavenie, rozhodnutia): https://claude.ai/artifact/Wn4nwdF7iN2uHCjpBJUhtT
 Text copy je v náhľade, tu ho zámerne neopakujem (CLAUDE.md: jedna kópia).
 
-**Stav 25. 9. 2026 večer:** copy schválené, kampaň postavená, **všetko PAUSED**. Nespustené, čaká na testovaciu rezerváciu a Janovo „spusti“.
+**Stav 25. 9. 2026 večer:** copy schválené, kampaň postavená, **všetko PAUSED**. Celá cesta otestovaná (rezervácia na webe, /dakujem, Lead v Mete, e-mail a SMS s adresou, zrušenie nič neposiela). Čaká už len na Janovo „spusti“.
 
 ## Čo je v Mete (ad účet 1210955550121224)
 - Kampaň `120250318272510477` „Miriam Czompoly: Leads - Diagnostika 249 - september 2026“, cieľ Leads, **15 €/deň na úrovni kampane** (CBO, Jano 25. 9.; playbook radí rozpočet na ad sete, pri jednom ad sete je to to isté).
@@ -35,9 +35,13 @@ Text copy je v náhľade, tu ho zámerne neopakujem (CLAUDE.md: jedna kópia).
 - Kalendár má nový formulár `Lmx2QuIpBSbfeBgY04Gq` „Diagnostika: rezervácia s adresou (Claude)“ (klon Miriamino slovenského formulára + ulica, mesto, PSČ). Pôvodný formulár `50VILUSCXj7OUl25PQfr` nezmenený.
 - Pozor pri PUT na kalendár: GHL vynuluje notifications, formSubmitType a ďalšie polia, ktoré nepošleš. Vždy posielať formId, notifications, slotBuffer, formSubmitType, formSubmitRedirectURL a porovnať celý JSON pred a po.
 
+## Ručné testy Jana 25. 9. (všetky termíny zrušené, Jano vyradený z WF3)
+- Lead v pixeli 2324280084711918 potvrdený (1 Lead v hodine prvej ručnej rezervácie). /dakujem + consent.js fungujú.
+- Trigger WF3 mal len filter na kalendár, takže sa spustil aj pri zrušení termínu (poslal „Potvrdené“). Pridaný filter appointment.status is-any-of [confirmed] (cookbook §5), kalendár má autoConfirm true. Overené: zrušenie o 17:37 nič neposlalo.
+- Pole ulice vo formulári malo tag address1, GHL ho neukladal. Opravené na tag `address`. Overené: kontakt má address1 „Botanická 24“ a e-mail „Kde: Botanická 24, Trnava“.
+
 ## Otvorené
-- Testovacia rezervácia: automat ju nespraví, GHL formulár má Cloudflare ochranu proti robotom. Treba ju spraviť ručne, potom overiť Lead v Events Manageri a zrušiť termín.
-- Rezervačný formulár GHL je po anglicky (popisky, US vzor telefónu, povinný anglický súhlas s marketingom).
+- Rezervačné okno GHL má anglický nadpis „Enter details“ a tlačidlo „Schedule meeting“ (formulár už je slovenský).
 - Presmerovanie iframe na /dakujem: overiť pri ručnom teste, či sa stránka otvorí v celom okne.
 
 ## Zadanie od Jana
