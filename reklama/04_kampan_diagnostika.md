@@ -17,6 +17,14 @@ Text copy je v náhľade, tu ho zámerne neopakujem (CLAUDE.md: jedna kópia).
 - Kalendár: `slotBuffer` 270 min, takže po rezervácii je 5 h blokovaných (Janova požiadavka). Dĺžka termínu ostáva 30 min (Jano: neriešiť).
 - /diagnostika: opravený embed kalendára (form_embed.js namiesto embed.js), predtým sa iframe nezväčšoval a časy aj formulár boli odrezané. Odstránené tlačidlo na api.leadconnectorhq.com.
 
+## Test rezervácie 25. 9. (cez API, termín zrušený)
+- Rezervácia na kontakt Jana (team@shapelesai.com, telefón dočasne +421915554304, potom vrátený na prázdny). Termín 30. 9. 16:30, zrušený, deň je znova celý voľný.
+- 5 h blokácia funguje oboma smermi (po rezervácii o 16:30 ostali voľné len 9:00 až 11:30).
+- Zákazníčke prišla LEN anglická pozvánka z Google Kalendára (od miriam.czompoly@gmail.com, odkaz na zmenu termínu ide na link.shapelesai.com). Žiadny slovenský potvrdzovací e-mail ani SMS z GHL, v konverzácii len záznam o termíne.
+- Zapnuté workflowy: len „Pripomienka termínu 2 hodiny a 10 minút pred“ a „WebStránka - Telefonická konzultácia potvrdenie termínu“. WF3 „Pred diagnostikou (potvrdenie)“ nie je zapnutý. Spúšťače sa cez verejné API čítať nedajú (chýba Firebase token), pripomienka 2 h 10 min vopred sa pri teste nedala overiť.
+- Miriamine upozornenia idú na jej prihlasovací e-mail dizajn@miriamczompoly.sk. Nemenený, lebo je to jej login do GHL.
+- Cez API sa neoveruje presmerovanie na /dakujem ani Lead, na to treba ručnú rezerváciu na webe.
+
 ## Otvorené
 - Testovacia rezervácia: automat ju nespraví, GHL formulár má Cloudflare ochranu proti robotom. Treba ju spraviť ručne, potom overiť Lead v Events Manageri a zrušiť termín.
 - Rezervačný formulár GHL je po anglicky (popisky, US vzor telefónu, povinný anglický súhlas s marketingom).
