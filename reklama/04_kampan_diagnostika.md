@@ -13,7 +13,7 @@ Text copy je v náhľade, tu ho zámerne neopakujem (CLAUDE.md: jedna kópia).
 - Umiestnenia: **Advantage+ (automatické)** podľa playbooku (Jano 25. 9.). Krátko boli skopírované zo starej zostavy „AI reklama“ (len FB a IG), vrátené, lebo principles §7 zakazuje stavať umiestnenia novej ponuky na dátach starej. Ak po 7 dňoch napr. Audience Network prinesie kliky bez rezervácií, vypnúť podľa dát tejto kampane.
 - Pred spustením overené (vtedy všetko PAUSED): reklamy prešli kontrolou Mety (žiadna v kontrole ani zamietnutá), žiadne chyby doručovania.
 - 35 reklám (všetky videá z Drivu), identické schválené copy, headline „Interiérová diagnostika u teba doma 🏡“, tlačidlo Zistiť viac, odkaz /diagnostika s UTM, utm_content = názov reklamy (napr. `01_h1-slub_pokojny`). Stránka Poradňa tvojho bývania + IG miriamczompoly.design.
-- Mapovanie videí na Meta video ID: 35 ks nahraných z Drivu cez verejný odkaz (Drive priečinok je zdieľaný „ktokoľvek s odkazom“, dá sa vypnúť).
+- Mapovanie videí na Meta video ID: 35 ks nahraných z Drivu cez verejný odkaz (verejné zdieľanie Drivu Jano po nahraní vypol, overené).
 
 ## Meranie
 - Kalendár `fUjAzOhv2VyiY3XTguPz`: po rezervácii presmeruje na https://www.miriamczompoly.sk/dakujem. Pozor: GHL API pri zápise chce pole `formSubmitRedirectURL`, číta `formSubmitRedirectUrl`, a PUT bez `formSubmitType` ho vráti na ThankYouMessage. Vždy posielať oboje a prečítať späť.
