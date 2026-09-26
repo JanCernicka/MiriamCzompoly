@@ -13,6 +13,9 @@
  *  5. termín s assignedUserId (bez neho 422), bez ignoreFreeSlotValidation
  *  6. príležitosť, ak otvorená nie je; názov meno + telefón
  * TEST_REZIM=1: nič sa nezapíše, len sa overia údaje a vráti sa úspech.
+ * TEST_REZIM=ghl-bez-sprav: zapíše sa všetko ako naostro, ale termín bez notifikácií
+ *   kalendára (toNotify false). Len na náhľade, na overenie celého zápisu bez toho,
+ *   aby Miriam dostala testovacie upozornenie. WF3 treba potom z kontaktu vyhodiť do 2 minút.
  */
 import { GHL, json, hlavicky, nastavene, volneSloty,
          KALENDAR_ID, MIRIAM_USER_ID, PIPELINE_ID, FAZA_REZERVOVANA } from "../_lib/ghl.js";
@@ -73,7 +76,8 @@ export async function onRequestPost({ request, env }) {
       body: JSON.stringify({ calendarId: KALENDAR_ID, locationId: env.GHL_LOCATION_ID, contactId: id,
         assignedUserId: MIRIAM_USER_ID, startTime: new Date(startMs).toISOString(),
         endTime: new Date(startMs + DLZKA_MIN * 60000).toISOString(), title: NAZOV_TERMINU,
-        appointmentStatus: "confirmed", address: `${ulica}, ${mesto}`, toNotify: true }) });
+        appointmentStatus: "confirmed", address: `${ulica}, ${mesto}`,
+        toNotify: env.TEST_REZIM !== "ghl-bez-sprav" }) });
     const apd = await ap.json().catch(() => ({}));
     if (!ap.ok) {
       const t = JSON.stringify(apd).toLowerCase();
@@ -93,7 +97,7 @@ export async function onRequestPost({ request, env }) {
       }
     } catch (e) { console.error("príležitosť", String(e)); }
 
-    return json({ ok: true, contactId: id });
+    return json({ ok: true, contactId: id, appointmentId: apd.id || (apd.appointment && apd.appointment.id) || null });
   } catch (e) {
     console.error("GHL nedostupné", String(e));
     return json({ ok: false, error: "ghl_unreachable" }, 502);

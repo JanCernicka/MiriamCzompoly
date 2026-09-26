@@ -8,9 +8,38 @@ súbory 01 až 06), kód prevzatý z bežiaceho lievika DKP.
 | Čo | Stav |
 |---|---|
 | Meranie na `/diagnostika` a `/dakujem` | 🟢 **naostro od 26. 9. 2026 15:28** (13:28:38 UTC) |
+| Varianta B | 🟢 **funkčná naostro** cez `?ab=b`: skutočné termíny, rezervácia do GHL (overené 26. 9.) |
 | A/B delenie 50/50 | ⚪ **vypnuté**, všetci z reklamy vidia A. Zapína sa premennou `AB_ZAPNUTE=1` |
-| Varianta B | 🟡 hotová, dá sa pozrieť cez `?ab=b`. Kalendár ukazuje telefón, kým chýba PIT |
-| Karta Lievik v konzole | 🔴 **nenasadená**, chýba zdroj workera konzoly, viď nižšie |
+| Karta Lievik v konzole | 🟢 **nasadená 26. 9.**, konzola má odteraz zdroj v `konzola/` |
+
+## Ostrý test rezervácie z B (26. 9. 2026, 15:52)
+
+Cez náhľad s `TEST_REZIM=ghl-bez-sprav` (zapisuje do GHL, termín bez notifikácií
+kalendára), testovací kontakt vyradený z WF3 v tej istej sekunde, WF3 má na začiatku
+2 minúty čakania. Prečítané späť z GHL:
+
+- kontakt: meno, e-mail, telefón, adresa (address1, city), značka `diagnostika-lp-b`, zdroj „Diagnostika, stránka B“
+- termín „Interiérová diagnostika“ v kalendári `fUjAzOhv2VyiY3XTguPz`, confirmed, Miriam, s adresou
+- príležitosť „TEST Claude AB · +421900111222“, 249 €, fáza „Diagnostika rezervovaná“
+- 5 h blokovanie funguje aj pri rezervácii z B
+- po 2 minútach: bez značky `diagnostika-rezervovana`, v konverzácii len systémové záznamy, **žiadna správa neodišla**
+- všetko zmazané, termín znova voľný
+
+Workflow: pri rezervácii sa spúšťa jediný WF3 (trigger termín v kalendári diagnostiky,
+stav confirmed). Formulár GHL žiadny workflow nespúšťa. B zakladá termín v tom istom
+kalendári, takže spúšťa ten istý WF3 ako A. Že termín z API WF3 spustí, overené 25. 9.
+na Janovom kontakte so všetkými správami.
+
+Rozdiel oproti A: B navyše zakladá príležitosť (A ju nezakladá, žiadny workflow to nerobí)
+a značku `diagnostika-lp-b`.
+
+## Konzola
+
+Živá konzola bola šablóna Prezentacia (zmena 24. 8., nasadená 26. 8.) + úpravy ovládania
+vo frontende. Worker sa nemenil: všetky polia, ktoré frontend číta, šablónový worker vracia.
+Nasadené 26. 9. ako: worker zo šablóny + `/api/lievik` a `/api/ab` (v zozname CESTY, za
+heslom konzoly) + živý frontend s kartou Lievik. Zdroj `konzola/dist/`, nasadenie
+`konzola/nasad.sh`. Predošlé nasadenie na návrat: `72610073-66ed-4589-b4cb-42486830c3ec`.
 
 ## Adresy
 
@@ -25,7 +54,7 @@ súbory 01 až 06), kód prevzatý z bežiaceho lievika DKP.
 | stav nastavení | `https://www.miriamczompoly.sk/api/stav` |
 
 Kód: `functions/` (rozdeľovač, meranie, API), `diagnostika-b/` (varianta B), `meranie/`
-(zberač, schéma), `konzola/` (karta Lievik, nenasadená). Nasadenie webu: `./nasad-web.sh`
+(zberač, schéma), `konzola/` (zdroj konzoly aj s kartou Lievik). Nasadenie webu: `./nasad-web.sh`
 (vynechá konzola, meranie, diagnostika-b). Varianta B: `wrangler pages deploy diagnostika-b/dist --project-name=miriam-diagnostika-b --branch=main`.
 
 ## Varianta B
@@ -59,15 +88,11 @@ Kroky (musia sedieť na 4 miestach: stránka, `functions/_lib/lievik.js`, zbera�
 - Overené: lokálne preklikaný celý tok A aj B, všetky kroky v D1 so správnou variantou
   a s kreatívou aj na `/dakujem`. Delenie na náhľade 25 ku 15 zo 40, robot vždy A bez cookie.
 
-## Čo treba, aby test mohol bežať
+## Čo treba, aby test bežal
 
-1. **PIT do projektu `miriam-web-staging`** ako secret `GHL_API_KEY` + `GHL_LOCATION_ID`,
-   inak B nerezervuje. Potom jedna skúšobná rezervácia na testovací kontakt.
-2. **Zapnúť delenie**: `AB_ZAPNUTE=1` v produkcii a nové nasadenie. Čas zapnutia zapísať do
-   `VERZIE` konzoly ako riadok s `ab: true`.
-3. **Zdroj konzoly**: živá konzola (`konzola-miriamczompoly`) má 258 riadkov úprav oproti
-   šablóne Prezentacia a nie je v žiadnom repe. Bez zdroja workera sa karta nedá nasadiť
-   bez rizika. Keď sa nájde: `konzola/worker-doplnok.js` + `konzola/index.html`, secret `STAT_HESLO`.
+1. **Zapnúť delenie**: `AB_ZAPNUTE=1` v produkcii a nové nasadenie (`./nasad-web.sh`). Čas
+   zapnutia zapísať do `VERZIE` v `konzola/dist/_worker.js` ako riadok s `ab: true`
+   a znova nasadiť konzolu. Tvoje prezeranie z 26. 9. je v D1 pred týmto časom, nezapočíta sa.
 
 Počas testu nemeniť URL v reklame, optimalizačnú udalosť, rozpočet o viac ako 20 % ani text
 stránok. Víťaz až Fisherovým testom (`lievik/03_AB_TEST.md`), pri 15 €/deň to potrvá týždne.

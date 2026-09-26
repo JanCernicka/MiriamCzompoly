@@ -2,10 +2,8 @@
  * Doplnok do _worker.js konzoly (projekt konzola-miriamczompoly) pre kartu Lievik.
  * Podľa GHLtool lievik/06_KONZOLA.md, časť 4 a 5, kód z DKP/konzola/_worker.js.
  *
- * 🔴 NENASADENÉ. Živá konzola má upravený _worker.js, ktorého zdroj nie je v žiadnom
- *    repe (je nasadená priamo, bez Gitu). Nasadiť sa smie až keď sa nájde, inak by
- *    sa jej úpravy prepísali šablónou. Frontend s kartou je v konzola/index.html
- *    (živá verzia z 26. 9. + karta Lievik, porovnaj so zivy-index.html).
+ * Už vložené v konzola/dist/_worker.js a nasadené 26. 9. 2026. Tento súbor ostáva
+ * ako samostatný kus na vloženie do inej konzoly z tej istej šablóny.
  *
  * Ako vložiť:
  *   1. tento kód nad `const CESTY = {`
