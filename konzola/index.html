@@ -1298,12 +1298,12 @@ async function nacitajLievik() {
   }
   if ((d.podlaKreativy || []).length) {
     html += `<h3>Podľa reklamy</h3><table class='lievikT'><thead><tr>
-      <th>kreatíva</th><th>ľudí</th><th>klik</th><th>e-mail</th><th>dopyt</th>
+      <th>kreatíva (utm_content)</th><th>ľudí</th><th>klik</th><th>kalendár</th><th>termín</th>
       </tr></thead><tbody>`;
     for (const k of d.podlaKreativy) {
       html += `<tr><td>${k.kreativa}</td><td class="lievikC">${k.ludi}</td>
-        <td class="lievikC">${k.klikli}</td><td class="lievikC">${k.email}</td>
-        <td class="lievikC">${k.dopyt}</td></tr>`;
+        <td class="lievikC">${k.klikli}</td><td class="lievikC">${k.kalendar}</td>
+        <td class="lievikC">${k.termin}</td></tr>`;
     }
     html += "</tbody></table>";
   }
