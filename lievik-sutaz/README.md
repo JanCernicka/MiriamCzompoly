@@ -16,6 +16,11 @@ ako východisko, 6 prvkov nad ohybom, video sa nesťahuje pred kliknutím, 3 tla
              (sem neskôr príde stránka s ponukou pre prihlásených)
 ```
 
+🟡 **Testovací režim je ZAPNUTÝ** (Jano 26. 9.): `data-test="1"` na `<html>` v troch
+stránkach. Dotazník prejde až na `/dakujem`, ale na `/api/sutaz` nič neodošle a vpravo
+dole je štítok „TEST: nič sa neodosiela“. Vypína sa odstránením `data-test="1"`,
+`kontrola.py` ho na ostro nepustí.
+
 Nasadenie: `./nasad.sh`. Kontrola pred ostrým spustením: `python3 kontrola.py`.
 
 ## Namerané 26. 9. (390 x 700)

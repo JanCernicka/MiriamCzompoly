@@ -213,6 +213,11 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .kroky li::before{counter-increment:k;content:counter(k);position:absolute;left:14px;top:14px;width:24px;height:24px;border-radius:50%;
   background:var(--ink);color:var(--na-tmavej);font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center}
 
+/* ---------- Štítok testovacieho režimu ---------- */
+.test-stitok{position:fixed;right:10px;bottom:10px;z-index:50;pointer-events:none;
+  background:#FFF3C4;color:#6b4e00;border:1px dashed #b98c00;border-radius:6px;
+  font-size:12px;font-weight:700;padding:4px 8px;box-shadow:0 4px 12px rgba(0,0,0,.12)}
+
 /* ---------- Desktop: len širší stĺpec, nič viac ---------- */
 @media (min-width:760px){
   .obal{max-width:620px}

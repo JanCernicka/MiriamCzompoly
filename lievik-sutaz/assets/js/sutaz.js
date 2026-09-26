@@ -8,6 +8,15 @@
   var UZAVIERKA = Date.parse(root.getAttribute('data-uzavierka') || '');
   var VYHLASENIE = Date.parse(root.getAttribute('data-vyhlasenie') || '');
 
+  /* TESTOVANIE: data-test="1" na <html>. Formulár nič neodošle, len prejde na /dakujem. */
+  var TEST = root.getAttribute('data-test') === '1';
+  if (TEST) {
+    var stitok = document.createElement('div');
+    stitok.className = 'test-stitok';
+    stitok.textContent = 'TEST: nič sa neodosiela';
+    document.body.appendChild(stitok);
+  }
+
   function jeUzavrete() { return !isNaN(UZAVIERKA) && Date.now() >= UZAVIERKA; }
   function dve(n) { return (n < 10 ? '0' : '') + n; }
 
@@ -120,6 +129,10 @@
   }
 
   function posli(data) {
+    if (TEST) {
+      console.info('[sutaz] TEST, neodoslané:', data);
+      return Promise.resolve({ ok: true, test: true });
+    }
     data.website = hodnota('website');
     data.utm = {
       source: PARAMS.get('utm_source') || '',

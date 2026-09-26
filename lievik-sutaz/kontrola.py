@@ -16,6 +16,8 @@ if not m or not m.group(1).strip():
 
 for f in sorted(koren.glob("*.html")):
     t = f.read_text(encoding="utf-8")
+    if 'data-test="1"' in t:
+        chyby.append(f"{f.name}: zapnutý testovací režim (data-test=\"1\"), formulár nič neodosiela")
     n = t.count('class="doplnit"')
     if n:
         chyby.append(f"{f.name}: {n}x DOPLNIŤ v texte")
