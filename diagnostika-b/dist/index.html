@@ -92,6 +92,8 @@
       <div class="obal">
         <h2>Vyber si čas, kedy k tebe prídem</h2>
         <p class="uvod">Pracovné dni. Diagnostika trvá 90 minút a je u teba doma.</p>
+        <!-- Platba 249 € cez FAPI je tretí krok: po rezervácii na /dakujem, formulár už vyplnený -->
+        <ol class="kroky"><li>1. Termín</li><li>2. Údaje</li><li>3. Platba 249&nbsp;€</li></ol>
 
         <div class="kal" data-kalendar>
           <div class="dni" id="dni" role="tablist" aria-label="Deň"></div>
@@ -99,16 +101,24 @@
           <p class="kal-stav" id="kalStav">Načítavam voľné termíny…</p>
 
           <form class="formular" id="formular" novalidate hidden>
-            <div class="pole"><label for="meno">Krstné meno</label>
-              <input id="meno" name="meno" type="text" autocomplete="given-name" required></div>
+            <div class="dvojica">
+              <div class="pole"><label for="meno">Meno</label>
+                <input id="meno" name="meno" type="text" autocomplete="given-name" required></div>
+              <div class="pole"><label for="priezvisko">Priezvisko</label>
+                <input id="priezvisko" name="priezvisko" type="text" autocomplete="family-name" required></div>
+            </div>
             <div class="pole"><label for="email">E-mail</label>
               <input id="email" name="email" type="email" inputmode="email" autocomplete="email" required></div>
             <div class="pole"><label for="telefon">Telefón</label>
               <input id="telefon" name="telefon" type="tel" inputmode="tel" autocomplete="tel" placeholder="0907 777 555" required></div>
             <div class="pole"><label for="ulica">Kde bude diagnostika? Ulica a číslo</label>
               <input id="ulica" name="ulica" type="text" autocomplete="street-address" required></div>
-            <div class="pole"><label for="mesto">Mesto</label>
-              <input id="mesto" name="mesto" type="text" autocomplete="address-level2" required></div>
+            <div class="dvojica">
+              <div class="pole"><label for="mesto">Mesto</label>
+                <input id="mesto" name="mesto" type="text" autocomplete="address-level2" required></div>
+              <div class="pole"><label for="psc">PSČ</label>
+                <input id="psc" name="psc" type="text" inputmode="numeric" autocomplete="postal-code" required></div>
+            </div>
             <label class="suhlas"><input id="optin" name="suhlas" type="checkbox" required>
               <span>Áno, môžeš mi písať. Pošlem ti len potvrdenie termínu a dve pripomienky pred ním. Viac o <a href="/gdpr" target="_blank" rel="noopener">ochrane údajov</a>.</span></label>
             <p class="chyba" id="chyba" role="alert"></p>

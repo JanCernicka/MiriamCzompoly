@@ -182,3 +182,10 @@ section{padding:40px 0}
 }
 @media(max-width:359px){.pruh .co{display:none}}
 @media(prefers-reduced-motion:reduce){.zive i,.pas-bezi,.zvuk{animation:none}}
+
+/* ---------- platba ako 3. krok (FAPI na /dakujem) ---------- */
+.kroky{display:flex;gap:6px;margin:4px 0 14px;padding:0;list-style:none}
+.kroky li{flex:1 1 0;min-width:0;font-size:12px;font-weight:700;color:var(--sivy);text-align:center;
+  padding:7px 4px;border-radius:9px;background:#fff;border:1px solid var(--linka);white-space:nowrap}
+.dvojica{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.dvojica .pole{min-width:0}

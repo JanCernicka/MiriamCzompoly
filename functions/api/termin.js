@@ -42,6 +42,8 @@ export async function onRequestPost({ request, env }) {
   const start = cisty(b.start, 40), startMs = Date.parse(start);
   const meno = cisty(b.meno, 60), email = cisty(b.email, 254).toLowerCase(), tel = telefon(b.telefon);
   const ulica = cisty(b.ulica, 120), mesto = cisty(b.mesto, 60);
+  // priezvisko a PSČ pýta B od platby cez FAPI (faktúra); nepovinné, aby staršia stránka B nepadla
+  const priezvisko = cisty(b.priezvisko, 60), psc = cisty(b.psc, 10);
   if (isNaN(startMs) || startMs < Date.now()) return json({ ok: false, error: "bad_start" }, 400);
   if (meno.length < 2 || !isEmail(email) || !tel) return json({ ok: false, error: "bad_contact" }, 400);
   if (ulica.length < 3 || mesto.length < 2) return json({ ok: false, error: "bad_address" }, 400);
@@ -60,7 +62,8 @@ export async function onRequestPost({ request, env }) {
 
     const up = await fetch(`${GHL}/contacts/upsert`, { method: "POST", headers: H,
       body: JSON.stringify({ locationId: env.GHL_LOCATION_ID, email, firstName: meno, phone: tel,
-                             address1: ulica, city: mesto, source: "Diagnostika, stránka B" }) });
+                             address1: ulica, city: mesto, source: "Diagnostika, stránka B",
+                             ...(priezvisko ? { lastName: priezvisko } : {}), ...(psc ? { postalCode: psc } : {}) }) });
     const upd = await up.json().catch(() => ({}));
     const id = upd.contact && upd.contact.id;
     if (!up.ok || !id) { console.error("upsert", up.status, JSON.stringify(upd).slice(0, 300)); return json({ ok: false, error: "ghl_contact" }, 502); }

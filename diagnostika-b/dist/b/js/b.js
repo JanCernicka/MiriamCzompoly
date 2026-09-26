@@ -125,25 +125,33 @@
   form.addEventListener("submit", function (e) {
     e.preventDefault();
     if (bezi || !vybranyCas) return;
-    var d = { meno: hodnota("meno"), email: hodnota("email"), telefon: hodnota("telefon"),
-              ulica: hodnota("ulica"), mesto: hodnota("mesto"), suhlas: hodnota("suhlas") };
+    var d = { meno: hodnota("meno"), priezvisko: hodnota("priezvisko"), email: hodnota("email"), telefon: hodnota("telefon"),
+              ulica: hodnota("ulica"), mesto: hodnota("mesto"), psc: hodnota("psc"), suhlas: hodnota("suhlas") };
     var zlyMail = !/^[^@\s]+@[^@\s]+\.[a-z]{2,}$/i.test(d.email);
-    zle("meno", d.meno.length < 2); zle("email", zlyMail); zle("telefon", d.telefon.replace(/\D/g, "").length < 9);
-    zle("ulica", d.ulica.length < 3 || !/\d/.test(d.ulica)); zle("mesto", d.mesto.length < 2);
-    if (d.meno.length < 2) return povedz("Napíš prosím krstné meno.");
+    zle("meno", d.meno.length < 2); zle("priezvisko", d.priezvisko.length < 2); zle("email", zlyMail); zle("telefon", d.telefon.replace(/\D/g, "").length < 9);
+    zle("ulica", d.ulica.length < 3 || !/\d/.test(d.ulica)); zle("mesto", d.mesto.length < 2); zle("psc", d.psc.replace(/\D/g, "").length !== 5);
+    if (d.meno.length < 2) return povedz("Napíš prosím meno.");
+    if (d.priezvisko.length < 2) return povedz("Napíš prosím priezvisko, bude na faktúre.");
     if (zlyMail) return povedz("Ten e-mail nevyzerá platne.");
     if (d.telefon.replace(/\D/g, "").length < 9) return povedz("Telefónne číslo vyzerá krátko.");
     if (d.ulica.length < 3 || !/\d/.test(d.ulica) || d.mesto.length < 2) return povedz("Napíš prosím ulicu, číslo a mesto, kam mám prísť.");
+    if (d.psc.replace(/\D/g, "").length !== 5) return povedz("PSČ má päť číslic, napríklad 917 01.");
     if (!d.suhlas) return povedz("Bez zaškrtnutia ti neviem poslať potvrdenie termínu.");
 
     bezi = true; btn.disabled = true; btn.textContent = "Rezervujem…";
-    var telo = { start: vybranyCas, meno: d.meno, email: d.email, telefon: d.telefon, ulica: d.ulica, mesto: d.mesto,
+    var telo = { start: vybranyCas, meno: d.meno, priezvisko: d.priezvisko, email: d.email, telefon: d.telefon,
+                 ulica: d.ulica, mesto: d.mesto, psc: d.psc,
                  ab: window.LIEVIK_AB || "b", sid: window.LIEVIK_SID || "" };
     fetch("/api/termin", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(telo) })
       .then(function (r) { return r.json().catch(function () { return {}; }).then(function (o) { return { s: r.status, o: o }; }); })
       .then(function (x) {
         if (x.o && x.o.ok) {
-          try { sessionStorage.setItem("mc_meno", d.meno); } catch (err) {}
+          try {
+            sessionStorage.setItem("mc_meno", d.meno);
+            /* pre formulár FAPI na /dakujem (assets/js/platba.js na hlavnom webe) */
+            sessionStorage.setItem("mc_platba", JSON.stringify({ meno: d.meno, priezvisko: d.priezvisko, email: d.email,
+              telefon: d.telefon, ulica: d.ulica, mesto: d.mesto, psc: d.psc, kedy: kedy(vybranyCas) }));
+          } catch (err) {}
           location.href = "/dakujem";
           return;
         }
