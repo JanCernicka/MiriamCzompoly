@@ -33,6 +33,11 @@ Nasadenie: `./nasad.sh`. Kontrola pred ostrým spustením: `python3 kontrola.py`
 - Pred kliknutím na video sa nestiahne žiadny videosúbor.
 - Žiadny vodorovný posun (šírka stránky 390 px).
 
+## Písmo
+Cormorant Garamond (font Miriaminho webu) kreslí číslice „starým štýlom“, nízko ako
+malé písmená. Pri číslach, ktoré majú byť vidieť (1 000 €, 5 v nadpise e-booku), je
+zapnuté `lnum` cez triedu `.suma` a `.ebook-cislo`. Font sa nemení.
+
 ## Dátumy
 Na jednom mieste: `data-uzavierka` a `data-vyhlasenie` na `<html>` v každej stránke
 a `UZAVIERKA` vo `functions/api/sutaz.js` (kontrola.py stráži, že sa zhodujú).

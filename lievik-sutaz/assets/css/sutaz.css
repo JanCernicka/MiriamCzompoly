@@ -85,6 +85,9 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   color:var(--ink);background:var(--biela);border-radius:10px;padding:8px 10px;display:none}
 .vsl.bez-videa .vsl-hlaska{display:block}
 
+/* Cormorant kreslí číslice „starým štýlom“, suma by bola nízka ako malé písmená */
+.suma{font-variant-numeric:lining-nums;font-feature-settings:"lnum" 1;white-space:nowrap}
+
 .pod-videom{margin-top:10px;font-size:14.5px;line-height:1.45;color:var(--ink-soft);text-align:center}
 
 /* ---------- Tlačidlo ---------- */
