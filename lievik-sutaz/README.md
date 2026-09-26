@@ -56,8 +56,8 @@ Postavená podľa DKP promptu (poradie 10 blokov), prispôsobená Miriam. Fakty 
 ## Otvorené
 - **Video**: vložiť URL do `data-src` na `.vsl-spust` v `index.html`. Hostovať v GHL
   médiách (Cloudflare má limit 25 MB a nevracia 206). Pomer sa mení cez `--pomer`.
-- **Pravidlá, 1x DOPLNIŤ**: ako sa vyberá výherca. Doplnené 26. 9. (Jano): oblasť
-  Trnava + 100 km, výherca dostane SMS a e-mail.
+- **Pravidlá** doplnené 26. 9. (Jano): oblasť Trnava + 100 km, výherca dostane SMS
+  a e-mail. Riadok „Ako vyberiem“ Jano odstránil.
 - **Video recenzia**: playbook ju chce ako prvý dôkaz, Miriam žiadnu nemá.
 - **GHL**: projekt nemá secrets `GHL_API_KEY` a `GHL_LOCATION_ID`, formulár zatiaľ
   vracia `not_configured` a ukáže chybovú hlášku. Workflowy na tagy ešte neexistujú

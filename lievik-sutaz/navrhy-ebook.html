@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Návrhy: sekcia e-booku | Miriam Czompoly</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;1,600&family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/sutaz.css" />
+  <style>
+    /* ---------- rám stránky s návrhmi (na súťažnú stránku nejde) ---------- */
+    .navrh-hlava{background:var(--ink);color:#fff;padding:14px 16px;font-size:14px;line-height:1.4}
+    .navrh-hlava b{font-size:16px}
+    .navrh-stitok{position:sticky;top:0;z-index:5;background:#FFF3C4;color:#6b4e00;border-top:1px dashed #b98c00;
+      border-bottom:1px dashed #b98c00;font-size:13px;font-weight:700;padding:8px 16px}
+    .navrh{padding:30px 0 38px}
+    .navrh + .navrh-stitok{margin-top:0}
+    .kontext{font-size:13px;color:var(--muted);text-align:center;padding:6px 0 0}
+
+    /* spoločné */
+    .e-nadpis{font-family:var(--display);font-weight:600;line-height:1.12}
+    .e-cena .preskrtnute{margin-right:6px}
+
+    /* ===== 1. KNIHA NA STOLE: 3D kniha na pieskovom podklade ===== */
+    .n1{background:var(--piesok);border-radius:18px;padding:26px 18px 22px;text-align:center}
+    .n1-kniha{perspective:900px;display:flex;justify-content:center;padding:6px 0 18px}
+    .n1-kniha div{position:relative;width:170px;transform:rotateY(-24deg) rotateX(4deg);transform-style:preserve-3d}
+    .n1-kniha img{width:100%;border-radius:2px 6px 6px 2px;box-shadow:18px 22px 30px rgba(38,32,25,.35)}
+    .n1-kniha div::before{content:"";position:absolute;left:-12px;top:2px;bottom:2px;width:12px;background:#15110d;
+      transform:rotateY(-90deg);transform-origin:right}
+    .n1-kniha div::after{content:"";position:absolute;left:0;top:0;bottom:0;width:6px;background:linear-gradient(90deg,rgba(255,255,255,.18),transparent)}
+    .n1 .e-nadpis{font-size:26px}
+    .n1-cena{display:inline-flex;align-items:center;gap:8px;margin-top:12px;background:var(--biela);border-radius:99px;
+      padding:6px 14px;box-shadow:var(--tien);font-size:15px}
+    .n1-cena b{color:#1F7A4D}
+    .n1 ol{list-style:none;counter-reset:a;padding:0;margin:18px 0 0;text-align:left;display:grid;gap:0;background:var(--biela);border-radius:12px;overflow:hidden}
+    .n1 li{counter-increment:a;display:flex;gap:12px;padding:12px 14px;font-size:15px;line-height:1.4}
+    .n1 li + li{border-top:1px solid var(--linka)}
+    .n1 li::before{content:counter(a);font-family:var(--display);font-size:24px;font-weight:600;line-height:1;color:var(--brass-text);min-width:16px}
+    .n1 p.pod{margin-top:14px;font-size:14px;color:var(--ink-soft)}
+
+    /* ===== 2. DARČEKOVÝ KUPÓN: lístok s perforáciou ===== */
+    .n2{position:relative;border:2px dashed var(--brass);border-radius:16px;padding:0;overflow:visible;background:var(--biela)}
+    .n2-vrch::before,.n2-vrch::after{content:"";position:absolute;bottom:-13px;width:24px;height:24px;border-radius:50%;background:var(--biela);border:2px dashed var(--brass)}
+    .n2-vrch::before{left:-14px;clip-path:inset(0 0 0 50%)}
+    .n2-vrch::after{right:-14px;clip-path:inset(0 50% 0 0)}
+    .n2-vrch{position:relative;display:flex;gap:14px;align-items:center;padding:18px 16px 20px;border-bottom:2px dashed var(--linka)}
+    .n2-vrch img{width:84px;flex:0 0 84px;border-radius:3px;box-shadow:0 8px 18px rgba(38,32,25,.3)}
+    .n2-typ{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--brass-text)}
+    .n2 .e-nadpis{font-size:21px;margin-top:4px}
+    .n2-spod{padding:16px}
+    .n2-hodnota{display:flex;justify-content:space-between;align-items:center;gap:10px}
+    .n2-hodnota .preskrtnute{font-size:15px}
+    .n2-peciatka{transform:rotate(-8deg);border:2.5px solid #1F7A4D;color:#1F7A4D;border-radius:8px;padding:4px 10px;
+      font-weight:800;font-size:18px;letter-spacing:.06em}
+    .n2 ul{list-style:none;padding:0;margin:14px 0 0;display:grid;gap:6px;font-size:14.5px}
+    .n2 li::before{content:"✕";color:#b3261e;font-weight:700;margin-right:8px}
+    .n2 p.pod{margin-top:12px;font-size:13.5px;color:var(--muted)}
+
+    /* ===== 3. NAHLIADNUTIE DO VNÚTRA: vejár strán ===== */
+    .n3{text-align:center}
+    .n3-vejar{position:relative;height:250px;margin:0 auto 6px;max-width:330px}
+    .n3-vejar img{position:absolute;top:10px;width:150px;border-radius:3px;box-shadow:0 12px 26px rgba(38,32,25,.28)}
+    .n3-vejar .s1{left:8px;transform:rotate(-9deg);top:28px}
+    .n3-vejar .s2{right:8px;transform:rotate(9deg);top:28px}
+    .n3-vejar .ob{left:50%;margin-left:-80px;width:160px;z-index:2;box-shadow:0 18px 34px rgba(38,32,25,.4)}
+    .n3 .nadkridlie{margin-top:8px}
+    .n3 .e-nadpis{font-size:26px}
+    .n3-fakty{display:flex;justify-content:center;gap:8px;margin-top:12px;flex-wrap:wrap}
+    .n3-fakty span{background:var(--piesok);border-radius:99px;padding:5px 11px;font-size:13.5px;font-weight:600}
+    .n3 ol{margin:16px 0 0;padding-left:0;list-style:none;counter-reset:b;text-align:left;display:grid;gap:10px}
+    .n3 li{counter-increment:b;position:relative;padding-left:30px;font-size:15px;line-height:1.4}
+    .n3 li::before{content:counter(b) ".";position:absolute;left:0;font-weight:700;color:var(--brass-text)}
+    .n3 p.pod{margin-top:14px;font-size:14px;color:var(--ink-soft)}
+
+    /* ===== 4. EDITORIAL: veľká obálka, čistý biely štýl ako magazín ===== */
+    .n4{border-top:3px solid var(--ink);padding-top:18px}
+    .n4-hlava{display:flex;justify-content:space-between;align-items:baseline;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
+    .n4-hlava span:last-child{color:var(--brass-text)}
+    .n4-obalka{margin:16px auto 0;width:78%;max-width:300px;padding:10px;border:1px solid var(--brass)}
+    .n4-obalka img{width:100%}
+    .n4 .e-nadpis{font-size:30px;text-align:center;margin-top:18px}
+    .n4 .e-nadpis em{color:var(--brass-text)}
+    .n4-cena{text-align:center;margin-top:8px;font-size:15px;color:var(--ink-soft)}
+    .n4 ol{list-style:none;counter-reset:c;padding:0;margin:18px 0 0}
+    .n4 li{counter-increment:c;display:grid;grid-template-columns:42px 1fr;align-items:baseline;padding:12px 0;border-top:1px solid var(--linka);font-size:15.5px}
+    .n4 li:last-child{border-bottom:1px solid var(--linka)}
+    .n4 li::before{content:"0" counter(c);font-family:var(--display);font-size:22px;font-weight:600;color:var(--brass-text)}
+    .n4 p.pod{margin-top:14px;text-align:center;font-style:italic;font-family:var(--display);font-size:19px}
+
+    /* ===== 5. NÁLEPKA ZADARMO: obálka s nálepkou, zoznam chýb ako varovania ===== */
+    .n5{position:relative;background:linear-gradient(180deg,#FBF7F0,#fff);border:1px solid var(--linka);border-radius:18px;padding:24px 16px 20px 18px}
+    .n5-riadok{display:flex;gap:14px;align-items:flex-start}
+    .n5-obal{position:relative;flex:0 0 118px}
+    .n5-obal img{width:118px;border-radius:3px;transform:rotate(-4deg);box-shadow:0 12px 24px rgba(38,32,25,.32)}
+    .n5-nalepka{position:absolute;left:-10px;top:-14px;width:62px;height:62px;border-radius:50%;background:#D94F2B;color:#fff;
+      display:flex;flex-direction:column;align-items:center;justify-content:center;transform:rotate(12deg);
+      box-shadow:0 6px 14px rgba(0,0,0,.25);font-weight:800;line-height:1.05;text-align:center}
+    .n5-nalepka small{font-size:10px;font-weight:700;text-decoration:line-through;opacity:.9}
+    .n5-nalepka span{font-size:12.5px}
+    .n5 .e-nadpis{font-size:21px}
+    .n5-pre{margin-top:6px;font-size:13.5px;color:var(--ink-soft)}
+    .n5 ul{list-style:none;padding:0;margin:16px 0 0;display:grid;gap:8px}
+    .n5 li{display:flex;gap:10px;align-items:flex-start;background:var(--biela);border:1px solid var(--linka);border-left:4px solid #D94F2B;
+      border-radius:8px;padding:10px 12px;font-size:14.5px;line-height:1.4}
+    .n5 li b{color:#B3401F;white-space:nowrap}
+    .n5 p.pod{margin-top:14px;font-size:14px;font-weight:600;text-align:center}
+  </style>
+</head>
+<body>
+
+  <div class="navrh-hlava"><b>5 návrhov sekcie s e-bookom</b><br>Každý je tak, ako by bol na súťažnej stránke, na mobile. Text je všade rovnaký, líši sa len vzhľad. Napíš číslo, ktorý chceš.</div>
+
+  <!-- ================= 1 ================= -->
+  <div class="navrh-stitok">Návrh 1: Kniha na stole</div>
+  <section class="navrh"><div class="obal">
+    <div class="n1">
+      <span class="nadkridlie">Darček pre každú, kto sa zapojí</span>
+      <div class="n1-kniha"><div><img src="assets/img/ebook-obalka.jpg" alt="Obálka e-booku" /></div></div>
+      <h2 class="e-nadpis">5 najdrahších chýb, ktoré ľudia robia pri zariaďovaní domova</h2>
+      <div class="n1-cena"><span class="preskrtnute">9 €</span><b>pre teba zadarmo</b></div>
+      <ol>
+        <li>Kupuješ skôr, než máš plán</li>
+        <li>Nábytok je „polepený“ o steny a miestnosť nemá centrum</li>
+        <li>Zablokovaný vstup a cesty, ktoré nikam nevedú</li>
+        <li>Jedno svetlo v strede stropu</li>
+        <li>Rozmery „od oka“: hlavne koberec a závesy</li>
+      </ol>
+      <p class="pod">Pošlem ti ho na e-mail hneď, ako ho v prihláške vyplníš.</p>
+    </div>
+  </div></section>
+
+  <!-- ================= 2 ================= -->
+  <div class="navrh-stitok">Návrh 2: Darčekový kupón</div>
+  <section class="navrh"><div class="obal">
+    <div class="n2">
+      <div class="n2-vrch">
+        <img src="assets/img/ebook-obalka.jpg" alt="Obálka e-booku" />
+        <div>
+          <div class="n2-typ">Darček · E-book · 9 strán</div>
+          <h2 class="e-nadpis">5 najdrahších chýb, ktoré ľudia robia pri zariaďovaní domova</h2>
+        </div>
+      </div>
+      <div class="n2-spod">
+        <div class="n2-hodnota">
+          <span>Hodnota <span class="preskrtnute">9 €</span></span>
+          <span class="n2-peciatka">ZADARMO</span>
+        </div>
+        <ul>
+          <li>Kupuješ skôr, než máš plán</li>
+          <li>Nábytok je „polepený“ o steny a miestnosť nemá centrum</li>
+          <li>Zablokovaný vstup a cesty, ktoré nikam nevedú</li>
+          <li>Jedno svetlo v strede stropu</li>
+          <li>Rozmery „od oka“: hlavne koberec a závesy</li>
+        </ul>
+        <p class="pod">Dostane ho každá, kto sa zapojí. Pošlem ti ho na e-mail hneď, ako ho v prihláške vyplníš.</p>
+      </div>
+    </div>
+  </div></section>
+
+  <!-- ================= 3 ================= -->
+  <div class="navrh-stitok">Návrh 3: Nahliadnutie dovnútra</div>
+  <section class="navrh"><div class="obal">
+    <div class="n3">
+      <div class="n3-vejar">
+        <img class="s1" src="assets/img/ebook-strana-3.jpg" alt="Ukážka strany: Kupuješ skôr, než máš plán" />
+        <img class="s2" src="assets/img/ebook-strana-6.jpg" alt="Ukážka strany: Jedno svetlo v strede stropu" />
+        <img class="ob" src="assets/img/ebook-obalka.jpg" alt="Obálka e-booku" />
+      </div>
+      <span class="nadkridlie">Darček pre každú, kto sa zapojí</span>
+      <h2 class="e-nadpis">5 najdrahších chýb, ktoré ľudia robia pri zariaďovaní domova</h2>
+      <div class="n3-fakty"><span>9 strán</span><span>PDF</span><span><s>9 €</s> zadarmo</span></div>
+      <ol>
+        <li>Kupuješ skôr, než máš plán</li>
+        <li>Nábytok je „polepený“ o steny a miestnosť nemá centrum</li>
+        <li>Zablokovaný vstup a cesty, ktoré nikam nevedú</li>
+        <li>Jedno svetlo v strede stropu</li>
+        <li>Rozmery „od oka“: hlavne koberec a závesy</li>
+      </ol>
+      <p class="pod">Pošlem ti ho na e-mail hneď, ako ho v prihláške vyplníš.</p>
+    </div>
+  </div></section>
+
+  <!-- ================= 4 ================= -->
+  <div class="navrh-stitok">Návrh 4: Editorial, ako v magazíne</div>
+  <section class="navrh"><div class="obal">
+    <div class="n4">
+      <div class="n4-hlava"><span>Darček</span><span>Pre každú, kto sa zapojí</span></div>
+      <div class="n4-obalka"><img src="assets/img/ebook-obalka.jpg" alt="Obálka e-booku" /></div>
+      <h2 class="e-nadpis">5 najdrahších chýb pri <em>zariaďovaní domova</em></h2>
+      <p class="n4-cena">E-book na 9 stranách · <span class="preskrtnute">9 €</span> pre teba zadarmo</p>
+      <ol>
+        <li>Kupuješ skôr, než máš plán</li>
+        <li>Nábytok je „polepený“ o steny a miestnosť nemá centrum</li>
+        <li>Zablokovaný vstup a cesty, ktoré nikam nevedú</li>
+        <li>Jedno svetlo v strede stropu</li>
+        <li>Rozmery „od oka“: hlavne koberec a závesy</li>
+      </ol>
+      <p class="pod">Pošlem ti ho na e-mail hneď, ako ho v prihláške vyplníš.</p>
+    </div>
+  </div></section>
+
+  <!-- ================= 5 ================= -->
+  <div class="navrh-stitok">Návrh 5: Nálepka zadarmo, chyby ako varovania</div>
+  <section class="navrh"><div class="obal">
+    <div class="n5">
+      <div class="n5-riadok">
+        <div class="n5-obal">
+          <img src="assets/img/ebook-obalka.jpg" alt="Obálka e-booku" />
+          <div class="n5-nalepka"><small>9 €</small><span>ZADAR&shy;MO</span></div>
+        </div>
+        <div>
+          <span class="nadkridlie">Darček k prihláške</span>
+          <h2 class="e-nadpis">5 najdrahších chýb, ktoré ľudia robia pri zariaďovaní domova</h2>
+          <p class="n5-pre">E-book na 9 stranách, dostane ho každá, kto sa zapojí.</p>
+        </div>
+      </div>
+      <ul>
+        <li><b>Chyba 1</b> Kupuješ skôr, než máš plán</li>
+        <li><b>Chyba 2</b> Nábytok je „polepený“ o steny a miestnosť nemá centrum</li>
+        <li><b>Chyba 3</b> Zablokovaný vstup a cesty, ktoré nikam nevedú</li>
+        <li><b>Chyba 4</b> Jedno svetlo v strede stropu</li>
+        <li><b>Chyba 5</b> Rozmery „od oka“: hlavne koberec a závesy</li>
+      </ul>
+      <p class="pod">Pošlem ti ho na e-mail hneď, ako ho v prihláške vyplníš.</p>
+    </div>
+  </div></section>
+
+  <p class="kontext">Návrhy sú mimo súťažnej stránky, nikto sa na ne nedostane z lievika.</p>
+</body>
+</html>
