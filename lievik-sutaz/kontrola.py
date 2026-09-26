@@ -19,7 +19,7 @@ for f in sorted(koren.glob("*.html")):
     n = t.count('class="doplnit"')
     if n:
         chyby.append(f"{f.name}: {n}x DOPLNIŤ v texte")
-    if "—" in t or "–" in t:
+    if "\u2014" in t or "\u2013" in t:
         chyby.append(f"{f.name}: dlhá pomlčka v texte")
     datumy = set(re.findall(r'data-uzavierka="([^"]+)"', t))
     if len(datumy) > 1:
