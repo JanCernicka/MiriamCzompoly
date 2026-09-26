@@ -18,7 +18,9 @@
  *    KTO PREROBÍ WEB ALEBO ZAPNE A/B TEST, PRIDÁ SEM RIADOK a do prepínača v index.html
  *    voľbu v:<id>. Riadok s ab: true má čas, keď test začal doručovať ľuďom z reklamy. */
 const VERZIE = [
-  /* { id: "diagnostika-ab", nazov: "diagnostika, A/B test (od …)", od: Date.UTC(…), ab: true }, */
+  /* A/B delenie 50/50 zapnuté 26. 9. 2026, nasadené 14:29:39 UTC (16:29 miestneho) */
+  { id: "diagnostika-ab", nazov: "diagnostika, A/B test (od 26. 9. 16:30)",
+    od: Date.UTC(2026, 8, 26, 14, 30), ab: true },
   /* meranie išlo naostro 26. 9. 2026 o 15:28 miestneho času (13:28:38 UTC) */
   { id: "diagnostika", nazov: "diagnostika s meraním (od 26. 9. 15:28)",
     od: Date.UTC(2026, 8, 26, 13, 28) },

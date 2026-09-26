@@ -9,7 +9,7 @@ súbory 01 až 06), kód prevzatý z bežiaceho lievika DKP.
 |---|---|
 | Meranie na `/diagnostika` a `/dakujem` | 🟢 **naostro od 26. 9. 2026 15:28** (13:28:38 UTC) |
 | Varianta B | 🟢 **funkčná naostro** cez `?ab=b`: skutočné termíny, rezervácia do GHL (overené 26. 9.) |
-| A/B delenie 50/50 | ⚪ **vypnuté**, všetci z reklamy vidia A. Zapína sa premennou `AB_ZAPNUTE=1` |
+| A/B delenie 50/50 | 🟢 **zapnuté 26. 9. 2026 16:29** (nasadené 14:29:39 UTC), test sa ráta **od 16:30** (14:30 UTC) |
 | Karta Lievik v konzole | 🟢 **nasadená 26. 9.**, konzola má odteraz zdroj v `konzola/` |
 
 ## Ostrý test rezervácie z B (26. 9. 2026, 15:52)
@@ -88,11 +88,14 @@ Kroky (musia sedieť na 4 miestach: stránka, `functions/_lib/lievik.js`, zbera�
 - Overené: lokálne preklikaný celý tok A aj B, všetky kroky v D1 so správnou variantou
   a s kreatívou aj na `/dakujem`. Delenie na náhľade 25 ku 15 zo 40, robot vždy A bez cookie.
 
-## Čo treba, aby test bežal
+## Zapnutie delenia (26. 9. 2026)
 
-1. **Zapnúť delenie**: `AB_ZAPNUTE=1` v produkcii a nové nasadenie (`./nasad-web.sh`). Čas
-   zapnutia zapísať do `VERZIE` v `konzola/dist/_worker.js` ako riadok s `ab: true`
-   a znova nasadiť konzolu. Tvoje prezeranie z 26. 9. je v D1 pred týmto časom, nezapočíta sa.
+- `AB_ZAPNUTE=1` v produkcii projektu `miriam-web-staging`, prečítané späť, nové nasadenie 14:29:39 UTC.
+- Overené naostro: `/api/stav` hlási `abZapnute: true`; 40 návštev z iPhonu 19 A ku 21 B, každá s cookie
+  `mc_ab`; Googlebot aj facebookexternalhit vždy A bez cookie; B číta ostré termíny z GHL.
+- Konzola: riadok `diagnostika-ab` s `ab: true` a `od` 14:30 UTC vo `VERZIE`, v prepínači predvolený. Nasadené.
+- Janovo prezeranie z 26. 9. je pred 14:30 UTC, do testu sa nezapočíta.
+- Vypnúť: `AB_ZAPNUTE` zmazať alebo dať na `0` a znova `./nasad-web.sh`. Kto už má cookie, ostáva na svojej variante 30 dní.
 
 Počas testu nemeniť URL v reklame, optimalizačnú udalosť, rozpočet o viac ako 20 % ani text
 stránok. Víťaz až Fisherovým testom (`lievik/03_AB_TEST.md`), pri 15 €/deň to potrvá týždne.
