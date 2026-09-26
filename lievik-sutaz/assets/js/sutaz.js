@@ -170,7 +170,17 @@
     posli({ krok: 'hotovo', email: hodnota('email'), meno: hodnota('meno'), telefon: hodnota('telefon') })
       .then(function (res) {
         if (res && res.ok) {
-          try { sessionStorage.setItem('sutaz_meno', hodnota('meno')); } catch (err) {}
+          // údaje pre kalendár na /dakujem, nech ich nemusí písať znova
+          try {
+            sessionStorage.setItem('sutaz_meno', hodnota('meno'));
+            sessionStorage.setItem('sutaz_email', hodnota('email'));
+            sessionStorage.setItem('sutaz_telefon', hodnota('telefon'));
+            if (res.contactId) sessionStorage.setItem('sutaz_contact', res.contactId);
+          } catch (err) {}
+          // od tejto chvíle beží lehota ponuky, druhé prihlásenie ju neposunie
+          try {
+            if (!localStorage.getItem('sutaz_ponuka_od')) localStorage.setItem('sutaz_ponuka_od', String(Date.now()));
+          } catch (err) {}
           window.location.href = '/dakujem';
           return;
         }

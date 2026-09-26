@@ -2,6 +2,7 @@
 <html lang="sk"
       data-uzavierka="2026-10-14T20:00:00+02:00"
       data-vyhlasenie="2026-10-15T18:00:00+02:00"
+      data-ponuka-hodin="72"
       data-test="1">
 <head>
   <meta charset="UTF-8" />
@@ -15,43 +16,180 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;1,600&family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/css/sutaz.css" />
 </head>
-<body class="dakujem">
-  <!-- Sem neskôr príde stránka s ponukou pre prihlásených. Zatiaľ len potvrdenie. -->
+<body class="ponuka-stranka">
+
+  <!-- 1. Zelený pruh, nie celá sekcia -->
+  <div class="v-hre" role="status">✓ Si v hre. Výhercu vyhlásim vo štvrtok 15. októbra o 18:00.</div>
+
   <main>
-    <div class="obal">
-      <div class="ok" aria-hidden="true">
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#262019" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
+    <!-- 2. HERO -->
+    <section class="p-hero">
+      <div class="obal">
+        <span class="nadkridlie">Ešte kým odídeš</span>
+        <h1>Interiérová diagnostika u teba doma za polovicu ceny</h1>
+
+        <!-- VIDEO: beží bez zvuku od načítania, klepnutie ho pustí od začiatku so zvukom.
+             URL do data-src (GHL médiá, nie Cloudflare). Kým je prázdne, kontrola.py zlyhá. -->
+        <div class="bonus-video" data-bonus-video data-src="">
+          <img class="bonus-plagat" src="assets/img/stajnerka-po.jpg" alt="" width="900" height="600" />
+          <button type="button" class="zvuk" data-zvuk>
+            <span class="zvuk-ikona" aria-hidden="true">
+              <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M19 5a10 10 0 0 1 0 14"/></svg>
+            </span>
+            <span class="zvuk-text"><b data-zvuk-nadpis>Video už beží</b><span data-zvuk-pod>Klepni a zapni zvuk</span></span>
+          </button>
+        </div>
+
+        <p class="p-veta">Prídem k tebe, prejdeme spolu priestor a za 90 minút budeš vedieť, čo zmeniť ako prvé a čo prestať kupovať.</p>
+        <a class="btn" href="#kalendar" data-skok>Áno, chcem diagnostiku za polovicu <span class="sipka" aria-hidden="true">→</span></a>
+
+        <!-- 3. KUPÓN až za tlačidlom -->
+        <div class="kupon" data-kupon>
+          <div class="kupon-hlava">Jednorazová ponuka len pre účastníčky súťaže</div>
+          <div class="kupon-telo">
+            <div class="kupon-velke"><span data-hodin>72</span> hodín a potom sa zavrie</div>
+            <div class="kupon-odpocet" data-odpocet-ponuky aria-live="off"></div>
+            <p>Otváram ju len tým, čo sa zapojili do súťaže. Nemám ju nikde inde. Na mojej stránke ju nenájdeš. Po <span data-hodin>72</span> hodinách sa k nej inou cestou nedostaneš.</p>
+            <ul class="kupon-parametre">
+              <li><b>124,50 €</b> namiesto <span class="preskrtnute">249 €</span></li>
+              <li><b>90 minút</b> u teba doma, priamo v priestore</li>
+              <li><b>Jasný plán:</b> čo riešiť ako prvé a čo prestať kupovať</li>
+            </ul>
+          </div>
+        </div>
+        <a class="odmietnut" href="assets/5-najdrahsich-chyb.pdf">Nie, ďakujem, zariadim si to sama</a>
       </div>
-      <h1 data-pozdrav>Si v súťaži!</h1>
-      <p style="margin-top:8px;color:var(--ink-soft)">Tvoja prihláška je uložená. Držím palce.</p>
+    </section>
 
-      <ol class="kroky">
-        <li>Materiál <b>Päť najdrahších chýb pri zariaďovaní domova</b> ti posielam na e-mail. Stiahnuť si ho môžeš aj hneď tu.</li>
-        <li>Prihlasovanie sa končí v stredu 14. októbra o 20:00.</li>
-        <li>Výhercu vyhlásim vo štvrtok 15. októbra o 18:00. Keď vyhráš, zavolám ti.</li>
-      </ol>
+    <!-- 4. DVE MOŽNOSTI -->
+    <section class="sekcia">
+      <div class="obal">
+        <h2>Dve možnosti, ako sa pohnúť ďalej</h2>
+        <div class="moznosti">
+          <div class="moznost">
+            <span class="moznost-pismeno">A</span>
+            <h3>Skúšať to sama</h3>
+            <ul>
+              <li>Kupuješ naslepo, podľa fotiek</li>
+              <li>Zle kúpená sedačka stojí stovky až tisíce eur</li>
+              <li>Keď to k sebe nesedí, začínaš odznova</li>
+            </ul>
+          </div>
+          <div class="moznost moznost--b">
+            <span class="moznost-pismeno">B</span>
+            <h3>Diagnostika u teba doma</h3>
+            <ul>
+              <li>90 minút s dizajnérkou priamo v tvojom priestore</li>
+              <li>Akčný plán priorít, čo riešiť v akom poradí</li>
+              <li>Zoznam „čo prestať kupovať“</li>
+              <li>Teraz za 124,50 € namiesto 249 €</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
 
-      <a class="btn" href="assets/5-najdrahsich-chyb.pdf" download>Stiahnuť materiál (PDF) <span class="sipka" aria-hidden="true">↓</span></a>
-    </div>
+    <!-- 5. RECENZIE: dáta z assets/js/recenzie.js -->
+    <section class="sekcia">
+      <div class="obal">
+        <h2>Toto o mne píšu klienti</h2>
+        <p>Výber z recenzií ľudí, ktorí už bývajú v mojich návrhoch.</p>
+        <div class="karty-recenzii" data-recenzie></div>
+        <a class="btn" href="#kalendar" data-skok>Chcem diagnostiku za polovicu <span class="sipka" aria-hidden="true">→</span></a>
+      </div>
+    </section>
+
+    <!-- 6. ČO DOSTANEŠ -->
+    <section class="sekcia">
+      <div class="obal">
+        <h2>Čo počas 90 minút dostaneš</h2>
+        <div class="body">
+          <div class="bod"><h3>Analýzu priestoru</h3><p>Pozrieme sa na dispozíciu a na to, ako v byte naozaj žiješ a čo potrebuješ.</p></div>
+          <div class="bod"><h3>Akčný plán priorít</h3><p>Čo riešiť ako prvé a v akom poradí, aby na seba veci nadväzovali.</p></div>
+          <div class="bod"><h3>Zoznam „čo prestať kupovať“</h3><p>Aby si neminula zbytočne za veci, ktoré k sebe nebudú sedieť.</p></div>
+          <div class="bod"><h3>Odpovede od dizajnérky</h3><p>Na všetko, čo ťa trápi, od dizajnérky s viac ako 15 rokmi praxe.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. KALENDÁR -->
+    <section class="sekcia" id="kalendar">
+      <div class="obal">
+        <h2>Vyber si čas, kedy k tebe prídem</h2>
+        <p>Pracovné dni. Diagnostika trvá 90 minút a je u teba doma. Nič neplatíš vopred.</p>
+
+        <div class="kal" data-kal>
+          <div class="kal-dni" role="tablist" aria-label="Deň" data-kal-dni></div>
+          <div class="kal-casy" data-kal-casy></div>
+          <p class="kal-stav" data-kal-stav>Načítavam voľné termíny…</p>
+
+          <!-- len keď prišla priamo, bez údajov zo súťažného formulára -->
+          <div class="kal-adresa" data-kal-kontakt hidden>
+            <label for="k-meno">Tvoje údaje</label>
+            <input class="pole" id="k-meno" name="k-meno" autocomplete="given-name" placeholder="Krstné meno" />
+            <input class="pole" id="k-email" name="k-email" type="email" inputmode="email" autocomplete="email" placeholder="tvoj@email.sk" />
+            <input class="pole" id="k-telefon" name="k-telefon" type="tel" inputmode="tel" autocomplete="tel" placeholder="0907 777 555" />
+            <p class="chyba" data-chyba-kontakt>Doplň prosím meno, e-mail a telefón.</p>
+          </div>
+
+          <div class="kal-adresa" data-kal-adresa hidden>
+            <label for="ulica">Kde bude diagnostika?</label>
+            <input class="pole" id="ulica" name="ulica" autocomplete="street-address" placeholder="Ulica a číslo" />
+            <input class="pole" id="mesto" name="mesto" autocomplete="address-level2" placeholder="Mesto" />
+            <p class="chyba" data-chyba-adresa>Napíš prosím ulicu, číslo a mesto.</p>
+          </div>
+
+          <button type="button" class="btn" data-rezervovat disabled>Vyber si čas</button>
+          <p class="kal-pozn">Denne robím najviac dve diagnostiky. Keď sa v ten deň minú, vyber si iný.</p>
+          <p class="hlaska-chyby" data-kal-chyba role="alert"></p>
+        </div>
+
+        <div class="kal-hotovo" data-kal-hotovo hidden>
+          <div class="ok" aria-hidden="true"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#262019" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
+          <h3>Máme termín</h3>
+          <p data-kal-hotovo-text></p>
+        </div>
+
+        <div class="kal-zavrete" data-kal-zavrete hidden>
+          <h3>Ponuka sa zavrela</h3>
+          <p>Zľava platila <span data-hodin>72</span> hodín od prihlásenia do súťaže. Diagnostiku si stále môžeš rezervovať za bežnú cenu na <a href="https://www.miriamczompoly.sk/diagnostika">miriamczompoly.sk/diagnostika</a>.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 8. PREČO LEN TERAZ -->
+    <section class="sekcia">
+      <div class="obal">
+        <h2>Prečo to otváram len teraz</h2>
+        <p>Túto zľavu nemám nikde inde a na mojej stránke ju nenájdeš. Otváram ju len tým, čo sa zapojili do súťaže. Vyhrať môže iba jedna, ale diagnostiku si môže dopriať každá. Po <span data-hodin>72</span> hodinách sa zavrie.</p>
+        <h2 class="h2-dalsi">Žiadny tlak, len jasno</h2>
+        <p>Ak z našich 90 minút neodídeš s jasnom, čo ďalej, povedz mi to na mieste a diagnostiku ti nefakturujem. A ak budeš pokračovať projektom, sumu za diagnostiku ti z neho odpočítam.</p>
+      </div>
+    </section>
+
+    <!-- 9. ZÁVER -->
+    <section class="sekcia zaver">
+      <div class="obal">
+        <h2>Deväťdesiat minút u teba doma a budeš vedieť, čo ďalej</h2>
+        <p>Za polovicu ceny, s dizajnérkou priamo v tvojom priestore. Ponuka platí <span data-hodin>72</span> hodín.</p>
+        <a class="btn" href="#kalendar" data-skok>Áno, chcem diagnostiku za polovicu <span class="sipka" aria-hidden="true">→</span></a>
+        <a class="odmietnut" href="assets/5-najdrahsich-chyb.pdf">Nie, radšej to risknem naslepo</a>
+      </div>
+    </section>
   </main>
 
+  <!-- 10. PÄTA -->
   <footer class="paticka">
     <div class="obal">
-      <div>© 2026 Miriam Czompoly · Interiérový dizajn Trnava</div>
-      <nav>
-        <a href="https://www.miriamczompoly.sk/gdpr.html" target="_blank" rel="noopener">Ochrana osobných údajov</a>
-      </nav>
+      <div><b>Miriam Czompoly</b>, interiérový dizajn</div>
+      <div>J. Hlubíka 42, 917 01 Trnava · IČO 45714088</div>
+      <div><a href="tel:+421918819906">+421 918 819 906</a> · <a href="mailto:dizajn@miriamczompoly.sk">dizajn@miriamczompoly.sk</a></div>
+      <nav><a href="https://www.miriamczompoly.sk/gdpr.html" target="_blank" rel="noopener">Ochrana osobných údajov</a></nav>
     </div>
   </footer>
 
   <script src="assets/js/sutaz.js"></script>
-  <script>
-    (function () {
-      try {
-        var m = sessionStorage.getItem('sutaz_meno');
-        if (m) document.querySelector('[data-pozdrav]').textContent = m.split(' ')[0] + ', si v súťaži!';
-      } catch (e) {}
-    })();
-  </script>
+  <script src="assets/js/recenzie.js"></script>
+  <script src="assets/js/ponuka.js"></script>
 </body>
 </html>

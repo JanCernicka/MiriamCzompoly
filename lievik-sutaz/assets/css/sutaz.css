@@ -218,10 +218,112 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   background:#FFF3C4;color:#6b4e00;border:1px dashed #b98c00;border-radius:6px;
   font-size:12px;font-weight:700;padding:4px 8px;box-shadow:0 4px 12px rgba(0,0,0,.12)}
 
+
+/* =========================================================
+   Stránka po prihlásení: jedna ponuka + kalendár
+   ========================================================= */
+.v-hre{background:#1F7A4D;color:var(--na-tmavej);text-align:center;font-size:14px;font-weight:600;
+  line-height:1.35;padding:10px 14px}
+.p-hero{padding:22px 0 30px;text-align:center}
+.p-hero .nadkridlie{margin-bottom:4px}
+.p-hero h1{font-family:var(--display);font-weight:600;font-size:31px;line-height:1.08}
+.p-veta{margin-top:14px;font-size:16px;line-height:1.5;color:var(--ink-soft)}
+.h2-dalsi{margin-top:26px}
+
+/* video s prekryvom, ktorý pulzuje */
+.bonus-video{position:relative;width:100%;aspect-ratio:16/9;margin-top:16px;border-radius:var(--r);
+  overflow:hidden;background:var(--ink);box-shadow:var(--tien)}
+.bonus-video img,.bonus-video video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.zvuk{position:absolute;left:10%;top:10%;width:80%;height:80%;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:8px;border:2px solid var(--biela);border-radius:12px;
+  background:rgba(20,17,14,.45);color:var(--na-tmavej);text-align:center;animation:pulz-zvuk 1.8s ease-in-out infinite}
+.zvuk[hidden]{display:none}   /* display:flex by inak prebil [hidden] */
+.zvuk-ikona{width:56px;height:56px;border-radius:50%;background:var(--biela);color:var(--ink);
+  display:flex;align-items:center;justify-content:center}
+.zvuk-text b{display:block;font-size:17px}
+.zvuk-text span{font-size:14px;opacity:.95}
+.bonus-video.bez-videa .zvuk{animation:none;cursor:default}
+@keyframes pulz-zvuk{0%,100%{transform:scale(1)}50%{transform:scale(1.035)}}
+@media (prefers-reduced-motion:reduce){.zvuk{animation:none}}
+
+/* kupón */
+.kupon{margin-top:22px;border:2px solid var(--brass);border-radius:var(--r);overflow:hidden;text-align:left}
+.kupon-hlava{background:var(--ink);color:var(--na-tmavej);font-size:13px;font-weight:700;letter-spacing:.06em;
+  text-transform:uppercase;text-align:center;padding:10px 12px}
+.kupon-telo{padding:16px}
+.kupon-velke{font-family:var(--display);font-size:32px;font-weight:600;line-height:1.05;text-align:center}
+.kupon-odpocet{margin-top:6px;text-align:center;font-weight:600;color:var(--brass-text);font-variant-numeric:tabular-nums}
+.kupon-telo p{margin-top:10px;font-size:15px;color:var(--ink-soft)}
+.kupon-parametre{list-style:none;padding:0;margin-top:12px;display:grid;gap:8px}
+.kupon-parametre li{background:var(--piesok);border-radius:10px;padding:10px 12px;font-size:15px}
+.odmietnut{display:block;margin-top:14px;text-align:center;font-size:14px;color:var(--muted);
+  text-decoration:underline;text-underline-offset:2px}
+
+/* dve možnosti */
+.moznosti{display:grid;gap:12px;margin-top:16px}
+.moznost{position:relative;border:1px solid var(--linka);border-radius:var(--r);padding:16px 16px 14px}
+.moznost h3{font-family:var(--display);font-size:22px;font-weight:600;line-height:1.15;padding-right:36px}
+.moznost ul{margin-top:8px;padding-left:18px;display:grid;gap:4px;font-size:15px;color:var(--ink-soft)}
+.moznost-pismeno{position:absolute;right:14px;top:14px;width:28px;height:28px;border-radius:50%;
+  background:var(--piesok);color:var(--ink);font-weight:700;font-size:14px;display:flex;align-items:center;justify-content:center}
+.moznost--b{border:2px solid var(--brass);background:#FBF7F0;box-shadow:var(--tien)}
+.moznost--b .moznost-pismeno{background:var(--brass)}
+.moznost--b ul{color:var(--ink)}
+
+/* recenzie ako prekrývajúce sa karty */
+.karty-recenzii{margin-top:18px;padding:4px 6px}
+.karta{position:relative;background:var(--biela);border:1px solid var(--linka);border-radius:14px;
+  padding:14px 16px;box-shadow:0 10px 26px rgba(38,32,25,.12)}
+.karta + .karta{margin-top:-10px}
+.karta:nth-child(odd){transform:rotate(-1.4deg)}
+.karta:nth-child(even){transform:rotate(1.2deg);z-index:1}
+.karta figcaption{display:flex;gap:10px;align-items:center;font-size:14px}
+.karta figcaption b{display:block;color:var(--ink)}
+.karta figcaption small{display:block;color:var(--muted);font-size:12.5px}
+.avatar{flex:0 0 36px;height:36px;border-radius:50%;background:var(--ink);color:var(--brass-soft);
+  font-weight:700;font-size:13px;display:flex;align-items:center;justify-content:center}
+.karta .hviezdy{margin-top:8px;color:#E7A500;letter-spacing:2px;font-size:14px}
+.karta blockquote{margin-top:4px;font-size:15px;line-height:1.55}
+.karta mark{background:var(--zvyraznovac);color:var(--ink);font-weight:600;padding:.06em .15em;border-radius:3px;
+  -webkit-box-decoration-break:clone;box-decoration-break:clone}
+
+/* kalendár */
+.kal{margin-top:16px}
+.kal-dni{display:flex;gap:8px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding:0 16px;margin:0 -16px;padding:2px 16px 6px;
+  scrollbar-width:none;-webkit-mask-image:linear-gradient(90deg,#000 82%,transparent);mask-image:linear-gradient(90deg,#000 82%,transparent)}
+.kal-dni::-webkit-scrollbar{display:none}
+.kal-den{flex:0 0 auto;min-width:86px;scroll-snap-align:start;display:flex;flex-direction:column;align-items:center;
+  gap:1px;padding:10px 8px;border:1.5px solid var(--linka);border-radius:12px;background:var(--biela)}
+.kd-den{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+.kd-datum{font-size:18px;font-weight:700;color:var(--ink)}
+.kd-volne{font-size:12px;color:var(--brass-text)}
+.kal-den.aktivny{background:var(--ink);border-color:var(--ink)}
+.kal-den.aktivny .kd-den,.kal-den.aktivny .kd-datum{color:var(--na-tmavej)}
+.kal-den.aktivny .kd-volne{color:var(--brass-soft)}
+.kal-casy{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
+.kal-cas{position:relative;min-height:48px;border:1.5px solid var(--linka);border-radius:10px;background:var(--biela);
+  font-size:16px;font-weight:600;color:var(--ink)}
+.kal-cas.vybrany{background:var(--ink);border-color:var(--ink);color:var(--na-tmavej)}
+.kal-cas.vybrany::before{content:"✓ ";color:var(--brass-soft)}
+.kal-stav{margin-top:12px;font-size:15px;color:var(--ink-soft)}
+.kal-adresa{margin-top:16px}
+.kal-adresa label{display:block;font-weight:600;font-size:15px}
+.kal-adresa .pole{margin-top:8px}
+.kal-pozn{margin-top:8px;text-align:center;font-size:12.5px;color:var(--muted)}
+.kal-hotovo,.kal-zavrete{margin-top:16px;border:2px solid var(--brass);border-radius:var(--r);padding:18px;text-align:center}
+.kal-hotovo .ok{margin:0 auto 10px}
+.kal-hotovo h3,.kal-zavrete h3{font-family:var(--display);font-size:26px;font-weight:600}
+.kal-hotovo p,.kal-zavrete p{margin-top:6px;color:var(--ink-soft)}
+.paticka div + div{margin-top:2px}
+.paticka a{color:var(--ink-soft)}
+.ok{width:56px;height:56px;border-radius:50%;background:var(--brass);display:flex;align-items:center;justify-content:center}
+
 /* ---------- Desktop: len širší stĺpec, nič viac ---------- */
 @media (min-width:760px){
   .obal{max-width:620px}
   .hero h1{font-size:40px}
   .sekcia h2{font-size:34px}
   .fotky figure{flex-basis:46%}
+  .kal-casy{grid-template-columns:repeat(4,1fr)}
+  .p-hero h1{font-size:40px}
 }

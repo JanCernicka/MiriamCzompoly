@@ -14,6 +14,11 @@ m = re.search(r'class="vsl-spust"[^>]*data-src="([^"]*)"', index)
 if not m or not m.group(1).strip():
     chyby.append("index.html: video nie je doplnené (data-src na .vsl-spust je prázdne)")
 
+dak = (koren / "dakujem.html").read_text(encoding="utf-8")
+m = re.search(r'data-bonus-video data-src="([^"]*)"', dak)
+if not m or not m.group(1).strip():
+    chyby.append("dakujem.html: video ponuky nie je doplnené (data-src na [data-bonus-video] je prázdne)")
+
 for f in sorted(koren.glob("*.html")):
     t = f.read_text(encoding="utf-8")
     if 'data-test="1"' in t:
