@@ -25,10 +25,13 @@
     document,'script','https://connect.facebook.net/en_US/fbevents.js');
     /* eslint-enable */
     window.fbq('init', PIXEL_ID);
-    window.fbq('track', 'PageView');
+    /* Pri A/B teste ide varianta ako VLASTNOSŤ udalosti, nie ako iný názov udalosti,
+       inak by sa optimalizačný signál rozdelil na polovicu. LIEVIK_AB nastaví meranie. */
+    var vlastnosti = window.LIEVIK_AB ? { ab: window.LIEVIK_AB } : {};
+    window.fbq('track', 'PageView', vlastnosti);
     /* stránka môže ohlásiť konverziu, napr. <body data-fb-event="Lead"> na ďakovnej stránke */
     var fbEvent = document.body && document.body.getAttribute('data-fb-event');
-    if (fbEvent) window.fbq('track', fbEvent);
+    if (fbEvent) window.fbq('track', fbEvent, vlastnosti);
   }
 
   function closeBanner(el) {

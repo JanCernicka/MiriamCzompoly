@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Interiérová diagnostika u teba doma · Miriam Czompoly, Trnava</title>
+  <meta name="description" content="Za 90 minút u teba doma budeš vedieť, čo zmeniť ako prvé a čo prestať kupovať. Interiérová diagnostika s Miriam Czompoly, Trnava." />
+  <!-- Varianta B A/B testu. Podáva ju rozdeľovač na www.miriamczompoly.sk/diagnostika,
+       meranie aj pixel do nej vstrekne on, rovnako ako do varianty A. -->
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="theme-color" content="#262019" />
+  <link rel="canonical" href="https://www.miriamczompoly.sk/diagnostika" />
+  <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/b/css/b.css" />
+</head>
+<body>
+
+  <!-- 1. PRUH: stav, nie logo. Najbližší voľný termín sa doplní z /api/sloty. -->
+  <div class="pruh">
+    <div class="obal">
+      <span class="zive"><i></i>Voľné</span>
+      <span class="co">Najbližší voľný termín</span>
+      <span class="cas" id="najblizsi">tento týždeň</span>
+    </div>
+  </div>
+
+  <main>
+    <section class="hero">
+      <div class="obal">
+        <!-- 2. NADPIS: výsledok + číslo -->
+        <h1>Za <em>90 minút</em> budeš vedieť, čo s tvojím domovom</h1>
+        <!-- 3. PODNADPIS: sľub do praxe -->
+        <p class="sub">Prídem k tebe domov, prejdeme spolu priestor a odchádzaš s jasným plánom: čo zmeniť ako prvé a <strong>čo prestať kupovať, aby si neminula zbytočne</strong>.</p>
+
+        <!-- 4. VIDEO 16:9, beží samo bez zvuku, prekryv je o 20 % menší -->
+        <div class="video-ram">
+          <video id="vsl" poster="/b/img/vsl-poster.jpg" autoplay muted playsinline
+                 preload="auto" disablepictureinpicture>
+            <source src="https://assets.cdn.filesafe.space/o86atLjsdR9IoUTWgYna/media/d6374045-4212-4398-b3c5-d116e98621f0.mp4" type="video/mp4">
+          </video>
+          <button class="zvuk" id="zvuk" type="button" aria-label="Zapnúť zvuk a pustiť video od začiatku">
+            <svg class="ikona" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+            </svg>
+            <span class="r1">Video už beží</span>
+            <span class="r2">Klepni a zapni zvuk</span>
+          </button>
+        </div>
+        <!-- 🔴 Obsluha videa HNEĎ ZA videom, nie na konci stránky (02_KOD.md). -->
+        <script src="/b/js/video.js"></script>
+
+        <!-- 5. RIADOK POD VIDEOM: posledná námietka -->
+        <p class="pod-videom">Ak z našich 90 minút neodídeš s jasnom, <strong>diagnostiku ti nefakturujem</strong>.</p>
+
+        <!-- 6. CTA, jeden text na celej stránke -->
+        <a class="btn" href="#kalendar" data-cta>Chcem diagnostiku u seba doma</a>
+      </div>
+    </section>
+
+    <!-- DÔKAZ hneď za hero -->
+    <section class="sekcia svetla" id="recenzie">
+      <div class="obal">
+        <h2>Bývajú vo vlastnej vízii, nie v mojej</h2>
+        <p class="uvod">Výber z recenzií klientov, ktorým som zariaďovala domov.</p>
+        <div class="kopa" id="kopa"></div>
+        <a class="btn" href="#kalendar" data-cta>Chcem diagnostiku u seba doma</a>
+      </div>
+    </section>
+
+    <!-- PONUKA: čo presne dostane -->
+    <section class="sekcia" id="diagnostika">
+      <div class="obal">
+        <h2>Čo dostaneš za <span class="suma">249&nbsp;€</span></h2>
+        <ul class="body">
+          <li><b>90 minút u teba doma</b><span>Priamo v priestore, nie cez fotky. Vidím svetlo, rozmery aj to, ako tam naozaj žiješ.</span></li>
+          <li><b>Analýzu dispozície a tvojich potrieb</b><span>Čo priestor dokáže a čo od neho potrebuješ ty, nie čo je práve v móde.</span></li>
+          <li><b>Akčný plán priorít</b><span>Čo riešiť ako prvé a v akom poradí, aby na seba veci nadväzovali.</span></li>
+          <li><b>Zoznam „čo prestať kupovať“</b><span>Jediná zle kúpená sedačka stojí stovky až tisíce eur. Tento zoznam ti ich ušetrí.</span></li>
+        </ul>
+        <div class="zaruka">
+          <p><b>Garancia:</b> ak z našich 90 minút neodídeš s jasnom, čo ďalej, povedz mi to na mieste a diagnostiku ti nefakturujem.</p>
+          <p><b>Odpočet:</b> keď budeš pokračovať projektom, celú sumu za diagnostiku ti z neho odpočítam.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- KALENDÁR priamo v stránke, kotva všetkých CTA -->
+    <section class="sekcia svetla" id="kalendar">
+      <div class="obal">
+        <h2>Vyber si čas, kedy k tebe prídem</h2>
+        <p class="uvod">Pracovné dni. Diagnostika trvá 90 minút a je u teba doma.</p>
+
+        <div class="kal" data-kalendar>
+          <div class="dni" id="dni" role="tablist" aria-label="Deň"></div>
+          <div class="sloty" id="sloty"></div>
+          <p class="kal-stav" id="kalStav">Načítavam voľné termíny…</p>
+
+          <form class="formular" id="formular" novalidate hidden>
+            <div class="pole"><label for="meno">Krstné meno</label>
+              <input id="meno" name="meno" type="text" autocomplete="given-name" required></div>
+            <div class="pole"><label for="email">E-mail</label>
+              <input id="email" name="email" type="email" inputmode="email" autocomplete="email" required></div>
+            <div class="pole"><label for="telefon">Telefón</label>
+              <input id="telefon" name="telefon" type="tel" inputmode="tel" autocomplete="tel" placeholder="0907 777 555" required></div>
+            <div class="pole"><label for="ulica">Kde bude diagnostika? Ulica a číslo</label>
+              <input id="ulica" name="ulica" type="text" autocomplete="street-address" required></div>
+            <div class="pole"><label for="mesto">Mesto</label>
+              <input id="mesto" name="mesto" type="text" autocomplete="address-level2" required></div>
+            <label class="suhlas"><input id="optin" name="suhlas" type="checkbox" required>
+              <span>Áno, môžeš mi písať. Pošlem ti len potvrdenie termínu a dve pripomienky pred ním. Viac o <a href="/gdpr" target="_blank" rel="noopener">ochrane údajov</a>.</span></label>
+            <p class="chyba" id="chyba" role="alert"></p>
+            <button class="btn" type="submit" id="rezervovat">Vyber si čas</button>
+          </form>
+          <p class="kal-pozn">Denne robím najviac dve diagnostiky. Keď sa v ten deň minú, vyber si iný.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- GALÉRIA: pás, ktorý sa posúva sám -->
+    <section class="sekcia galeria" aria-label="Moje realizácie">
+      <div class="obal"><h2>Takto bývajú moji klienti</h2></div>
+      <div class="pas-obal"><div class="pas-bezi" id="pas"></div></div>
+    </section>
+
+    <!-- ZÁVER -->
+    <section class="sekcia zaver">
+      <div class="obal">
+        <h2>Deväťdesiat minút u teba doma a budeš vedieť, čo ďalej</h2>
+        <p class="uvod">Jasný plán od dizajnérky s viac ako 15 rokmi praxe, priamo v tvojom priestore.</p>
+        <a class="btn" href="#kalendar" data-cta>Chcem diagnostiku u seba doma</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="paticka">
+    <div class="obal">
+      <div><b>Miriam Czompoly</b>, interiérový dizajn</div>
+      <div>J. Hlubíka 42, 917 01 Trnava · IČO 45714088</div>
+      <div><a href="tel:+421918819906">+421 918 819 906</a> · <a href="mailto:dizajn@miriamczompoly.sk">dizajn@miriamczompoly.sk</a></div>
+      <nav><a href="/gdpr" target="_blank" rel="noopener">Ochrana osobných údajov</a> · <a href="#" data-cookie-settings>Nastavenia cookies</a></nav>
+    </div>
+  </footer>
+
+  <script src="/b/js/recenzie.js"></script>
+  <script>try { postavKarty("#kopa", 6); } catch (e) { /* zvyšok stránky beží ďalej */ }</script>
+  <script src="/b/js/b.js"></script>
+  <!-- rovnaký súhlas s cookies a pixel ako na variante A -->
+  <script src="/assets/js/consent.js"></script>
+</body>
+</html>

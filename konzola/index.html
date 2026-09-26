@@ -1,0 +1,1322 @@
+<!doctype html>
+<html lang="sk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Miriam Czompoly · Konzola</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --akcent:#D6AC3F;
+  --akcent-tmavy:#96701F;
+  /* 🔴 Farba textu NA akcente sa počíta v build.py podľa jasu značky.
+     Biely text mal na akcentoch našich klientov kontrast 1,3 až 2,3 : 1,
+     čiže sa nedal prečítať na tlačidlách, v aktívnom tabe ani vo vlastných
+     bublinách. Natvrdo #fff tu byť nesmie. */
+  --na-akcente:#15151B;
+  --papier:#F7F7F9; --biela:#FFFFFF; --linka:#E7E7EE; --linka2:#F0F0F4;
+  --text:#15151B; --sivy:#5C5C6B; --slabo:#93939F;
+  --dobre:#178A5A; --zle:#C0392F;
+  --pismo:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --r:16px; --r2:12px;
+  --tien:0 1px 2px rgba(18,18,28,.04), 0 10px 28px -18px rgba(18,18,28,.28);
+  --tien2:0 2px 6px rgba(18,18,28,.06), 0 18px 40px -22px rgba(18,18,28,.34);
+  --rychlo:.16s cubic-bezier(.4,0,.2,1);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+html,body{height:100%}
+body{margin:0;background:var(--papier);color:var(--text);font-family:var(--pismo);
+  font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased}
+button,input,textarea,select{font-family:inherit;font-size:inherit;color:inherit}
+button{cursor:pointer;border:none;background:none;padding:0}
+:focus-visible{outline:2px solid var(--akcent);outline-offset:2px;border-radius:6px}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms !important;transition-duration:.01ms !important}
+  html{scroll-behavior:auto}
+}
+
+/* ── zámok ─────────────────────────────────────────────── */
+#zamok{position:fixed;inset:0;z-index:99;display:flex;align-items:center;justify-content:center;
+  background:var(--papier);transition:opacity .35s,visibility .35s}
+#zamok.von{opacity:0;visibility:hidden}
+.zbox{width:min(340px,88vw);display:flex;flex-direction:column;gap:18px;text-align:center}
+.zbox .znak{width:58px;height:58px;border-radius:18px;background:var(--akcent);margin:0 auto;
+  display:flex;align-items:center;justify-content:center;color:var(--na-akcente);
+  font-weight:700;font-size:23px;box-shadow:var(--tien2)}
+/* 🔴 Keď je logo, dlaždica ZMIZNE. Väčšina firemných lôg je široký nápis
+   a natlačený do štvorca 58x58 vyjde na 40x11 px, čo sa nedá prečítať. Preto
+   sa pri logu ruší aj pozadie, aj rám, aj pevná veľkosť, a logo dostane celú
+   šírku boxu. Bez loga ostáva akcentová dlaždica s iniciálou, tá štvorec je. */
+.zbox .znak.obrazok{width:auto;height:auto;max-width:100%;background:none;
+  box-shadow:none;border-radius:0;padding:0}
+.znak.obrazok img{max-height:58px;max-width:100%;width:auto;
+  object-fit:contain;display:block;margin:0 auto}
+.zbox h1{font-size:20px;margin:0;font-weight:600;letter-spacing:-.01em}
+#heslo{width:100%;text-align:center;letter-spacing:.45em;font-size:18px;padding:14px;
+  background:var(--biela);border:1.5px solid var(--linka);border-radius:var(--r2);
+  outline:none;transition:border-color var(--rychlo),box-shadow var(--rychlo)}
+#heslo:focus{border-color:var(--akcent);
+  box-shadow:0 0 0 4px color-mix(in srgb,var(--akcent) 18%,transparent)}
+#heslo.zle{border-color:var(--zle);animation:tras .35s}
+@keyframes tras{25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+.zbox p{margin:0;font-size:13px;color:var(--slabo)}
+
+/* ── kostra ────────────────────────────────────────────── */
+.hlava{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.86);
+  backdrop-filter:saturate(1.6) blur(12px);border-bottom:1px solid var(--linka)}
+.hlava .vnutro{max-width:1180px;margin:0 auto;padding:0 20px;display:flex;
+  align-items:center;gap:18px;height:62px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:16px;
+  letter-spacing:-.015em;white-space:nowrap}
+.logo i{width:11px;height:11px;border-radius:50%;background:var(--akcent);display:block;flex:none}
+/* Logo v hlavičke má pevnú VÝŠKU a voľnú šírku. Logá sú široké aj štvorcové
+   a keby sa škálovali na šírku, riadok by pri každom klientovi skákal.
+   🔴 Keď je logo, názov firmy sa vedľa neho UŽ NEPÍŠE. Skoro každé logo je
+   nápis s názvom firmy, takže by tam stálo dvakrát vedľa seba. Meno firmy
+   nesie zámok a titulka záložky. */
+.logo img{height:28px;width:auto;max-width:190px;object-fit:contain;display:block;flex:none}
+nav{display:flex;gap:2px;margin-left:auto;background:var(--papier);
+  border:1px solid var(--linka);border-radius:13px;padding:3px}
+nav button{padding:7px 15px;border-radius:10px;font-weight:500;font-size:14px;
+  color:var(--sivy);transition:background var(--rychlo),color var(--rychlo);white-space:nowrap}
+nav button:hover{color:var(--text)}
+nav button.tu{background:var(--akcent);color:var(--na-akcente);font-weight:600;
+  box-shadow:0 1px 3px rgba(18,18,28,.16)}
+.obal{max-width:1180px;margin:0 auto;padding:26px 20px 44px}
+.panel{display:none;animation:zjav .22s ease-out}
+.panel.tu{display:block}
+@keyframes zjav{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+h2{font-size:21px;margin:0 0 3px;font-weight:600;letter-spacing:-.02em}
+.podnadpis{color:var(--slabo);font-size:13.5px;margin:0 0 20px}
+.karta-panel{background:var(--biela);border:1px solid var(--linka);
+  border-radius:var(--r);box-shadow:var(--tien)}
+
+/* ── konverzácie ───────────────────────────────────────── */
+.chat{display:grid;grid-template-columns:326px 1fr;gap:16px;
+  height:calc(100vh - 195px);min-height:460px}
+.zoznam{background:var(--biela);border:1px solid var(--linka);border-radius:var(--r);
+  box-shadow:var(--tien);overflow-y:auto;overscroll-behavior:contain}
+.polozka{display:flex;gap:12px;width:100%;text-align:left;padding:13px 15px;
+  border-bottom:1px solid var(--linka2);transition:background var(--rychlo);align-items:flex-start}
+.polozka:last-child{border-bottom:none}
+.polozka:hover{background:var(--papier)}
+.polozka.tu{background:color-mix(in srgb,var(--akcent) 10%,transparent);
+  box-shadow:inset 3px 0 0 var(--akcent)}
+.avatar{width:38px;height:38px;border-radius:12px;flex:none;display:flex;
+  align-items:center;justify-content:center;font-weight:700;font-size:13px;
+  background:color-mix(in srgb,var(--akcent) 24%,var(--papier));color:var(--akcent-tmavy)}
+.polozka .telo{min-width:0;flex:1}
+.polozka .r1{display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+.polozka .meno{font-weight:600;font-size:14px;white-space:nowrap;overflow:hidden;
+  text-overflow:ellipsis}
+.polozka .cas{font-size:11px;color:var(--slabo);flex:none}
+.polozka .ukazka{font-size:13px;color:var(--sivy);margin-top:2px;
+  display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden}
+.polozka.nove .meno{font-weight:700}
+.polozka.nove .ukazka{color:var(--text);font-weight:500}
+.bodka{display:inline-block;width:7px;height:7px;border-radius:50%;
+  background:var(--akcent);margin-left:6px;vertical-align:middle}
+
+.rozhovor{background:var(--biela);border:1px solid var(--linka);border-radius:var(--r);
+  box-shadow:var(--tien);display:flex;flex-direction:column;overflow:hidden}
+.rozhovor .vrch{padding:13px 18px;border-bottom:1px solid var(--linka2);display:flex;
+  align-items:center;gap:11px;flex-wrap:wrap;min-height:58px}
+.rozhovor .vrch b{font-weight:600;font-size:15px}
+.rozhovor .vrch span{font-size:13px;color:var(--slabo)}
+.spat{display:none;font-size:14px;color:var(--akcent-tmavy);font-weight:600;padding:6px 4px}
+.tok{flex:1;overflow-y:auto;overscroll-behavior:contain;padding:20px 18px;
+  display:flex;flex-direction:column;gap:3px}
+.medzera{margin-top:14px}
+
+/* 🔴 `overflow-wrap:anywhere` sa NESMIE dať na bublinu. Ovplyvňuje výpočet
+   vnútornej šírky, takže sa bublina zmrští na najužší možný blok a krátka
+   správa „test" vyzerá ako vysoký úzky stĺpik. `break-word` láme rovnako
+   dlhé odkazy, ale šírku nezmenšuje. */
+/* 🔴 `white-space:pre-wrap` patrí LEN na samotný text správy, nie na celú
+   bublinu. Keď bol na bubline, vykresľovali sa aj konce riadkov a odsadenie
+   zo šablóny, takže medzi štítkom, textom a časom zívali prázdne riadky
+   a text bol odsadený od kraja. Presne to robilo z krátkej správy vysokú
+   bublinu. */
+/* Farba kanála. Klient tak na prvý pohľad vidí, čím mu kto písal, bez toho
+   aby čítal štítok. Štítok tam ostáva, farba je len druhá vrstva tej istej
+   informácie, nie náhrada. Overené na bielom texte, všetkých osem má kontrast
+   4,8 až 6,6 : 1.
+
+   🔴 Značka klienta sa na to použiť nedá. Je u každého iná a u niektorých
+   svetlá, takže by sa kanály nedali rozlíšiť a text by na nej nebolo vidieť.
+   Preto sú farby kanálov pevné a rovnaké u všetkých klientov. Značka ostáva
+   na hlavičke, taboch, avataroch a formulári. */
+.k-sms{--k:#1F7A5C}
+.k-email{--k:#2B5CA8}
+.k-chat{--k:#6D4AA8}
+.k-fb{--k:#0866FF}
+.k-ig{--k:#B32F7E}
+.k-whatsapp{--k:#0F7A42}
+.k-gmb{--k:#A8521B}
+.k-recenzia{--k:#7A6018}
+
+.bub{max-width:min(72%,560px);padding:10px 14px;border-radius:18px;
+  font-size:14.5px;line-height:1.5;overflow-wrap:break-word;animation:bublina .2s ease-out}
+.bub .t{white-space:pre-wrap;display:block}
+@keyframes bublina{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+.bub.od-nich{background:var(--biela);border:1px solid var(--linka);
+  border-left:3px solid var(--k,var(--akcent));align-self:flex-start;border-bottom-left-radius:6px}
+.bub.od-nich .znacka{color:var(--k,var(--akcent));opacity:1}
+.bub.od-nas{background:var(--k,var(--akcent));color:#fff;align-self:flex-end;border-bottom-right-radius:6px}
+.bub.od-nas .znacka{opacity:.78}
+.bub .meta{font-size:11px;opacity:.62;margin-top:4px;font-weight:500}
+.bub .predmet{font-weight:700;margin-bottom:4px}
+.bub .odpovedz{font-size:11.5px;font-weight:600;text-decoration:underline;
+  text-underline-offset:2px;margin-top:7px;display:inline-block;opacity:.78;
+  transition:opacity var(--rychlo);color:inherit}
+.bub .odpovedz:hover{opacity:1}
+.znacka{display:block;font-size:10px;font-weight:700;letter-spacing:.06em;
+  text-transform:uppercase;margin-bottom:5px;opacity:.6}
+.den{align-self:center;font-size:11.5px;font-weight:600;color:var(--slabo);
+  background:var(--papier);border:1px solid var(--linka);border-radius:99px;
+  padding:3px 13px;margin:16px 0 6px}
+.udalost{align-self:center;font-size:12px;color:var(--slabo);padding:3px 12px;margin:5px 0}
+
+.formular{align-self:flex-start;max-width:min(72%,560px);background:var(--biela);
+  border:1.5px solid color-mix(in srgb,var(--akcent) 55%,var(--linka));
+  border-radius:16px;padding:12px 14px;box-shadow:var(--tien);margin:5px 0}
+.formular .hl{font-size:10.5px;font-weight:700;color:var(--akcent-tmavy);
+  text-transform:uppercase;letter-spacing:.07em;margin-bottom:9px}
+.formular dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:5px 14px;font-size:13.5px}
+.formular dt{color:var(--slabo)}
+.formular dd{margin:0;font-weight:500;overflow-wrap:break-word}
+.formular .cas{font-size:11px;color:var(--slabo);margin-top:9px}
+
+.odpovedam{display:none;align-items:center;gap:9px;font-size:12.5px;color:var(--sivy);
+  padding:9px 16px;border-top:1px solid var(--linka2);
+  background:color-mix(in srgb,var(--akcent) 8%,var(--biela))}
+.odpovedam.tu{display:flex}
+.odpovedam b{font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.odpovedam button{margin-left:auto;font-size:12.5px;color:var(--zle);font-weight:600;flex:none}
+.pisanie{border-top:1px solid var(--linka2);padding:12px 14px 14px;display:flex;
+  flex-direction:column;gap:9px}
+.pisanie .riadok{display:flex;gap:10px;align-items:flex-end}
+#predmet{display:none;width:100%;border:1.5px solid var(--linka);border-radius:var(--r2);
+  padding:10px 13px;outline:none;font-size:14px;transition:border-color var(--rychlo)}
+#predmet.tu{display:block}
+#predmet:focus{border-color:var(--akcent)}
+.pisanie textarea{flex:1;resize:none;border:1.5px solid var(--linka);border-radius:var(--r2);
+  padding:11px 13px;min-height:44px;max-height:150px;outline:none;line-height:1.45;
+  transition:border-color var(--rychlo),box-shadow var(--rychlo)}
+.pisanie textarea:focus{border-color:var(--akcent);
+  box-shadow:0 0 0 4px color-mix(in srgb,var(--akcent) 14%,transparent)}
+.pisanie textarea:disabled{background:var(--papier);color:var(--slabo)}
+/* Tlačidlo drží farbu kanála, ktorým sa práve píše. Je to posledná vec, na
+   ktorú sa človek pozrie pred odoslaním, takže je to najlacnejšie miesto, kde
+   sa dá zachytiť, že píše SMS, keď chcel e-mail. */
+.posli{background:var(--k,var(--akcent));color:#fff;font-weight:600;padding:12px 20px;
+  border-radius:var(--r2);transition:all var(--rychlo);flex:none;
+  box-shadow:0 1px 3px rgba(18,18,28,.14)}
+.posli:hover:not(:disabled){filter:brightness(.9);transform:translateY(-1px);
+  box-shadow:var(--tien2)}
+.posli:active:not(:disabled){transform:none}
+.posli:disabled{opacity:.4;cursor:not-allowed;box-shadow:none}
+.kanal{display:flex;gap:2px;background:var(--papier);border:1px solid var(--linka);
+  border-radius:11px;padding:3px;align-self:flex-start}
+.kanal button{padding:6px 12px;border-radius:8px;font-size:12.5px;font-weight:600;
+  color:var(--sivy);transition:all var(--rychlo)}
+.kanal button:hover{color:var(--text)}
+.kanal button.tu{background:var(--k,var(--akcent));color:#fff;
+  box-shadow:0 1px 3px rgba(18,18,28,.2)}
+.kanal button::before{content:"";display:inline-block;width:7px;height:7px;
+  border-radius:50%;background:var(--k,var(--akcent));margin-right:6px;vertical-align:-1px}
+.kanal button.tu::before{background:rgba(255,255,255,.85)}
+
+/* ── príležitosti ──────────────────────────────────────── */
+/* 🔴 Pipeline sa vylamuje z 1180px obalu na celú šírku okna. Predtým bolo
+   v obale vidieť necelé štyri stĺpce a zvyšok sa musel doscrollovať do boku,
+   hoci na obrazovke bolo miesto. `width:100vw` so záporným okrajom je bežný
+   full-bleed trik; vodorovný scroll ostáva NA TOMTO prvku, takže pretečenie
+   o šírku scrollbaru nerozhýbe celú stránku. */
+/* 🔴 Nadpis sekcie sa vylamuje spolu so stĺpcami. Keď sa vylomil len pás
+   kariet, text začínal o 160 px inde než prvá karta a vyzeralo to ako chyba
+   rozloženia, nie ako zámer. */
+#p-prilezitosti > h2{width:100vw;margin:0 0 3px calc(50% - 50vw);padding:0 24px}
+#p-prilezitosti > .podnadpis{width:100vw;margin:0 0 18px calc(50% - 50vw);padding:0 24px}
+.stlpce{display:flex;gap:13px;align-items:flex-start;
+  overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x proximity;
+  /* 🔴 Bez `scroll-padding` si snap zarovná prvý stĺpec na úplný okraj
+     okna a odscrolluje práve tých 24 px odsadenia, takže ľavá karta
+     vyzerá odrezaná od kraja obrazovky. */
+  scroll-padding-inline:24px;
+  width:100vw;margin-left:calc(50% - 50vw);padding:2px 24px 16px}
+/* 🔴 `1 0 250px`, teda stĺpce SA ROZŤAHUJÚ na dostupnú šírku a nezmršťujú sa
+   pod 250px. Pri štyroch fázach vyplnia obrazovku, pri desiatich sa scrolluje.
+   Strop 460px je proti tomu, aby dve fázy na širokom monitore nevyzerali ako
+   dva plagáty. */
+.stlpec{flex:1 0 250px;max-width:460px;background:var(--biela);border:1px solid var(--linka);
+  border-radius:var(--r);padding:13px;box-shadow:var(--tien);scroll-snap-align:start;
+  transition:border-color var(--rychlo),background var(--rychlo)}
+/* Prepínač fáz. Na počítači sa nezobrazuje, tam sú stĺpce vedľa seba. */
+.fazy{display:none;gap:7px;overflow-x:auto;padding:0 0 13px;
+  scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.fazy::-webkit-scrollbar{display:none}
+.fazy button{flex:none;padding:8px 14px;border-radius:99px;font-size:13.5px;
+  font-weight:600;color:var(--sivy);background:var(--biela);
+  border:1px solid var(--linka);white-space:nowrap;transition:all var(--rychlo)}
+.fazy button em{font-style:normal;font-weight:700;opacity:.6;margin-left:5px}
+.fazy button.tu{background:var(--akcent);color:var(--na-akcente);
+  border-color:transparent;box-shadow:0 1px 3px rgba(18,18,28,.18)}
+.fazy button.tu em{opacity:.8}
+.stlpec.cielim{border-color:var(--akcent);
+  background:color-mix(in srgb,var(--akcent) 8%,var(--biela))}
+.stlpec h3{font-size:13px;margin:0 0 2px;font-weight:600;display:flex;
+  justify-content:space-between;gap:8px;align-items:center}
+.stlpec h3 em{font-style:normal;font-size:11.5px;font-weight:600;color:var(--sivy);
+  background:var(--papier);border-radius:99px;padding:1px 8px;flex:none}
+.stlpec .suma{font-size:12px;color:var(--slabo);margin:0 0 11px;min-height:18px}
+/* 🔴 `cursor:grab` tu bol klamstvo pre polovicu používateľov. Na dotykovom
+   displeji sa HTML5 drag-and-drop nespustí vôbec, takže na mobile sa zákazka
+   nedala presunúť nijako. Karta je preto po novom hlavne KLIKATEĽNÁ (otvorí
+   výber fázy) a ťahanie ostáva ako zrýchlenie pre myš. */
+.karta{background:var(--papier);border:1px solid var(--linka);border-radius:13px;
+  padding:12px;margin-bottom:9px;cursor:pointer;position:relative;
+  transition:all var(--rychlo)}
+.karta:hover{border-color:color-mix(in srgb,var(--akcent) 50%,var(--linka));
+  background:var(--biela);box-shadow:var(--tien);transform:translateY(-1px)}
+.karta::after{content:"⋯";position:absolute;right:11px;top:7px;color:var(--slabo);
+  font-size:16px;line-height:1;opacity:.5}
+.karta:hover::after{opacity:1;color:var(--akcent-tmavy)}
+.karta.nesiem{opacity:.35;transform:scale(.98)}
+.karta b{display:block;font-size:14px;font-weight:600;line-height:1.35;padding-right:22px}
+.karta .drobne{font-size:12px;color:var(--slabo);margin-top:4px}
+.karta .cena{font-size:13.5px;font-weight:700;color:var(--akcent-tmavy);margin-top:8px}
+.prazdny{font-size:12px;color:var(--slabo);text-align:center;padding:18px 0;
+  border:1px dashed var(--linka);border-radius:11px}
+
+/* ── výber fázy (presun bez ťahania) ───────────────────── */
+#sheet{position:fixed;inset:0;z-index:60;display:none}
+#sheet.tu{display:block}
+#sheet .tien{position:absolute;inset:0;background:rgba(18,18,28,.42)}
+/* Na telefóne vyskakuje zdola, tam ho má palec najbližšie. Na počítači je
+   to obyčajný dialóg v strede, zdola vyskakujúci panel by tam bol cudzí. */
+#sheet .list{position:absolute;left:0;right:0;bottom:0;background:var(--biela);
+  border-radius:22px 22px 0 0;box-shadow:var(--tien2);
+  padding:16px 16px max(16px,env(safe-area-inset-bottom));
+  max-height:82dvh;overflow-y:auto;animation:zdola .22s cubic-bezier(.4,0,.2,1)}
+@keyframes zdola{from{transform:translateY(100%)}to{transform:none}}
+#sheet .uchyt{width:38px;height:4px;border-radius:99px;background:var(--linka);
+  margin:0 auto 14px}
+#sheet .kto{font-size:15px;font-weight:700;margin:0 0 2px;letter-spacing:-.01em}
+#sheet .kam{font-size:12.5px;color:var(--slabo);margin:0 0 14px}
+#sheet .fazaBtn{display:flex;align-items:center;gap:10px;width:100%;text-align:left;
+  padding:13px 15px;margin-bottom:7px;border-radius:var(--r2);
+  border:1.5px solid var(--linka);background:var(--biela);
+  font-size:14.5px;font-weight:500;transition:all var(--rychlo)}
+#sheet .fazaBtn:hover{border-color:color-mix(in srgb,var(--akcent) 55%,var(--linka));
+  background:var(--papier)}
+#sheet .fazaBtn.tu{border-color:var(--akcent);font-weight:700;
+  background:color-mix(in srgb,var(--akcent) 10%,transparent)}
+#sheet .fazaBtn i{margin-left:auto;font-style:normal;font-size:11.5px;
+  font-weight:600;color:var(--slabo);flex:none}
+#sheet .zavri{width:100%;padding:12px;margin-top:5px;border-radius:var(--r2);
+  font-weight:600;color:var(--sivy);background:var(--papier)}
+@media(min-width:761px){
+  #sheet .list{left:50%;top:50%;right:auto;bottom:0;transform:translate(-50%,-50%);
+    width:min(420px,92vw);border-radius:var(--r);animation:none;
+    padding:20px;max-height:80vh}
+  #sheet .uchyt{display:none}
+}
+
+/* ── prehľad ───────────────────────────────────────────── */
+.cisla{display:grid;grid-template-columns:repeat(4,1fr);gap:13px;margin-bottom:22px}
+.cislo{background:var(--biela);border:1px solid var(--linka);border-radius:var(--r);
+  padding:18px;box-shadow:var(--tien);transition:transform var(--rychlo),box-shadow var(--rychlo)}
+.cislo:hover{transform:translateY(-2px);box-shadow:var(--tien2)}
+.cislo .v{font-size:32px;font-weight:700;line-height:1.05;letter-spacing:-.03em}
+.cislo .p{font-size:12.5px;color:var(--sivy);margin-top:6px;line-height:1.35}
+.cislo.pozor .v{color:var(--akcent-tmavy)}
+.zdroje{background:var(--biela);border:1px solid var(--linka);border-radius:var(--r);
+  padding:18px 20px;max-width:560px;box-shadow:var(--tien)}
+.zdroje h3{font-size:14px;margin:0 0 14px;font-weight:600}
+.riadok-z{display:flex;align-items:center;gap:12px;margin-bottom:10px;font-size:13px}
+.riadok-z .n{width:140px;flex:none;color:var(--sivy);white-space:nowrap;overflow:hidden;
+  text-overflow:ellipsis}
+.riadok-z .pas{flex:1;height:9px;background:var(--papier);border-radius:99px;overflow:hidden}
+.riadok-z .pas i{display:block;height:100%;background:var(--akcent);border-radius:99px;
+  transition:width .5s ease-out}
+.riadok-z .c{width:28px;text-align:right;font-weight:700;flex:none}
+
+/* ── stavy ─────────────────────────────────────────────── */
+.stav{font-size:13.5px;color:var(--slabo);padding:34px 20px;text-align:center;line-height:1.6}
+.chyba{color:var(--zle)}
+.kostra{padding:16px}
+.kostra i{display:block;height:11px;border-radius:6px;margin-bottom:10px;
+  background:linear-gradient(90deg,var(--linka2) 25%,var(--linka) 37%,var(--linka2) 63%);
+  background-size:400% 100%;animation:pulz 1.3s ease-in-out infinite}
+.kostra i:nth-child(2){width:62%}
+.kostra i:nth-child(3){width:80%}
+.kostra i:nth-child(4){width:45%}
+@keyframes pulz{0%{background-position:100% 50%}100%{background-position:0 50%}}
+
+@media(max-width:760px){
+  .hlava .vnutro{height:auto;flex-direction:column;align-items:stretch;gap:0;padding:10px 14px}
+  .logo{padding-bottom:10px}
+  nav{margin-left:0}
+  nav button{flex:1;text-align:center;padding:9px 4px;font-size:13.5px}
+  .obal{padding:18px 14px 40px}
+  .cisla{grid-template-columns:repeat(2,1fr);gap:10px}
+  .cislo{padding:15px}
+  .cislo .v{font-size:27px}
+  .chat{grid-template-columns:1fr;height:auto}
+  body:not(.otvoreny) .rozhovor{display:none}
+  body.otvoreny .zoznam{display:none}
+  body.otvoreny .spat{display:block}
+  .bub,.formular{max-width:86%}
+  .posli{padding:12px 16px}
+
+  /* 🔴 Otvorený rozhovor je na telefóne CELÁ obrazovka, nie blok v stránke.
+     Predtým bol `.tok` scrollovacím oknom vnútri dlhej stránky a mal
+     `overscroll-behavior:contain`, takže prst nad správami nikdy nepohol
+     stránkou. Písanie aj tlačidlo Odoslať boli pod ohybom a nedalo sa k nim
+     dostať vôbec. Fixné okno to rieši od základu: hlavička hore, správy sa
+     scrollujú v strede, písanie je vždy dole na obrazovke.
+
+     🔴 `dvh`, nie `vh`. iOS počíta `vh` s adresným riadkom stále zbaleným,
+     takže by spodných zhruba 60 px aj s tlačidlom vypadlo pod okraj. */
+  body.otvoreny{overflow:hidden}
+  body.otvoreny .rozhovor{position:fixed;inset:0;z-index:40;
+    height:100dvh;max-height:100dvh;border:none;border-radius:0;box-shadow:none}
+  body.otvoreny .rozhovor .vrch{padding-top:max(13px,env(safe-area-inset-top))}
+  body.otvoreny .tok{padding:16px 14px}
+  body.otvoreny .pisanie{padding-bottom:max(14px,env(safe-area-inset-bottom))}
+  /* Rozhovor na celú obrazovku prekryje aj hlavičku, takže nadpis sekcie
+     a zoznam pod ním netreba držať v pamäti prehliadača. */
+  body.otvoreny .hlava,body.otvoreny #p-chat > h2,
+  body.otvoreny #p-chat > .podnadpis{display:none}
+
+  /* 🔴 Pipeline na telefóne NIE JE kanban. Osem stĺpcov vedľa seba sa na
+     360 px šírky nedá ani prezerať, ani používať. Preto je hore prepínač fáz
+     a dole zoznam kariet jednej fázy, čo je jediný layout, ktorý sa na výšku
+     telefónu zmestí celý. */
+  .fazy{display:flex}
+  /* Na telefóne sa nič nevylamuje, obal je aj tak na celú šírku. */
+  #p-prilezitosti > h2,#p-prilezitosti > .podnadpis{
+    width:auto;margin-left:0;padding-left:0;padding-right:0}
+  .stlpce{display:block;width:auto;margin-left:0;padding:0;overflow:visible}
+  .stlpec{display:none;flex:none;max-width:none}
+  /* Stĺpec už nie je biela škatuľa. Názov fázy aj počet nesie prepínač nad
+     ním, takže hlavička stĺpca by tú istú vec hovorila druhýkrát, a rám okolo
+     jediného viditeľného stĺpca ohraničuje celú obrazovku, čo nič nedelí.
+     Ostáva len suma a karty ležia priamo na stránke. */
+  .stlpec.tu{display:block;background:none;border:none;box-shadow:none;padding:0}
+  .stlpec h3{display:none}
+  .stlpec .suma{margin:0 0 11px;font-size:13px}
+  .karta{background:var(--biela);padding:14px;box-shadow:var(--tien)}
+  .prazdny{padding:26px 0}
+}
+
+/* ── karta Lievik a A/B test (GHLtool lievik/06_KONZOLA.md, kód z DKP) ── */
+/* ── A/B test: obrazovka na dve polovice ────────────────── */
+/* 🔴 Dve varianty musia byt VEDLA SEBA a v rovnakom poradi riadkov.
+   Pod sebou sa cisla neporovnavaju, clovek musi scrollovat hore dole
+   a porovnava po pamati. Na uzkej obrazovke sa stlpce polozia pod seba,
+   lebo dve polovice po 160 px uz necita nikto. */
+.abPas{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:14px 0 4px}
+@media(max-width:700px){.abPas{grid-template-columns:1fr}}
+.abKarta{border:1px solid var(--linka);border-radius:var(--r);background:var(--biela);
+  padding:14px 15px 12px;box-shadow:var(--tien)}
+.abKarta.vedie{border-color:var(--dobre);box-shadow:0 0 0 1px var(--dobre),var(--tien)}
+.abHlava{display:flex;align-items:baseline;justify-content:space-between;gap:10px;
+  margin-bottom:2px}
+.abHlava b{font-size:15px}
+.abHlava .co{font-size:12px;color:var(--sivy);font-weight:500}
+.abMiera{font-size:30px;font-weight:800;letter-spacing:-.02em;line-height:1.1;
+  margin:6px 0 0}
+.abMiera small{font-size:12.5px;font-weight:600;color:var(--sivy);display:block;
+  letter-spacing:0;margin-top:2px}
+.abT{width:100%;border-collapse:collapse;margin-top:10px}
+.abT td{padding:5px 0;border-bottom:1px solid var(--linka);font-size:13px}
+.abT tr:last-child td{border-bottom:0}
+.abT .c{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap;
+  font-weight:600}
+.abT .p{color:var(--slabo);font-size:12px;text-align:right;width:44px}
+/* 🔴 Pocet leadov je jedine cislo, ktore predajcu naozaj zaujima, tak je
+   najvacsie a pulzuje. Pulz je jemny a na `box-shadow`, nie na velkosti:
+   poskakujuci obdlznik pri citani ruší. `prefers-reduced-motion` ho vypne,
+   lebo niekomu z pohybu na obrazovke doslova prichadza nevolno. */
+.abLead{display:flex;align-items:center;justify-content:center;gap:12px;
+  border:1px solid #BFE6D2;background:#F1FBF6;border-radius:var(--r);
+  padding:16px 18px;margin:14px 0 0;animation:tlkotZel 2.4s ease-in-out infinite}
+.abLead .bodka{flex:0 0 10px;height:10px;border-radius:50%;background:var(--dobre);
+  box-shadow:0 0 0 0 rgba(23,138,90,.55);animation:bodkaZel 2.4s ease-in-out infinite}
+.abLead b{font-size:34px;font-weight:800;letter-spacing:-.02em;color:var(--dobre);
+  line-height:1}
+.abLead span{font-size:14px;color:#2F6B51;font-weight:600}
+@keyframes tlkotZel{
+  0%,100%{box-shadow:0 0 0 0 rgba(23,138,90,.16)}
+  50%{box-shadow:0 0 0 7px rgba(23,138,90,0)}
+}
+@keyframes bodkaZel{
+  0%,100%{box-shadow:0 0 0 0 rgba(23,138,90,.55)}
+  50%{box-shadow:0 0 0 9px rgba(23,138,90,0)}
+}
+@media(prefers-reduced-motion:reduce){
+  .abLead,.abLead .bodka{animation:none}
+}
+/* ---- vetvenie z pasu s leadmi do oboch kariet ----
+   🔴 Kreslene v CSS, nie v roztiahnutom SVG. SVG cez celu sirku by sa
+      muselo natiahnut a s nim aj hrubka ciar a hroty sipok, takze by
+      boli na kazdej sirke okna inak hrube. Takto su ciary vzdy 2 px.
+   🔴 Stredy kariet nie su presne v 25 a 75 %: medzi kartami je medzera
+      14 px, takze kazdy stred je o polovicu medzery blizsie k okraju.
+      Preto calc, inak by sipky nemierili do stredu karty. */
+.abVetvy{position:relative;height:36px;margin:0 0 2px;pointer-events:none}
+.abVetvy span{position:absolute;background:#9FD6BB}
+.abVetvy .zvislo{left:50%;top:0;width:2px;height:13px;transform:translateX(-1px)}
+.abVetvy .vodorovne{left:calc(25% - 3.5px);right:calc(25% - 3.5px);top:13px;height:2px}
+.abVetvy .vetva{top:13px;width:2px;height:21px}
+.abVetvy .vetva.vlavo{left:calc(25% - 4.5px)}
+.abVetvy .vetva.vpravo{right:calc(25% - 4.5px)}
+.abVetvy .vetva::after{content:"";position:absolute;left:1px;bottom:0;width:8px;height:8px;
+  border-right:2px solid #9FD6BB;border-bottom:2px solid #9FD6BB;
+  transform:translateX(-50%) rotate(45deg)}
+/* Na uzkej obrazovke su karty pod sebou, takze sa nevetvi, len ukazuje nadol. */
+@media(max-width:700px){
+  .abVetvy{height:26px}
+  .abVetvy .vodorovne,.abVetvy .vetva.vpravo{display:none}
+  .abVetvy .zvislo{height:16px}
+  .abVetvy .vetva.vlavo{left:50%;transform:translateX(-1px);top:8px;height:16px}
+}
+
+/* ---- odznak s poctom leadov v karte ---- */
+.abCislo{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+.abKartaLead{flex:0 0 auto;display:inline-flex;align-items:center;gap:7px;
+  border:1px solid #BFE6D2;background:#F1FBF6;border-radius:11px;
+  padding:7px 11px;margin-top:4px;white-space:nowrap;
+  animation:tlkotZel 2.4s ease-in-out infinite}
+.abKartaLead i{flex:0 0 7px;height:7px;border-radius:50%;background:var(--dobre);
+  animation:bodkaZelMala 2.4s ease-in-out infinite}
+.abKartaLead b{font-size:19px;font-weight:800;color:var(--dobre);line-height:1;
+  letter-spacing:-.02em}
+.abKartaLead u{text-decoration:none;font-size:12px;font-weight:600;color:#2F6B51}
+@keyframes bodkaZelMala{
+  0%,100%{box-shadow:0 0 0 0 rgba(23,138,90,.5)}
+  50%{box-shadow:0 0 0 6px rgba(23,138,90,0)}
+}
+@media(prefers-reduced-motion:reduce){
+  .abKartaLead,.abKartaLead i{animation:none}
+}
+
+.abZaver{border-radius:var(--r);padding:11px 14px;font-size:13.5px;line-height:1.5;
+  border:1px solid var(--linka);background:var(--papier);margin:12px 0 2px}
+.abZaver b{color:var(--text)}
+.abMalo{color:var(--sivy)}
+
+/* ── lievik ─────────────────────────────────────────────── */
+.lievikT{width:100%;border-collapse:collapse;margin:12px 0}
+.lievikT td,.lievikT th{padding:7px 10px;border-bottom:1px solid var(--linka);
+  font-size:14px;vertical-align:middle}
+.lievikT th{text-align:left;color:var(--sivy);font-weight:600;font-size:12px;
+  text-transform:uppercase;letter-spacing:.06em}
+.lievikC{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+/* 🔴 Pruh má PEVNÚ šírku bunky, inak sa stĺpce pri každom načítaní hýbu. */
+.lievikP{width:34%;min-width:90px}
+.lievikP span{display:block;height:9px;border-radius:5px;background:var(--akcent);
+  min-width:2px;transition:width .3s}
+.lievikStrata{color:var(--zle);font-size:12px;white-space:nowrap}
+#p-lievik h3{margin:18px 0 4px;font-size:15px}
+</style>
+</head>
+<body>
+
+<div id="zamok"><div class="zbox">
+  <div class="znak obrazok"><img src="data:image/png;base64,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" alt="Miriam Czompoly"></div>
+  <h1>Miriam Czompoly</h1>
+  <input id="heslo" type="password" maxlength="32" placeholder="heslo" autocomplete="off">
+  <p id="napoveda">Zadajte heslo</p>
+</div></div>
+
+<header class="hlava"><div class="vnutro">
+  <div class="logo"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAYgAAACqCAYAAAC3UNivAAAQAElEQVR4Aex9S3IcV7Kle0L9WDOwVgBoqHyDojYgpFZA0IR6U6JWQGoFlFYgcgUCp12gkVyBktqA2IMHTtpM4KxnRZh1mwllYnqf4zciM5DIT0RkROQHfi1uxu9+T9zwc909IrInEQKBQCAQCAQCgRkIBEHMACUOBQKBQCAQCIgEQcQoCAS2FYFodyDQMgJBEC0DHMUHAoFAILCtCHRCEB9eDw63FaBo9+YgEONoc65FtORuINAJQdhodPbh1eD0bkCa9zLWTSLw3/9z8MA+2/smy4yyAoFAYDECnRAEm2BmPwdJEImIVREgOWjPhsi3jxhLIBAIdIRAZwTB/gRJEIWIVRAIcqiCVqRtCoEoJyHQKUGwyiAJohCxDAJBDmVQijSBQHsIdE4Q7EqQBFGIuAiBIIdF6MS5QKAbBNZCEOxakARRiDgLgaXkMCtTHAsEAoHGEVgbQbAnQRJEIWIRgRnkcFU8H9uBQCDQHQLdE4Tq9+je+KYPkgAasTgCs8jBRjrwk/ETCAQCnSPQAkEs7oOO5H120wdJLIbqTp2dRw7/+V/DePfhTo2E6OwmIdA5QbDzvOmDJIhERCIQ5EAUIgYCm4fAWgiCMARJEIWIQQ6bNQaiNYFAEYG1EQQbESRBFO5uDHK4u9c+er4dCKyVIAhRgST+H/cZw3FNFHY7ziCHa5odOR52u+fRu0BgexBYO0EQKhcKpk+5nccgiRyJwnpHNmeQg6jqmY+DDvvIb4NdvPpm6PF8cLZq1Rcow8tCmezjvPLyNPPOM2+eZukadbIfv70e3J9XXn4c7XvO8pg+P1Z2zXwezwfPy+bJ093oD9qbH6+7Rj/OvC1LcK5bfuSbILARBMHmqMj/5hrxT0RfgiQchp36obCY+vDeNTs4Gsn/4brLiDoPxfTIo9jjVT4n/uGfg4GgDC8LZfZU5gtsnPd0Mjt43jzNsjXq5H1y77NdLhX8OnrAer3fs6ueeRQC+Zj5PIo9qYrTjf6gvVXzFxvF8VMa52LG2K6FwMYQxLj1Kv8L2/EILEDYtYU39xQ5XFFz2IB++nizz3JDi5UKwVTyz9l7WdJQUNNvF0URfSEiHxH3SRQXrwZPsd30cpwV6H2zkeT7UjGk/CvgrD1po3/SQdjKKjaPIMT+r6WXo3wwEVUO/KWzIyaMuLEIzCIHXmfMZjvXHG6DpG/SMasl+JJ5xx6jjI+i1uh7G1/9fThcFPsnw6fXe/pARF8Kg9lPq8zQWUQxFvomqpqEs1laFxOW2tYc55xMS+XKExXacgWc3+XHY90eAhtIECK0RVN4oNtXiL4ESTgMW/kzjxx4nTehQ2ZyqSLUXA/cnCLVwn/8KZnA1EwASqfh60fDT9d7wjb4/TL6U2oJYJkR/jLWFuztV98N6adhHQfJpDYjw5JDmnDerzPhuzeSrF/KdkiE9hHYSIJgtyk8giSIxHbHTSeHHF3TXOiMMiGUn1m+VjXPo3tS2YErDYWvQRIiqQ/aGw2koWAySn3TXkZ+6mubmNTK16SjQ1F1jPJyy2dGykxzsZEEQUg3oddNNfVqCZKoh9um5NoWclA4b2HbdsEnog+rmGgyjeNAMTP+6tHwUtYYoAl9arJ6x8H0iGX+0RPHB8LZBTwcxcfJ5COVQl4OHd5efsncmcbiOFMulMwWyVZEYKMJgn3jYLDwSRCKrYrbQg4Oqsr9JNztLfermWhGPsPOZ8bMvytxgoO+TBpKMv+ifx8R9yfmJ+yVXFI5CecqDwWYjmhCA69oaA8lsW4i2cYTBDv5n/81jA/8EYgtiVtFDgVMNTOjaGYyKpyauZlmwPoQJ6/GM2PsrGvpqbmT3Ua9YRNtKODg2sO4TNWkRWQmn/Hx0hu9TMin9i7LVsBZrnuS5ZUIHSDQ66CORqoITaIRGFsvZFvJgcBkQt6dsJnpiIfnxskMWN+kmfHcpK2f4OOtJvI3VtT7QlYWoryOInKAeNU/Gd4giFxIs74kvJGqwpKVVxrnWZpMheoi6QoIbA1BsI9BEkRhcyOFivZsiBbuI3K5onmQ1407mx6TkNdcGPpsfHGbzc1LNpI0o5buAzEHmZ2J2U+sXVX/8VUDvhD4ZNykIzLGQ/KQcCptJsqzTa3zckeO4dTJG7u5JqMmKxOfRKiEwFYRBHtGYWPhkyAUGxUpqLaZHHIwJ0LIHi9ywmaPae4rnNMck3n+ptf5JyWm1x/Oj95fnB8ZMP8NDuP0Doboo+xR1AaaYU6QNpf8epmwTumqVjgpd/FDASA/toOazEe+D1K1nki/GgK91bKvJzdvSAuSWA/4M2rdFXJg1zIhRCesTJ6755mbcfyYpmq72gOfIpoRLTMnTVqlw+s9ofYmq4ac/FDOR95rWN9aqpqJpgvIynWcbfyuxXQq7mcaRts4s6qItxDYSoJgLzjALEiCUKwUV828S+SQY2GmPjtWs5nmD7e7U2iLtO6c1tKf2rDH9z7b+0VaT96/ZWuzEWftSKa5uQ3bsxZ1nCR7V2JWioXHcqE/x9ntOIvyIYBwTi8Esr2TW0sQhCRIgiisL+4iORDN3MlrmKWzjzxWjF06p6nRLIqYyfunNhSmLrTx4N5nWUmjSQSThLKIPaEZa17kefGgD1M+3yn9kzu7kWHmm9nhnAYya162miCIXZAEUeg+UnDC/k2TxlY6pBch9hWdvGr+rZ+Js7aYw1yzsLn2+WLa9rfdaTz+XP5i38my1iwyqy3KWyeft1vM3z2xGW9mh3N6EeI8137ceoIgRPNIgkKM5yM2j8CukkOOlEovM59YZm4RD7l9njN2jjs/uAE/1DLQDD46Kn/5Ux5IzZCb1fg0VP/knS6Lovq9VzXHTOTnFv5McC5qIeGcXghaZyd7ndXUckW8WW3KJ+HfoW+53jtcfK45CHEn/ruERfY0EAXujQ/LdeacrgNm9iVZzMbn/xfFgnJp8zeY1ZgkeyeEmwsjNKzcT3FQZ0LWT+9YOM4338weuZYGAlrJZLaw8XFyKQI7QxDsqQup7CbhfsRuEHDcu6mq41rUhV/utKUAlfLO6Y7bOqnOTGppEBPfir1N5h9ZGtwcl5mJQBbZuxNLs00lUNfWcvJ1nMM5PYXRenZ3iiDWA2HUuqsI2NjHkJ7VLzhN1/7mdDuYW2ZO67nALluHZp8ogdO61gf8xl/BBfmSHIB71o7JN6DKtiXSNYtAr9ni5pRmvfGfqIxEGvsUsUQIBFpEgJqRpqeDYEaT49xpCgG20WaPXk8qf1W2YPO/9WkNWRKK5ribZqIlGbPT1EKKOEvmz9h0nLPm7/Sq10XvoPI2+hniJtocZQQCZRAw1TSbNvsB6bfic9M177d81p76i85WWzSZ41Z/J2JrcK6Gz3am7oQgthOaaHUgIMUXtJJTXnWjtQdeMxBEJR9EenrInCAwa69FEMiXcMnMRGxHlZg5xd1Z7fm2AGdv547/BEHs+AWO7q2GwNfpn9rS/z2LXGXmlNUKbSu39dy0pCqVnmLKzEIkwLmf1pAlgeY4JPFPZ0x8NThScslwdi0EWZa8oY4UsXSCQK+TWqKSQGADEeAb02r6rX3uLXz6Bk7UHzxdeox6YU9YFtP+8YWM/W4yFXiecerweJd5eZ5xfLDExqSdMlMLyNvGfksx9GTIunRPV/IPMj/LEZNc0AtD3h/Wz/158XpPnjK/AedEGDI3sCymZdlzE8WJlRHorVxCFBAIbCkCXz0aXvIFs2z2O7cXZdOxAJbFMhcJOJ5nZPpZkXl5nnHW+XnHlrUzbxvTFcvgPuviuni86jbzsxzWU8yb92f6eDENt8umY1qWxbqYh/sR20EgCKIdXO9yqdH3QCAQ2BEEgiB25EJGNwKBQCAQaBqBIIimEa1Z3sX54Hn2nZ+aJUS2QCAQCARWRGAqexDEFCDr2AU5wKloT8zs5yCJdVyBqDMQCARmIRAEMQuVjo7x+XP+laSI8S8jvVaSBAgjPVPuR+InEAgEAoH1IBAEsR7cheTwl882FNOj202wJyAJaBW3z8SRu4xA9D0Q6BaBIIhu8fba+FlkkoNln1b2g6IvNfvuT9q3x0ESCYn4DQQCgfUgEATRMe4kB/7ZzhQ5vOifDE//2NOBTpHEh/OjRv5nuONuRnWBQCCwAwgEQTR3EZeWlJMDEvKzBliJqOo/QA7+Ji9f+vnq5N0DHM0/7SAkEmobNElJhEAgEAgEOkQgCKIjsPl0EjSH31DdDXKY9W0fEMapwOQkWchJggSTHYpVIBAIBAKtIxAE0TrEIiQHPp1UqOpKTb+dRQ55GpKEmf6Y75MkQDDDIIkckVgHAg0iEEXNRCAIYiYszR2Eo/n5NDnwY2T8jsyyWv7z78MfFCaoQrr9IIkCGrEZCAQCrSIQBNEivCCHMxF7kldBBzTJgR8ay48tW1PLmEUS1EqW5Y3zgUAgEAisgkAQxCrozcn72+vB/Yvzb96AHMYvwJEc+JRSFXLIi3eSgEkK+/xDFaxkn1rJ3SEJdjliIBAIdI1AEETDiJMc+NSRiD6UPKi9IznwKaX8UNU1TVLUPpAvJwkhSVy8GvgTUDgeS4MI0Nfz4Z+DwX//c/ADiZjbH14PDhusorGi2DZoq8fFtnIcNlbBDhXEa+h44b5xvHCNub9DXWy0K0EQDcLJwUdyoEN5Uqy+7H/362AVcsjLovYxTRJgiZ8gHGDKylPFui4CvH7A8vnF+dEn+Hp+M7VfVO2Zmf3Mbftsv/O9FBLGojqQ31aNi8rnOQo1tPWM9bBt0FZfF9t677P9q0xbWVYeKTBZXoqDlcZUwvJojENex/Q69WOSLtU9d/+SfSZ5T5ezbJ8TKeLBa+h4mf3keOEacx/1fmLZbPeysvLzyOP9y/cXrVlunn7Z+JlXThErljcvXZPHmyCIJtuztWVx0GLwvb9FDifD0yY7RZK43tNDnXqhjoO7yXruWlm8aXn9IGjpM+KjyB+x/dZMfxTRFwItUBB4fQ2EQWHT1U2KascLNQNc6+cUamifmzDTWNCXzbbVjlnXuOKKG/ZZfpDmwwH7TPImBmWK530JwXzJiRSvHfJc8VoSK0aU9xbHcK0F19weYwz8TqLEsUYX/pmScBwJajR7XhVbpsc1d9Jmu1N5KKzlJQiiAYA5CDFohygKgwy/WFSVL8A1Sg4o1hdqIzRZJcHgh/Bjjy/g9+BAwk4sFRBwcoDQR5Z9Cg+Fv6d/8u6wf/LrMZ8k658Mn1ILBDH/lTcn0l1R2ECYDGfh3T95p1Wj7umXLBdRRPV7mRFYFzVUiBiSGFLoS+bjy5V9TESWtPU9xykylVlcYP5lJMdSI7CdaCPzXlXJ3l+CG7Tnr1EuBTqKNX6vbOFHLXldcV/y3SMQi3xUvyff3ee1JFaMvMao95DXnNceBYtCawQBuTDmflPxek9ImsRk/z/+lEqm4Sy99+PfX8jCfkuDIQhiRTALg3A/L4oDkY7lfL+NdU4SkxuGtehDCpB0g3I/06p+nQAAEABJREFU4jIEIAiOLZEDkqqbA+nvwc6thZhTqEBQDXCSN/rBvdHoDbZXXz4by8EYsrf974YzBcC9z6MzS9/vQt36qA9SmDeTnNFWPiL95tbYmNlyZVswtKySEMuLyogFfdFGhSy1Zwp0Gb9Eak/mkR6P47o6jgpt+3pPHyy6J3nNSRwo+4V4sMdNaxK8JpANjilJqKwGynRM780Sfcpy0nb7v0EQK2BMcsAg/LlQxNIX4AppV97kQLl5w+CehgAJkigHbRKWlgkxCGYI3DI5KahENGmHpke0DcsKAST13HDdUMTH671eKhc7xYVjTcYPPugpyCEJcVkc2NYbhPZZXGjK4jDEadeSKGixXW0xcyFoI8mwlUYD+k6MqOWI9oTbMh16PWPd+wpy+GNPS/sAUTbarv6pGwrlWv2fbkxh30kqN1eORmxj4ezsTcvTIR/aV+q6zy6p+tFe9SyRgwj4TT2eefKIXNlIB5yJ+F6HPxg0uEnSoGa1BmFz77NVMSkw252LmdqOma5cXc8RzPNAAeZvBDcsz5sK8JdaAeMIphhzkxHGzzFJf1ZBmIjQPIFT+tLrxlbZhSQBu0mW3x5zRroor5nwe2BvBAECGAITGyUXkiXHH5J/9Hqx0cZipkm46ghtvVkDyTRrg4xGejoP05u5JnvAl9czI6BRhtvk/KpbOuqlMjG5SNd/fol+HumQ4kp7PbYLm90tve6q2p2acNEwOM1vavZKMUvBzT1o/oZg6eWiD+qbtusD2F/j0xwL4MMM0W84M31eVYiwWL/RE0l84n7VmAS1YSwhJ67dvPGD8QYSEdqfRZMdGxmqLZnZyoUeHMhLhb6NJNM0rJKzekyWqll+6TyYjPy6CkxR8zCVJUFVf0hJ9GG6Tmmvid80iVTXUqDzz8Up03D9PMfoV4+Gl03UX6WMIIgKaPGC0RGMi+pPjzCrghz+gApbdyCyjKYihYDCEVcoj3bnIWd1hWOxCQQy04EL3d4XkoS0VAu80Wm3BjkvFbgzSy7hd8jykSCwaW9XExLqWgHGb1YeipyzZOOZhLKf+RTmpJwc5v2Bsv3euO5JLUxlxeDCPM24oeBJ7Ta4KUgEvh70qKazXhaE6z3hmGH5B/N8HZmGyzH6kb4vWUMIgigJOgc/bfsytgOLYASu/AKcNBw4sDOS4OBj6fum9gvVbu5EzBBQcSGpIPjVhK7UCtAKlvodJgUbneIi2hvKCgFaQS4wD1yQLikLs1ZPb+MZ+eIM90YynrnX0cikQlCV9NKiyQ3tDdpRbnK6IoHLSsES3jZK+Fcsa1FyxyfTUqDJPp2+HtzH8WcsQ00zXLnXbex1W9121saLRXIw2PYnPYAtuKEX4CZlNrNFkjD4Q1BaThICG/bPQRJAJFs0s12b6PvsUGcrkAPIydxEies01+9QaBBnkaIjWamtmVYgHv6UJGBlfhhrVpiR8x6YnzI7kzmn1cSJRVoKqS0GDEVUe5lWJB7M/SfYVFsJK5SAe6aXylC5Ly0E1/gxQUHR+/Z55KYkbPsydkzDTLY60XmRtX56tXLdoUw0RRgcvjZNDiWfeFkXVBQGED6c+dwgiXnq7LraubZ6s5seAqVTu24m3JIAXeB3yHEpmgcbEhQ0G4n0ZClBuGaVfCyCmTlNIjIvZO0kkX1sqJ0zq3L8xqY5+cjJUDHhRLPorXxdeyKZBqFH0lYwzXCFr+OfgwGr8QkESBnbV5kpCpvrWYDBeirehlpJDnT0oq180gUrEYWNHzbnU9mCkJOEplmKt1hbegnIC9+mn3W1dSzcbO77Dq02Tc0F52gkSwlCEFR6iczEFo753Dlt+dNFUj2QZOZFTmwgOM8wWfvd0mSNTw26FnGjJh15v8zE+ykbHhKZanJYqz2nKVvEkjYBE5SbotbYh94a697oqmmOmUUO0zOWje4EGkeSoBO9SBIYgI95s+F0LB0iAMxzvwNmhr2FArfDZi2s6o+e0IRDLXQf7b8tkEXEZ/Vi7pwem6VwvOpCX9m8yIkNx20qU/kG+QOO7bS/3b+ZluDvndCUjd4cCDQ3mqCwvdalt9baN7RykgNt9mherjngBtFH20YOaL8vnIXMIgl+TyjNWDxZ/LSIQBKu5n4HNS3jd/DWjApO2CSI/XD9H1N34uLGT+aTJSVx7IgoSUJkjrN69KdkZLfaU1Zm+uOiqNDedU+/pAbv5i+ZEaznfgPNfEwzUpQ+BK0o9z3g/i+drXJCxxjaAjNa0o5g0utlpiceXV/sra/qRTWv7xxV2Ywc8kZQlR1gUGY3SX54u9YchCQJgdNLssDByBnLnSSJTPBq/jRMhkkbqyTYzU01FIDJrFCuphuz5BKO5RKl5pOeEklTEh07nWEnn/HJc1VzglDrJdNIylb5l49yLoqcoM0lhqw2y6+rqJuassO1VijLyRSzeSedWoWUzJRpC8k/hHv0xnUvWUYbyXptFLqtZWKWd4bB/qzQ/o909G7KxSq0q9YmSQJEh5tZk80TpRhmLCSJJMRw4I4sls00Rcwdg612O/c7wGxAAVijLhccI5GV2kr7vmShCkllab0NNvVOAO4Zmp0OUGyrzmmUX2pRFRfmhnG96sRHcy1kPFak3ZD5h0BMG+M/CYLAJedAwkDHDM/cjopDonDsXu/pztg52ac8ZiSRfZQMIhI3E5x/d+vTHCa5RljqnQCpGTCuJn6HXo/CtEZJ6uYgzWbqNQrwLDCZeP2Kse0HqvyoJu3AbNr04WVKfl5EqhTbdNrrPXGsBKHsC35IOmfRnJDHZc5JuLOHezvbs5IdIzlwBg0xeYMcaI7hjLtkMVuXDCTxVGHTLTTc37rmk1uFYzu7mWmFaVb8WaaFnpQJEP7HF6++GWKdhOdUJhyH8LTKfoepYrg7IbPsUUgerB4N7cFIV8VkqFpuTc5qZjrIxwjvHZTm98263pxmg4rx60fDT2iTfxIcpuIfiueqbNMPifQ0x10VSQfH7tRypwmCA5zkYJhBT666vuT39dNAmxzdxS3adGeRRBJsu9jjm32y8SOZ9qSeic2eC59XV7llEkjlmQti1PNjZqaROgFkToJwMoM9fCYZLSuXvjWkoSnoqo4w/8q/A2QueEEWTqhdvjmNtpdedOILOcgEfem8TEi5kJMLrl2t73SxnF2Id5YgOAu699kubYoccDPCRt/9pU0CpYN6p6ogSYjoI8m+O4M1Zk32us6NhbxbtWR/vJKeUIGfgIKhbAcuXg0oJOcLXJSHsvYh0N/V9Dsge3FR1iccryBwJ57i2UXbHOswT6X8NT9MmMrvZfWaayKSmZsmTuyUat2/Tsbw97AdEPTP2X9ul4330ifR/dpmY6Rs1p1L19u5HpXoEAfM9DsOsKF+vy5ywA3/HD6A3/khwCpCqkRXSyVBv9/YHfw0R9IS1ScEhokC//ynDP5OnmY/ObiqP6RyfM9/cD3Hf+xzXdvv4EWNf3iNRDR7uMBKv8dSHOsK38MqZJXaICTU/YJGshHOaZkKmj6N7W3lvU4cppLM3OW1g4nKzWYiWvlT4bJj4c4RBG9uDhhcx31EXxS2+OwxM9/v6oeDlu8iYEC6nVpEH0KreV982kQ6CrTJzyKJdMN01Ig1VEOhx+vvVcNcBPwvOUZmEQWvF/HArDT7kyh9OT1umBfX0wWMVnjfwetf8oO2gsx0TBIcO2hPms1P5aVGinNnGOv8y83xH+dMJauxq65FQCN55plVa5m8PG+LP1/BJFYYz/Sv/UZSIy6zqgVWx8RTshf+lDLhZEjT3qzk6zrWeb13iiB482Y3d04OmGHoWl6Ao4kCN++QM1dc9StR/R5r2pkP+DYpBzP2O11IEtd7eqiYaU4qLj9bneTZrq0pM9s+xwiI4l8UGO6Edkf00SWuF4StufAX0RdJYMuNYIWXyXgdL86PrE6cN0lgnWb6IytNY8deo/xP43ZmbaVGmgs7rN829dCF7skNQqjjz5COAsczSSIfzyQ14nLjuia8AKW9xs/f0LQrgck1jQkpFYB/tWuMOksVvAGJ7gxBUODajH+Aww3X6SyBM9OL82/ewH5LE8U+bdQUypyJYv1AMjMCBzMH8rwZj7QUaC6hMMlvqlSNuUmDbU/7u/fLcQD8D0nUed9dYECrEEYRt0kLro/uKd/mdZu+tBT++EL8eX6ZEWgmYhsEbZHkO9oXtjGPxbaafsu/peV1RdqVF87Mc3wE9TdVrrQUSBJ86EShEfBeYzU3risxw0HvEyZpHAMcCzjU2mKj3rC1whsuuNdweRtZHNTHjXgBjrNCzEwvBaYkYcCA5B/O5DcZ1xicNCO405gDGTOe99R8mLyryHaQJPIbKtVrj/nE1y6TBPtNoqZA6Z+8A0frtzATpeik8O5+/2R4SiGZMLn5yz1ezz7yrhrZFpY3L7INfbSlf/LuPsli3E4QAmbNX/N4H+fdYTuvkKnjJJ4+2s711Kkbuzk+fZR/48SMnT7KY5xxyg+xfTzP6Ada+qFGkF+bIlbcBin81fv03bDSE0tsc504D9+8ffPOtwTNwmJ3miBM5T7JASp2ZhYQ4UwBA6LzF+DQjuc0OYiI24P9JsaAxP6tpQ/bJ276B5mAdpMHtY4uhTMFFAesYJYoWSBh7TpJZF31FYXXOMKm7Qc38IdkMW7n34dDzpo3sJkb06QiVtzmWN+Yxm1YQ3aaIEAMcKjZDXLgzLjLAUHHJk1FaEvuiH7BNiy7iXnTU0BbZm8WaB3QPjp3YIOsqNFkjlH0gk/7fLa55g+JEAgEAjuDwI4ThOyPrxRmwlQjuySHW45oOL8gcJ9WaQPVTWob6MfaHNho8+mEqNASEdrjfSN+AoFAYHcR2HWCyK6cvqSQy3ZaX9EURJPQLUc0TEd1Kqe2QbOYgOQEAcbxZ9RKunRgk6iUjj7UH0sgEAjcDQR2nyDoCC7hTGvqci9zRNeth1pHIjldmwObjj4Nkqh7CSNffQQi55oQ2GmCoDDjUyldYVvFEV23TSCJN+t0YJMkMpPXVd0+RL5AIBDYDgR2lSCuSA4UZl1chrqO6LptW7cDmyYvkMQA7Q+SAAixBAK7isDuEYTJJwqvrsihCUd03cFFvwD6+jXyd+7ALpDER9QfSyAQCOwgAjtHENd7vVMKr7avVdOO6LrtZV/X5cCe1F239ZEvEAgENhmBnSMIOnPbBrwtR3TddrPP8E3wfYXOHdisu267I18gEAisG4HF9e8cQSzu7upnu3BE120lSGKtDuy67Y58gUAgsJkIBEGUvC5dO6JLNutWsnU7sG81KA4EAoHA1iIQBFHi0q3TEV2ieTOTrNOBPbNBcbAOApEnEFgrAkEQC+DfFEf0giYuPDVxIqt/S2kdb2AvbGCcDAQCgY1GIAhizuXZNEf0nGYuPUwnMnwTa3FgL21cJAgEAoGNRiAIYsblKeuInpF1Yw+BJMKBPXV1+C0rTgTKxKmspXapgZYpe2aa14PDZZVgnB7zj6BLKHkAABAASURBVLD43S//R7nzb96k/cHxsrw8X2wf96vESd2DM6/71TdD1s3/LiGuZcsqtoF+vrL5iumYjxiyrOLx2F4dgSCIAoY+0M6P3otYpU9zF4rY6M1wYN+8PKM/5ZT/0VEmXpwfmX8g8dUA2tjNcubt/eVPeVCm7Flp2LZ55VI4oz2XIvaaZkMRfSj+z2j6MO0b/4b0kulkQSi2b0Gy8SkKYJIA6v40qdsee92on3XzXxvts/1O0uD9NM48Z6PYBv6lKwX9nKRzD+veyP9rhWXNTRQnaiEQBJHBtm5HNG++rCmtr8KBfQvij2b643QU0Rf80yb+yZQgmMjfKAAhIC8rCrKZ5U/XV9zHjTnzbykh9J9TOKM5/OS6lyuij9T0W64RX4iIv1nPdEh/hv2VFwp7/lmUqj1DYelPr4CZZHWzfvN9eysMJIye/UaNgrtlI8jyrJt7oWyL7nY6jMO7DQAH4wVUczH7CUjsUyBc7+khTTLYb31h/ZyV3fts/+Ks60MJ00ITjQoHdgFFtUuS5nTEGHjKP23i/4jonn5pLgCF3586gCD7pbTwm1P+dH3Fff7TWaGFvplIycbabf/k3SHz9E+Gb5iea8SnfRyX7NPwIvYYJFHK5CRzAskBs/shCRJJPpIMiEmxbtaf9n89JlZjUjX7uQxOWXrH9t5n+UEibAQCd5ogeMNBMENV14d+Nfhp8O9+HXz9aAgV2o+0+sMbh/VrmpXhXtYjV8/PB89JHK1WjsLZz75/Cl07fwMb1W/VQvMcBSCE34NMmGFOYT+vKnyrgGA6eurp1d7huqVtP3D7B+dhCstm82LQOm6nKXuk1zNqIa41YPL0gGSwKC+xIoFgQLs2Aa1r6Xg2NdxzijazZHtCUuJWxPUicGcJAje22y0Bvw98fvSuq0+Dk5hoz8aN8zPrR4RJgEJ6fEM/IXHQ7IVzrS8QJpvmwG69z3UroPD7Y08HKvK/Uhl21gWZp7p0wLVKjwJblgXd6+UkclBX4FK7NZjWUNeV7OkxJxXYLrVc7/Uo8KkV7P/Hn5K3ReYFjkNq8DyfkRI3I64Rgd4a615L1bxRKJwxuxmr6n/ghqfJpe0GfYD5iOYszJZ+Gd901FpgEuDN0T+Beu62ZAFhyD6mqD9dnB9VtXfX6gYFH80plswoKEMfgqTek8ywE0sBAReSEJY4VFr4IW0Ty74XMhJovbI08JoKTU3QOHoq96VGgHb7lNkwLp6n8rhXLjpOqm4uQjkki6UZtddjuiveHySnpRkiQasI9FotfcMK54y8YEvFza2PIJgr/Ud0nS5xhsnBTvOR8IkTYdAXUNcPp7UWqu99EIaAOJAKbRS3d3fln6AZhdoU6iZJed1sO/ZjKSBAYUmhyUMQfi5Eud1y5HgQ6cmhlAx9mBBJ/BxXJbOMk9EEih2S0tW/v5BaZqrrnpy5VgA/jJQIxBVjPyeVZ5zQlcgWSVpCoBZBtNSW1oqlgL5YkyOaNxlm4pcQIs+8g5jNwY79JW7chcRE4iCBCJ+kEQRL/gkKa/YHR1pbqE2h7gfC2acI7ld7Rq2LGpBEGCPQ+0LOJIX9bjQtG7I6mCZ/aHsMpHrETVoi+sa1AakemI8ExVg2N8e+Zia8MDWVRa2ddDtPELxxKaAln7ljZs7ByoErLQbWS6GKm3nsZ1CYj1i3z5JK1M02kkhIKD4LQx4SDftD4sFua0tWN9R9+kbEVX5oQO/brre1DrVQMK9jLshGIpkwldaCWi+fxR/wkVOOsdYq84LN+6QqTkzSYRiNFGNPxOD/4KSow6qjqgICvcL2zm2uwxHNWTa1lVl+hjpqPi8KBRGJhQSDfZp+9kk8JKC2hQQIKhzYAH3eYqLveU51BI2LW+1Fjh9V/QdrMAhOjjGOAZpOy5timLt05LsWIiV9HqVLLZGQWixMeD8yqao95X3F7YjdIrCTBMGbhTeOdPhGNFV+znQwy/5dcm0F5iGYam75GaRmoIDoF/wTuZAgIbV5A+UEld+wgv5BiwkHtmCEmSSH8SInMMyDF+dHViXKnPDVd8Mz1yglPfHGMSBmP8G39hvK/4RJ0RniSu89sGqOZ649fiGpj9JtoD8MNaYJ0WiUm/NwKJauENg5guBsCjdL/lIPnHrtO6JpdoHAvMRM55lfuJJ+Bk9b44c2WhKPgIDEgz4kMZGgbtzYfq65H96w4cBuDs+6JTlh84m3Pf0SDqLvBeMtKwsOZXssYv6pDY7L7HjlVfGzFaxvUQF8gALktJgAX30zXFTGvHPQmt3UJKZHvLfnpYvj7SCwMwRBwXjRsSOa5h1qKjT34PLg5hR/y5TmoGU3FdLPWkofy3wET302mQkIEhSJahXBsKwBVP1BTjCnaHxCfBlY+XlcH2h+WiXmWRetOcY4WeB4Y9ki+giR1wUTIznguOT45L0hbQbrvXeSQj+n15o5m+tWT61Z8omQ2Q9tasoS4RYCvVtHtvAABTUFo8D0IQwtO6I5SElGtAG7ii9yJawT5p80oNmIbmISEr8OMNP6FjUmdZyfNzg/as0ElJETZnYUSHKnHdiam5ZMPsmaQ/9k+AbxFAR+KJlQ5fikQ1sqhuI45v21KDvq9E+SOFF99+uguMbMf+VHgK/3hI+9prH9eZQ76iVC+whsPUHA3trZG9GcidGMQ3OO5GQk+vJ6TxvzM0jNwBu6D4IiUaGIJLTVfiGRkdBwrPGlD4EEDeaBcOYo4o5z1kecGq9sUwvMnNPGWfSGtDEj8KdacGivolVaToJr6h/7I6IZ0ehD3PMr+1ikjbCDZW4tQXTtiOYNRi2FZhwfBxCKtMdDSJ6mAexH1/5DkwMJS0Bc4qFd/0SuwdgdfAPbiRC2ccKMG6mWjZ1524p0aGfkLWajykJVJ+Yhf9y1TjubIhfcZ2/gW/FvO2F95tjXaVDkqYQAxnWl9BuRmM6qrhzRVK9pxzWYbdB59zMIbL1Uo2mPlw0MJCzcUKcksFxAkNhIcCS6Npp8Fx3YfxlJLnSvqMHJBgYb9RJx1dACTDTlFcv7WbmHZvJAGgrXhW873fssYWqS9kOv/Sqaq4GzBpowMB36CaXuU/hxtgxhiNkFjjS4fJjx3STDLLkPM04fppUGq2qtKBIYiUxAaCKSbLggOhIeiQ/HGl1YH64HBILSUSokJa8LWDZaUa3Cms+ESQNt4yhYW38E82L8mOygkrDWntT2jdhI8n4d1B0vPa1PLjIVOPHBoMowt8d12zRVbOwuQGBrCIKDgTNgyW3/dArDIeaDRpoLJKF5fgbOkpurqbuSSGh9EBsJDrUW/BODMxIhjjW28Hr0T4Y778CGHZwzWL5IdnWdnKiNYTizIJg0s+OVCAJCvtZH+lgXCZ+TMG6bWk4W3C0Vec+ayN9KJS6ZiCbUYpt4v5bMGslqILAVBMGbEQP0F/Sv1U9z0/xCEuLMF3UJB6KN9GsKPAo+2fJAgruGQ13G/gl7DIf7exJi0zcaMNvZN7Bp4oQd3L8GrKpPuxgbOv7Etz2m/01KBoxlkDUS13Si66iXzdjlAPdhNZJQI4mi8mYXzb74ilIPynxGHOliqYlAr2a+prPNLI83Ak0U+c0ooi/+aOHT3JzpsB6D+UVE9hFhjtFHNM/4LAoHdmWhMIPwLvon9iFEnoEYG//O0q45sKltXUzetcGQ0JfuCMZW2wvr0cxpTP8b741ldWYC3bUc3ZNawjr5VvSFeDD+O93ZsskEzxMnS9rDlWdt8IfjCtqw94djV0wPGyw+iiogsLEEwVkab4TJIIPAPhk2Olv78Hpw6ANZ7Ze8Hgy8H/swx/S3xM9QuJaVNkl8JECZ+Cf8xSq+FUvClAYDNRdqYigSxCsH1AaptWB/IxY1vc8+z4oQssdsq08gPtvkMyqq32OMpNn5kl4sKn9Wnfmx6WJH6QN2FLj7uDd+Q9ueTxMFhTM1YV5HTKweswxVfUqhyu06Ef18KgWtE5OJS9bNdkohcJ/HeV5gClYQGq77QFoIHFMsPyuaJJhtxqpJBDaOIHgzUWiLWWuOaN5EvOlhXpnc8LgBaH7hwGsS4E0vCzf/mz4I0eCAR1uvMBs7ogDHjd6of4KEBHxvObBVZe2zP04O2OdZEUL2NWepTCMe9KXu6ZduC/f95T/MO6vsZcemSyaGqPsBTZ/pnD1JRDH5zhOE87+MmnB6/BZkoo+ofaT09X/7Bb8SSoGWbU/Y/gs6z7PIfeBF09s+29iGto+6x0tGmOP92GgegY0jCN5MgtmHMKh+z1kuzSLcbSJydoWb6JI3vZcH5x9mOTvjZ/A+1fghMUKAQ1irP4GEG71x/wSvY1HQpGttPsut0eSVs/R6cklBtjCKvTWQp6r+A/j8le0vOxsf8e1qjK+F5c87j3plRmDdvCcwkfpWYHL1smUS0qza3mbtPUR75z7hd6N9kyLmbrGs/sm7+yxbMKFKdUkerlJb9IXfT8UHSNjHOT6QcRvmnM8Ln7UmYfLaeL2ow8ualTCO1UZg4wiCPeHAS4Ns6HZGHls1Uv11MwFnVzvuZ6iLVS7Aib3fdMBJ1Rr3T/Rhvrs5E67b4tXycWZNYbswnvx6TPJkWuJTpUYKsIVlQ4jOPY96F9VF3wBwTJ+4OHk3/s7TVyfvHvCva8u0t9i+RXVNn2PZqPs01TWu+773BWZgllvMkx8vHsu3mXbR+TzdvDWvjecHlixrXro4Xg+BDSQIbdQRfZf9DGlIVP/ljcabLs0UJfkNQKy0a5Noq5d4O0c+E/YZ4O3TcSQQCAQ2AIGNIYikHuojzEwacUSHn2H10cWZIswqDzIh3op/gjNAaixu7lm9yVFCIBAINIjAxhCEz1phemiib+FnaALFVAbNKhTibhKC3TkdtbF/Iu2v9strTzJarZTIHQjsHgLr7tHGEEQTQND8EX6GJpC8XYabhE6Gp+4chUMQKfz9iYvzIz7yWOntXuSNJRAIBLYAgZ0giORnGJzZHXyfoesx5s5ROASL/gnhP5i9+mY4/Ux+122L+gKBQKBZBLaaIAp+hvcQUtnjkur/z0CzSLNQRWlFBGgSmvZPpGfyB2e8LsW0O7sdHQsEdhyBrSWIzM/wno9h4hr5izl0dsLJfUq7OY7F0jICxJlEPO2f4HsmfBGx5eqj+EAgEGgZga0jCPoZ+Lilmf0MbPiK/UcR3cnvJsmWhPBPbMmFimYGAhUR2BqCoNmCn3+gn4Gfg2A/zXTBd5OYImKXCEz5J1g1CNxek9DDP0E4IgYC24VA5wShOnpQFyIzuRSRK0RfVO2UpiaShx+In7UjwOsB7S7/RDTbc2Wj3vDf/0N47aRqwKQgnpCqClqkDwQaQqBzghDRh3wU9cPrwaFUCLm9G47RQ4PmgKwwLYl/gTS3eQdRAJU1LMSdX9/lI68gh9z0d8XrxOtFPwWvX5WmeZn8tLbY6yr5Iu1uIBC92AwEOiGIf38hz/l9JckCP9Jmn+19ndkhBQ0FTv/k3WEGWuIyAAAKOElEQVThUUt/Jh9E8S+UeRbmjAzollckeeD9HLhfSvr6LkxKshIxsMkkGy8TkwnuZ/FKVL/PtmMVCAQCHSDQCUFQqPPDXiKa/fGIMOwLZocQMGecLfJA1chHLcdEkV7eQhH2mI9bupbyalDqe/3IFEsFBHDNji8wuwfJ/45rmD7vLPJRVf+B63GfBM5rXqFIT0pip78iIxuMDz8sgmvLJ6WqfGJbIgQCgcDKCHRCEHkr+yfDpyL6SAp+BAiYx5gtvqdwwPFaixPFd78O+JirZJ+DcC3F7OeL86NPEGihVchq4QNMgsDxOfC8FBC7jGf39pZvV/eh0fE6SI3ACQLLJrHnDyBkxVwJxgs/HMgnpSRCIBAIdIpApwTBnvVPhm84G+SskPtZPKBwWPXZeX7TB+Wfwu79V0nmCPopMBNNWgWFG80XFHZZvbFagAAFN53O1MYK2gLNSB8NfiBcxy/909J/Hw4XFLPwFMvHBAEObKMmUkibXnjE9Zz7fwaFxLEZCAQCLSDQOUGwD5wNclZoEDLcz6OqPaMwWkWbYFk0b9Ac0ceslrNbSVoFZqNyQPMFhR3rCbKQWyEnhQuYkCC4/d/JqI2lhPZWOKMHrjQj8TpKzTD1PgtIPBVEXxWvWf9keMrrmI7GbyAQCDSEQKVi1kIQeQspZGgWolDIj1EYNaFN5OX5s/kQNtAqMqc2hRwMWyJ/K5IFtZdViSmvc9vW1KhIlrT/56QgmQnJrw20MeD3V2oLENwrzei9rvP03SwxPZJJuKLWR18Vr9nkcGwFAoHAuhBYK0Gw0zQL8b9rRbTowIassGcX50eXnGlKA4GzUdrIKeQo7BQOVdAEZsT4BVlQeyExoU73WdD0QWHWQNUbVwS1BNj84WgenKG/l9SoSJa5wM5JgSYkCmxqY8RvlY6wTpKw1yWWfTcrLzEzJ303bOwfBPOSYx0IBAL1EVg7QbDpFD6YmT5V02+xT78BVr4c8M1pCLMzChg/0sAP67tNFsr/Yr5C8TB32GODg5vCjAKU9ZMwtlXD+AAHM9uPfjynaY1aAmjxNSIFNX0K6La9VZBmkRRWMSGhQF943UgMqPOSJOwH8x+1d9Qgce1PeU3yw3d5HX0PBDYJgY0giBwQmhb6sG/blG+CgowChmaQPG1TawqmRBbDU9R9nwLL64fwyuqAADUnjEzDMJpiXNi+Gpw2peFkda28IomhbccUyqmdR59IdAbCA45PaMJjJa4liL4gKaPfSs2KODRBCiyfkdeL1y0jBhAvj3rEJEDj+1kORfwEApuLwEYRRA5T7puYetJpn2YQzujbFMo0ebF+OtEpOClAC4RBDQNyVmE7tycGoWtqv6BNhniZBPLguQvn88Ex28nZe96vJtYsz8v952DAehhZLzUDtMFIYmjgaxfKxnZKEswgPO8HnMw0sbnp6GT4lKTcRLuKZSRt5Sh/eS7VnxJcKbQU4HrYPxmu5MtIxcVvIBAItInARhIEO0xBTSFNgYL9JJixgSWZnV59M6SgxH6rCwXomDBO3t2nCUYgZF3YQuiKCGbD+BU5EBfI9sSFs9hrkgdn7xTcWfxEYV45wheT5TeW5+WCmFgPI+vNNQO05COJ1aCFETtqRP2Td0osvR8QzNSakK7RJTcloZ2fDMSJwqF54TctV2wPiOmQWko6FL+BQCCw6QhsLEHkwFGgULBQwOTHfA1hTEF5cf7NG86q/VgHPzTB9CFkXdh+9+ugD5MYolIQK3wobCcjhbTHGy8Fyr6g3ZUjyafYNxITI0xEXhcIi3WzHYiHORkQOxJtMWvT2zkxzDEljYmBeLVBTE33J8oLBAKBCQIbTxBsKgULBUyavZs/ecTjKepDzqphdz/rkihS3ZNfCuJc22BbKaQ9QuuA0IaN/52y/RTkVSPJJy/D1yQmRpiIvC4QFuuetKb9LWJNzEEM/3ItRmS/UGsQQwGM2NwIBKIRNRDYCoLI+5Vm778eU8Bms/P8FNb2OBEFNArY53Fg4xa2n4K8aiT5bEpnQArHNJERa/g6+BRUsWlBDEU0YjsQ2HIEtoogcqwpYDk7n00U0Chgn6cQo7M0zxPr+ghQW3BnOHwhIIXXQjPZzeL8Q300BVKjocZ383TsBQKBwDYisJUEkQO9kCggxAzO0gsINT5uSVt5ni/W5RBwbQE+HmoLmRmp6HiWpMXpI5i93Pm8CjFIhEAgENg4BLaaIHI0FxKFyAEfj6WtHALvDPE4zxfr2whk71EAp6NPri1kn9wopLwS0ZfuF0l+kHhcVSIEAruJwE4QRH5pxkSxp18KhJjcfIIIuwabub12reJ88JzCEAfv/EIcQJz+Ke/sPQrgJPtFYPhinar+g2ak/snwdJP8IsV2xnYgEAg0h0A5gmiuvk5KojOYQozCTFT5L2QfpyqGqcSeUBjeRbKguQ2EcIzomgJxgLbAz20DlxtIUVt4QW2BL9bxsdkwI93AJ3YCgZ1GYCcJIr9iFGb80Fz/5N2hO7RnahUCoXiTLCA4jylE83J2Ye1awqvBUzrvaW4DIeTfYrqhKaS+6ksR9y3c7/NR2v8avpcIgUAgcOcQ2GmCKF5NNz/BNEKtQmEqgYCcep/CUztZ4NxrClEKUz69wze2t40w2Ga2/QJO5ovzo0+uJfB/o+G8957e/KGm8JK4AJ+/ghROEcO3cBOjbd2LdgcCtRG4MwSRI0StgqYSfpyOwpBCEYQwiyxwWI9U7Rnf2CZhpO8dDc74VBQFcF7mOtckLraFbYLmc5baeGRsM9suyck8Q0sQmN30Bc7zKSRqCqfEhfhIhEAgEAgEgMCdIwj0ebxQGFIo5mQhMKsgwrxC4Sm3QvrekT0WzMQpgDEz7+QjfTQPkQT4XkfSCkhS3wxR/ycSF9vCNoHRHqc23mo6D0BLsLcCnwzf6O7D7NaH+QgxNAWiEzEQCARuIXCnCaKIBsmCwhIR5hX4LPb0S3VTlM4ljCz/gbjZxhZ9pC996fUVhPpUpBlrZjw/Ivl4pHmIJGBmPyetwEBSeoT6Z2kGOOwLNIRECHQy9/2TH78e0ydDJ76niJ9AIBAIBBYgEAQxBxwK0aRdDJ0w3ByVfYwPM/W3yAYBjN9ySyIREknZWK5cT8VHUNkm4xdc0Ua2FYRwSM2IhBCPpDpM8RMIBAIVEQiCKAkYNQw6uvkpCRe8bqJ5p5ydC0xTFM5Yv/C3i/1Lq9Jk+JiXy3oYFUTAukEEykdQ2Sa2jW1kW5usPMoKBAKBWQjs/rEgiBWvMWfn/ZPhGwpnrJ/yG1Ee+R8MWaQgp0CvEjMtwL8C2ycZ8a1lRNbDSCJg3Ss2P7IHAoFAIDAXgSCIudA0d4KCnAK9SgwtoDn8o6RAIBCoh0AQRD3cItfmIxAtDAQCgRURCIJYEcDIHggEAoHAriIQBLGrVzb6FQgEAoHAigisjSBWbHdkDwQCgUAgEGgZgSCIlgGO4gOBQCAQ2FYEgiC29cpFuwOBtSEQFd8VBP4/AAAA///uEL5cAAAABklEQVQDAHFZG2IMBnJGAAAAAElFTkSuQmCC" alt="Miriam Czompoly"></div>
+  <nav>
+    <button data-tab="prehlad" class="tu">Prehľad</button>
+    <button data-tab="chat">Konverzácie</button>
+    <button data-tab="prilezitosti">Príležitosti</button>
+    <button data-tab="lievik">Lievik</button>
+  </nav>
+</div></header>
+
+<main class="obal">
+
+  <section class="panel tu" id="p-prehlad">
+    <h2>Prehľad</h2>
+    <p class="podnadpis">Ako sa vám darí za posledných sedem dní.</p>
+    <div id="prehladObsah"><div class="kostra karta-panel"><i></i><i></i><i></i><i></i></div></div>
+  </section>
+
+  <section class="panel" id="p-chat">
+    <h2>Konverzácie</h2>
+    <p class="podnadpis">Všetko, čo vám ľudia napísali, na jednom mieste.</p>
+    <div class="chat">
+      <div class="zoznam" id="zoznam"><div class="kostra"><i></i><i></i><i></i><i></i></div></div>
+      <div class="rozhovor">
+        <div class="vrch">
+          <button class="spat" id="spat">← Späť</button>
+          <b id="ktoMeno">Vyberte rozhovor</b>
+          <span id="ktoKontakt"></span>
+        </div>
+        <div class="tok" id="tok"><div class="stav">Vyberte niekoho zo zoznamu vľavo.</div></div>
+        <div class="odpovedam" id="odpovedam">
+          Odpovedáte na: <b id="odpovedamNa"></b>
+          <button id="zrusOdpoved">Zrušiť</button>
+        </div>
+        <div class="pisanie">
+          <div class="kanal" id="kanaly"></div>
+          <input id="predmet" type="text" placeholder="Predmet e-mailu">
+          <div class="riadok">
+            <textarea id="text" placeholder="Napíšte odpoveď…" disabled></textarea>
+            <button class="posli" id="posli" disabled>Odoslať</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel" id="p-prilezitosti">
+    <h2>Príležitosti</h2>
+    <p class="podnadpis">Kliknite na zákazku a vyberte, kam ju presunúť.
+      Na počítači ju viete aj potiahnuť myšou.</p>
+    <div id="stlpce"><div class="kostra karta-panel"><i></i><i></i><i></i><i></i></div></div>
+  </section>
+
+  <section class="panel" id="p-lievik">
+    <h2>Lievik</h2>
+    <p class="podnadpis">Kde presne ľudia z reklamy odpadli. Počíta sa človek, nie klik:
+      kto scrolluje hore dole, nie je päť ľudí.</p>
+    <!-- 🔴 PREDVOLENÁ JE VERZIA STRÁNKY, nie počet dní. Každý riadok vo VERZIE
+         vo workeri potrebuje tu voľbu v:<id>, mená prepíše skript zo servera. -->
+    <select id="lievikDni">
+      <option value="v:diagnostika" selected>diagnostika s meraním</option>
+      <option value="v:diagnostika-ab">diagnostika, A/B test</option>
+      <option value="1">dnes</option>
+      <option value="7">7 dní</option>
+      <option value="30">30 dní</option>
+    </select>
+    <div id="lievikObsah"><p class="podnadpis">Načítavam…</p></div>
+  </section>
+
+</main>
+
+<div id="sheet" aria-hidden="true">
+  <div class="tien" id="sheetTien"></div>
+  <div class="list" role="dialog" aria-modal="true" aria-labelledby="sheetKto">
+    <div class="uchyt"></div>
+    <p class="kto" id="sheetKto"></p>
+    <p class="kam">Kam ju presunúť?</p>
+    <div id="sheetFazy"></div>
+    <button class="zavri" id="sheetZavri">Zrušiť</button>
+  </div>
+</div>
+
+<script>
+const $ = (s) => document.querySelector(s);
+const $$ = (s) => [...document.querySelectorAll(s)];
+let HESLO = "";
+let KANAL = "sms";
+let OTVORENY = null;
+let NA_CO = "";
+
+async function api(cesta, telo) {
+  try {
+    const r = await fetch(cesta, {
+      method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ heslo: HESLO, ...(telo || {}) }),
+    });
+    return await r.json();
+  } catch (e) { return { ok: false, error: String(e) }; }
+}
+
+function cas(x) {
+  if (!x) return "";
+  const d = new Date(x);
+  if (isNaN(d)) return "";
+  return d.toLocaleTimeString("sk-SK", { hour: "2-digit", minute: "2-digit" });
+}
+function kratkyCas(x) {
+  if (!x) return "";
+  const d = new Date(x);
+  if (isNaN(d)) return "";
+  return d.toDateString() === new Date().toDateString()
+    ? d.toLocaleTimeString("sk-SK", { hour: "2-digit", minute: "2-digit" })
+    : d.toLocaleDateString("sk-SK", { day: "numeric", month: "numeric" });
+}
+/* Deliaci riadok medzi dňami. Bez neho sa dlhý rozhovor zlieva do jednej kopy
+   a nedá sa v ňom zorientovať. */
+function denPopis(x) {
+  const d = new Date(x);
+  if (isNaN(d)) return "";
+  const dnes = new Date(), vcera = new Date(Date.now() - 86400000);
+  if (d.toDateString() === dnes.toDateString()) return "Dnes";
+  if (d.toDateString() === vcera.toDateString()) return "Včera";
+  const rovnakyRok = d.getFullYear() === dnes.getFullYear();
+  return d.toLocaleDateString("sk-SK", rovnakyRok
+    ? { day: "numeric", month: "long" }
+    : { day: "numeric", month: "long", year: "numeric" });
+}
+function eur(n) {
+  return new Intl.NumberFormat("sk-SK", { style: "currency", currency: "EUR",
+    maximumFractionDigits: 0 }).format(n || 0);
+}
+function bezpecne(s) {
+  const d = document.createElement("div"); d.textContent = String(s == null ? "" : s);
+  return d.innerHTML;
+}
+function iniciala(meno) {
+  const c = String(meno || "").trim().split(/\s+/).filter(Boolean);
+  if (!c.length) return "?";
+  return ((c[0][0] || "") + (c.length > 1 ? (c[c.length - 1][0] || "") : "")).toUpperCase();
+}
+
+/* ── zámok ─────────────────────────────────────────────── */
+$("#heslo").addEventListener("keydown", async (e) => {
+  if (e.key !== "Enter") return;
+  HESLO = e.target.value.trim();
+  const r = await api("/api/prehlad", {});
+  if (r.ok) {
+    try { localStorage.setItem("konzola-heslo", HESLO); } catch {}
+    $("#zamok").classList.add("von");
+    vykresliPrehlad(r);
+    nacitajKonverzacie();
+  } else {
+    e.target.classList.add("zle"); e.target.value = "";
+    $("#napoveda").textContent = r.error || "nesedí";
+    setTimeout(() => { e.target.classList.remove("zle"); e.target.focus(); }, 400);
+  }
+});
+window.addEventListener("load", async () => {
+  let ulozene = "";
+  try { ulozene = localStorage.getItem("konzola-heslo") || ""; } catch {}
+  if (ulozene) {
+    HESLO = ulozene;
+    const r = await api("/api/prehlad", {});
+    if (r.ok) {
+      $("#zamok").classList.add("von");
+      vykresliPrehlad(r); nacitajKonverzacie(); return;
+    }
+    HESLO = "";
+  }
+  $("#heslo").focus();
+});
+
+/* ── taby ──────────────────────────────────────────────── */
+$$("nav button").forEach((b) => b.addEventListener("click", () => {
+  $$("nav button").forEach((x) => x.classList.toggle("tu", x === b));
+  $$(".panel").forEach((p) => p.classList.toggle("tu", p.id === "p-" + b.dataset.tab));
+  if (b.dataset.tab === "prilezitosti") nacitajPrilezitosti();
+  if (b.dataset.tab === "prehlad") nacitajPrehlad();
+  if (b.dataset.tab === "lievik") nacitajLievik();
+}));
+
+/* ── prehľad ───────────────────────────────────────────── */
+async function nacitajPrehlad() { vykresliPrehlad(await api("/api/prehlad", {})); }
+function vykresliPrehlad(r) {
+  if (!r.ok) { $("#prehladObsah").innerHTML =
+    `<div class="stav chyba">${bezpecne(r.error || "nedostupné")}</div>`; return; }
+  const max = Math.max(1, ...(r.zdroje || []).map((z) => z.pocet));
+  $("#prehladObsah").innerHTML = `
+    <div class="cisla">
+      <div class="cislo"><div class="v">${r.novych}</div><div class="p">nových dopytov za týždeň</div></div>
+      <div class="cislo"><div class="v">${r.otvorene}</div><div class="p">rozpracovaných zákaziek</div></div>
+      <div class="cislo"><div class="v">${eur(r.trzba)}</div><div class="p">vo vyhratých zákazkách</div></div>
+      <div class="cislo${r.caka ? " pozor" : ""}"><div class="v">${r.caka}</div><div class="p">čaká na vašu odpoveď</div></div>
+    </div>
+    ${(r.zdroje || []).length ? `<div class="zdroje"><h3>Odkiaľ dopyty prišli</h3>${
+      r.zdroje.map((z) => `<div class="riadok-z"><span class="n">${bezpecne(z.nazov)}</span>
+        <span class="pas"><i style="width:${Math.round(z.pocet / max * 100)}%"></i></span>
+        <span class="c">${z.pocet}</span></div>`).join("")
+    }</div>` : ""}`;
+}
+
+/* ── konverzácie ───────────────────────────────────────── */
+async function nacitajKonverzacie() {
+  const r = await api("/api/konverzacie", {});
+  if (!r.ok) { $("#zoznam").innerHTML =
+    `<div class="stav chyba">${bezpecne(r.error || "nedostupné")}</div>`; return; }
+  if (!r.konverzacie.length) { $("#zoznam").innerHTML =
+    '<div class="stav">Zatiaľ tu nikto nič nenapísal.<br>Keď niekto napíše, objaví sa tu.</div>'; return; }
+  $("#zoznam").innerHTML = r.konverzacie.map((k) => `
+    <button class="polozka${k.neprecitane ? " nove" : ""}" data-id="${bezpecne(k.contactId)}">
+      <span class="avatar">${bezpecne(iniciala(k.meno))}</span>
+      <span class="telo">
+        <span class="r1">
+          <span class="meno">${bezpecne(k.meno)}${k.neprecitane ? '<i class="bodka"></i>' : ""}</span>
+          <span class="cas">${kratkyCas(k.kedy)}</span>
+        </span>
+        <span class="ukazka">${k.smer === "outbound" ? "Vy: " : ""}${bezpecne(k.posledna)}</span>
+      </span>
+    </button>`).join("");
+  $$(".polozka").forEach((p) => {
+    p.addEventListener("click", () => otvor(p.dataset.id));
+    if (OTVORENY) p.classList.toggle("tu", p.dataset.id === OTVORENY);
+  });
+}
+
+const NAZVY = { sms: "SMS", email: "E-mail", chat: "Chat na webe", fb: "Messenger",
+                ig: "Instagram", whatsapp: "WhatsApp", gmb: "Google", recenzia: "Recenzia" };
+
+async function otvor(contactId) {
+  OTVORENY = contactId;
+  document.body.classList.add("otvoreny");
+  $$(".polozka").forEach((p) => p.classList.toggle("tu", p.dataset.id === contactId));
+  $("#tok").innerHTML = '<div class="kostra"><i></i><i></i><i></i></div>';
+  const r = await api("/api/sprava", { contactId });
+  if (!r.ok) { $("#tok").innerHTML =
+    `<div class="stav chyba">${bezpecne(r.error || "nedostupné")}</div>`; return; }
+  $("#ktoMeno").textContent = r.meno;
+  $("#ktoKontakt").textContent = [r.tel, r.email].filter(Boolean).join(" · ");
+  vykresliKanaly(r.kanaly || []);
+  zrusOdpoved();
+
+  let denPredtym = "", predosla = null;
+  const kusy = [];
+  for (const s of zluc(r.spravy)) {
+    const den = denPopis(s.kedy);
+    if (den && den !== denPredtym) {
+      kusy.push(`<div class="den">${bezpecne(den)}</div>`);
+      denPredtym = den; predosla = null;
+    }
+    kusy.push(riadok(s, predosla));
+    predosla = s;
+  }
+  $("#tok").innerHTML = kusy.join("") || '<div class="stav">Zatiaľ žiadne správy.</div>';
+
+  $$(".odpovedz").forEach((b) => b.addEventListener("click", () => {
+    NA_CO = b.dataset.email;
+    $("#odpovedamNa").textContent = b.dataset.predmet || "e-mail";
+    $("#odpovedam").classList.add("tu");
+    vyberKanal("email");
+    $("#predmet").value = /^re:/i.test(b.dataset.predmet || "")
+      ? b.dataset.predmet : "Re: " + (b.dataset.predmet || "");
+    $("#text").focus();
+  }));
+  $("#tok").scrollTop = $("#tok").scrollHeight;
+}
+
+/* Päť riadkov „Zákazka aktualizovaná" pod sebou nikomu nič nepovie a rozbije
+   rozhovor. Rovnaké udalosti idúce za sebou sa zlúčia do jednej s počtom. */
+function zluc(spravy) {
+  const von = [];
+  for (const s of spravy) {
+    const p = von[von.length - 1];
+    if (s.druh === "udalost" && p && p.druh === "udalost" && p.text === s.text) {
+      p.kolko = (p.kolko || 1) + 1;
+      p.kedy = s.kedy;
+      continue;
+    }
+    von.push({ ...s });
+  }
+  return von;
+}
+
+function riadok(s, predosla) {
+  if (s.druh === "udalost") {
+    const kolko = s.kolko > 1 ? ` (${s.kolko}×)` : "";
+    return `<div class="udalost">${bezpecne(s.text)}${kolko} · ${cas(s.kedy)}</div>`;
+  }
+  if (s.druh === "formular") {
+    return `<div class="formular">
+      <div class="hl">Vyplnený formulár${s.nazov ? " · " + bezpecne(s.nazov) : ""}</div>
+      <dl>${(s.polia || []).map((x) =>
+        `<dt>${bezpecne(x.nazov)}</dt><dd>${bezpecne(x.hodnota)}</dd>`).join("")}</dl>
+      <div class="cas">${cas(s.kedy)}</div>
+    </div>`;
+  }
+  // Štítok kanála len na prvej správe zo série. Pri desiatich SMS za sebou je
+  // desaťkrát „SMS" pod sebou len šum.
+  const inaSeria = !predosla || predosla.druh !== "sprava"
+    || predosla.kanal !== s.kanal || predosla.smer !== s.smer;
+  const daSaOdpovedat = s.kanal === "email" && s.emailId;
+  const casti = [
+    inaSeria ? `<span class="znacka">${bezpecne(NAZVY[s.kanal] || s.kanal)}</span>` : "",
+    s.predmet ? `<div class="predmet">${bezpecne(s.predmet)}</div>` : "",
+    `<span class="t">${bezpecne(s.text)}</span>`,
+    `<div class="meta">${cas(s.kedy)}${s.stav ? " · " + s.stav : ""}</div>`,
+    daSaOdpovedat ? `<button class="odpovedz" data-email="${bezpecne(s.emailId)}" data-predmet="${bezpecne(s.predmet || "")}">Odpovedať na tento e-mail</button>` : "",
+  ];
+  return `<div class="bub k-${bezpecne(s.kanal)} ${s.smer === "inbound" ? "od-nich" : "od-nas"}${inaSeria ? " medzera" : ""}">${casti.join("")}</div>`;
+}
+
+/* 🔴 Kanály sa nekreslia natvrdo. Ponúkne sa len to, čo pri tomto človeku
+   naozaj máme, presne ako v GHL: bez čísla nie je SMS, bez e-mailu nie je
+   e-mail, do Messengeru sa dá odpísať len tam, kde už nejaká správa prišla. */
+function vykresliKanaly(kanaly) {
+  const posielatelne = kanaly.filter((k) => k.posielatelne);
+  if (!posielatelne.length) {
+    $("#kanaly").innerHTML = "";
+    $("#text").disabled = true; $("#posli").disabled = true;
+    $("#text").placeholder = kanaly.length
+      ? "Na tieto kanály sa odtiaľto odpisovať nedá."
+      : "Tomuto kontaktu nemáme ako napísať, chýba číslo aj e-mail.";
+    return;
+  }
+  $("#kanaly").innerHTML = posielatelne.map((k) =>
+    `<button class="k-${bezpecne(k.kod)}" data-kanal="${bezpecne(k.kod)}">${bezpecne(k.nazov)}</button>`).join("");
+  $$("#kanaly button").forEach((b) =>
+    b.addEventListener("click", () => vyberKanal(b.dataset.kanal)));
+  $("#text").disabled = false; $("#posli").disabled = false;
+  $("#text").placeholder = "Napíšte odpoveď…";
+  vyberKanal(posielatelne[0].kod);
+}
+
+function vyberKanal(kod) {
+  KANAL = kod;
+  $$("#kanaly button").forEach((x) => x.classList.toggle("tu", x.dataset.kanal === kod));
+  // Tlačidlo Odoslať prevezme farbu kanála, ktorým sa práve píše.
+  $("#posli").className = "posli k-" + kod;
+  $("#predmet").classList.toggle("tu", kod === "email");
+  if (kod !== "email") zrusOdpoved();
+}
+
+function zrusOdpoved() {
+  NA_CO = "";
+  $("#odpovedam").classList.remove("tu");
+  $("#predmet").value = "";
+}
+
+$("#spat").addEventListener("click", () => document.body.classList.remove("otvoreny"));
+$("#zrusOdpoved").addEventListener("click", zrusOdpoved);
+
+// Textové pole rastie s textom, nech je vidieť, čo človek píše.
+$("#text").addEventListener("input", (e) => {
+  e.target.style.height = "auto";
+  e.target.style.height = Math.min(e.target.scrollHeight, 150) + "px";
+});
+
+async function posliOdpoved() {
+  const text = $("#text").value.trim();
+  if (!text || !OTVORENY) return;
+  $("#posli").disabled = true;
+  $("#posli").textContent = "Posielam…";
+  const r = await api("/api/odpovedz", { contactId: OTVORENY, text, kanal: KANAL,
+    predmet: $("#predmet").value.trim(), odpovedNa: NA_CO });
+  $("#posli").disabled = false;
+  $("#posli").textContent = "Odoslať";
+  if (!r.ok) { alert(r.error || "Odoslanie zlyhalo."); return; }
+  $("#text").value = "";
+  $("#text").style.height = "auto";
+  // 🔴 Nekreslím správu z hlavy. Načítam rozhovor späť, nech je v konzole to,
+  //    čo naozaj leží v GHL, a nie to, čo som dúfal, že sa uložilo.
+  await otvor(OTVORENY);
+  nacitajKonverzacie();
+}
+$("#posli").addEventListener("click", posliOdpoved);
+$("#text").addEventListener("keydown", (e) => {
+  if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) posliOdpoved();
+});
+
+/* ── príležitosti ──────────────────────────────────────── */
+let NESIEM = null;
+
+/* 🔴 Zoznam príležitostí z GHL po zápise ZAOSTÁVA. Presun sa uloží
+   a `GET /opportunities/{id}` už vracia nový stage, ale `/opportunities/search`
+   ešte sekundu vracia starý. Overené 21.08.2026: hneď po presune starý stage,
+   po jednej sekunde už nový.
+
+   Kým sa to nedosadzovalo, karta po pustení skočila naspäť do pôvodného
+   stĺpca, hoci v GHL už bola presunutá správne. Vyzeralo to, že presun
+   nefunguje, a človek ho spravil druhýkrát.
+
+   Preto si tu držíme, čo sme práve presunuli, a do každej odpovede to
+   dosadíme. Záznam sa zahodí, až keď sa GHL prizná k tomu istému stage. */
+const PRESUNUTE = {};
+
+function dosadPresuny(karty) {
+  for (const k of karty) {
+    const nove = PRESUNUTE[k.id];
+    if (!nove) continue;
+    if (k.stageId === nove) delete PRESUNUTE[k.id];   // replika dobehla
+    else k.stageId = nove;
+  }
+}
+
+let STAGE = [];   // fázy tak, ako prišli z GHL
+let KARTY = [];   // zákazky, kvôli výberu fázy v paneli
+let FAZA = null;  // ktorú fázu vidno na telefóne
+
+async function nacitajPrilezitosti() {
+  const r = await api("/api/prilezitosti", {});
+  if (!r.ok) { $("#stlpce").innerHTML =
+    `<div class="stav chyba">${bezpecne(r.error || "nedostupné")}</div>`; return; }
+  dosadPresuny(r.karty);
+  STAGE = r.stage; KARTY = r.karty;
+  // 🔴 Vybraná fáza musí prežiť načítanie. Po presune sa panel načíta znova
+  //    a keby sa FAZA resetovala na prvú, človek by po každom presune na
+  //    telefóne skočil naspäť na začiatok pipeline.
+  if (!STAGE.some((s) => s.id === FAZA)) FAZA = (STAGE[0] || {}).id || null;
+
+  const chipy = STAGE.map((s) => {
+    const n = r.karty.filter((k) => k.stageId === s.id).length;
+    return `<button data-faza="${bezpecne(s.id)}"${s.id === FAZA ? ' class="tu"' : ""}>${
+      bezpecne(s.nazov)}<em>${n}</em></button>`;
+  }).join("");
+
+  const stlpce = STAGE.map((s) => {
+    const karty = r.karty.filter((k) => k.stageId === s.id);
+    const suma = karty.reduce((a, k) => a + (k.hodnota || 0), 0);
+    return `<div class="stlpec${s.id === FAZA ? " tu" : ""}" data-stage="${bezpecne(s.id)}">
+      <h3>${bezpecne(s.nazov)}<em>${karty.length}</em></h3>
+      <p class="suma">${suma ? eur(suma) : "&nbsp;"}</p>
+      ${karty.map((k) => `<div class="karta" draggable="true" data-id="${bezpecne(k.id)}">
+          <b>${bezpecne(k.nazov)}</b>
+          ${k.firma ? `<div class="drobne">${bezpecne(k.firma)}</div>` : ""}
+          ${k.tel ? `<div class="drobne">${bezpecne(k.tel)}</div>` : ""}
+          ${k.hodnota ? `<div class="cena">${eur(k.hodnota)}</div>` : ""}
+        </div>`).join("") || '<div class="prazdny">prázdne</div>'}
+    </div>`;
+  }).join("");
+
+  $("#stlpce").innerHTML =
+    `<div class="fazy">${chipy}</div><div class="stlpce">${stlpce}</div>`;
+  pripojFazy();
+  pripojTahanie();
+}
+
+function pripojFazy() {
+  $$(".fazy button").forEach((b) => b.addEventListener("click", () => {
+    FAZA = b.dataset.faza;
+    $$(".fazy button").forEach((x) => x.classList.toggle("tu", x === b));
+    $$(".stlpec").forEach((s) => s.classList.toggle("tu", s.dataset.stage === FAZA));
+    b.scrollIntoView({ block: "nearest", inline: "center", behavior: "smooth" });
+  }));
+}
+
+/* 🔴 Jedna cesta pre ťahanie aj pre výber z panela. Keby to boli dve, raz sa
+   opraví jedna a druhá ostane rozbitá. */
+async function presun(id, kam) {
+  PRESUNUTE[id] = kam;
+  const r = await api("/api/presun", { id, stageId: kam });
+  if (!r.ok) { delete PRESUNUTE[id]; alert(r.error || "Presun sa neuložil."); }
+  await nacitajPrilezitosti();
+  return !!r.ok;
+}
+
+/* 🔴 Po skutočnom ťahaní vie prehliadač poslať aj `click`. Bez tejto pamäte
+   by sa hneď po pustení karty otvoril ešte aj panel s výberom fázy. */
+let PRAVE_TAHAL = 0;
+
+function pripojTahanie() {
+  $$(".karta").forEach((k) => {
+    k.addEventListener("dragstart", () => { NESIEM = k; k.classList.add("nesiem"); });
+    k.addEventListener("dragend", () => {
+      k.classList.remove("nesiem"); NESIEM = null; PRAVE_TAHAL = Date.now();
+    });
+    k.addEventListener("click", () => {
+      if (Date.now() - PRAVE_TAHAL < 300) return;
+      otvorVyberFazy(k.dataset.id);
+    });
+  });
+  $$(".stlpec").forEach((s) => {
+    s.addEventListener("dragover", (e) => { e.preventDefault(); s.classList.add("cielim"); });
+    s.addEventListener("dragleave", () => s.classList.remove("cielim"));
+    s.addEventListener("drop", async (e) => {
+      e.preventDefault(); s.classList.remove("cielim");
+      if (!NESIEM) return;
+      const karta = NESIEM, id = karta.dataset.id, kam = s.dataset.stage;
+      s.appendChild(karta);   // nech je presun vidieť hneď, nie až po odpovedi
+      await presun(id, kam);
+    });
+  });
+}
+
+/* ── výber fázy bez ťahania ────────────────────────────── */
+/* 🔴 Toto je jediná cesta, ako presunúť zákazku na dotykovom displeji. HTML5
+   drag-and-drop sa na ňom nespustí vôbec, takže konzola bola na telefóne
+   v tomto tabe len na pozeranie. */
+function otvorVyberFazy(id) {
+  const k = KARTY.find((x) => x.id === id);
+  if (!k) return;
+  $("#sheetKto").textContent = k.nazov + (k.firma ? " · " + k.firma : "");
+  $("#sheetFazy").innerHTML = STAGE.map((s) =>
+    `<button class="fazaBtn${s.id === k.stageId ? " tu" : ""}" data-stage="${bezpecne(s.id)}">${
+      bezpecne(s.nazov)}${s.id === k.stageId ? "<i>teraz tu</i>" : ""}</button>`).join("");
+  $$("#sheetFazy button").forEach((b) => b.addEventListener("click", async () => {
+    const kam = b.dataset.stage;
+    zavriVyberFazy();
+    if (kam !== k.stageId) await presun(id, kam);
+  }));
+  $("#sheet").classList.add("tu");
+  $("#sheet").setAttribute("aria-hidden", "false");
+}
+
+function zavriVyberFazy() {
+  $("#sheet").classList.remove("tu");
+  $("#sheet").setAttribute("aria-hidden", "true");
+}
+$("#sheetTien").addEventListener("click", zavriVyberFazy);
+$("#sheetZavri").addEventListener("click", zavriVyberFazy);
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") zavriVyberFazy();
+});
+
+/* ── lievik ────────────────────────────────────────────── */
+/* 🔴 Percentá sú vždy z počtu tých, čo PRISTÁLI na stránke, nie z predošlého
+      kroku. Predajca sa tak jedným pohľadom dozvie, koľko ľudí z reklamy
+      naozaj dorazí až k rezervácii. Stĺpec „odpadlo" hovorí, kde sa stratili. */
+const LIEVIK_POPIS = {
+  "pristal": "prišiel na stránku diagnostiky",
+  "scroll-50": "dočítal do polovice",
+  "scroll-90": "dočítal po pätu",
+  "klik-cta": "klikol na tlačidlo",
+  "kalendar-videl": "uvidel kalendár",
+  "termin-rezervovany": "rezervoval diagnostiku",
+};
+/* Kroky, ktorými musí prejsť KAŽDÝ. Scroll, klik do políčka a vetvy mimo
+   hlavnej cesty by falošne nafúkli počet odpadnutých. */
+/* Kadiaľ musí prejsť KAŽDÝ, kto rezervoval. Klik na tlačidlo sem nepatrí,
+   ku kalendáru sa dá aj doscrollovať. */
+const LIEVIK_RETAZ = ["pristal", "kalendar-videl", "termin-rezervovany"];
+
+/* ── A/B test stránky /diagnostika ──────────────────────── */
+const AB_POPIS = {
+  a: { nazov: "Varianta A", co: "dnešná stránka, kalendár GHL" },
+  b: { nazov: "Varianta B", co: "nová podľa návodu, vlastný kalendár" },
+};
+/* Poradie riadkov je v oboch polovicach ROVNAKE, inak sa neporovnavaju. */
+/* 🔴 V karte su len tri riadky. Su to tri veci, ktore rozhoduju: prisiel,
+   zapojil sa, rezervoval. Zvysok (scroll, kliky, bonusova stranka) je
+   podrobnost na ladenie stranky a je nizsie vo velkej tabulke, aby v tom
+   hlavnom porovnani A ku B nerusil. */
+const AB_KROKY = [
+  ["pristali", "prišli na stránku"],
+  ["kalendar", "uvideli kalendár"],
+  ["termin", "rezervovali diagnostiku"],
+];
+/* Podrobny rozpad, uz pod kartami. */
+const AB_DETAIL = [
+  ["pristali", "prišli na stránku"],
+  ["polovica", "dočítali do polovice"],
+  ["pata", "dočítali po pätu"],
+  ["klikli", "klikli na tlačidlo"],
+  ["kalendar", "uvideli kalendár"],
+  ["termin", "rezervovali diagnostiku"],
+];
+
+function abPolovica(kluc, d, vedie) {
+  const p = AB_POPIS[kluc] || { nazov: kluc, co: "" };
+  if (!d) {
+    return `<div class="abKarta"><div class="abHlava"><b>${p.nazov}</b>
+      <span class="co">${p.co}</span></div>
+      <div class="abCislo">
+        <p class="abMiera abMalo">zatiaľ nikto<small>z tejto varianty ešte
+        neprišiel nikto</small></p>
+        <span class="abKartaLead"><i></i><b>0</b><u>rezervácií</u></span>
+      </div></div>`;
+  }
+  const zaklad = d.pristali || 0;
+  let r = "";
+  for (const [k, popis] of AB_KROKY) {
+    const n = d[k] || 0;
+    const pct = zaklad ? Math.round((n / zaklad) * 1000) / 10 : null;
+    r += `<tr><td>${popis}</td><td class="c">${n}</td>
+          <td class="p">${pct === null ? "" : pct + " %"}</td></tr>`;
+  }
+  const leadov = d.termin || 0;
+  const slovo = leadov === 1 ? "rezervácia" : (leadov >= 2 && leadov <= 4 ? "rezervácie" : "rezervácií");
+  return `<div class="abKarta${vedie ? " vedie" : ""}">
+    <div class="abHlava"><b>${p.nazov}</b><span class="co">${p.co}</span></div>
+    <div class="abCislo">
+      <p class="abMiera">${d.miera === null ? "0" : d.miera} %
+        <small>zo stránky si rezervovalo ${leadov} z ${zaklad}</small></p>
+      <span class="abKartaLead"><i></i><b>${leadov}</b><u>${slovo}</u></span>
+    </div>
+    <table class="abT"><tbody>${r}</tbody></table></div>`;
+}
+
+async function nacitajAB(volba) {
+  const c = $("#lievikObsah");
+  const d = await api("/api/ab", { verzia: volba.slice(2) });
+  if (!d || !d.ok) {
+    c.innerHTML = `<p class="podnadpis">Nepodarilo sa načítať. ${(d && d.error) || ""}</p>`;
+    return;
+  }
+  let html = "";
+  if (d.od) {
+    const f = new Date(d.od).toLocaleString("sk-SK", { day: "numeric",
+      month: "numeric", hour: "2-digit", minute: "2-digit" });
+    html += `<p class="podnadpis">Počíta sa od ${f} po teraz. Jedna adresa,
+      polovica ľudí vidí A, polovica B.</p>`;
+  }
+
+  /* Spolu za obe varianty. Toto je cislo, kvoli ktoremu kampan bezi. */
+  const spolu = (d.varianty.a ? d.varianty.a.termin || 0 : 0)
+              + (d.varianty.b ? d.varianty.b.termin || 0 : 0);
+  const terminy = (d.varianty.a ? d.varianty.a.termin || 0 : 0)
+                + (d.varianty.b ? d.varianty.b.termin || 0 : 0);
+  const slovo = spolu === 1 ? "rezervácia" : (spolu >= 2 && spolu <= 4 ? "rezervácie" : "rezervácií");
+  html += `<div class="abLead"><span class="bodka"></span>
+    <b>${spolu}</b><span>${slovo} diagnostiky zo stránky</span></div>`;
+
+  let zaver = "";
+  /* 🔴 ZAVER SA PIŠE AŽ KEĎ JE MERATELNY. Pri malych cislach vyzera kazdy
+     rozdiel velky. Kym z-test nepovie, ze rozdiel nie je nahoda, konzola
+     napise, ze sa este neda rozhodnut, a nie kto "vedie". */
+  const z = d.zaver;
+  const vedie = z && z.isty ? z.vedie : null;
+  if (!z) {
+    zaver += `<p class="abZaver abMalo">Na porovnanie je zatiaľ málo ľudí.
+      Kým nebude aspoň 30 návštev na každú variantu, rozdiel sa nedá
+      odlíšiť od náhody.</p>`;
+  } else if (z.isty) {
+    const p = AB_POPIS[z.vedie] || {};
+    zaver += `<p class="abZaver">Vyhráva <b>${p.nazov}</b> (${p.co}),
+      o ${Math.abs(z.rozdielBodov)} percentuálneho bodu. Rozdiel je už taký,
+      že to nie je náhoda.</p>`;
+  } else {
+    zaver += `<p class="abZaver abMalo">Rozdiel je zatiaľ
+      ${Math.abs(z.rozdielBodov)} percentuálneho bodu, ale to je ešte v rámci
+      náhody. Nechajte kampaň bežať, netreba nič prehadzovať.</p>`;
+  }
+
+  /* Vetvenie z pasu s leadmi do oboch kariet. Cisto ozdobne, preto
+     aria-hidden: citacka by z neho precitala len prazdne prvky. */
+  html += `<div class="abVetvy" aria-hidden="true">
+    <span class="zvislo"></span><span class="vodorovne"></span>
+    <span class="vetva vlavo"></span><span class="vetva vpravo"></span></div>`;
+
+  html += `<div class="abPas">
+    ${abPolovica("a", d.varianty.a, vedie === "a")}
+    ${abPolovica("b", d.varianty.b, vedie === "b")}</div>`;
+
+  html += zaver;
+
+  /* Podrobny lievik oboch variant vedla seba, uz ako tabulka. */
+  html += `<h3>Celý lievik, krok po kroku</h3><table class='lievikT'><thead><tr>
+    <th>krok</th><th>Varianta A</th><th></th><th>Varianta B</th><th></th>
+    </tr></thead><tbody>`;
+  for (const [k, popis] of AB_DETAIL) {
+    const a = d.varianty.a || {}, bb = d.varianty.b || {};
+    const pa = a.pristali ? Math.round(((a[k] || 0) / a.pristali) * 1000) / 10 : null;
+    const pb = bb.pristali ? Math.round(((bb[k] || 0) / bb.pristali) * 1000) / 10 : null;
+    html += `<tr><td>${popis}</td>
+      <td class="lievikC">${a[k] || 0}</td>
+      <td class="lievikC" style="color:var(--slabo)">${pa === null ? "" : pa + " %"}</td>
+      <td class="lievikC">${bb[k] || 0}</td>
+      <td class="lievikC" style="color:var(--slabo)">${pb === null ? "" : pb + " %"}</td></tr>`;
+  }
+  html += "</tbody></table>";
+
+  /* Zariadenia a tlacidla uz staci pod sebou, su to podrobnosti. */
+  if ((d.zariadenia || []).length) {
+    html += "<h3>Podľa zariadenia</h3><table class='lievikT'><thead><tr>"
+          + "<th>varianta</th><th>zariadenie</th><th>ľudí</th><th>rezervovalo</th>"
+          + "</tr></thead><tbody>";
+    for (const x of d.zariadenia) {
+      const p = x.ludi ? Math.round((x.termin / x.ludi) * 100) : 0;
+      html += `<tr><td>${(AB_POPIS[x.varianta] || {}).nazov || x.varianta}</td>
+        <td>${x.zariadenie}</td><td class="lievikC">${x.ludi}</td>
+        <td class="lievikC">${x.termin} (${p} %)</td></tr>`;
+    }
+    html += "</tbody></table>";
+  }
+  if ((d.tlacidla || []).length) {
+    html += `<h3>Na čo ľudia klikali</h3><table class='lievikT'><thead><tr>
+      <th>varianta</th><th>tlačidlo</th><th>ľudí</th></tr></thead><tbody>`;
+    for (const x of d.tlacidla) {
+      html += `<tr><td>${(AB_POPIS[x.varianta] || {}).nazov || x.varianta}</td>
+        <td>${x.tlacidlo}</td><td class="lievikC">${x.ludi}</td></tr>`;
+    }
+    html += "</tbody></table>";
+  }
+  c.innerHTML = html;
+}
+
+async function nacitajLievik() {
+  const c = $("#lievikObsah");
+  c.innerHTML = '<p class="podnadpis">Načítavam…</p>';
+  /* Hodnota `v:<id>` znamená verziu stránky, číslo znamená počet dní.
+     Worker si verziu overí sám, takže sa sem nedá podstrčiť cudzí dátum. */
+  const volba = $("#lievikDni").value;
+  /* Súťaž je A/B test a kreslí sa inak: dve polovice vedľa seba. */
+  if (volba === "v:diagnostika-ab") return nacitajAB(volba);
+  const d = await api("/api/lievik", volba.startsWith("v:")
+    ? { verzia: volba.slice(2) } : { dni: +volba });
+  if (!d || !d.ok) {
+    c.innerHTML = `<p class="podnadpis">Nepodarilo sa načítať. ${(d && d.error) || ""}</p>`;
+    return;
+  }
+  /* 🔴 OBDOBIE SA VŽDY NAPÍŠE, a berie sa z odpovede servera, nie z toho,
+     čo je v prepínači. Keby sa raz rozišiel názov voľby a skutočný dátum,
+     musí to byť vidieť tu, nie až o mesiac na zlom rozhodnutí. */
+  let html = "";
+  const odKedy = d.od ? new Date(d.od) : null;
+  if (odKedy) {
+    const f = odKedy.toLocaleString("sk-SK", { day: "numeric", month: "numeric",
+      hour: "2-digit", minute: "2-digit" });
+    html += `<p class="podnadpis">Počíta sa od ${f} po teraz.</p>`;
+  }
+  /* Keď je vybraný počet dní a do okna spadá aj staršia verzia stránky,
+     povedz to. Priemer cez dve rôzne stránky je číslo, ktoré klame. */
+  const preklopenia = (d.verzie || []).filter(
+    (v) => odKedy && new Date(v.od) > odKedy);
+  if (!d.verzia && preklopenia.length) {
+    const mena = preklopenia.map((v) => v.nazov).join(", ");
+    html += `<p class="podnadpis" style="color:var(--zle)">V tomto období je aj
+      staršia verzia stránky. Priemer cez dve rôzne stránky klame, na čisté
+      čísla prepni hore na „${mena}".</p>`;
+  }
+  let predch = null;
+  html += '<table class="lievikT"><tbody>';
+  for (const k of d.lievik) {
+    const popis = LIEVIK_POPIS[k.krok];
+    if (!popis) continue;
+    let strata = "";
+    if (predch !== null && predch > 0 && LIEVIK_RETAZ.includes(k.krok)) {
+      const o = predch - k.ludi;
+      if (o > 0) strata = `<span class="lievikStrata">odpadlo ${o}</span>`;
+    }
+    html += `<tr><td>${popis}</td><td class="lievikC">${k.ludi}</td>
+      <td class="lievikP"><span style="width:${Math.max(0, k.zPristatia || 0)}%"></span></td>
+      <td class="lievikC">${k.zPristatia === null ? "" : k.zPristatia + " %"}</td>
+      <td>${strata}</td></tr>`;
+    if (LIEVIK_RETAZ.includes(k.krok)) predch = k.ludi;
+  }
+  html += "</tbody></table>";
+
+  const c2 = d.casNaStranke || {};
+  if (c2.n) {
+    html += `<p class="podnadpis">Na stránke strávili v priemere
+      ${Math.round(c2.priemer || 0)} s, najdlhšie ${c2.najviac} s.</p>`;
+  }
+  if ((d.podlaZariadenia || []).length) {
+    html += "<h3>Podľa zariadenia</h3><table class='lievikT'><tbody>";
+    for (const z of d.podlaZariadenia) {
+      const p = z.ludi ? Math.round((z.klikli / z.ludi) * 100) : 0;
+      html += `<tr><td>${z.zariadenie}</td><td class="lievikC">${z.ludi} ľudí</td>
+               <td>kliklo ${z.klikli} (${p} %)</td></tr>`;
+    }
+    html += "</tbody></table>";
+  }
+  if ((d.podlaKreativy || []).length) {
+    html += `<h3>Podľa reklamy</h3><table class='lievikT'><thead><tr>
+      <th>kreatíva</th><th>ľudí</th><th>klik</th><th>e-mail</th><th>dopyt</th>
+      </tr></thead><tbody>`;
+    for (const k of d.podlaKreativy) {
+      html += `<tr><td>${k.kreativa}</td><td class="lievikC">${k.ludi}</td>
+        <td class="lievikC">${k.klikli}</td><td class="lievikC">${k.email}</td>
+        <td class="lievikC">${k.dopyt}</td></tr>`;
+    }
+    html += "</tbody></table>";
+  }
+  c.innerHTML = html;
+
+  /* Názvy verzií prepíš tým, čo povedal server. Dátum v konzole je len
+     popis, pravda je vo workeri, a takto sa nemôžu rozísť. */
+  for (const v of d.verzie || []) {
+    const o = $("#lievikDni").querySelector(`option[value="v:${v.id}"]`);
+    if (o) o.textContent = v.nazov;
+  }
+}
+$("#lievikDni").addEventListener("change", nacitajLievik);
+</script>
+</body>
+</html>
