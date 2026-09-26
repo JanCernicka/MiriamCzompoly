@@ -9,6 +9,7 @@
  *  4. tag samostatným volaním
  *  5. termín, s assignedUserId (bez neho 422), BEZ ignoreFreeSlotValidation
  *  6. príležitosť vo fáze „Diagnostika rezervovaná“, ak kontakt otvorenú ešte nemá
+ *  7. vyhodiť z workflowu s pripomienkami 72 h / 24 h (PONUKA_WF_ID)
  */
 import {
   GHL, json, hlavicky, nastavene, volneSloty,
@@ -115,6 +116,15 @@ export async function onRequestPost({ request, env }) {
         if (!o.ok) console.error("príležitosť zlyhala", o.status);
       }
     } catch (e) { console.error("príležitosť", String(e)); }
+
+    // 7. má termín, pripomienku „zostáva 24 hodín“ už nedostane
+    //    (workflow ghl/build_ponuka_workflow.py, jeho ID je v premennej PONUKA_WF_ID)
+    if (env.PONUKA_WF_ID) {
+      const w = await fetch(`${GHL}/contacts/${contactId}/workflow/${env.PONUKA_WF_ID}`, { method: "DELETE", headers: H });
+      if (!w.ok) console.error("vyhodenie z pripomienok zlyhalo", w.status);
+    } else {
+      console.error("PONUKA_WF_ID chýba, kontakt ostáva v pripomienkach");
+    }
 
     return json({ ok: true, appointmentId: apd.id || (apd.appointment && apd.appointment.id) || null });
   } catch (e) {

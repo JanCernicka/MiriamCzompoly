@@ -28,20 +28,16 @@
   var KONIEC = od + HODIN * 3600 * 1000;
   function jeZavreta() { return Date.now() >= KONIEC; }
 
-  var odpocet = $('[data-odpocet-ponuky]');
   function dve(n) { return (n < 10 ? '0' : '') + n; }
-  function tik() {
-    var z = KONIEC - Date.now();
-    if (z <= 0) { zavri(); return true; }
-    var s = Math.floor(z / 1000), h = Math.floor(s / 3600), m = Math.floor((s % 3600) / 60);
-    if (odpocet) odpocet.textContent = 'Zostáva ' + h + ':' + dve(m) + ':' + dve(s % 60);
-  }
+
+  // Časovač sa na stránke NEUKAZUJE (Jano 26. 9.), o lehote jej dajú vedieť SMS a e-mail.
+  // Po 72 hodinách sa ponuka potichu zavrie, kontrola raz za minútu.
   function zavri() {
-    if (odpocet) odpocet.textContent = 'Ponuka sa zavrela';
     $('[data-kal]').hidden = true;
     $('[data-kal-zavrete]').hidden = false;
   }
-  if (!tik()) { var t = setInterval(function () { if (tik()) clearInterval(t); }, 1000); }
+  if (jeZavreta()) zavri();
+  else { var t = setInterval(function () { if (jeZavreta()) { zavri(); clearInterval(t); } }, 60000); }
 
   /* ---------- Skok na kalendár ---------- */
   $$('[data-skok]').forEach(function (a) {

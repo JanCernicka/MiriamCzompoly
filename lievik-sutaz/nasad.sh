@@ -6,6 +6,7 @@ SRC="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 DIST="$(mktemp -d)"
 cp -a "$SRC/." "$DIST/"
 rm -f "$DIST/README.md" "$DIST/kontrola.py" "$DIST/nasad.sh"
+rm -rf "$DIST/ghl"
 cd "$DIST"
 npx -y wrangler pages deploy . --project-name=miriam-sutaz --branch=main --commit-dirty=true
 rm -rf "$DIST"

@@ -277,8 +277,8 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .kupon-hlava{background:var(--ink);color:var(--na-tmavej);font-size:13px;font-weight:700;letter-spacing:.06em;
   text-transform:uppercase;text-align:center;padding:10px 12px}
 .kupon-telo{padding:16px}
-.kupon-velke{font-family:var(--display);font-size:32px;font-weight:600;line-height:1.05;text-align:center}
-.kupon-odpocet{margin-top:6px;text-align:center;font-weight:600;color:var(--brass-text);font-variant-numeric:tabular-nums}
+.kupon-velke{font-family:var(--display);font-size:32px;font-weight:600;line-height:1.05;text-align:center;font-variant-numeric:lining-nums;font-feature-settings:"lnum" 1}
+.kupon-telo p.kupon-lehota{margin-top:12px;padding:10px 12px;border-left:3px solid var(--brass);background:#FBF7F0;border-radius:0 8px 8px 0;font-size:14.5px;color:var(--ink)}
 .kupon-telo p{margin-top:10px;font-size:15px;color:var(--ink-soft)}
 .kupon-parametre{list-style:none;padding:0;margin-top:12px;display:grid;gap:8px}
 .kupon-parametre li{background:var(--piesok);border-radius:10px;padding:10px 12px;font-size:15px}

@@ -48,9 +48,15 @@ Po uzávierke banner povie pravdu, tlačidlá sa vypnú a funkcia prihlášky od
 Postavená podľa DKP promptu (poradie 10 blokov), prispôsobená Miriam. Fakty sú z
 `diagnostika.html` a z nastavenia kalendára `fUjAzOhv2VyiY3XTguPz` (pracovné dni
 9:00 až 16:30, po rezervácii 5 h blokované, čiže najviac 2 diagnostiky za deň).
-- 72 hodín je na jednom mieste: `data-ponuka-hodin` na `<html>`. Lehota beží od
-  prihlásenia (localStorage `sutaz_ponuka_od`), po nej sa kalendár zavrie a stránka
-  odkáže na diagnostiku za bežnú cenu.
+- 72 hodín je na jednom mieste: `data-ponuka-hodin` na `<html>`. Lehota beží každej
+  zvlášť od odoslania formulára (localStorage `sutaz_ponuka_od`), po nej sa kalendár
+  zavrie a stránka odkáže na diagnostiku za bežnú cenu.
+- **Časovač sa na stránke neukazuje** (Jano 26. 9.). O lehote dajú vedieť SMS a e-mail
+  z workflowu `ghl/build_ponuka_workflow.py`: hneď „máš 72 hodín“, po 48 h „zostáva
+  24 hodín“. Spúšťa ho tag `sutaz-1000-prihlasena`, takže je to individuálne pre každú.
+  Kto si zarezervuje termín, `sutaz-termin.js` ho z workflowu vyhodí (potrebuje
+  `PONUKA_WF_ID` v Cloudflare). SMS sú bez mena a bez diakritiky, 131 a 135 znakov.
+  **Workflow ešte nie je postavený**: chýba Firebase token (interné API).
 - Recenzie sú v `assets/js/recenzie.js`, doslovne z webu, bez počtu hodnotení
   (reálny počet nepoznáme).
 - Adresa sa pýta v kalendári, lebo WF3 (SMS pre Miriam, SMS 2 h pred) berie
