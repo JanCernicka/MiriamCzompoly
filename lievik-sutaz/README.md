@@ -56,12 +56,18 @@ Postavená podľa DKP promptu (poradie 10 blokov), prispôsobená Miriam. Fakty 
 ## Otvorené
 - **Video**: vložiť URL do `data-src` na `.vsl-spust` v `index.html`. Hostovať v GHL
   médiách (Cloudflare má limit 25 MB a nevracia 206). Pomer sa mení cez `--pomer`.
-- **Pravidlá, 3x DOPLNIŤ**: kde sa vyhlási výherca, ako sa vyberá, pre akú oblasť
-  projekt platí. Nevymýšľal som.
+- **Pravidlá, 1x DOPLNIŤ**: ako sa vyberá výherca. Doplnené 26. 9. (Jano): oblasť
+  Trnava + 100 km, výherca dostane SMS a e-mail.
 - **Video recenzia**: playbook ju chce ako prvý dôkaz, Miriam žiadnu nemá.
 - **GHL**: projekt nemá secrets `GHL_API_KEY` a `GHL_LOCATION_ID`, formulár zatiaľ
   vracia `not_configured` a ukáže chybovú hlášku. Workflowy na tagy ešte neexistujú
-  (e-mail s PDF, SMS/e-mail pre Miriam, sekvencia pre nedokončené).
+  (SMS/e-mail pre Miriam, sekvencia pre nedokončené, vyhlásenie výhercu).
+- **E-book**: posiela ho priamo `functions/api/sutaz.js` cez `/conversations/messages`,
+  pri prvom volaní pre kontakt (kto už má tag `sutaz-1000-zacala`, druhý nedostane).
+  Workflow na to nie je, internú API (Firebase) sme nemali. PDF je na hlavnej doméne
+  `miriamczompoly.sk/ghl/ebook/5-najdrahsich-chyb.pdf` (overené 200, application/pdf).
+  Pozor: keby sa niekedy publikoval „Ebook Delivery Slovak Workflow“ alebo WF1 na tie
+  isté tagy, dostane e-book dvakrát. Naživo ešte neodoslaný ani raz.
 - **Pixel**: zámerne vypnutý. Rovnaký pixel optimalizuje živú kampaň na diagnostiku
   podľa udalosti Lead, testovacie prihlášky by jej miešali dáta. Pri spustení súťaže
   použiť inú udalosť (napr. CompleteRegistration) a doplniť cookie lištu.

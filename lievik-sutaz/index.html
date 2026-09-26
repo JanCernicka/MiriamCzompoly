@@ -60,23 +60,8 @@
       <div class="obal">
         <span class="nadkridlie">Recenzie</span>
         <h2>Bývajú vo vlastnej vízii, nie v mojej</h2>
-        <div class="recenzie">
-          <figure class="recenzia">
-            <div class="hviezdy" aria-label="Hodnotenie 5 z 5">★★★★★</div>
-            <blockquote>„Chcel som niečo s charakterom, moderné art deco, ale vkusne. <mark>Spravila presne to, čo som mal v hlave.</mark> Len ja som to nevedel takto pomenovať.“</blockquote>
-            <figcaption><b>Sebastián Farský</b>, byt Štajnerka, Trnava</figcaption>
-          </figure>
-          <figure class="recenzia">
-            <div class="hviezdy" aria-label="Hodnotenie 5 z 5">★★★★★</div>
-            <blockquote>„Náš byt má smer, charakter a jednoliaty štýl. <mark>Kvôli podlahovej krytine sme obvolali pol krajiny, aby mi ju nakoniec našla.</mark>“</blockquote>
-            <figcaption><b>Danka Cziborová</b>, byt, Komárno</figcaption>
-          </figure>
-          <figure class="recenzia">
-            <div class="hviezdy" aria-label="Hodnotenie 5 z 5">★★★★★</div>
-            <blockquote>„Môj prvý byt. Návrh aj realizáciu som zveril do rúk dizajnérky a <mark>neľutujem ani euro.</mark>“</blockquote>
-            <figcaption><b>Hugo Štefánek</b>, garsónka, Hlohovec</figcaption>
-          </figure>
-        </div>
+        <!-- karty v DKP štýle, dáta z assets/js/recenzie.js (sada sutaz) -->
+        <div class="karty-recenzii" data-recenzie="sutaz"></div>
         <!-- TLAČIDLO 2 z 3 -->
         <a class="btn" href="/dotaznik" data-cta>Zapojiť sa zadarmo <span class="sipka" aria-hidden="true">→</span></a>
         <p class="btn-pozn">Meno, e-mail a telefón. Zaberie ti to 30 sekúnd.</p>
@@ -137,12 +122,26 @@
           </div>
         </div>
 
-        <div class="bonus">
-          <div class="bonus-ikona" aria-hidden="true">5</div>
-          <div>
-            <b>Darček pre každú, kto sa zapojí</b>
-            <p>Hneď po prihlásení dostaneš materiál <strong>Päť najdrahších chýb, ktoré ľudia robia pri zariaďovaní domova</strong>. Normálne zaň účtujem <span class="preskrtnute">9 €</span>.</p>
-          </div>
+      </div>
+    </section>
+
+    <!-- E-BOOK: vlastná sekcia, obálka, dostane ho každá, kto sa zapojí -->
+    <section class="ebook-sekcia" id="ebook">
+      <div class="obal">
+        <div class="ebook">
+          <div class="ebook-stitok">Darček pre každú, kto sa zapojí</div>
+          <img class="ebook-obalka" src="assets/img/ebook-obalka.jpg" alt="Obálka e-booku 5 najdrahších chýb, ktoré ľudia robia pri zariaďovaní domova" width="560" height="792" loading="lazy" />
+          <h2>5 najdrahších chýb, ktoré ľudia robia pri zariaďovaní domova</h2>
+          <p class="ebook-pod">A ako sa im vyhnúť ešte predtým, než minieš prvé euro. E-book na 9 stranách.</p>
+          <div class="ebook-cena"><span class="preskrtnute">9 €</span> <b>pre teba zadarmo</b></div>
+          <ol class="ebook-chyby">
+            <li>Kupuješ skôr, než máš plán</li>
+            <li>Nábytok je „polepený“ o steny a miestnosť nemá centrum</li>
+            <li>Zablokovaný vstup a cesty, ktoré nikam nevedú</li>
+            <li>Jedno svetlo v strede stropu</li>
+            <li>Rozmery „od oka“: hlavne koberec a závesy</li>
+          </ol>
+          <p class="ebook-ako">Pošlem ti ho na e-mail hneď, ako ho v prihláške vyplníš.</p>
         </div>
       </div>
     </section>
@@ -154,10 +153,10 @@
         <h2>Ako to prebieha</h2>
         <dl class="pravidla">
           <div><dt>Zapojiť sa dá</dt><dd>do stredy 14. októbra do 20:00</dd></div>
-          <div><dt>Výhercu vyhlásim</dt><dd>vo štvrtok 15. októbra o 18:00, <span class="doplnit">DOPLNIŤ: kde (e-mail, Instagram?)</span></dd></div>
+          <div><dt>Výhercu vyhlásim</dt><dd>vo štvrtok 15. októbra o 18:00, výherca dostane SMS a e-mail</dd></div>
           <div><dt>Výhra</dt><dd>poukážka 1 000 € na balík „Od kľúčov po nasťahovanie“, 1 výherca</dd></div>
           <div><dt>Ako vyberiem</dt><dd><span class="doplnit">DOPLNIŤ: žreb? ako?</span></dd></div>
-          <div><dt>Pre koho</dt><dd><span class="doplnit">DOPLNIŤ: oblasť projektu (Trnava a okolie?)</span></dd></div>
+          <div><dt>Pre koho</dt><dd>domov v Trnave alebo do 100 km od Trnavy</dd></div>
           <div><dt>Cena</dt><dd>zadarmo, nič nekupuješ</dd></div>
         </dl>
       </div>
@@ -187,5 +186,6 @@
   </footer>
 
   <script src="assets/js/sutaz.js"></script>
+  <script src="assets/js/recenzie.js"></script>
 </body>
 </html>

@@ -79,21 +79,6 @@
     }
   }
 
-  /* ---------- Recenzie zo zdieľaného recenzie.js ---------- */
-  var rbox = $('[data-recenzie]');
-  if (rbox && window.RECENZIE) {
-    rbox.innerHTML = window.RECENZIE.map(function (r) {
-      var text = esc(r.text);
-      if (r.zvyraznit) text = text.replace(esc(r.zvyraznit), '<mark>' + esc(r.zvyraznit) + '</mark>');
-      var inic = r.meno.split(' ').map(function (w) { return w.charAt(0); }).join('').slice(0, 2);
-      return '<figure class="karta">' +
-        '<figcaption><span class="avatar" aria-hidden="true">' + esc(inic) + '</span>' +
-        '<span><b>' + esc(r.meno) + '</b>' + (r.projekt ? '<small>' + esc(r.projekt) + '</small>' : '') + '</span></figcaption>' +
-        '<div class="hviezdy" aria-label="Hodnotenie 5 z 5">★★★★★</div>' +
-        '<blockquote>„' + text + '“</blockquote></figure>';
-    }).join('');
-  }
-
   /* ---------- Kalendár ---------- */
   var kal = $('[data-kal]');
   if (!kal) return;

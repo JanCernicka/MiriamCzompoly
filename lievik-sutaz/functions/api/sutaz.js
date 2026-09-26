@@ -25,6 +25,20 @@ const TAGY = {
 };
 const ZDROJ = "Súťaž 1 000 € (lievik)";
 
+// E-book sa posiela pri prvom volaní pre kontakt (normálne hneď po e-maile, dotazník
+// to tam sľubuje). Kto už tag súťaže má, druhýkrát ho nedostane.
+// PDF je na hlavnej doméne, nie na lieviku, nech odkaz v e-maile prežije presun lievika.
+const EBOOK_URL = "https://www.miriamczompoly.sk/ghl/ebook/5-najdrahsich-chyb.pdf";
+const EBOOK_PREDMET = "Tvoj e-book: 5 najdrahších chýb pri zariaďovaní domova";
+const p = (t) => `<p style="margin:0 0 14px 0;line-height:1.7;font-size:16px;font-family:arial,helvetica,sans-serif;color:#262019;">${t}</p>`;
+const EBOOK_HTML =
+  p("Ahoj,") +
+  p("ďakujem, že sa zapájaš do súťaže o 1 000 € na premenu domova. Ako som sľúbila, posielam ti e-book <b>5 najdrahších chýb, ktoré ľudia robia pri zariaďovaní domova</b>.") +
+  `<p style="margin:0 0 18px 0;"><a href="${EBOOK_URL}" style="display:inline-block;background:#262019;color:#ffffff;text-decoration:none;font-family:arial,helvetica,sans-serif;font-size:16px;font-weight:bold;padding:14px 22px;border-radius:10px;">Stiahnuť e-book (PDF)</a></p>` +
+  p("Pri každej chybe nájdeš, ako sa jej vyhnúť ešte predtým, než minieš prvé euro.") +
+  p("Výhercu súťaže vyhlásim vo štvrtok 15. októbra o 18:00. Výherca dostane SMS a e-mail.") +
+  p("Miriam Czompoly<br>interiérová dizajnérka, Trnava");
+
 const json = (data, status = 200) =>
   new Response(JSON.stringify(data), {
     status,
@@ -103,6 +117,9 @@ export async function onRequestPost({ request, env }) {
       return json({ ok: false, error: "ghl_error" }, 502);
     }
 
+    // tag súťaže už má = e-book už dostal, druhýkrát ho neposielame
+    const uzMalTag = (contact.tags || []).includes(TAGY.email[0]);
+
     const t = await fetch(`${GHL}/contacts/${contact.id}/tags`, {
       method: "POST",
       headers,
@@ -112,7 +129,18 @@ export async function onRequestPost({ request, env }) {
       console.error("GHL tagy zlyhali", t.status, (await t.text()).slice(0, 400));
       return json({ ok: false, error: "ghl_tags" }, 502);
     }
-    return json({ ok: true, contactId: contact.id });
+    let ebook = "uz_poslany";
+    if (!uzMalTag) {
+      const m = await fetch(`${GHL}/conversations/messages`, {
+        method: "POST",
+        headers: { ...headers, Version: "2021-04-15" },
+        body: JSON.stringify({ type: "Email", contactId: contact.id, subject: EBOOK_PREDMET, html: EBOOK_HTML }),
+      });
+      ebook = m.ok ? "poslany" : "chyba";
+      // lead je uložený aj tak, chyba e-mailu nesmie zastaviť prihlášku
+      if (!m.ok) console.error("e-book e-mail zlyhal", m.status, (await m.text()).slice(0, 300));
+    }
+    return json({ ok: true, contactId: contact.id, ebook });
   } catch (e) {
     console.error("GHL nedostupné", String(e));
     return json({ ok: false, error: "ghl_unreachable" }, 502);
