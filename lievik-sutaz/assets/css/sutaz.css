@@ -54,6 +54,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 }
 .hero h1 em{font-style:italic;color:var(--brass-text)}
 .podnadpis{margin-top:8px;font-size:15.5px;line-height:1.45;color:var(--ink-soft)}
+.hero h1,.podnadpis{text-align:center;text-wrap:balance}
 
 .vsl{
   position:relative;width:100%;aspect-ratio:var(--pomer,16/9);
