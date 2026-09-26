@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="sk"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>2. Tlačidlo · test platby FAPI</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/b.css"><link rel="stylesheet" href="/test.css">
+</head>
+<body data-v="tlacidlo">
+<div class="testpruh"><div class="obal">
+  <b>Testovacia stránka, nie ostrý web.</b> Termíny sú ukážkové a nič sa nerezervuje.
+  Formulár FAPI je skutočný: <b>neklikaj „Objednávam“</b>, u Miriam by vznikla objednávka.
+  <nav class="prepinac">
+    <a href="/vlozene">1. Vložené</a><a href="/tlacidlo" class="on">2. Tlačidlo</a><a href="/navrh">3. V kalendári</a>
+  </nav>
+</div></div>
+<main>
+<section class="hero" style="padding-bottom:8px"><div class="obal">
+  <h1 style="font-size:28px">2. Tlačidlo, ktoré vedie na FAPI</h1>
+  <p class="sub">Na stránke je len tlačidlo. Klik otvorí objednávku na stránke FAPI v novej karte, človek odíde z nášho webu.</p>
+</div></section>
+<section class="sekcia svetla" id="kalendar"><div class="obal">
+  <h2>Vyber si čas, kedy k tebe prídem</h2>
+  <p class="uvod">Pracovné dni. Diagnostika trvá 90 minút a je u teba doma.</p>
+  <div class="kal" data-kalendar>
+    <div class="dni" id="dni" role="tablist" aria-label="Deň"></div>
+        <div class="sloty" id="sloty"></div>
+    <form class="formular" id="formular" novalidate hidden>
+      <div class="pole"><label for="meno">Krstné meno</label><input id="meno" name="meno" type="text" autocomplete="given-name"></div>
+      <div class="pole"><label for="email">E-mail</label><input id="email" name="email" type="email" autocomplete="email"></div>
+      <div class="pole"><label for="telefon">Telefón</label><input id="telefon" name="telefon" type="tel" autocomplete="tel" placeholder="0907 777 555"></div>
+      <div class="pole"><label for="ulica">Kde bude diagnostika? Ulica a číslo</label><input id="ulica" name="ulica" type="text" autocomplete="street-address"></div>
+      <div class="pole"><label for="mesto">Mesto</label><input id="mesto" name="mesto" type="text" autocomplete="address-level2"></div>
+      <label class="suhlas"><input name="suhlas" type="checkbox"><span>Áno, môžeš mi písať. Pošlem ti len potvrdenie termínu a dve pripomienky pred ním.</span></label>
+      <button class="btn" type="submit" id="rezervovat">Vyber si čas</button>
+    </form>
+    <div class="suhrn" id="kalHotovo" hidden>
+      <div class="r1">✓ Termín rezervovaný (ukážka)</div>
+      <div class="r2" id="kalHotovoKedy"></div>
+      <div class="r3">Teraz ešte zaplať diagnostiku tlačidlom nižšie.</div>
+    </div>
+  </div>
+</div></section>
+
+<section class="sekcia" id="platba"><div class="obal">
+  <h2>Zaplatenie diagnostiky</h2>
+  <div class="suhrn">
+    <div class="r2">Interiérová diagnostika u teba doma</div>
+    <div class="r3">90 minút, analýza, akčný plán, zoznam „čo prestať kupovať“</div>
+    <div class="cena-riadok"><span>Cena</span><b>249&nbsp;€</b></div>
+  </div>
+  <a class="btn von" href="https://form.fapi.cz/?id=33a88ecd-b33c-4a70-ab01-7f490ad088c0" target="_blank" rel="noopener">Zaplatiť 249 €</a>
+  <p class="poznamka"><b>Všimni si:</b> na stránke FAPI človek znova vypĺňa meno, e-mail, telefón a adresu. Naše meranie a pixel ho tam už nevidia, takže nevieme, či zaplatil.</p>
+</div></section>
+</main>
+<script src="/test.js"></script>
+</body></html>

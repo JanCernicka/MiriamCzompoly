@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="sk"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>3. V kalendári · test platby FAPI</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/b.css"><link rel="stylesheet" href="/test.css">
+</head>
+<body data-v="navrh">
+<div class="testpruh"><div class="obal">
+  <b>Testovacia stránka, nie ostrý web.</b> Termíny sú ukážkové a nič sa nerezervuje.
+  Formulár FAPI je skutočný: <b>neklikaj „Objednávam“</b>, u Miriam by vznikla objednávka.
+  <nav class="prepinac">
+    <a href="/vlozene">1. Vložené</a><a href="/tlacidlo">2. Tlačidlo</a><a href="/navrh" class="on">3. V kalendári</a>
+  </nav>
+</div></div>
+<main>
+<section class="hero" style="padding-bottom:8px"><div class="obal">
+  <h1 style="font-size:28px">3. Návrh: platba ako posledný krok kalendára</h1>
+  <p class="sub">Všetko v jednej karte: termín, údaje, platba. Údaje sa do FAPI vpíšu samy, človek už len skontroluje a klikne. Pri objednávke je aj termín, aby Miriam videla, ku ktorému patrí.</p>
+</div></section>
+<section class="sekcia svetla" id="kalendar"><div class="obal">
+  <h2>Vyber si čas, kedy k tebe prídem</h2>
+  <p class="uvod">Pracovné dni. Diagnostika trvá 90 minút a je u teba doma.</p>
+  <ol class="kroky"><li class="on">1. Termín</li><li>2. Údaje</li><li>3. Platba</li></ol>
+  <div class="kal" data-kalendar>
+    <div id="krok-termin"><div class="dni" id="dni" role="tablist" aria-label="Deň"></div>
+        <div class="sloty" id="sloty"></div></div>
+    <form class="formular" id="formular" novalidate hidden>
+      <div id="krok-udaje">
+      <div class="dvojica"><div class="pole"><label for="meno">Meno</label><input id="meno" name="meno" type="text" autocomplete="given-name"></div><div class="pole"><label for="priezvisko">Priezvisko</label><input id="priezvisko" name="priezvisko" type="text" autocomplete="family-name"></div></div>
+      <div class="pole"><label for="email">E-mail</label><input id="email" name="email" type="email" autocomplete="email"></div>
+      <div class="pole"><label for="telefon">Telefón</label><input id="telefon" name="telefon" type="tel" autocomplete="tel" placeholder="0907 777 555"></div>
+      <div class="pole"><label for="ulica">Kde bude diagnostika? Ulica a číslo</label><input id="ulica" name="ulica" type="text" autocomplete="street-address"></div>
+      <div class="dvojica"><div class="pole"><label for="mesto">Mesto</label><input id="mesto" name="mesto" type="text" autocomplete="address-level2"></div><div class="pole"><label for="psc">PSČ</label><input id="psc" name="psc" type="text" autocomplete="postal-code"></div></div>
+      <label class="suhlas"><input name="suhlas" type="checkbox"><span>Áno, môžeš mi písať. Pošlem ti len potvrdenie termínu a dve pripomienky pred ním.</span></label>
+      <p class="chyba" id="chyba" role="alert"></p>
+      <button class="btn" type="submit" id="rezervovat">Vyber si čas</button>
+      </div>
+    </form>
+    <div id="krok-platba" hidden>
+      <div class="suhrn">
+        <div class="r1">✓ Termín držím pre teba</div>
+        <div class="r2" id="suhrnKedy"></div>
+        <div class="r3" id="suhrnKde"></div>
+        <div class="cena-riadok"><span>Interiérová diagnostika</span><b>249&nbsp;€</b></div>
+      </div>
+      <p style="font-size:14.5px;margin:0 0 4px">Tvoje údaje sú už vpísané, skontroluj ich a potvrď objednávku. <a href="#" id="spat" onclick="return false">Zmeniť termín</a></p>
+    </div>
+    <div class="fapi-obal" id="fapi" hidden></div>
+  </div>
+  <p class="poznamka"><b>Ako by to fungovalo naostro:</b> termín sa v GHL založí hneď po kroku 2 (ako dnes na B), FAPI potom pošle faktúru. Človek teda údaje píše raz a z nášho webu neodchádza.</p>
+</div></section>
+</main>
+<script src="/test.js"></script>
+</body></html>

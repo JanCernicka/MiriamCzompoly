@@ -1,0 +1,184 @@
+/* Varianta B stránky /diagnostika. Kód podľa GHLtool lievik/02_KOD.md,
+   farby a písmo Miriam (rovnaké ako varianta A, testujeme štruktúru, nie značku).
+   Mení sa len --akcent, --akcent-tmavy a --tma. */
+:root{
+  --akcent:#A9885E;        /* mosadz, LEN výplň (na bielej 3,2:1) */
+  --akcent-tmavy:#7E6441;  /* mosadz ako text, 5,6:1 na bielej */
+  --tma:#262019;--text:#3a332b;--sivy:#6F6557;--linka:#E4D9C6;
+  --pozadie:#fff;--pozadie-2:#F8F4EE;--zlata:#D9C29C;--zvyraznenie:#F2DFA7;--zle:#b3261e;
+  --sans:'Inter',system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  --display:'Cormorant Garamond',Georgia,serif;
+  --radius:16px;--sirka:560px;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{margin:0;font-family:var(--sans);color:var(--text);background:var(--pozadie);
+  font-size:17px;line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{max-width:100%;display:block}
+h1,h2,h3{color:var(--tma);line-height:1.12;margin:0 0 .45em;font-family:var(--display);font-weight:600;
+  font-variant-numeric:lining-nums;font-feature-settings:"lnum" 1}
+h2{font-size:29px}
+p{margin:0 0 1em}
+a{color:var(--akcent-tmavy)}
+.obal{max-width:var(--sirka);margin:0 auto;padding:0 20px}
+section{padding:40px 0}
+.suma{white-space:nowrap}
+
+/* ---------- lepkavý pruh ---------- */
+.pruh{background:var(--tma);color:#fff;position:sticky;top:0;z-index:50}
+.pruh .obal{display:flex;align-items:center;justify-content:center;gap:10px;height:38px;flex-wrap:nowrap;min-width:0}
+.zive{flex:0 0 auto;display:flex;align-items:center;gap:5px;font-size:11px;font-weight:800;
+  letter-spacing:.08em;text-transform:uppercase;color:#9fe0bd}
+.zive i{width:7px;height:7px;border-radius:50%;background:#4fd08b;display:block;animation:tep 1.6s ease-in-out infinite}
+@keyframes tep{0%,100%{opacity:1}50%{opacity:.35}}
+.pruh .co{font-size:12px;color:#c9bfb1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.pruh .cas{flex:0 0 auto;font-size:13.5px;font-weight:800;color:var(--zlata);font-variant-numeric:tabular-nums}
+
+/* ---------- hero ---------- */
+.hero{padding:16px 0 26px;text-align:center}
+.hero h1{font-size:33px;line-height:1.08;margin-bottom:.3em;text-wrap:balance}
+.hero h1 em{font-style:normal;color:var(--akcent-tmavy)}
+.hero .sub{font-size:15.5px;line-height:1.45;color:var(--text);margin:0 0 14px;text-wrap:balance}
+.hero .sub strong{color:var(--tma)}
+.pod-videom{font-size:15px;line-height:1.4;margin:0 0 12px}
+
+/* ---------- video s pulzujúcim prekryvom ---------- */
+.video-ram{position:relative;aspect-ratio:16/9;border-radius:14px;overflow:hidden;
+  background:#15110d;border:1px solid var(--linka);margin-bottom:12px;max-width:100%}
+.video-ram video{width:100%;height:100%;object-fit:cover;display:block}
+.zvuk{position:absolute;left:10%;top:10%;width:80%;height:80%;padding:8px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  border:2px solid rgba(255,255,255,.85);border-radius:12px;cursor:pointer;
+  background:rgba(38,32,25,.52);color:#fff;font:inherit;text-align:center;
+  animation:tlkot 1.9s ease-in-out infinite}
+.zvuk:focus-visible{outline:3px solid #fff;outline-offset:3px}
+/* 🔴 .zvuk má display:flex, ktorý prebije [hidden], preto explicitne */
+.zvuk[hidden]{display:none}
+@keyframes tlkot{
+  0%,100%{box-shadow:0 0 0 0 rgba(169,136,94,.65),inset 0 0 26px rgba(255,255,255,.16);transform:scale(1)}
+  50%{box-shadow:0 0 0 15px rgba(169,136,94,0),inset 0 0 26px rgba(255,255,255,.3);transform:scale(1.025)}
+}
+.zvuk .ikona{width:clamp(40px,13vw,66px);height:auto;margin-bottom:7px;color:#fff;filter:drop-shadow(0 2px 10px rgba(0,0,0,.35))}
+.zvuk .r1{font-size:clamp(14px,4.2vw,21px);font-weight:800;letter-spacing:-.015em;line-height:1.2;text-shadow:0 1px 8px rgba(0,0,0,.3)}
+.zvuk .r2{font-size:clamp(12px,3.6vw,17px);font-weight:700;line-height:1.25;margin-top:3px;text-shadow:0 1px 8px rgba(0,0,0,.3)}
+
+/* ---------- tlačidlo ---------- */
+.btn{display:flex;align-items:center;justify-content:center;width:100%;min-height:54px;
+  padding:14px 20px;border:0;border-radius:13px;background:var(--tma);color:#fff;
+  font:inherit;font-size:17px;font-weight:700;text-decoration:none;cursor:pointer;
+  box-shadow:0 8px 22px rgba(38,32,25,.22)}
+.btn::after{content:"→";margin-left:10px;color:var(--zlata)}
+.btn:active{transform:translateY(1px)}
+.btn[disabled]{opacity:.6;cursor:default}
+
+/* ---------- sekcie ---------- */
+.sekcia.svetla{background:var(--pozadie-2)}
+.uvod{color:var(--sivy);font-size:15.5px}
+.sekcia > .obal > .btn{margin-top:22px}
+
+/* ---------- kopa recenzií ---------- */
+.kopa{display:block;margin-top:14px}
+.gkarta{background:#fff;border:1px solid var(--linka);border-radius:15px;padding:16px 16px 17px;
+  box-shadow:0 10px 30px rgba(38,32,25,.12);position:relative;margin-bottom:-14px;z-index:calc(100 - var(--i))}
+.gkarta:nth-child(odd){transform:rotate(-1.2deg);margin-right:14px}
+.gkarta:nth-child(even){transform:rotate(1.1deg);margin-left:14px}
+.gkarta:last-child{margin-bottom:0}
+.ghlava{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.gava{width:36px;height:36px;border-radius:50%;background:var(--tma);color:var(--zlata);
+  display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px;flex:0 0 36px}
+.gmeno{font-size:14.5px;font-weight:700;color:var(--tma);line-height:1.2}
+.gzdroj{font-size:12px;color:var(--sivy)}
+.ghviezdy{color:#e0a100;font-size:14px;letter-spacing:2px;margin-bottom:8px}
+.gtext{font-size:15px;color:var(--text);line-height:1.55;margin:0}
+.gtext mark{background:var(--zvyraznenie);color:var(--tma);font-weight:600;padding:1px 2px;border-radius:2px;
+  -webkit-box-decoration-break:clone;box-decoration-break:clone}
+
+/* ---------- ponuka ---------- */
+.body{list-style:none;padding:0;margin:16px 0 0;display:grid;gap:10px;counter-reset:b}
+.body li{counter-increment:b;position:relative;padding:14px 14px 14px 52px;border:1px solid var(--linka);border-radius:14px}
+.body li::before{content:counter(b);position:absolute;left:14px;top:14px;width:26px;height:26px;border-radius:50%;
+  background:var(--akcent);color:var(--tma);font-weight:800;font-size:14px;display:flex;align-items:center;justify-content:center}
+.body b{display:block;color:var(--tma);font-size:16.5px}
+.body span{display:block;font-size:15px;color:var(--sivy);margin-top:2px}
+.zaruka{margin-top:16px;padding:14px 16px;border-left:3px solid var(--akcent);background:var(--pozadie-2);border-radius:0 12px 12px 0;font-size:15px}
+.zaruka p:last-child{margin:0}
+
+/* ---------- kalendár ---------- */
+.kal{margin-top:12px}
+.dni{display:flex;gap:8px;overflow-x:auto;padding:2px 20px 10px;margin:0 -20px 13px;
+  scroll-snap-type:x proximity;scroll-padding:0 20px;-webkit-overflow-scrolling:touch;border-bottom:1px solid var(--linka);
+  -webkit-mask-image:linear-gradient(to right,#000 calc(100% - 26px),transparent);
+  mask-image:linear-gradient(to right,#000 calc(100% - 26px),transparent)}
+.dni::-webkit-scrollbar{height:0}
+.denP{flex:0 0 auto;scroll-snap-align:start;min-width:84px;cursor:pointer;border:1.5px solid var(--linka);
+  background:#fff;border-radius:13px;padding:9px 12px;text-align:center;font:inherit;line-height:1.25;color:var(--tma)}
+.denP .d1{display:block;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--sivy)}
+.denP .d2{display:block;font-size:17px;font-weight:800}
+.denP .d3{display:block;font-size:12px;color:var(--akcent-tmavy)}
+.denP.on{border-color:var(--tma);box-shadow:0 0 0 1.5px var(--tma),0 6px 16px rgba(38,32,25,.14)}
+.sloty{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.termin{font:inherit;font-size:15.5px;font-weight:700;color:var(--tma);background:#fff;
+  border:1.5px solid var(--linka);border-radius:11px;padding:12px 4px;cursor:pointer;font-variant-numeric:tabular-nums}
+.termin:active{transform:scale(.97)}
+/* 🔴 vybraný čas musí byť vidieť aj bez farby, preto fajka */
+.termin.vybrany{border-color:var(--tma);background:var(--tma);color:#fff;box-shadow:0 4px 12px rgba(38,32,25,.28)}
+.termin.vybrany::before{content:"✓ ";font-weight:800;color:var(--zlata)}
+.kal-stav{margin:10px 0 0;color:var(--sivy);font-size:15px}
+.kal-pozn{margin:10px 0 0;text-align:center;font-size:12.5px;color:var(--sivy)}
+.formular{margin-top:18px}
+.pole{margin-bottom:10px}
+.pole label{display:block;font-size:14px;font-weight:600;color:var(--tma);margin-bottom:4px}
+/* 🔴 16 px na input, inak iOS pri klepnutí priblíži celú stránku */
+.pole input{width:100%;font:inherit;font-size:16px;padding:14px;border-radius:12px;
+  border:1.5px solid var(--linka);background:#fff;color:var(--tma);-webkit-appearance:none}
+.pole input:focus{outline:0;border-color:var(--akcent);box-shadow:0 0 0 3px rgba(169,136,94,.2)}
+.pole input.zle{border-color:var(--zle)}
+.suhlas{display:flex;gap:10px;align-items:flex-start;font-size:13.5px;color:var(--sivy);margin:6px 0 12px;line-height:1.45}
+.suhlas input{width:20px;height:20px;flex:0 0 20px;margin-top:1px;accent-color:var(--tma)}
+.chyba{display:none;color:var(--zle);font-size:14.5px;margin:0 0 10px}
+.chyba.vidno{display:block}
+.kal-hotovo{margin-top:6px;padding:18px;border:2px solid var(--akcent);border-radius:14px;text-align:center}
+
+/* ---------- pás obrázkov ---------- */
+.galeria .obal{margin-bottom:14px}
+.pas-obal{overflow:hidden;width:100%}
+.pas-bezi{display:flex;width:max-content;animation:bezi 300s linear infinite}
+.pas-bezi:hover{animation-play-state:paused}
+.pas-bezi img{flex:0 0 auto;width:252px;height:189px;margin-right:10px;border-radius:12px;object-fit:cover;background:var(--pozadie-2)}
+@keyframes bezi{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ---------- záver a päta ---------- */
+.zaver{text-align:center}
+.paticka{padding:26px 0 34px;border-top:1px solid var(--linka);font-size:13.5px;color:var(--sivy);text-align:center}
+.paticka div + div,.paticka nav{margin-top:3px}
+.paticka a{color:var(--sivy)}
+
+/* ---------- cookie lišta (consent.js) v tvare hlavného webu ---------- */
+.cookie-banner{position:fixed;left:1.2rem;bottom:1.2rem;z-index:400;max-width:440px;padding:1.3rem 1.4rem 1.2rem;
+  background:#fff;color:var(--tma);border:1px solid var(--linka);border-radius:14px;box-shadow:0 30px 80px rgba(38,32,25,.18);
+  opacity:0;transform:translateY(14px);transition:opacity .3s,transform .3s}
+.cookie-banner.show{opacity:1;transform:none}
+.cookie-banner .cb-title{font-family:var(--display);font-size:1.2rem;font-weight:600;margin:0 0 .35rem}
+.cookie-banner .cb-text{font-size:.86rem;line-height:1.55;color:var(--sivy);margin:0}
+.cookie-banner .cb-actions{display:flex;gap:.6rem;margin-top:1rem;flex-wrap:wrap}
+.cookie-banner .cb-actions .btn{flex:1 1 auto;width:auto;min-width:0;min-height:44px;margin:0;font-size:14px;box-shadow:none;padding:10px 14px}
+.cookie-banner .cb-actions .btn::after{content:none}
+.cookie-banner .btn--outline{background:#fff;color:var(--tma);border:1.5px solid var(--tma)}
+/* 🔴 poloha lišty ROVNAKÁ ako na variante A (assets/css/style.css), inak by
+   lišta na jednej variante zakrývala tlačidlo a na druhej nie */
+@media (max-width:620px){.cookie-banner{left:.8rem;right:.8rem;bottom:5.8rem;max-width:none}}
+
+/* ---------- jediný breakpoint ---------- */
+@media(min-width:760px){
+  body{font-size:18px}
+  .hero h1{font-size:44px}
+  .hero .sub{font-size:17px}
+  h2{font-size:34px}
+  :root{--sirka:640px}
+  section{padding:56px 0}
+  .btn{width:auto;min-width:340px;margin-left:auto;margin-right:auto}
+  .sloty{grid-template-columns:repeat(4,1fr)}
+  .pas-bezi img{width:308px;height:231px}
+}
+@media(max-width:359px){.pruh .co{display:none}}
+@media(prefers-reduced-motion:reduce){.zive i,.pas-bezi,.zvuk{animation:none}}

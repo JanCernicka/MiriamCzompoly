@@ -1,0 +1,28 @@
+/* Len pre testovaciu stránku FAPI. Vzhľad stránky je z b.css (varianta B). */
+.testpruh{background:#fff4d6;border-bottom:1px solid #e8c96a;color:#4a3b00;font-size:13px;line-height:1.4}
+.testpruh .obal{padding:10px 20px}
+.testpruh b{color:#2b2200}
+.prepinac{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}
+.prepinac a{flex:1 1 0;min-width:0;text-align:center;text-decoration:none;font-weight:700;font-size:13px;
+  padding:8px 6px;border-radius:9px;border:1.5px solid #d8c18a;color:#4a3b00;background:#fff}
+.prepinac a.on{background:var(--tma);border-color:var(--tma);color:#fff}
+.poznamka{font-size:13.5px;color:var(--sivy);background:var(--pozadie-2);border:1px dashed var(--linka);
+  border-radius:12px;padding:10px 12px;margin:14px 0 0}
+.poznamka b{color:var(--tma)}
+.fapi-obal{margin-top:14px}
+/* krokovanie v návrhu */
+.kroky{display:flex;gap:6px;margin:4px 0 14px;padding:0;list-style:none;counter-reset:k}
+.kroky li{flex:1 1 0;min-width:0;font-size:12px;font-weight:700;color:var(--sivy);text-align:center;
+  padding:7px 4px;border-radius:9px;background:var(--pozadie-2);border:1px solid var(--linka)}
+.kroky li.on{background:var(--tma);color:#fff;border-color:var(--tma)}
+.kroky li.hotovo{color:var(--akcent-tmavy)}
+.suhrn{border:1.5px solid var(--tma);border-radius:14px;padding:14px 16px;margin:0 0 12px;background:#fff}
+.suhrn .r1{font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:#1f7a4a}
+.suhrn .r2{font-size:18px;font-weight:800;color:var(--tma);margin-top:2px}
+.suhrn .r3{font-size:14.5px;color:var(--sivy);margin-top:2px}
+.cena-riadok{display:flex;justify-content:space-between;align-items:baseline;border-top:1px solid var(--linka);
+  margin-top:10px;padding-top:10px;font-size:15px}
+.cena-riadok b{font-size:20px;color:var(--tma)}
+.btn.von::after{content:"↗"}
+.dvojica{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.dvojica .pole{min-width:0}
