@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="sk"
+      data-uzavierka="2026-10-14T20:00:00+02:00"
+      data-vyhlasenie="2026-10-15T18:00:00+02:00">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Zapoj sa do súťaže | Miriam Czompoly</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="theme-color" content="#262019" />
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;1,600&family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/sutaz.css" />
+</head>
+<body class="dotaznik">
+
+  <div class="banner" role="status" aria-live="off" data-odpocet>
+    <span class="banner-text">Súťaž sa končí o</span>
+    <span class="banner-cas">&nbsp;</span>
+  </div>
+
+  <main>
+    <div class="obal">
+
+      <div class="uzavrete">
+        <h1 style="font-family:var(--display);font-size:29px;line-height:1.1">Súťaž je uzavretá</h1>
+        <p class="preco" style="margin-top:8px;color:var(--ink-soft)">Prihlasovanie skončilo v stredu 14. októbra o 20:00. Ďakujem každej, kto sa zapojil.</p>
+      </div>
+
+      <div class="otvorene">
+        <div class="krok-cislo" data-krok-cislo>Otázka 1 z 3</div>
+        <div class="postup" aria-hidden="true"><span></span></div>
+
+        <form data-dotaznik novalidate>
+          <!-- pasca na roboty, človek ju nevidí -->
+          <div class="pasca" aria-hidden="true">
+            <label>Web <input type="text" name="website" tabindex="-1" autocomplete="off" /></label>
+          </div>
+
+          <section class="krok aktivny">
+            <h1>Než začneme, napíš mi svoj e-mail. 👇</h1>
+            <p class="preco">Na tento e-mail ti hneď pošlem materiál Päť najdrahších chýb pri zariaďovaní domova.</p>
+            <input class="pole" type="email" name="email" inputmode="email" autocomplete="email" placeholder="tvoj@email.sk" aria-label="E-mail" required />
+            <p class="chyba">Skontroluj prosím e-mail, niečo v ňom chýba.</p>
+            <button class="btn" type="submit">Pokračovať <span class="sipka" aria-hidden="true">→</span></button>
+          </section>
+
+          <section class="krok">
+            <h1>Ako sa voláš? 👇</h1>
+            <p class="preco">Rada udržujem komunikáciu osobnú.</p>
+            <input class="pole" type="text" name="meno" autocomplete="given-name" autocapitalize="words" placeholder="Napr. Zuzana" aria-label="Krstné meno" required />
+            <p class="chyba">Napíš mi prosím svoje meno.</p>
+            <button class="btn" type="submit">Pokračovať <span class="sipka" aria-hidden="true">→</span></button>
+            <button class="spat" type="button" data-spat>Späť</button>
+          </section>
+
+          <section class="krok">
+            <h1>Tvoje telefónne číslo 👇</h1>
+            <p class="preco">Keď vyhráš, zavolám ti.</p>
+            <input class="pole" type="tel" name="telefon" inputmode="tel" autocomplete="tel" placeholder="0907 777 555" aria-label="Telefónne číslo" required />
+            <p class="chyba">Skontroluj prosím číslo, má mať aspoň 9 číslic.</p>
+            <button class="btn" type="submit">Zapojiť sa do súťaže <span class="sipka" aria-hidden="true">→</span></button>
+            <p class="suhlas">Odoslaním súhlasíš so spracovaním údajov na účely súťaže a zaslania materiálu. <a href="https://www.miriamczompoly.sk/gdpr.html" target="_blank" rel="noopener">Ochrana osobných údajov</a></p>
+            <button class="spat" type="button" data-spat>Späť</button>
+          </section>
+
+          <p class="hlaska-chyby" role="alert"></p>
+        </form>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="paticka">
+    <div class="obal">
+      <div>© 2026 Miriam Czompoly · Interiérový dizajn Trnava</div>
+    </div>
+  </footer>
+
+  <script src="assets/js/sutaz.js"></script>
+</body>
+</html>

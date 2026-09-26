@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="sk"
+      data-uzavierka="2026-10-14T20:00:00+02:00"
+      data-vyhlasenie="2026-10-15T18:00:00+02:00">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Si v súťaži | Miriam Czompoly</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="theme-color" content="#262019" />
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;1,600&family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/sutaz.css" />
+</head>
+<body class="dakujem">
+  <!-- Sem neskôr príde stránka s ponukou pre prihlásených. Zatiaľ len potvrdenie. -->
+  <main>
+    <div class="obal">
+      <div class="ok" aria-hidden="true">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#262019" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
+      </div>
+      <h1 data-pozdrav>Si v súťaži!</h1>
+      <p style="margin-top:8px;color:var(--ink-soft)">Tvoja prihláška je uložená. Držím palce.</p>
+
+      <ol class="kroky">
+        <li>Materiál <b>Päť najdrahších chýb pri zariaďovaní domova</b> ti posielam na e-mail. Stiahnuť si ho môžeš aj hneď tu.</li>
+        <li>Prihlasovanie sa končí v stredu 14. októbra o 20:00.</li>
+        <li>Výhercu vyhlásim vo štvrtok 15. októbra o 18:00. Keď vyhráš, zavolám ti.</li>
+      </ol>
+
+      <a class="btn" href="assets/5-najdrahsich-chyb.pdf" download>Stiahnuť materiál (PDF) <span class="sipka" aria-hidden="true">↓</span></a>
+    </div>
+  </main>
+
+  <footer class="paticka">
+    <div class="obal">
+      <div>© 2026 Miriam Czompoly · Interiérový dizajn Trnava</div>
+      <nav>
+        <a href="https://www.miriamczompoly.sk/gdpr.html" target="_blank" rel="noopener">Ochrana osobných údajov</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      try {
+        var m = sessionStorage.getItem('sutaz_meno');
+        if (m) document.querySelector('[data-pozdrav]').textContent = m.split(' ')[0] + ', si v súťaži!';
+      } catch (e) {}
+    })();
+  </script>
+</body>
+</html>

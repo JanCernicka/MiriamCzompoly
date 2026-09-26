@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="sk"
+      data-uzavierka="2026-10-14T20:00:00+02:00"
+      data-vyhlasenie="2026-10-15T18:00:00+02:00">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Súťaž o 1 000 € na premenu domova | Miriam Czompoly</title>
+  <meta name="description" content="Zapoj sa do súťaže o poukážku 1 000 € na kompletnú premenu domova na kľúč od Miriam Czompoly, interiérovej dizajnérky z Trnavy." />
+  <!-- staging: .pages.dev sa nesmie indexovať -->
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="theme-color" content="#262019" />
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;1,600&family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="preload" as="image" href="assets/img/stajnerka-po.jpg" />
+  <link rel="stylesheet" href="assets/css/sutaz.css" />
+</head>
+<body>
+
+  <!-- 1. BANNER: odpočet do uzávierky, ráta z data-uzavierka na <html> -->
+  <div class="banner" role="status" aria-live="off" data-odpocet>
+    <span class="banner-text">Súťaž sa končí o</span>
+    <span class="banner-cas">&nbsp;</span>
+  </div>
+
+  <main>
+    <section class="hero">
+      <div class="obal">
+        <!-- 2. NADPIS -->
+        <h1>Vyhraj <em>1 000 €</em> na premenu domova, do ktorého sa len nasťahuješ</h1>
+
+        <!-- 3. PODNADPIS, jedna veta -->
+        <p class="podnadpis">Prestaň vyhadzovať tisíce eur za zariaďovanie, ktoré potom musíš robiť odznova.</p>
+
+        <!-- 4. VIDEO: nič sa nesťahuje pred kliknutím.
+             Keď bude video hotové, vlož URL do data-src (GHL media, nie Cloudflare, limit 25 MB).
+             Kým je data-src prázdne, kontrola.py zlyhá. -->
+        <div class="vsl" style="--pomer:16 / 9" data-vsl>
+          <img src="assets/img/stajnerka-po.jpg" alt="Obývačka v byte Štajnerka v Trnave po premene" width="900" height="600" fetchpriority="high" />
+          <button type="button" class="vsl-spust" data-src="" aria-label="Prehrať video od Miriam">
+            <span class="vsl-play" aria-hidden="true"></span>
+          </button>
+          <span class="vsl-hlaska" role="status">Video práve dokončujem, čoskoro tu bude.</span>
+        </div>
+
+        <!-- 5. JEDNA VETA pod videom -->
+        <p class="pod-videom">Vo videu ti poviem, prečo súťaž robím a ako sa zapojíš.</p>
+
+        <!-- 6. TLAČIDLO 1 z 3 -->
+        <a class="btn" href="/dotaznik" data-cta>Chcem sa zapojiť do súťaže <span class="sipka" aria-hidden="true">→</span></a>
+      </div>
+    </section>
+
+    <!-- SOCIÁLNY DÔKAZ: hneď pod ohybom.
+         Video recenziu Miriam zatiaľ nemá, preto sú tu len 3 textové. Vymyslená nebude. -->
+    <section class="sekcia" id="recenzie">
+      <div class="obal">
+        <span class="nadkridlie">Recenzie</span>
+        <h2>Bývajú vo vlastnej vízii, nie v mojej</h2>
+        <div class="recenzie">
+          <figure class="recenzia">
+            <div class="hviezdy" aria-label="Hodnotenie 5 z 5">★★★★★</div>
+            <blockquote>„Chcel som niečo s charakterom, moderné art deco, ale vkusne. <mark>Spravila presne to, čo som mal v hlave.</mark> Len ja som to nevedel takto pomenovať.“</blockquote>
+            <figcaption><b>Sebastián Farský</b>, byt Štajnerka, Trnava</figcaption>
+          </figure>
+          <figure class="recenzia">
+            <div class="hviezdy" aria-label="Hodnotenie 5 z 5">★★★★★</div>
+            <blockquote>„Náš byt má smer, charakter a jednoliaty štýl. <mark>Kvôli podlahovej krytine sme obvolali pol krajiny, aby mi ju nakoniec našla.</mark>“</blockquote>
+            <figcaption><b>Danka Cziborová</b>, byt, Komárno</figcaption>
+          </figure>
+          <figure class="recenzia">
+            <div class="hviezdy" aria-label="Hodnotenie 5 z 5">★★★★★</div>
+            <blockquote>„Môj prvý byt. Návrh aj realizáciu som zveril do rúk dizajnérky a <mark>neľutujem ani euro.</mark>“</blockquote>
+            <figcaption><b>Hugo Štefánek</b>, garsónka, Hlohovec</figcaption>
+          </figure>
+        </div>
+        <!-- TLAČIDLO 2 z 3 -->
+        <a class="btn" href="/dotaznik" data-cta>Zapojiť sa zadarmo <span class="sipka" aria-hidden="true">→</span></a>
+        <p class="btn-pozn">Meno, e-mail a telefón. Zaberie ti to 30 sekúnd.</p>
+      </div>
+    </section>
+
+    <!-- VÝHRA -->
+    <section class="sekcia" id="vyhra">
+      <div class="obal">
+        <span class="nadkridlie">Čo môžeš vyhrať</span>
+        <h2>Balík „Od kľúčov po nasťahovanie“</h2>
+        <p>Vediem celý projekt od A po Z. Je to niečo, čo veľa domácností zúfalo potrebuje, ale nie je to lacný špás. Práve preto rozdávam tisíc eur na takýto projekt jednej z vás.</p>
+
+        <div class="vyhra">
+          <div class="vyhra-hlava">
+            <div class="vyhra-suma">1 000 €</div>
+            <p>poukážka na kompletnú premenu domova na kľúč</p>
+          </div>
+          <ul>
+            <li>Spolu navrhneme tvoj domov</li>
+            <li>Objednám tovar a ustrážim dodávky</li>
+            <li>Skontrolujem faktúry</li>
+            <li>Jednám s remeselníkmi za teba, aj keď sa niečo pokazí</li>
+            <li>Ty neriešiš nič, len sa nasťahuješ</li>
+          </ul>
+        </div>
+
+        <div class="fotky" aria-label="Moje realizácie">
+          <figure><img src="assets/img/vidiecky-po.jpg" alt="Obývacia izba po premene" loading="lazy" width="800" height="533" /><figcaption>Vidiecky byt, Trnava</figcaption></figure>
+          <figure><img src="assets/img/arboria2-po.jpg" alt="Spálňa po zariadení" loading="lazy" width="800" height="533" /><figcaption>2-izbový byt Arboria, Trnava</figcaption></figure>
+          <figure><img src="assets/img/garsonka-po.jpg" alt="Spanie a kuchynská linka v jednom priestore" loading="lazy" width="800" height="450" /><figcaption>Garsónka, Hlohovec</figcaption></figure>
+          <figure><img src="assets/img/stajnerka-po.jpg" alt="Obývacia a jedálenská časť po premene" loading="lazy" width="900" height="600" /><figcaption>Byt Štajnerka, Trnava</figcaption></figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4 BODY -->
+    <section class="sekcia" id="preco">
+      <div class="obal">
+        <span class="nadkridlie">Viac ako 15 rokov v Trnave</span>
+        <h2>Moja práca nie je o mne. Je o tebe.</h2>
+        <div class="body">
+          <div class="bod">
+            <h3>Nevyhodíš peniaze za omyly</h3>
+            <p>Ľudia ma často oslovia až vtedy, keď už vyhodili tisíce eur a musia začať odznova. So mnou je všetko navrhnuté skôr, než sa čokoľvek kúpi.</p>
+          </div>
+          <div class="bod">
+            <h3>Tvoj štýl, nie môj</h3>
+            <p>Kým nebudeš spokojná so smerom, návrh upravujem ďalej, zvyčajne sú to dve až tri kolá. Tvoja vízia, ja ju len privediem k životu.</p>
+          </div>
+          <div class="bod">
+            <h3>Ty neriešiš nič</h3>
+            <p>Tovar, dodávky, faktúry aj remeselníkov mám na starosti ja. Ty si prídeš po kľúče a nasťahuješ sa.</p>
+          </div>
+          <div class="bod">
+            <h3>Nesedí niečo? Doladím to</h3>
+            <p>Ak po realizácii niečo nesedí, doladím ti to bez doplatku. Bývaš v tom, čo si chcela.</p>
+          </div>
+        </div>
+
+        <div class="bonus">
+          <div class="bonus-ikona" aria-hidden="true">5</div>
+          <div>
+            <b>Darček pre každú, kto sa zapojí</b>
+            <p>Hneď po prihlásení dostaneš materiál <strong>Päť najdrahších chýb, ktoré ľudia robia pri zariaďovaní domova</strong>. Normálne zaň účtujem <span class="preskrtnute">9 €</span>.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRAVIDLÁ: súťaž bez pravidiel je len sľub -->
+    <section class="sekcia" id="pravidla">
+      <div class="obal">
+        <span class="nadkridlie">Pravidlá</span>
+        <h2>Ako to prebieha</h2>
+        <dl class="pravidla">
+          <div><dt>Zapojiť sa dá</dt><dd>do stredy 14. októbra do 20:00</dd></div>
+          <div><dt>Výhercu vyhlásim</dt><dd>vo štvrtok 15. októbra o 18:00, <span class="doplnit">DOPLNIŤ: kde (e-mail, Instagram?)</span></dd></div>
+          <div><dt>Výhra</dt><dd>poukážka 1 000 € na balík „Od kľúčov po nasťahovanie“, 1 výherca</dd></div>
+          <div><dt>Ako vyberiem</dt><dd><span class="doplnit">DOPLNIŤ: žreb? ako?</span></dd></div>
+          <div><dt>Pre koho</dt><dd><span class="doplnit">DOPLNIŤ: oblasť projektu (Trnava a okolie?)</span></dd></div>
+          <div><dt>Cena</dt><dd>zadarmo, nič nekupuješ</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <!-- ZÁVEREČNÁ VÝZVA -->
+    <section class="sekcia zaver" id="zapoj-sa">
+      <div class="obal">
+        <span class="odznak" data-odznak>Zapojiť sa dá do stredy 14. 10. do 20:00</span>
+        <h2>Prvý krok je najdôležitejší, zapoj sa ešte dnes a získaj šancu na 1 000 € na svoj domov.</h2>
+        <p class="vzacne">Beriem iba 1 takýto projekt každé dva mesiace.</p>
+        <!-- TLAČIDLO 3 z 3 -->
+        <a class="btn" href="/dotaznik" data-cta>Zapojiť sa do súťaže <span class="sipka" aria-hidden="true">→</span></a>
+        <p class="btn-pozn">Nič to nestojí, nič nekupuješ.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="paticka">
+    <div class="obal">
+      <div>© 2026 Miriam Czompoly · Interiérový dizajn Trnava</div>
+      <nav>
+        <a href="https://www.miriamczompoly.sk/gdpr.html" target="_blank" rel="noopener">Ochrana osobných údajov</a>
+        <a href="https://www.miriamczompoly.sk/gdpr.html#cookies" target="_blank" rel="noopener">Cookies</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="assets/js/sutaz.js"></script>
+</body>
+</html>
