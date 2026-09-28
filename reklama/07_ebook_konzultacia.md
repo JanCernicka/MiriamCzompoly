@@ -23,13 +23,15 @@ konverzáciu. **Na ostrom webe to platí dodnes.**
 Overené 28. 9.: e-mail E1 cez Conversations API na Janov testovací kontakt (team@shapelesai.com)
 stav `delivered` (Mailgun). Odosielateľ je `dizajn+miriamczompoly.sk@lc.shapelesai.com`.
 
+## Rozhodnuté (Jano, 28. 9.)
+- Elene e-book poslaný 28. 9., stav `delivered`.
+- odosielateľ `lc.shapelesai.com` je v poriadku
+- konzultácia 15 minút (ako kalendár)
+- „Bežne ju účtujem 259 €.“ (pozor: diagnostika 90 min stojí 249 €)
+
 ## Pred spustením
-- Elene poslať e-book? (len s Janovým súhlasom)
-- odosielateľ e-mailov: vlastná doména Miriam namiesto `lc.shapelesai.com`
 - WF1 pri zapnutí spúšťať značkou `ebook-5-chyb` a začať od E2, inak príde e-book dvakrát;
   odkazy vo WF1 vedú na `miriam-web-staging.pages.dev`, prepísať na www
 - staré zapnuté workflowy na kalendári konzultácie („WebStránka - Telefonická konzultácia
   potvrdenie termínu“, „Pripomienka termínu 2 hodiny a 10 minút pred“): skontrolovať texty
-- dĺžka konzultácie: kalendár má 15 min, v skripte videa bolo 20
-- „bežne ju účtujem“: koľko, ak to má na stránke zaznieť
 - súhlas vo formulári spomína aj „občas tipy k bývaniu“ (kvôli WF1 E2 až E5), odsúhlasiť
