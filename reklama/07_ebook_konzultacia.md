@@ -36,3 +36,15 @@ stav `delivered` (Mailgun). Odosielateľ je `dizajn+miriamczompoly.sk@lc.shapele
 - staré zapnuté workflowy na kalendári konzultácie („WebStránka - Telefonická konzultácia
   potvrdenie termínu“, „Pripomienka termínu 2 hodiny a 10 minút pred“): skontrolovať texty
 - súhlas vo formulári spomína aj „občas tipy k bývaniu“ (kvôli WF1 E2 až E5), odsúhlasiť
+
+## Zmeny v GHL naostro (28. 9. 2026, Jano: „texty teda zmeň v GHL“)
+- pipeline „Hlavný predajný proces“: nová fáza **„Krátky hovor rezervovaný“** `af9825ca-fb11-4c7b-8efa-fe9e997a3ee7`
+  na pozícii 2 (za Lead), ostatné fázy majú pôvodné ID
+- workflow „WebStránka - Telefonická konzultácia potvrdenie termínu“ (`8ca1a216-…`, published, v 11):
+  SMS 1 a 2 nové (bez diakritiky, 1 segment), e-maily prepnuté na nové šablóny
+  `6aba34ca8416893d4d894d02` „Uvítací hovor: potvrdenie (Claude)“ a `6aba34ccfc08569e2cbf4f5c`
+  „… potvrdenie 2 (Claude)“ (pôvodné `68a4b4f6…`, `68a4b4d5…` ostali), príležitosť ide do novej fázy.
+  Tým je kalendár konzultácie prepojený s pipeline.
+- workflow „Pripomienka termínu 2 hodiny a 10 minút pred“ (`ee28a197-…`, published, v 15): nový e-mail 2 h pred a SMS 10 min pred
+- spúšťače oboch overené po zápise: `customer_appointment`, kalendár `ZSPaMWEuejcfthaFxKZt`, active
+- Google Meet v kalendári ostáva (Jano: aspoň to majú v Google kalendári)
