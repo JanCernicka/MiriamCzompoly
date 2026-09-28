@@ -1,21 +1,25 @@
 # Skript: diagnostika + dispozičné riešenie za 400 € (28. 9. 2026)
 
-Celý skript (core, 10 hookov a subhookov, zábery): https://claude.ai/artifact/6xurwQ5pdNnMT2S82RG94m
+Celý skript (core, 30 hookov a subhookov, zábery), verzia 2: https://claude.ai/artifact/6xurwQ5pdNnMT2S82RG94m
 Zdroj textov na úpravu: artifact, nie tento súbor (aby sa nerozišli dve kópie).
 
 Ponuka: diagnostika 90 min u klientky doma + dispozičné riešenie jednej miestnosti,
 2 až 3 varianty s odôvodnením. Samostatne 249 € + 300 € = 549 €, v kampani 400 €.
 Dispozícia sama (300 €) sa inak ponúka ako upsell po diagnostike, v reklame nie je.
 
-Stavba podľa `playbook/03_kreativa/SKRIPT_SABLONA.md`: jedno core (118 slov), 10 pevných
-párov hook a subhook, každý iného typu, videá 55 až 62 s pri 145 slovách na 60 s.
-Bonus (odpočet z projektu, 15 slov) je nepovinný, len ak ho Miriam potvrdí aj pre 400 €.
+Stavba podľa `playbook/03_kreativa/SKRIPT_SABLONA.md`: jedno core (133 slov) pre všetky videá,
+30 pevných párov hook a subhook v troch skupinách (A chyby z e-booku, B „neviem sa rozhodnúť“,
+C dispozícia), videá 61 až 69 s pri 145 slovách na 60 s.
+Verzia 2 (Jano, 28. 9.): cena len 400 € a až na konci pred CTA 2 (bez 549 €), v CTA 1 hovor
+zdarma na 20 minút pre nerozhodnuté, ako bonus e-book „5 najdrahších chýb“ pre obe cesty.
+Stránka kampane teda potrebuje kalendár 400 €, menšiu voľbu hovoru zdarma a e-book po
+zanechaní kontaktu (existuje `5-chyb.html`, `ghl/ebook/5-najdrahsich-chyb.pdf`).
 
 Otvorené, overiť s Miriam pred natáčaním:
-- 549 € ako „samostatne“: predávajú sa obe služby naozaj aj zvlášť za tieto ceny?
+- hovor zdarma: volá Miriam, koľko týždenne zvládne; B9 (za 20 min povie, či nábytok alebo dispozícia) a B5 (často jedna izba) overiť
 - varianty „od jednoduchších po odvážnejšie“, teda aspoň jeden bez búrania
 - garancia pre 400 € a jej znenie pri platbe vopred (FAPI, viď testy/fapi/README.md)
 - kapacita dispozícií mesačne (v texte zatiaľ „päť“ ako príklad) a „dni premýšľania“
 - „viac ako pätnásť rokov praxe“ (web: od roku 2010)
-- H10 len so skutočným pôdorysom zo zákazky a súhlasom klientky
+- C10 len so skutočným pôdorysom zo zákazky a súhlasom klientky
 - termín dodania variantov (na stránku, nie do videa)
