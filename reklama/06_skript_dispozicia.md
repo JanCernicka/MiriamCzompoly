@@ -23,3 +23,12 @@ Otvorené, overiť s Miriam pred natáčaním:
 - „viac ako pätnásť rokov praxe“ (web: od roku 2010)
 - C10 len so skutočným pôdorysom zo zákazky a súhlasom klientky
 - termín dodania variantov (na stránku, nie do videa)
+
+## Návrh stránky kampane (28. 9. 2026)
+Vetva `claude/dispozicia-navrh`, **len cvičný web**: https://dispozicia.miriam-web-staging.pages.dev/dispozicia
+(náhľad má `TEST_REZIM=1`, rezervácia sa len simuluje).
+- `dispozicia.html`: kostra varianty B (pruh, nadpis, podnadpis, video, veta, CTA, recenzie, ponuka,
+  kalendár, pás fotiek, záver). Video zatiaľ miesto, cena 400 € až v ponuke. Žlté „overiť“ = otvorené body vyššie.
+- `assets/css/dispozicia.css`, `assets/js/dispozicia*.js`: kópie z varianty B, rezervácia s `ponuka: "dispozicia"`.
+- `api/termin.js`: pri `ponuka: "dispozicia"` značka `dispozicia-400-lp`, zdroj „Dispozícia 400 €, stránka“, príležitosť 400 €.
+- Platba zatiaľ nie je (produkt FAPI za 400 € neexistuje), po rezervácii ide na `/dakujem`.

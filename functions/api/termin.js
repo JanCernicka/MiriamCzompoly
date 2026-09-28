@@ -42,6 +42,10 @@ export async function onRequestPost({ request, env }) {
   const start = cisty(b.start, 40), startMs = Date.parse(start);
   const meno = cisty(b.meno, 60), email = cisty(b.email, 254).toLowerCase(), tel = telefon(b.telefon);
   const ulica = cisty(b.ulica, 120), mesto = cisty(b.mesto, 60);
+  // stránka kampane /dispozicia (návrh): diagnostika + dispozícia jednej izby za 400 €
+  const dispozicia = b.ponuka === "dispozicia";
+  const znacka = dispozicia ? "dispozicia-400-lp" : ZNACKA, cena = dispozicia ? 400 : CENA;
+  const zdroj = dispozicia ? "Dispozícia 400 €, stránka" : "Diagnostika, stránka B";
   if (isNaN(startMs) || startMs < Date.now()) return json({ ok: false, error: "bad_start" }, 400);
   if (meno.length < 2 || !isEmail(email) || !tel) return json({ ok: false, error: "bad_contact" }, 400);
   if (ulica.length < 3 || mesto.length < 2) return json({ ok: false, error: "bad_address" }, 400);
@@ -60,7 +64,7 @@ export async function onRequestPost({ request, env }) {
 
     const up = await fetch(`${GHL}/contacts/upsert`, { method: "POST", headers: H,
       body: JSON.stringify({ locationId: env.GHL_LOCATION_ID, email, firstName: meno, phone: tel,
-                             address1: ulica, city: mesto, source: "Diagnostika, stránka B" }) });
+                             address1: ulica, city: mesto, source: zdroj }) });
     const upd = await up.json().catch(() => ({}));
     const id = upd.contact && upd.contact.id;
     if (!up.ok || !id) { console.error("upsert", up.status, JSON.stringify(upd).slice(0, 300)); return json({ ok: false, error: "ghl_contact" }, 502); }
@@ -69,7 +73,7 @@ export async function onRequestPost({ request, env }) {
     const c = ((await (await fetch(`${GHL}/contacts/${id}`, { headers: H })).json().catch(() => ({}))).contact) || {};
     if (c.address1 !== ulica || c.city !== mesto) { console.error("adresa sa neuložila"); return json({ ok: false, error: "ghl_address" }, 502); }
 
-    const tg = await fetch(`${GHL}/contacts/${id}/tags`, { method: "POST", headers: H, body: JSON.stringify({ tags: [ZNACKA] }) });
+    const tg = await fetch(`${GHL}/contacts/${id}/tags`, { method: "POST", headers: H, body: JSON.stringify({ tags: [znacka] }) });
     if (!tg.ok) console.error("značka", tg.status);
 
     const ap = await fetch(`${GHL}/calendars/events/appointments`, { method: "POST", headers: hlavicky(env, "2021-04-15"),
@@ -92,7 +96,7 @@ export async function onRequestPost({ request, env }) {
       if (s.ok && !(sd.opportunities || []).length) {
         const o = await fetch(`${GHL}/opportunities/`, { method: "POST", headers: H,
           body: JSON.stringify({ locationId: env.GHL_LOCATION_ID, pipelineId: PIPELINE_ID, pipelineStageId: FAZA_REZERVOVANA,
-            contactId: id, name: `${meno} · ${tel}`, status: "open", monetaryValue: CENA }) });
+            contactId: id, name: `${meno} · ${tel}`, status: "open", monetaryValue: cena }) });
         if (!o.ok) console.error("príležitosť", o.status);
       }
     } catch (e) { console.error("príležitosť", String(e)); }

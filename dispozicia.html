@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Izba, ktorá funguje: diagnostika a dispozícia · Miriam Czompoly, Trnava</title>
+  <meta name="description" content="Diagnostika u teba doma a 2 až 3 varianty nového rozvrhnutia pre izbu, ktorá ťa trápi. Miriam Czompoly, Trnava." />
+  <!-- NÁVRH stránky kampane „diagnostika + dispozícia za 400 €“ (skript reklama/06).
+       Kostra z varianty B (GHLtool lievik/01_STRUKTURA.md). Len na cvičnom webe. -->
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="theme-color" content="#262019" />
+  <link rel="canonical" href="https://www.miriamczompoly.sk/dispozicia" />
+  <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/css/dispozicia.css" />
+  <style>.over{background:#fdf3dc;color:#8a5a00;font:600 .78em/1.2 Inter,sans-serif;padding:1px 6px;border-radius:5px;white-space:nowrap}
+  .video-miesto{aspect-ratio:16/9;border:1.5px dashed var(--linka);border-radius:14px;display:flex;align-items:center;justify-content:center;text-align:center;padding:16px;color:var(--sivy);font-size:14px;background:var(--pozadie-2);margin-bottom:12px}</style>
+</head>
+<body>
+
+  <!-- 1. PRUH: stav, nie logo. Najbližší voľný termín sa doplní z /api/sloty. -->
+  <div class="pruh">
+    <div class="obal">
+      <span class="zive"><i></i>Voľné</span>
+      <span class="co">Najbližší voľný termín</span>
+      <span class="cas" id="najblizsi">tento týždeň</span>
+    </div>
+  </div>
+
+  <main>
+    <section class="hero">
+      <div class="obal">
+        <!-- 2. NADPIS: výsledok + číslo -->
+        <h1>Izbu, ktorá nefunguje, nový nábytok nezachráni. <em>Zachráni ju iné rozvrhnutie.</em></h1>
+        <!-- 3. PODNADPIS: sľub do praxe -->
+        <p class="sub">Prídem k tebe domov na diagnostiku a pre miestnosť, ktorá ťa trápi najviac, navrhnem <strong>dva až tri varianty nového rozvrhnutia</strong>. Pri každom ti vysvetlím, prečo funguje.</p>
+
+        <!-- 4. VIDEO 16:9: natočí sa podľa skriptu reklama/06 (core + hook), zatiaľ miesto -->
+        <div class="video-miesto">Sem príde video 16:9 podľa skriptu (core a jeden z hookov). Zatiaľ nie je natočené.</div>
+
+        <!-- 5. RIADOK POD VIDEOM: posledná námietka -->
+        <p class="pod-videom">Nemusíš sa báť búrania: dostaneš varianty <strong>od jednoduchších po odvážnejšie</strong> a vyberieš si ty. <span class="over">overiť</span></p>
+
+        <!-- 6. CTA, jeden text na celej stránke -->
+        <a class="btn" href="#kalendar" data-cta>Chcem riešenie pre svoju izbu</a>
+      </div>
+    </section>
+
+    <!-- DÔKAZ hneď za hero -->
+    <section class="sekcia svetla" id="recenzie">
+      <div class="obal">
+        <h2>Bývajú vo vlastnej vízii, nie v mojej</h2>
+        <p class="uvod">Výber z recenzií klientov, ktorým som zariaďovala domov.</p>
+        <div class="kopa" id="kopa"></div>
+        <a class="btn" href="#kalendar" data-cta>Chcem riešenie pre svoju izbu</a>
+      </div>
+    </section>
+
+    <!-- PONUKA: čo presne dostane. Cena až tu, ako vo videu (na konci). -->
+    <section class="sekcia" id="dispozicia">
+      <div class="obal">
+        <h2>Problém nie je v nábytku, ale v rozvrhnutí</h2>
+        <p class="uvod">Väčšina ľudí rieši, čím byt zariadiť. Pinterest, nový nábytok, doplnky. Keď je však zle umiestnená stena, dvere alebo cesta cez izbu, nič z toho nepomôže. Rozvrhnutie priestoru je najnáročnejšia časť návrhu a amatérsky sa vyriešiť nedá.</p>
+        <h2 style="margin-top:26px">Čo dostaneš za <span class="suma">400&nbsp;€</span></h2>
+        <ul class="body">
+          <li><b>Diagnostiku u teba doma, 90 minút</b><span>Priamo v priestore, nie cez fotky. Vidím svetlo, rozmery aj to, ako tam naozaj žiješ.</span></li>
+          <li><b>Rozbor izby, ktorá ťa trápi najviac</b><span>Kde je skutočný problém: stena, dvere, prechody alebo miesto, kam nič nepatrí.</span></li>
+          <li><b>Dva až tri varianty nového rozvrhnutia</b><span>Nakreslené, s vysvetlením, prečo každý funguje. Porovnáš ich a vyberieš si ten, ktorý sedí tvojmu životu.</span></li>
+          <li><b>Plán, čo riešiť ako prvé</b><span>A čo prestať kupovať, kým nie je rozvrhnutie hotové.</span></li>
+        </ul>
+        <div class="zaruka">
+          <p><b>Garancia:</b> stopercentná záruka spokojnosti. <span class="over">overiť, čo presne</span></p>
+          <p><b>Kapacita:</b> dispozícia je najnáročnejšia časť návrhu, preto ich mesačne beriem len <span class="over">päť, overiť</span>.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- KALENDÁR priamo v stránke, kotva všetkých CTA -->
+    <section class="sekcia svetla" id="kalendar">
+      <div class="obal">
+        <h2>Vyber si čas, kedy k tebe prídem na diagnostiku</h2>
+        <p class="uvod">Pracovné dni. Diagnostika trvá 90 minút a je u teba doma, varianty rozvrhnutia pripravím potom. <span class="over">za koľko dní, overiť</span></p>
+
+        <div class="kal" data-kalendar>
+          <div class="dni" id="dni" role="tablist" aria-label="Deň"></div>
+          <div class="sloty" id="sloty"></div>
+          <p class="kal-stav" id="kalStav">Načítavam voľné termíny…</p>
+
+          <form class="formular" id="formular" novalidate hidden>
+            <div class="pole"><label for="meno">Krstné meno</label>
+              <input id="meno" name="meno" type="text" autocomplete="given-name" required></div>
+            <div class="pole"><label for="email">E-mail</label>
+              <input id="email" name="email" type="email" inputmode="email" autocomplete="email" required></div>
+            <div class="pole"><label for="telefon">Telefón</label>
+              <input id="telefon" name="telefon" type="tel" inputmode="tel" autocomplete="tel" placeholder="0907 777 555" required></div>
+            <div class="pole"><label for="ulica">Kde bude diagnostika? Ulica a číslo</label>
+              <input id="ulica" name="ulica" type="text" autocomplete="street-address" required></div>
+            <div class="pole"><label for="mesto">Mesto</label>
+              <input id="mesto" name="mesto" type="text" autocomplete="address-level2" required></div>
+            <label class="suhlas"><input id="optin" name="suhlas" type="checkbox" required>
+              <span>Áno, môžeš mi písať. Pošlem ti len potvrdenie termínu a dve pripomienky pred ním. Viac o <a href="/gdpr" target="_blank" rel="noopener">ochrane údajov</a>.</span></label>
+            <p class="chyba" id="chyba" role="alert"></p>
+            <button class="btn" type="submit" id="rezervovat">Vyber si čas</button>
+          </form>
+          <p class="kal-pozn">Denne robím najviac dve diagnostiky. Keď sa v ten deň minú, vyber si iný.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- GALÉRIA: pás, ktorý sa posúva sám -->
+    <section class="sekcia galeria" aria-label="Moje realizácie">
+      <div class="obal"><h2>Takto bývajú moji klienti</h2></div>
+      <div class="pas-obal"><div class="pas-bezi" id="pas"></div></div>
+    </section>
+
+    <!-- ZÁVER -->
+    <section class="sekcia zaver">
+      <div class="obal">
+        <h2>Jedna izba, dva až tri riešenia a jasné poradie krokov</h2>
+        <p class="uvod">Od dizajnérky, ktorá interiéry navrhuje od roku 2010, priamo v tvojom priestore.</p>
+        <a class="btn" href="#kalendar" data-cta>Chcem riešenie pre svoju izbu</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="paticka">
+    <div class="obal">
+      <div><b>Miriam Czompoly</b>, interiérový dizajn</div>
+      <div>J. Hlubíka 42, 917 01 Trnava · IČO 45714088</div>
+      <div><a href="tel:+421918819906">+421 918 819 906</a> · <a href="mailto:dizajn@miriamczompoly.sk">dizajn@miriamczompoly.sk</a></div>
+      <nav><a href="/gdpr" target="_blank" rel="noopener">Ochrana osobných údajov</a> · <a href="#" data-cookie-settings>Nastavenia cookies</a></nav>
+    </div>
+  </footer>
+
+  <script src="/assets/js/dispozicia-recenzie.js"></script>
+  <script>try { postavKarty("#kopa", 6); } catch (e) { /* zvyšok stránky beží ďalej */ }</script>
+  <script src="/assets/js/dispozicia.js"></script>
+  <!-- rovnaký súhlas s cookies a pixel ako na variante A -->
+  <script src="/assets/js/consent.js"></script>
+</body>
+</html>
