@@ -4,6 +4,8 @@ export const LOCATION_TZ = "Europe/Bratislava";
 
 // kalendár „Interiérová diagnostika“ (ten istý ako na /diagnostika, kapacita je spoločná)
 export const KALENDAR_ID = "fUjAzOhv2VyiY3XTguPz";
+// kalendár „Bezplatná konzultácia s Miriam Czompoly“ (15 min, Google Meet), ponuka po e-booku
+export const KONZULTACIA_ID = "ZSPaMWEuejcfthaFxKZt";
 // Miriam, bez assignedUserId vráti GHL 422
 export const MIRIAM_USER_ID = "hSQHxikFZUetHZUYqJZO";
 // pipeline „Hlavný predajný proces“, fáza „Diagnostika rezervovaná“
@@ -26,8 +28,8 @@ export const hlavicky = (env, version = "2021-07-28") => ({
 export const nastavene = (env) => !!(env.GHL_API_KEY && env.GHL_LOCATION_ID);
 
 // voľné termíny: { "2026-09-28": ["2026-09-28T09:00:00+02:00", ...], ... }
-export async function volneSloty(env, odMs, doMs) {
-  const url = `${GHL}/calendars/${KALENDAR_ID}/free-slots?startDate=${odMs}&endDate=${doMs}&timezone=${encodeURIComponent(LOCATION_TZ)}`;
+export async function volneSloty(env, odMs, doMs, kalendar = KALENDAR_ID) {
+  const url = `${GHL}/calendars/${kalendar}/free-slots?startDate=${odMs}&endDate=${doMs}&timezone=${encodeURIComponent(LOCATION_TZ)}`;
   const r = await fetch(url, { headers: hlavicky(env, "2021-04-15") });
   const d = await r.json().catch(() => ({}));
   if (!r.ok) throw new Error(`free-slots ${r.status}`);

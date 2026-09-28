@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ešte neodchádzaj · Miriam Czompoly</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <script>/* ak GHL presmeruje len vnútri rámčeka kalendára, otvor stránku v celom okne */
+  if (window.top !== window.self) { try { window.top.location.href = window.location.href; } catch (e) {} }</script>
+  <meta name="description" content="E-book 5 najdrahších chýb a bezplatná konzultácia s Miriam Czompoly." />
+  <link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="sk_SK" />
+  <meta property="og:title" content="Ešte neodchádzaj · Miriam Czompoly" />
+  <meta property="og:description" content="E-book 5 najdrahších chýb a bezplatná konzultácia s Miriam Czompoly." />
+  <meta property="og:image" content="assets/img/og-cover.svg" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body class="page-white" data-fb-event="CompleteRegistration">
+  <a class="skip-link" href="#main">Preskočiť na obsah</a>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand" aria-label="Miriam Czompoly, domovská stránka">
+        <img src="assets/img/logo.png" alt="Miriam Czompoly Design" class="brand-logo" width="392" height="240" fetchpriority="high" />
+      </a>
+      <nav class="nav" aria-label="Hlavná navigácia">
+        <ul class="nav-list">
+          <li><a href="index.html">Domov</a></li>
+          <li><a href="diagnostika.html">Diagnostika</a></li>
+          <li><a href="sluzby.html">Služby</a></li>
+          <li><a href="index.html#realizacie">Realizácie</a></li>
+          <li><a href="index.html#o-mne">O mne</a></li>
+          <li><a href="index.html#kontakt">Kontakt</a></li>
+        </ul>
+        <a href="diagnostika.html" class="btn btn--primary btn--sm">Chcem diagnostiku <span class="arrow" aria-hidden="true">→</span></a>
+      </nav>
+      <button class="nav-toggle" aria-label="Otvoriť menu" aria-expanded="false" aria-controls="mobile-menu"><span></span></button>
+    </div>
+  </header>
+
+  <div class="mobile-menu" id="mobile-menu">
+    <ul>
+      <li><a class="m-link" href="index.html">Domov</a></li>
+      <li><a class="m-link" href="diagnostika.html">Diagnostika</a></li>
+      <li><a class="m-link" href="sluzby.html">Služby</a></li>
+      <li><a class="m-link" href="index.html#realizacie">Realizácie</a></li>
+      <li><a class="m-link" href="index.html#o-mne">O mne</a></li>
+      <li><a class="m-link" href="index.html#kontakt">Kontakt</a></li>
+    </ul>
+    <a href="diagnostika.html" class="btn btn--primary">Chcem diagnostiku <span class="arrow" aria-hidden="true">→</span></a>
+    <p class="m-contact">Beriem iba 3 až 4 projekty mesačne.</p>
+  </div>
+
+  <main id="main">
+    <section class="section kz">
+      <div class="container kz-obal">
+
+        <p class="eyebrow">Ešte neodchádzaj</p>
+        <h1 class="kz-h1" id="kzH1">Máš to. Tvoj e-book je pripravený.</h1>
+        <p class="kz-ebook-text">Poslala som ti ho aj e-mailom. Ak ho nevidíš, pozri sa do priečinka Promo alebo Spam.</p>
+        <p class="kz-ebook"><a class="btn btn--outline" href="https://assets.cdn.filesafe.space/o86atLjsdR9IoUTWgYna/media/d68c8922-e5af-4443-9e14-e89354c82dad.pdf" target="_blank" rel="noopener">Stiahnuť e-book (PDF) <span class="arrow">↓</span></a></p>
+
+        <div class="kz-ponuka">
+          <p class="kz-stitok">Len pre nové čitateľky</p>
+          <h2>Konzultácia so mnou zadarmo</h2>
+          <p>Ako nová čitateľka máš u mňa exkluzívnu ponuku: <strong>konzultáciu zadarmo</strong>. Bežne ju účtujem.</p>
+          <p>Pätnásť minút cez videohovor. Povieš mi, čo ťa doma trápi, a ja ti poviem, kde začať a čomu sa vyhnúť. Bez záväzkov.</p>
+        </div>
+
+        <div class="kz-kal" id="kalendar">
+          <h2>Vyber si čas</h2>
+          <div class="kz-dni" id="kzDni" role="tablist" aria-label="Deň"></div>
+          <div class="kz-sloty" id="kzSloty"></div>
+          <p class="kz-stav" id="kzStav">Načítavam voľné termíny…</p>
+
+          <div class="kz-kto" id="kzKto" hidden>Rezervujem na meno <b id="kzKtoMeno"></b>, <span id="kzKtoEmail"></span></div>
+          <div class="kz-udaje" id="kzUdaje" hidden>
+            <label for="kzMenoIn">Krstné meno</label><input id="kzMenoIn" type="text" autocomplete="given-name">
+            <label for="kzEmailIn">E-mail</label><input id="kzEmailIn" type="email" inputmode="email" autocomplete="email">
+          </div>
+          <p class="kz-chyba" id="kzChyba" role="alert"></p>
+          <button class="btn btn--primary kz-btn" type="button" id="kzRezervovat" disabled>Vyber si čas</button>
+          <p class="kz-pozn">Odkaz na videohovor ti príde e-mailom.</p>
+        </div>
+
+        <div class="kz-hotovo" id="kzHotovo" hidden>
+          <p class="kz-stitok">Hotovo</p>
+          <h2 id="kzHotovoKedy"></h2>
+          <p>Teším sa na teba. Odkaz na videohovor ti príde e-mailom. Ak ho nevidíš, pozri sa aj do priečinka Promo alebo Spam.</p>
+        </div>
+
+        <p class="kz-nie"><a href="index.html">Nie, ďakujem, stačí mi e-book</a></p>
+      </div>
+    </section>
+  </main>
+  <style>
+    .kz [hidden],.kz-obal [hidden]{display:none !important}
+    .kz-obal{max-width:620px}
+    .kz-h1{font-size:clamp(2rem,6vw,2.8rem);margin:.6rem 0 1rem}
+    .kz-ebook{margin:0 0 2rem}
+    .kz-ponuka{border:1.5px solid var(--ink);border-radius:16px;padding:1.3rem 1.4rem;margin-bottom:1.6rem;background:#fff}
+    .kz-ponuka h2{margin:.2rem 0 .7rem;font-size:1.9rem}
+    .kz-ponuka p{margin:0 0 .6rem}
+    .kz-stitok{font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--brass-deep,#7E6441);margin:0}
+    .kz-kal h2{font-size:1.6rem;margin:0 0 .8rem}
+    .kz-dni{display:flex;gap:8px;overflow-x:auto;padding:2px 2px 10px;scroll-snap-type:x mandatory}
+    .kz-den{flex:0 0 auto;min-width:78px;scroll-snap-align:start;cursor:pointer;border:1.5px solid #E4D9C6;background:#fff;border-radius:12px;padding:8px 6px;text-align:center;font:inherit;color:var(--ink)}
+    .kz-den .d1{display:block;font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#6F6557}
+    .kz-den .d2{display:block;font-size:1.05rem;font-weight:700}
+    .kz-den.on{border-color:var(--ink);box-shadow:0 0 0 1.5px var(--ink)}
+    .kz-sloty{display:grid;grid-template-columns:repeat(auto-fill,minmax(84px,1fr));gap:8px;margin:6px 0 14px}
+    .kz-cas{font:inherit;font-weight:700;color:var(--ink);background:#fff;border:1.5px solid #E4D9C6;border-radius:10px;padding:11px 4px;cursor:pointer}
+    .kz-cas.on{background:var(--ink);border-color:var(--ink);color:#fff}
+    .kz-stav,.kz-pozn{color:#6F6557;font-size:.92rem}
+    .kz-kto{background:#F8F4EE;border-radius:10px;padding:.7rem .9rem;margin:0 0 .8rem;font-size:.95rem}
+    .kz-udaje{display:flex;flex-direction:column;gap:.35rem;margin-bottom:.8rem}
+    .kz-udaje label{font-size:.9rem;font-weight:600}
+    .kz-udaje input{font:inherit;font-size:16px;padding:.75rem .9rem;border:1px solid #d9cdb8;border-radius:10px}
+    .kz-chyba{display:none;color:#b3261e;margin:0 0 .6rem}
+    .kz-chyba.vidno{display:block}
+    .kz-btn{width:100%;justify-content:center}
+    .kz-btn[disabled]{opacity:.55;cursor:default}
+    .kz-hotovo{border:1.5px solid #1f6e46;border-radius:16px;padding:1.3rem 1.4rem;background:#fff}
+    .kz-hotovo .kz-stitok{color:#1f6e46}
+    .kz-hotovo h2{font-size:1.7rem;margin:.3rem 0 .6rem}
+    .kz-nie{margin-top:2rem;font-size:.9rem}
+    .kz-nie a{color:#6F6557}
+  </style>
+  <script src="assets/js/konzultacia.js" defer></script>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <span class="brand-name">Miriam Czompoly</span>
+          <p>Od roku 2010 navrhujem interiéry s láskou k detailu a dôrazom na jedinečnosť každého priestoru. Ďakujem, že mi dôveruješ pri premene tvojho domova.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Navigácia</h4>
+          <ul>
+            <li><a href="index.html">Domov</a></li>
+            <li><a href="diagnostika.html">Diagnostika</a></li>
+            <li><a href="sluzby.html">Služby</a></li>
+            <li><a href="index.html#realizacie">Realizácie</a></li>
+            <li><a href="index.html#o-mne">O mne</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Užitočné odkazy</h4>
+          <ul>
+            <li><a href="gdpr.html">Ochrana osobných údajov</a></li>
+            <li><a href="#" data-cookie-settings>Nastavenia cookies</a></li>
+            <li><a href="index.html#kontakt">Kontakt</a></li>
+            <li><a href="5-chyb.html">5 najdrahších chýb</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© <span id="year">2026</span> Miriam Czompoly · Interiérový dizajn Trnava</span>
+        <span>Navrhnuté s dôrazom na detail.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/consent.js" defer></script>
+  <script src="https://widgets.leadconnectorhq.com/loader.js" data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js" data-widget-id="69fca8895b108d17d66edd1c"></script>
+</body>
+</html>

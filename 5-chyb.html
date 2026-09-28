@@ -74,20 +74,33 @@
           </div>
 
           <div class="optin-card reveal d2">
-            <iframe src="https://api.leadconnectorhq.com/widget/form/geA4rea6TYWIKcskupXQ" style="width:100%;height:360px;border:none;border-radius:var(--radius);background:transparent" id="inline-geA4rea6TYWIKcskupXQ" data-layout="{'id':'INLINE'}" data-form-id="geA4rea6TYWIKcskupXQ" title="Formulár – 5 chýb"></iframe>
-            <script src="https://link.msgsndr.com/js/form_embed.js"></script>
-            <script>
-              /* Kto prišiel z opt-inu na domovskej stránke, má e-mail v URL.
-                 Bez tohto by ho musel napísať druhýkrát. Prepisujeme len vtedy,
-                 keď e-mail naozaj prišiel, inak iframe necháme tak, ako je. */
-              (function () {
-                var email = new URLSearchParams(location.search).get('email');
-                if (!email || email.indexOf('@') < 1) return;
-                var f = document.getElementById('inline-geA4rea6TYWIKcskupXQ');
-                if (!f) return;
-                f.src = f.src + (f.src.indexOf('?') > -1 ? '&' : '?') + 'email=' + encodeURIComponent(email);
-              })();
-            </script>
+            <!-- Vlastný formulár namiesto GHL iframe (geA4rea6TYWIKcskupXQ): po odoslaní ide žena
+                 na /konzultacia-zdarma a tam si rezervuje bez písania údajov druhýkrát.
+                 Zápis do GHL robí /api/ebook. -->
+            <form class="ebook-form" id="ebookForm" novalidate>
+              <p class="ebook-nadpis">Kam ti ho mám poslať?</p>
+              <label for="ebMeno">Krstné meno</label>
+              <input id="ebMeno" name="meno" type="text" autocomplete="given-name" required>
+              <label for="ebEmail">E-mail</label>
+              <input id="ebEmail" name="email" type="email" inputmode="email" autocomplete="email" required>
+              <label class="ebook-suhlas"><input id="ebSuhlas" name="suhlas" type="checkbox" required>
+                <span>Súhlasím, aby mi Miriam poslala e-book a občas tipy k bývaniu. Odhlásiť sa dá jedným klikom. <a href="gdpr.html" target="_blank" rel="noopener">Ochrana údajov</a></span></label>
+              <p class="ebook-chyba" id="ebChyba" role="alert"></p>
+              <button class="btn btn--primary" type="submit" id="ebTlacidlo">Chcem e-book zdarma <span class="arrow">→</span></button>
+            </form>
+            <style>
+              .ebook-form{display:flex;flex-direction:column;gap:.45rem}
+              .ebook-nadpis{font-family:var(--font-display,'Cormorant Garamond',serif);font-size:1.5rem;margin:0 0 .4rem;color:var(--ink)}
+              .ebook-form label{font-size:.9rem;font-weight:600;color:var(--ink)}
+              .ebook-form input[type=text],.ebook-form input[type=email]{font:inherit;font-size:16px;padding:.8rem .9rem;border:1px solid #d9cdb8;border-radius:10px;background:#fff;margin-bottom:.4rem}
+              .ebook-form input.zle{border-color:#b3261e}
+              .ebook-suhlas{display:flex;gap:.6rem;align-items:flex-start;font-weight:400 !important;font-size:.82rem !important;color:#6F6557 !important;margin:.3rem 0 .5rem}
+              .ebook-suhlas input{width:18px;height:18px;flex:0 0 18px;margin-top:2px;accent-color:#262019}
+              .ebook-chyba{display:none;color:#b3261e;font-size:.9rem;margin:0}
+              .ebook-chyba.vidno{display:block}
+              .ebook-form .btn{justify-content:center;margin-top:.3rem}
+            </style>
+            <script src="assets/js/ebook.js" defer></script>
           </div>
         </div>
       </div>
