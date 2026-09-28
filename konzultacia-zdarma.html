@@ -7,13 +7,13 @@
   <meta name="robots" content="noindex, nofollow" />
   <script>/* ak GHL presmeruje len vnútri rámčeka kalendára, otvor stránku v celom okne */
   if (window.top !== window.self) { try { window.top.location.href = window.location.href; } catch (e) {} }</script>
-  <meta name="description" content="E-book 5 najdrahších chýb a bezplatná konzultácia s Miriam Czompoly." />
+  <meta name="description" content="E-book 5 najdrahších chýb a uvítací hovor s Miriam Czompoly." />
   <link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg" />
 
   <meta property="og:type" content="website" />
   <meta property="og:locale" content="sk_SK" />
   <meta property="og:title" content="Ešte neodchádzaj · Miriam Czompoly" />
-  <meta property="og:description" content="E-book 5 najdrahších chýb a bezplatná konzultácia s Miriam Czompoly." />
+  <meta property="og:description" content="E-book 5 najdrahších chýb a uvítací hovor s Miriam Czompoly." />
   <meta property="og:image" content="assets/img/og-cover.svg" />
   <meta name="twitter:card" content="summary_large_image" />
 
@@ -70,9 +70,9 @@
 
         <div class="kz-ponuka">
           <p class="kz-stitok">Len pre nové čitateľky</p>
-          <h2>Konzultácia so mnou zadarmo</h2>
-          <p>Ako nová čitateľka máš u mňa exkluzívnu ponuku: <strong>konzultáciu zadarmo</strong>. Bežne ju účtujem 259 €.</p>
-          <p>Pätnásť minút cez videohovor. Povieš mi, čo ťa doma trápi, a ja ti poviem, kde začať a čomu sa vyhnúť. Bez záväzkov.</p>
+          <h2>Uvítací hovor so mnou</h2>
+          <p>Ako nová čitateľka si môžeš dohodnúť <strong>uvítací hovor</strong> so mnou.</p>
+          <p>Pätnásť minút po telefóne. Povieš mi, čo ťa doma trápi, a ja ti poviem, kde začať a čomu sa vyhnúť. Nič neplatíš a k ničomu sa nezaväzuješ.</p>
         </div>
 
         <div class="kz-kal" id="kalendar">
@@ -86,15 +86,18 @@
             <label for="kzMenoIn">Krstné meno</label><input id="kzMenoIn" type="text" autocomplete="given-name">
             <label for="kzEmailIn">E-mail</label><input id="kzEmailIn" type="email" inputmode="email" autocomplete="email">
           </div>
+          <div class="kz-udaje" id="kzTelObal">
+            <label for="kzTel">Na aké číslo ti mám zavolať?</label><input id="kzTel" type="tel" inputmode="tel" autocomplete="tel" placeholder="0907 777 555">
+          </div>
           <p class="kz-chyba" id="kzChyba" role="alert"></p>
           <button class="btn btn--primary kz-btn" type="button" id="kzRezervovat" disabled>Vyber si čas</button>
-          <p class="kz-pozn">Odkaz na videohovor ti príde e-mailom.</p>
+          <p class="kz-pozn">Zavolám ti ja, v čase, ktorý si vyberieš.</p>
         </div>
 
         <div class="kz-hotovo" id="kzHotovo" hidden>
           <p class="kz-stitok">Hotovo</p>
           <h2 id="kzHotovoKedy"></h2>
-          <p>Teším sa na teba. Odkaz na videohovor ti príde e-mailom. Ak ho nevidíš, pozri sa aj do priečinka Promo alebo Spam.</p>
+          <p>Teším sa na teba. Potvrdenie ti príde e-mailom aj SMS. Ak e-mail nevidíš, pozri sa aj do priečinka Promo alebo Spam.</p>
         </div>
 
         <p class="kz-nie"><a href="index.html">Nie, ďakujem, stačí mi e-book</a></p>

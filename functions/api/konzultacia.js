@@ -1,9 +1,9 @@
 /**
- * /api/konzultacia: bezplatná konzultácia ponúknutá hneď po e-booku (/konzultacia-zdarma).
+ * /api/konzultacia: uvítací hovor (15 min, po telefóne) ponúknutý hneď po e-booku (/konzultacia-zdarma).
  * Kalendár „Bezplatná konzultácia s Miriam Czompoly“ (15 min, Google Meet).
  *
  * GET:  voľné termíny, 5 dní s voľnom, časy na celú a pol hodinu, najviac 10 na deň
- * POST: rezervácia bez nových údajov, kontakt je známy z e-booku (meno a e-mail)
+ * POST: meno a e-mail sú z e-booku, stránka pýta len telefón
  *  1. termín je stále voľný, inak 409 a stránka ponúkne iný
  *  2. upsert kontaktu podľa e-mailu BEZ značiek, meno späť
  *  3. značka „konzultacia-zdarma-ebook“
@@ -17,8 +17,15 @@ import { GHL, json, hlavicky, nastavene, volneSloty, KONZULTACIA_ID, MIRIAM_USER
 
 const ZNACKA = "konzultacia-zdarma-ebook";
 const DLZKA_MIN = 15;
-const NAZOV = "Bezplatná konzultácia (po e-booku)";
+const NAZOV = "Uvítací hovor (po e-booku)";
 const cisty = (v, max) => String(v || "").replace(/\s+/g, " ").trim().slice(0, max);
+function telefon(v) {
+  let s = String(v || "").replace(/[^\d+]/g, "");
+  if (s.startsWith("00")) s = "+" + s.slice(2);
+  if (s.startsWith("0")) s = "+421" + s.slice(1);
+  if (!s.startsWith("+")) s = "+421" + s;
+  return s.replace(/\D/g, "").length >= 11 ? s : null;
+}
 const isEmail = (v) => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v) && v.length < 255;
 
 export async function onRequestGet({ env }) {
@@ -42,7 +49,8 @@ export async function onRequestPost({ request, env }) {
   const start = cisty(b.start, 40), startMs = Date.parse(start);
   const meno = cisty(b.meno, 60), email = cisty(b.email, 254).toLowerCase();
   if (isNaN(startMs) || startMs < Date.now()) return json({ ok: false, error: "bad_start" }, 400);
-  if (meno.length < 2 || !isEmail(email)) return json({ ok: false, error: "bad_contact" }, 400);
+  const tel = telefon(b.telefon);
+  if (meno.length < 2 || !isEmail(email) || !tel) return json({ ok: false, error: "bad_contact" }, 400);
 
   if (env.TEST_REZIM === "1") return json({ ok: true, test: true });
   if (!nastavene(env)) return json({ ok: false, error: "not_configured" }, 500);
@@ -54,7 +62,7 @@ export async function onRequestPost({ request, env }) {
     if (!(sloty[den] || []).some((s) => Date.parse(s) === startMs)) return json({ ok: false, error: "slot_taken" }, 409);
 
     const up = await fetch(`${GHL}/contacts/upsert`, { method: "POST", headers: H,
-      body: JSON.stringify({ locationId: env.GHL_LOCATION_ID, email, firstName: meno }) });
+      body: JSON.stringify({ locationId: env.GHL_LOCATION_ID, email, firstName: meno, phone: tel }) });
     const upd = await up.json().catch(() => ({}));
     const id = upd.contact && upd.contact.id;
     if (!up.ok || !id) { console.error("upsert", up.status, JSON.stringify(upd).slice(0, 300)); return json({ ok: false, error: "ghl_contact" }, 502); }

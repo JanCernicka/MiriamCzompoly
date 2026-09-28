@@ -1,5 +1,5 @@
-/* /konzultacia-zdarma: ponuka po e-booku. Kalendár bezplatnej konzultácie,
-   rezervácia jedným klikom: meno a e-mail sú z formulára e-booku (sessionStorage „mc_ebook“).
+/* /konzultacia-zdarma: ponuka po e-booku, uvítací hovor 15 min po telefóne (bez ceny).
+   Meno a e-mail sú z formulára e-booku (sessionStorage „mc_ebook“), pýta sa len telefón.
    Kto sem príde bez nich, vyplní ich tu. */
 (function () {
   "use strict";
@@ -62,7 +62,7 @@
   function obnov() {
     chyba.classList.remove("vidno");
     btn.disabled = !vybrany;
-    btn.textContent = vybrany ? "Rezervovať konzultáciu " + kedy(vybrany) : "Vyber si čas";
+    btn.textContent = vybrany ? "Rezervovať hovor " + kedy(vybrany) : "Vyber si čas";
   }
 
   btn.addEventListener("click", function () {
@@ -73,15 +73,17 @@
       if (meno.length < 2) return povedz("Napíš prosím krstné meno.");
       if (!/^[^@\s]+@[^@\s]+\.[a-z]{2,}$/i.test(email)) return povedz("Ten e-mail nevyzerá platne.");
     }
+    var tel = $("kzTel").value.trim();
+    if (tel.replace(/\D/g, "").length < 9) { $("kzTel").focus(); return povedz("Napíš prosím telefónne číslo, zavolám ti naň."); }
     bezi = true; btn.disabled = true; btn.textContent = "Rezervujem…";
     fetch("/api/konzultacia", { method: "POST", headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ start: vybrany, meno: meno, email: email }) })
+      body: JSON.stringify({ start: vybrany, meno: meno, email: email, telefon: tel }) })
       .then(function (r) { return r.json().catch(function () { return {}; }).then(function (o) { return { s: r.status, o: o }; }); })
       .then(function (x) {
         bezi = false;
         if (x.o && x.o.ok) {
           $("kalendar").hidden = true; $("kzHotovo").hidden = false;
-          $("kzHotovoKedy").textContent = "Vidíme sa " + kedy(vybrany) + ".";
+          $("kzHotovoKedy").textContent = "Zavolám ti " + kedy(vybrany) + ".";
           try { if (window.fbq) window.fbq("track", "Schedule"); } catch (e) {}
           $("kzHotovo").scrollIntoView({ behavior: "smooth", block: "center" });
           return;

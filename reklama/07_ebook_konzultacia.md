@@ -27,7 +27,8 @@ stav `delivered` (Mailgun). Odosielateľ je `dizajn+miriamczompoly.sk@lc.shapele
 - Elene e-book poslaný 28. 9., stav `delivered`.
 - odosielateľ `lc.shapelesai.com` je v poriadku
 - konzultácia 15 minút (ako kalendár)
-- „Bežne ju účtujem 259 €.“ (pozor: diagnostika 90 min stojí 249 €)
+- bez ceny: „uvítací hovor“, 15 minút po telefóne; stránka pýta len telefón (meno a e-mail z e-booku)
+- texty workflowov: po telefóne, tykanie, SMS bez diakritiky; najprv ukázať návrh
 
 ## Pred spustením
 - WF1 pri zapnutí spúšťať značkou `ebook-5-chyb` a začať od E2, inak príde e-book dvakrát;
