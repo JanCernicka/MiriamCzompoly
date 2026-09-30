@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Nasadí DRUHÚ VERZIU lievika (grafika poukážky namiesto videa) na
+# Nasadí DRUHÚ VERZIU lievika (poukážka vytŕča z obálky, namiesto videa) na
 # https://miriam-sutaz-poukazka.pages.dev. Zdroj je ten istý ako pri ./nasad.sh,
 # rozdiel je len blok medzi <!-- VERZIA-VIDEO --> v index.html a data-verzia="poukazka".
 set -euo pipefail
