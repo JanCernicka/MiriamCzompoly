@@ -2,7 +2,8 @@
 <html lang="sk"
       data-uzavierka="2026-10-14T20:00:00+02:00"
       data-vyhlasenie="2026-10-15T18:00:00+02:00"
-      data-test="1">
+      data-test="1"
+      data-verzia="video">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
@@ -35,6 +36,7 @@
         <!-- 3. PODNADPIS, jedna veta -->
         <p class="podnadpis">Prestaň vyhadzovať tisíce eur za zariaďovanie, ktoré potom musíš robiť odznova.</p>
 
+        <!-- VERZIA-VIDEO: nasad-poukazka.sh nahradí tento blok obsahom varianty/poukazka-hero.html -->
         <!-- 4. VIDEO: nič sa nesťahuje pred kliknutím.
              Keď bude video hotové, vlož URL do data-src (GHL media, nie Cloudflare, limit 25 MB).
              Kým je data-src prázdne, kontrola.py zlyhá. -->
@@ -48,6 +50,8 @@
 
         <!-- 5. JEDNA VETA pod videom -->
         <p class="pod-videom">Vo videu ti poviem, prečo súťaž robím a ako sa zapojíš.</p>
+
+        <!-- /VERZIA-VIDEO -->
 
         <!-- 6. TLAČIDLO 1 z 3 -->
         <a class="btn" href="/dotaznik" data-cta>Chcem sa zapojiť do súťaže <span class="sipka" aria-hidden="true">→</span></a>

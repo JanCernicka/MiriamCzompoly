@@ -24,6 +24,8 @@ const TAGY = {
   hotovo: ["sutaz-1000-zacala", "sutaz-1000-prihlasena"],
 };
 const ZDROJ = "Súťaž 1 000 € (lievik)";
+// dve verzie úvodnej stránky na test (video / grafika poukážky), porovnanie v GHL podľa tagu
+const VERZIE = { video: "sutaz-1000-verzia-video", poukazka: "sutaz-1000-verzia-poukazka" };
 
 // E-book sa posiela pri prvom volaní pre kontakt (normálne hneď po e-maile, dotazník
 // to tam sľubuje). Kto už tag súťaže má, druhýkrát ho nedostane.
@@ -123,7 +125,7 @@ export async function onRequestPost({ request, env }) {
     const t = await fetch(`${GHL}/contacts/${contact.id}/tags`, {
       method: "POST",
       headers,
-      body: JSON.stringify({ tags: TAGY[krok] }),
+      body: JSON.stringify({ tags: VERZIE[body.verzia] ? [...TAGY[krok], VERZIE[body.verzia]] : TAGY[krok] }),
     });
     if (!t.ok) {
       console.error("GHL tagy zlyhali", t.status, (await t.text()).slice(0, 400));

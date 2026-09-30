@@ -353,3 +353,31 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   .kal-casy{grid-template-columns:repeat(4,1fr)}
   .p-hero h1{font-size:40px}
 }
+
+/* ---------- verzia „poukazka“: grafika poukážky namiesto videa (varianty/poukazka-hero.html) ---------- */
+.poukazka-scena{
+  position:relative;width:100%;aspect-ratio:16/9;margin:14px 0 0;
+  border-radius:var(--r);overflow:hidden;box-shadow:var(--tien);background:var(--ink);
+}
+.poukazka-scena img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(.62)}
+.poukazka{
+  position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) rotate(-3deg);
+  width:78%;padding:12px 14px 11px;border-radius:12px;text-align:center;
+  background:var(--ink);color:var(--na-tmavej);
+  border:1.5px solid var(--brass);box-shadow:0 14px 34px rgba(0,0,0,.45),inset 0 0 0 5px var(--ink),inset 0 0 0 6px rgba(169,136,94,.55);
+  display:flex;flex-direction:column;align-items:center;gap:1px;
+}
+.poukazka-hore{font-size:10.5px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--brass-soft)}
+.poukazka-suma{font-family:var(--display);font-weight:600;font-size:46px;line-height:1.02;color:var(--na-tmavej);
+  font-variant-numeric:lining-nums;font-feature-settings:"lnum" 1}
+.poukazka-na{font-size:13px;line-height:1.3;color:var(--na-tmavej)}
+.poukazka-dole{margin-top:7px;padding-top:6px;border-top:1px dashed rgba(217,194,156,.55);
+  font-size:10px;letter-spacing:.06em;color:var(--brass-soft);width:100%}
+@media (min-width:700px){
+  .poukazka{width:62%;padding:20px 22px 16px}
+  .poukazka-hore{font-size:13px}.poukazka-suma{font-size:72px}.poukazka-na{font-size:17px}.poukazka-dole{font-size:12px}
+}
+@media (prefers-reduced-motion:no-preference){
+  .poukazka{animation:poukazka-prichod .7s cubic-bezier(.2,.8,.2,1) both}
+  @keyframes poukazka-prichod{from{opacity:0;transform:translate(-50%,-44%) rotate(-6deg)}to{opacity:1;transform:translate(-50%,-50%) rotate(-3deg)}}
+}
