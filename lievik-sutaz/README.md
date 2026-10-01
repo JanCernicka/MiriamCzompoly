@@ -5,6 +5,12 @@
 > - verzia 1, video: https://miriam-sutaz.pages.dev
 > - verzia 2, grafika poukážky namiesto videa: https://miriam-sutaz-poukazka.pages.dev
 
+## Stav k 1. 10. 2026 (súťaž odložená, vrátime sa k nej)
+- Obe verzie hotové a nasadené, testovací režim zapnutý (nič sa neodosiela), projekty bez premenných.
+- Verzia 2: poukážka vytŕča z vyššej obálky s pečaťou MC (10 návrhov grafiky v artifacte nižšie).
+- Otvorené: video do verzie 1 (`data-src`), GHL kľúče do oboch projektov, workflow 72 h ponuky
+  (`ghl/build_ponuka_workflow.py`), vypnúť `data-test`, `kontrola.py` pred spustením.
+
 ## Dve verzie na test (30. 9. 2026)
 Rovnaký zdroj, líši sa len úvod: v `index.html` je blok medzi `<!-- VERZIA-VIDEO: … -->` a
 `<!-- /VERZIA-VIDEO -->`, ktorý `nasad-poukazka.sh` nahradí obsahom `varianty/poukazka-hero.html`
