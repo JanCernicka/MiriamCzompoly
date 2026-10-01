@@ -15,7 +15,9 @@ Rovnaký zdroj, líši sa len úvod: v `index.html` je blok medzi `<!-- VERZIA-V
   projekt `miriam-sutaz-poukazka`). Po každej zmene nasadiť OBE.
 - Prihláška posiela `verzia`, `api/sutaz.js` pridá tag `sutaz-1000-verzia-video` alebo
   `sutaz-1000-verzia-poukazka`, takže sa dajú porovnať v GHL.
-- Namerané 390 x 700 naostro (s bannerom): tlačidlo v hero končí na 537 px v oboch verziách, nič nepreteká.
+- Namerané 390 x 700 naostro (s bannerom): tlačidlo v hero končí na 537 px (video) a 604 px (obálka,
+  od 1. 10. vyššia, pomer ako klasická obálka, poukážka orezaná v `.obalka-vnutro`, spod obálky nevytŕča
+  ani počas vysúvania), nič nepreteká.
 - 10 návrhov grafiky poukážky: https://claude.ai/artifact/MsR9AzggPeCeUbRzim8A1S
 - Oba projekty zatiaľ nemajú premenné (GHL kľúč), testovací režim je zapnutý v oboch.
 
