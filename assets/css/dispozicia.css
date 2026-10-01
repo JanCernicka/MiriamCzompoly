@@ -182,3 +182,27 @@ section{padding:40px 0}
 }
 @media(max-width:359px){.pruh .co{display:none}}
 @media(prefers-reduced-motion:reduce){.zive i,.pas-bezi,.zvuk{animation:none}}
+
+/* ---------- vyskakovacie okno „Nie si si istá?“ (assets/js/zavolaj.js) ---------- */
+/* nad lištou cookies (z-index 400), inak by zakryla polia a tlačidlo */
+.zavolaj{position:fixed;inset:0;z-index:500;display:flex;align-items:flex-end;justify-content:center;
+  background:rgba(38,32,25,0);transition:background .2s ease}
+.zavolaj.vidno{background:rgba(38,32,25,.55)}
+.zavolaj[hidden]{display:none}
+.zavolaj-karta{position:relative;width:100%;max-width:440px;background:#fff;border-radius:20px 20px 0 0;
+  padding:22px 20px calc(20px + env(safe-area-inset-bottom,0px));box-shadow:0 -10px 40px rgba(38,32,25,.25);
+  transform:translateY(100%);transition:transform .25s ease}
+.zavolaj.vidno .zavolaj-karta{transform:none}
+@media (min-width:600px){.zavolaj{align-items:center}.zavolaj-karta{border-radius:20px;transform:translateY(20px);opacity:0;transition:transform .2s ease,opacity .2s ease}
+  .zavolaj.vidno .zavolaj-karta{opacity:1}}
+@media (prefers-reduced-motion:reduce){.zavolaj,.zavolaj-karta{transition:none}}
+.zavolaj h2{font-size:28px;margin:0 32px 6px 0}
+.zavolaj p{font-size:15.5px;color:var(--text);margin:0 0 14px}
+.zavolaj .btn{margin-top:4px}
+.zavolaj-x{position:absolute;right:12px;top:10px;width:40px;height:40px;border:0;background:transparent;font-size:28px;line-height:1;color:var(--sivy);cursor:pointer;border-radius:50%}
+.zavolaj-x:focus-visible,.zavolaj-nie:focus-visible{outline:2px solid var(--akcent);outline-offset:2px}
+.zavolaj-pozn{font-size:12.5px !important;color:var(--sivy) !important;text-align:center;margin:10px 0 0 !important}
+.zavolaj-nie{display:block;margin:6px auto 0;border:0;background:transparent;font:inherit;font-size:14px;color:var(--sivy);text-decoration:underline;cursor:pointer;padding:8px}
+.zavolaj-pasca{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+.zavolaj-hotovo p{margin-bottom:16px}
+html.zavolaj-otvorene{overflow:hidden}

@@ -39,3 +39,16 @@ Vetva `claude/dispozicia-navrh`, **len cvičný web**: https://dispozicia.miriam
 - `assets/css/dispozicia.css`, `assets/js/dispozicia*.js`: kópie z varianty B, rezervácia s `ponuka: "dispozicia"`.
 - `api/termin.js`: pri `ponuka: "dispozicia"` značka `dispozicia-400-lp`, zdroj „Dispozícia 400 €, stránka“, príležitosť 400 €.
 - Platba zatiaľ nie je (produkt FAPI za 400 € neexistuje), po rezervácii ide na `/dakujem`.
+
+## Vyskakovacie okno „Nie si si istá?“ (Jano, 1. 10. 2026), len cvičný web
+- Po 30 s na stránke (počíta len čas s otvorenou kartou), raz za návštevu, nie počas vypĺňania
+  rezervácie ani po odoslaní. Na mobile sa vysunie zdola, je nad lištou cookies (z-index 500 > 400).
+- Text: „Môžem ti zavolať na 15 minút a budeš mať jasno. Nechaj mi len krstné meno a číslo,
+  zavolám ti do 24 hodín.“ Polia: krstné meno, telefón. Pixel: `Contact`.
+- `assets/js/zavolaj.js`, CSS `.zavolaj*` v `dispozicia.css`, `functions/api/zavolaj.js`: kontakt podľa
+  telefónu, značka `zavolaj-mi-24h`, úloha pre Miriam „Zavolať do 24 h“ s termínom +24 h, príležitosť
+  vo fáze „Lead“ (len ak otvorenú nemá).
+- GHL: workflow „Zavolaj mi do 24 h: upozornenie pre Miriam (Claude)“ `12ea5601-d6f3-41cc-9d3b-c168cbc2549d`,
+  DRAFT, spúšťač značka `zavolaj-mi-24h` (neaktívny): SMS a e-mail Miriam s menom a číslom.
+  Zapnúť až so stránkou naostro.
+- 🔴 „do 24 hodín“ musí Miriam dodržať, aj cez víkend.
