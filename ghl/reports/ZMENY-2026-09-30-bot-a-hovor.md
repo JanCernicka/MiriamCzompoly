@@ -26,3 +26,8 @@ Spúšťač: Maria Berentesova 29. 9. cez chat bota, správy s anglickým dátum
 ## Pozor
 - Polia termínu sú na kontakte jedny: keď má žena naraz hovor aj diagnostiku, platí posledná rezervácia.
 - Kroky vo workflowoch majú `parentKey` predchádzajúceho kroku, GHL ho kontroluje (400 inak).
+
+## 1. 10. 2026
+- Nový kalendár **„Diagnostika + dispozícia“** `eXMsgOO2fff9lXMRw7Rm` (kópia diagnostiky, po až pi 9:00 až 17:00),
+  zatiaľ len na cvičnom webe (`dispozicia-2.html` vo vetve `claude/dispozicia-navrh`). Žiadny workflow naň nereaguje.
+- Draft workflow „Zavolaj mi do 24 h: upozornenie pre Miriam (Claude)“ `12ea5601-…` (značka `zavolaj-mi-24h`), vypnutý.
