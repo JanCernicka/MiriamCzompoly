@@ -41,7 +41,7 @@ Vetva `claude/dispozicia-navrh`, **len cvičný web**: https://dispozicia.miriam
 - Platba zatiaľ nie je (produkt FAPI za 400 € neexistuje), po rezervácii ide na `/dakujem`.
 
 ## Vyskakovacie okno „Nie si si istá?“ (Jano, 1. 10. 2026), len cvičný web
-- Po 30 s na stránke (počíta len čas s otvorenou kartou), raz za návštevu, nie počas vypĺňania
+- Po 15 s na stránke (Jano 1. 10., pôvodne 30 s; počíta len čas s otvorenou kartou), raz za návštevu, nie počas vypĺňania
   rezervácie ani po odoslaní. Na mobile sa vysunie zdola, je nad lištou cookies (z-index 500 > 400).
 - Text: „Môžem ti zavolať na 15 minút a budeš mať jasno. Nechaj mi len krstné meno a číslo,
   zavolám ti do 24 hodín.“ Polia: krstné meno, telefón. Pixel: `Contact`.

@@ -1,9 +1,9 @@
 /* Vyskakovacie okno „Nie si si istá? Zavolám ti do 24 hodín“ na /dispozicia.
-   Ukáže sa raz za návštevu, keď je žena na stránke 30 sekúnd (počíta sa len čas, keď je
+   Ukáže sa raz za návštevu, keď je žena na stránke 15 sekúnd (počíta sa len čas, keď je
    karta naozaj otvorená). Neukáže sa, ak práve vypĺňa rezerváciu alebo už rezervovala. */
 (function () {
   "use strict";
-  var SEKUND = 30, KLUC = "mc_zavolaj";
+  var SEKUND = 15, KLUC = "mc_zavolaj";
   var okno = document.getElementById("zavolaj");
   if (!okno) return;
   function stav() { try { return sessionStorage.getItem(KLUC); } catch (e) { return null; } }
