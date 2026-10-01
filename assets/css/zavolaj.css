@@ -1,0 +1,31 @@
+/* Vyskakovacie okno „Nie si si istá?“ pre stránky postavené na style.css (dispozicia-2.html).
+   Samostatné, nepotrebuje premenné z dispozicia.css. Logika: assets/js/zavolaj.js */
+.zavolaj{position:fixed;inset:0;z-index:500;display:flex;align-items:flex-end;justify-content:center;background:rgba(38,32,25,0);transition:background .2s ease;font-family:'Inter',system-ui,sans-serif}
+.zavolaj.vidno{background:rgba(38,32,25,.55)}
+.zavolaj[hidden],.zavolaj [hidden]{display:none !important}
+.zavolaj-karta{position:relative;width:100%;max-width:440px;background:#fff;border-radius:20px 20px 0 0;color:#3a332b;
+  padding:22px 20px calc(20px + env(safe-area-inset-bottom,0px));box-shadow:0 -10px 40px rgba(38,32,25,.25);transform:translateY(100%);transition:transform .25s ease}
+.zavolaj.vidno .zavolaj-karta{transform:none}
+@media (min-width:600px){.zavolaj{align-items:center}.zavolaj-karta{border-radius:20px;transform:translateY(20px);opacity:0;transition:transform .2s ease,opacity .2s ease}.zavolaj.vidno .zavolaj-karta{opacity:1}}
+@media (prefers-reduced-motion:reduce){.zavolaj,.zavolaj-karta{transition:none}}
+.zavolaj h2{font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;font-size:30px;line-height:1.1;color:#262019;margin:0 32px 8px 0}
+.zavolaj p{font-size:15.5px;line-height:1.5;margin:0 0 14px}
+.zavolaj .pole{margin-bottom:10px}
+.zavolaj .pole label{display:block;font-size:14px;font-weight:600;color:#262019;margin-bottom:4px}
+.zavolaj .pole input{width:100%;font:inherit;font-size:16px;padding:14px;border-radius:12px;border:1.5px solid #E4D9C6;background:#fff;color:#262019}
+.zavolaj .pole input:focus{outline:0;border-color:#A9885E;box-shadow:0 0 0 3px rgba(169,136,94,.2)}
+.zavolaj .pole input.zle{border-color:#b3261e}
+.zavolaj .chyba{display:none;color:#b3261e;font-size:14.5px;margin:0 0 10px}
+.zavolaj .chyba.vidno{display:block}
+.zavolaj .btn{display:flex;align-items:center;justify-content:center;width:100%;min-height:54px;margin-top:4px;padding:14px 20px;border:0;border-radius:13px;
+  background:#262019;color:#fff;font:inherit;font-size:17px;font-weight:700;cursor:pointer;text-decoration:none}
+.zavolaj .btn[disabled]{opacity:.6;cursor:default}
+.zavolaj-x{position:absolute;right:12px;top:10px;width:40px;height:40px;border:0;background:transparent;font-size:28px;line-height:1;color:#6F6557;cursor:pointer;border-radius:50%}
+.zavolaj-x:focus-visible,.zavolaj-nie:focus-visible,.zavolaj .btn:focus-visible{outline:2px solid #A9885E;outline-offset:2px}
+.zavolaj-pozn{font-size:12.5px !important;color:#6F6557;text-align:center;margin:10px 0 0 !important}
+.zavolaj-pozn a{color:#7E6441}
+.zavolaj-nie{display:block;margin:6px auto 0;border:0;background:transparent;font:inherit;font-size:14px;color:#6F6557;text-decoration:underline;cursor:pointer;padding:8px}
+.zavolaj-pasca{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+html.zavolaj-otvorene{overflow:hidden}
+/* bublina GHL chatu (AI bot) by inak prekryla tlačidlo okna */
+html.zavolaj-otvorene chat-widget{display:none !important}

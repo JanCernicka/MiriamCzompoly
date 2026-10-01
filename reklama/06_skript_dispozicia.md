@@ -52,3 +52,15 @@ Vetva `claude/dispozicia-navrh`, **len cvičný web**: https://dispozicia.miriam
   DRAFT, spúšťač značka `zavolaj-mi-24h` (neaktívny): SMS a e-mail Miriam s menom a číslom.
   Zapnúť až so stránkou naostro.
 - 🔴 „do 24 hodín“ musí Miriam dodržať, aj cez víkend.
+
+## Druhá verzia stránky dispozície na kostre varianty A (1. 10. 2026), len cvičný web
+https://dispozicia.miriam-web-staging.pages.dev/dispozicia-2 (prvá verzia: `/dispozicia`, kostra B)
+- `dispozicia-2.html`: z `diagnostika.html` (hlavička webu, hero, „Čo dostaneš“ s cenou 400 €, tri karty
+  kotva/garancia/kapacita, kalendár GHL v tmavej sekcii, FAQ, päta). Texty ako na prvej verzii,
+  žlté „overiť“ rovnaké. Video zatiaľ miesto na výšku.
+- Rovnaké okno „Nie si si istá?“ po 15 s (`assets/js/zavolaj.js`), štýly samostatne v
+  `assets/css/zavolaj.css` (stránka A nemá premenné z `dispozicia.css`). Kým je okno otvorené,
+  skryje sa bublina GHL chatu, inak prekrývala tlačidlo. Namerané v stránke: okno po 15,0 s na oboch verziách.
+- 🔴 Kalendár je GHL widget diagnostiky (`fUjAzOhv2VyiY3XTguPz`): rezervácia z neho je SKUTOČNÁ aj na
+  cvičnom webe a v GHL sa nedá odlíšiť od bežnej diagnostiky za 249 €. Pred spustením treba v GHL
+  samostatný kalendár „Diagnostika + dispozícia“ (alebo ostať pri vlastnom kalendári z prvej verzie).
