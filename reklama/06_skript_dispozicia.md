@@ -1,6 +1,6 @@
 # Skript: diagnostika + dispozičné riešenie za 400 € (28. 9. 2026)
 
-Celý skript (core, 30 hookov a subhookov, zábery), verzia 2: https://claude.ai/artifact/6xurwQ5pdNnMT2S82RG94m
+Celý skript (core, 17 vybraných hookov a subhookov, zábery), verzia 3: https://claude.ai/artifact/6xurwQ5pdNnMT2S82RG94m
 Zdroj textov na úpravu: artifact, nie tento súbor (aby sa nerozišli dve kópie).
 
 Ponuka: diagnostika 90 min u klientky doma + dispozičné riešenie jednej miestnosti,
@@ -23,6 +23,13 @@ Otvorené, overiť s Miriam pred natáčaním:
 - „viac ako pätnásť rokov praxe“ (web: od roku 2010)
 - C10 len so skutočným pôdorysom zo zákazky a súhlasom klientky
 - termín dodania variantov (na stránku, nie do videa)
+
+## Verzia 3 (Jano, 28. 9.)
+- začiatok ponuky „Ako ti s tým pomôžem?“ namiesto „Práve teraz robím niečo, čo si nenechaj ujsť“
+  (náhradné: „Preto som spojila dve svoje služby do jednej.“, „Mám pre teba riešenie.“)
+- CTA 1: hovor zdarma na 15 minút (kalendár uvítacieho hovoru), ostatné bloky schválené
+- vybrané hooky: A1, A2, A4, A8, A9, A10, B1, B2, B5, B7, B9, B10, C5, C6, C8, C9, C10 (17 videí,
+  60 až 67 s, core 130 slov); v B9 a B10 čas zmenený na 15 minút
 
 ## Návrh stránky kampane (28. 9. 2026)
 Vetva `claude/dispozicia-navrh`, **len cvičný web**: https://dispozicia.miriam-web-staging.pages.dev/dispozicia

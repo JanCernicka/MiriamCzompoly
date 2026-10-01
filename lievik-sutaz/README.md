@@ -1,5 +1,24 @@
 # Lievik: súťaž o 1 000 € (optin)
 
+> 🔴 **Pravidlo od Jana (30. 9. 2026):** keď sa rieši IBA táto súťaž o 1 000 € poukážku, vždy
+> pošli linky na OBE verzie. Pri iných veciach tieto linky neposielaj.
+> - verzia 1, video: https://miriam-sutaz.pages.dev
+> - verzia 2, grafika poukážky namiesto videa: https://miriam-sutaz-poukazka.pages.dev
+
+## Dve verzie na test (30. 9. 2026)
+Rovnaký zdroj, líši sa len úvod: v `index.html` je blok medzi `<!-- VERZIA-VIDEO: … -->` a
+`<!-- /VERZIA-VIDEO -->`, ktorý `nasad-poukazka.sh` nahradí obsahom `varianty/poukazka-hero.html`
+(od 30. 9. poukážka vytŕča z obálky s pečaťou MC, CSS `.obalka*` v `sutaz.css`; predošlá karta na fotke
+Štajnerky je odložená vo `varianty/poukazka-karta-na-fotke.html`, CSS `.poukazka*`) a prepne
+`data-verzia="video"` na `"poukazka"` na všetkých troch stránkach.
+- Nasadenie: `./nasad.sh` (verzia 1, projekt `miriam-sutaz`), `./nasad-poukazka.sh` (verzia 2,
+  projekt `miriam-sutaz-poukazka`). Po každej zmene nasadiť OBE.
+- Prihláška posiela `verzia`, `api/sutaz.js` pridá tag `sutaz-1000-verzia-video` alebo
+  `sutaz-1000-verzia-poukazka`, takže sa dajú porovnať v GHL.
+- Namerané 390 x 700 naostro (s bannerom): tlačidlo v hero končí na 537 px v oboch verziách, nič nepreteká.
+- 10 návrhov grafiky poukážky: https://claude.ai/artifact/MsR9AzggPeCeUbRzim8A1S
+- Oba projekty zatiaľ nemajú premenné (GHL kľúč), testovací režim je zapnutý v oboch.
+
 **Náhľad:** https://miriam-sutaz.pages.dev (vývoj, `noindex`, reklama sem smerovať nesmie)
 
 Postavené podľa `playbook/04_funnel/STRUKTURA_LANDING_PAGE.md` v GHLtool: mobil 390 x 700

@@ -5,8 +5,8 @@ set -euo pipefail
 SRC="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 DIST="$(mktemp -d)"
 cp -a "$SRC/." "$DIST/"
-rm -f "$DIST/README.md" "$DIST/kontrola.py" "$DIST/nasad.sh"
-rm -rf "$DIST/ghl"
+rm -f "$DIST/README.md" "$DIST/kontrola.py" "$DIST/nasad.sh" "$DIST/nasad-poukazka.sh"
+rm -rf "$DIST/ghl" "$DIST/varianty"
 cd "$DIST"
 npx -y wrangler pages deploy . --project-name=miriam-sutaz --branch=main --commit-dirty=true
 rm -rf "$DIST"
