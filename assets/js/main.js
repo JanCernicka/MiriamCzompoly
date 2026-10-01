@@ -80,6 +80,11 @@
     if (lastFocus && lastFocus.focus) lastFocus.focus();
   }
 
+  /* odkaz zvonka, napr. /sluzby#cs-vidiecky z okna „Nie si si istá?“, otvorí príbeh rovno */
+  if (location.hash && /^#cs-[a-z0-9-]+$/.test(location.hash)) {
+    var cielModal = location.hash.slice(1);
+    setTimeout(function () { openModal(cielModal); }, 300);
+  }
   document.querySelectorAll('[data-modal]').forEach(function (trigger) {
     trigger.addEventListener('click', function (e) {
       e.preventDefault();

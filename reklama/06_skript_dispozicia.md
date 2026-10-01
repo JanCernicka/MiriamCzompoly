@@ -64,3 +64,16 @@ https://dispozicia.miriam-web-staging.pages.dev/dispozicia-2 (prvá verzia: `/di
 - 🔴 Kalendár je GHL widget diagnostiky (`fUjAzOhv2VyiY3XTguPz`): rezervácia z neho je SKUTOČNÁ aj na
   cvičnom webe a v GHL sa nedá odlíšiť od bežnej diagnostiky za 249 €. Pred spustením treba v GHL
   samostatný kalendár „Diagnostika + dispozícia“ (alebo ostať pri vlastnom kalendári z prvej verzie).
+
+## Kalendár a okno, úpravy 1. 10. 2026
+- **GHL kalendár „Diagnostika + dispozícia“** `eXMsgOO2fff9lXMRw7Rm` (widget `/widget/booking/eXMsgOO2fff9lXMRw7Rm`):
+  kópia nastavení diagnostiky (Miriam, round robin, 30 min sloty, 270 min blokovanie po termíne, formulár
+  s adresou `Lmx2QuIpBSbfeBgY04Gq`, presmerovanie na /dakujem), pracovné dni 9:00 až 17:00. Voľné časy
+  overené zhodné s diagnostikou. Napojený na `dispozicia-2.html`.
+  🔴 Na tento kalendár zatiaľ nereaguje žiadny workflow (WF3 počúva len diagnostiku `fUjAzOhv2VyiY3XTguPz`):
+  pred spustením pridať kalendár do spúšťača WF3 alebo spraviť vlastné potvrdenie. Či GHL zablokuje
+  súbežný termín v druhom kalendári, overiť jednou skúšobnou rezerváciou.
+- Okno „Nie si si istá?“ (obe verzie): dvojica pred a po z rovnakého uhla (Jitka Lennerová, vidiecky byt,
+  `vidiecky-pred-2` a `vidiecky-4`, zmenšené `*-maly.jpg`) s odkazom „Takto som pomohla Jitke Lennerovej →“
+  na `/sluzby#cs-vidiecky` (main.js teraz otvorí príbeh z adresy). Namiesto „Nie, ďakujem“ menej výrazné
+  tlačidlo „Chcem si to spraviť sama“ → `/5-chyb`. Okno má na mobile 636 až 659 px z 844.

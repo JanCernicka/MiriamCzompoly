@@ -206,3 +206,20 @@ section{padding:40px 0}
 .zavolaj-pasca{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
 .zavolaj-hotovo p{margin-bottom:16px}
 html.zavolaj-otvorene{overflow:hidden}
+
+/* okno: pred a po (Jitka Lennerová) a tlačidlo „Chcem si to spraviť sama“ */
+.zavolaj-karta{max-height:94vh;overflow-y:auto;overscroll-behavior:contain}
+.zavolaj-pp{margin:0 0 14px}
+.zavolaj-pp-fotky{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.zavolaj-pp-fotky span{position:relative;display:block;border-radius:10px;overflow:hidden;aspect-ratio:3/2;background:#F8F4EE}
+.zavolaj-pp-fotky img{display:block;width:100%;height:100%;object-fit:cover}
+.zavolaj-pp-fotky b{position:absolute;left:6px;top:6px;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+  background:rgba(255,255,255,.92);color:#262019;padding:2px 7px;border-radius:999px}
+.zavolaj-pp-fotky b.po{background:#262019;color:#fff}
+.zavolaj-pp figcaption{margin-top:6px;font-size:14px;text-align:right}
+.zavolaj-pp figcaption a{color:#7E6441;font-weight:600;text-decoration:none}
+.zavolaj-pp figcaption a:hover{text-decoration:underline}
+.zavolaj-sama{display:flex;align-items:center;justify-content:center;width:100%;min-height:46px;margin-top:10px;border:1.5px solid #E4D9C6;border-radius:13px;
+  background:#fff;color:#4C453B;font-size:15px;font-weight:600;text-decoration:none}
+.zavolaj-sama:hover{border-color:#A9885E;color:#262019}
+.zavolaj-sama:focus-visible{outline:2px solid #A9885E;outline-offset:2px}

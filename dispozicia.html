@@ -145,6 +145,13 @@
       <form id="zavolajForm" novalidate>
         <h2 id="zavolajNadpis">Nie si si istá?</h2>
         <p>Môžem ti zavolať na 15 minút a budeš mať jasno. Nechaj mi len krstné meno a číslo, zavolám ti do 24 hodín.</p>
+        <figure class="zavolaj-pp">
+          <div class="zavolaj-pp-fotky">
+            <span><img src="/assets/img/realizacie/vidiecky-pred-2-maly.jpg" alt="Obývačka vo vidieckom byte v Trnave pred premenou" width="480" height="320"><b>Pred</b></span>
+            <span><img src="/assets/img/realizacie/vidiecky-4-maly.jpg" alt="Tá istá obývačka po premene, z rovnakého miesta" width="480" height="320"><b class="po">Po</b></span>
+          </div>
+          <figcaption><a href="/sluzby#cs-vidiecky" target="_blank" rel="noopener">Takto som pomohla Jitke Lennerovej →</a></figcaption>
+        </figure>
         <div class="pole"><label for="zavolajMeno">Krstné meno</label>
           <input id="zavolajMeno" name="meno" type="text" autocomplete="given-name" required></div>
         <div class="pole"><label for="zavolajTel">Telefón</label>
@@ -153,7 +160,7 @@
         <p class="chyba" id="zavolajChyba" role="alert"></p>
         <button class="btn" type="submit" id="zavolajBtn">Zavolaj mi</button>
         <p class="zavolaj-pozn">Číslo použijem len na tento hovor. <a href="/gdpr" target="_blank" rel="noopener">Ochrana údajov</a></p>
-        <button type="button" class="zavolaj-nie" data-zavri>Nie, ďakujem</button>
+        <a class="zavolaj-sama" href="/5-chyb" data-sama>Chcem si to spraviť sama</a>
       </form>
       <div class="zavolaj-hotovo" id="zavolajHotovo" hidden>
         <h2>Ďakujem, <span id="zavolajHotovoMeno"></span>.</h2>

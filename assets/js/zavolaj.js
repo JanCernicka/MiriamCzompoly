@@ -48,6 +48,8 @@
   }
   Array.prototype.forEach.call(okno.querySelectorAll("[data-zavri]"), function (b) { b.addEventListener("click", zavri); });
   okno.addEventListener("click", function (e) { if (e.target === okno) zavri(); });
+  var sama = okno.querySelector("[data-sama]");
+  if (sama) sama.addEventListener("click", function () { uloz("sama"); });
   document.addEventListener("keydown", function (e) { if (e.key === "Escape" && !okno.hidden) zavri(); });
 
   [meno, tel].forEach(function (i) { i.addEventListener("input", function () { i.classList.remove("zle"); chyba.classList.remove("vidno"); }); });
