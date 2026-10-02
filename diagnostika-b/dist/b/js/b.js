@@ -107,7 +107,7 @@
     chyba.classList.remove("vidno");
     if (!vybranyCas) { btn.disabled = true; btn.textContent = "Vyber si čas"; return; }
     btn.disabled = false;
-    btn.textContent = "Rezervovať " + kedy(vybranyCas);
+    btn.textContent = "Rezervovať s povinnosťou platby";   // termín vidno na vybranom čase, platba 249 € nasleduje
   }
 
   function hodnota(meno) {
