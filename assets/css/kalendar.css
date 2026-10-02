@@ -1,0 +1,56 @@
+/* Vlastný kalendár na /diagnostika (varianta A), od 2. 10. 2026 namiesto GHL widgetu.
+   Pravidlá sú z diagnostika-b/dist/b/css/b.css, uzavreté pod .kalA, aby sa nebili so style.css.
+   Karta je biela aj v tmavej sekcii #rezervacia. */
+.kalA{
+  --k-tma:#262019;--k-text:#3a332b;--k-sivy:#6F6557;--k-linka:#E4D9C6;
+  --k-akcent:#A9885E;--k-akcent-tmavy:#7E6441;--k-zlata:#D9C29C;--k-zle:#b3261e;
+  background:#fff;color:var(--k-text);border-radius:var(--radius-lg,16px);padding:20px;
+  font-family:var(--font-body);font-size:15.5px;line-height:1.5;text-align:left}
+.kalA h3{font-family:var(--font-display);font-weight:600;color:var(--k-tma);font-size:1.6rem;line-height:1.15;margin:0 0 .25em}
+.kalA .uvod{color:var(--k-sivy);margin:0 0 12px}
+.kalA .dni{display:flex;gap:8px;overflow-x:auto;padding:2px 20px 10px;margin:0 -20px 13px;
+  scroll-snap-type:x proximity;scroll-padding:0 20px;-webkit-overflow-scrolling:touch;border-bottom:1px solid var(--k-linka);
+  -webkit-mask-image:linear-gradient(to right,#000 calc(100% - 26px),transparent);
+  mask-image:linear-gradient(to right,#000 calc(100% - 26px),transparent)}
+.kalA .dni::-webkit-scrollbar{height:0}
+.kalA .denP{flex:0 0 auto;scroll-snap-align:start;min-width:84px;cursor:pointer;border:1.5px solid var(--k-linka);
+  background:#fff;border-radius:13px;padding:9px 12px;text-align:center;font:inherit;line-height:1.25;color:var(--k-tma)}
+.kalA .denP .d1{display:block;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--k-sivy)}
+.kalA .denP .d2{display:block;font-size:17px;font-weight:800}
+.kalA .denP .d3{display:block;font-size:12px;color:var(--k-akcent-tmavy)}
+.kalA .denP.on{border-color:var(--k-tma);box-shadow:0 0 0 1.5px var(--k-tma),0 6px 16px rgba(38,32,25,.14)}
+.kalA .sloty{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.kalA .termin{font:inherit;font-size:15.5px;font-weight:700;color:var(--k-tma);background:#fff;
+  border:1.5px solid var(--k-linka);border-radius:11px;padding:12px 4px;cursor:pointer;font-variant-numeric:tabular-nums}
+.kalA .termin:active{transform:scale(.97)}
+/* 🔴 vybraný čas musí byť vidieť aj bez farby, preto fajka */
+.kalA .termin.vybrany{border-color:var(--k-tma);background:var(--k-tma);color:#fff;box-shadow:0 4px 12px rgba(38,32,25,.28)}
+.kalA .termin.vybrany::before{content:"✓ ";font-weight:800;color:var(--k-zlata)}
+.kalA .kal-stav{margin:10px 0 0;color:var(--k-sivy);font-size:15px}
+.kalA .kal-stav a{color:var(--k-akcent-tmavy)}
+.kalA .kal-pozn{margin:10px 0 0;text-align:center;font-size:12.5px;color:var(--k-sivy)}
+.kalA .formular{margin-top:18px}
+.kalA .dvojica{display:grid;grid-template-columns:1fr 1fr;gap:0 10px}
+.kalA .dvojica > *{min-width:0}
+.kalA .pole{margin-bottom:10px}
+.kalA .pole label{display:block;font-size:14px;font-weight:600;color:var(--k-tma);margin-bottom:4px}
+/* 🔴 16 px na input, inak iOS pri klepnutí priblíži celú stránku */
+.kalA .pole input{width:100%;box-sizing:border-box;font:inherit;font-size:16px;padding:14px;border-radius:12px;
+  border:1.5px solid var(--k-linka);background:#fff;color:var(--k-tma);-webkit-appearance:none}
+.kalA .pole input:focus{outline:0;border-color:var(--k-akcent);box-shadow:0 0 0 3px rgba(169,136,94,.2)}
+.kalA .pole input.zle{border-color:var(--k-zle)}
+.kalA .suhlas{display:flex;gap:10px;align-items:flex-start;font-size:13.5px;color:var(--k-sivy);margin:6px 0 12px;line-height:1.45}
+.kalA .suhlas a{color:var(--k-akcent-tmavy)}
+.kalA .suhlas input{width:20px;height:20px;flex:0 0 20px;margin-top:1px;accent-color:var(--k-tma)}
+.kalA .chyba{display:none;color:var(--k-zle);font-size:14.5px;margin:0 0 10px}
+.kalA .chyba a{color:var(--k-zle)}
+.kalA .chyba.vidno{display:block}
+.kalA .odoslat{display:flex;align-items:center;justify-content:center;width:100%;min-height:54px;
+  padding:14px 20px;border:0;border-radius:50px;background:var(--k-tma);color:#fff;white-space:normal;text-align:center;
+  font:inherit;font-size:16px;font-weight:700;cursor:pointer;box-shadow:0 8px 22px rgba(38,32,25,.22)}
+.kalA .odoslat:focus-visible{outline:2px solid var(--k-akcent);outline-offset:3px}
+.kalA .odoslat[disabled]{opacity:.6;cursor:default}
+@media (max-width:380px){.kalA .dvojica{grid-template-columns:1fr}}
+/* 🔴 riadok dní sa posúva do strany; bez min-width:0 by ho stĺpec mriežky roztiahol a stránka by pretiekla */
+#rezervacia .about-grid > *{min-width:0}
+.kalA{max-width:100%;box-sizing:border-box}

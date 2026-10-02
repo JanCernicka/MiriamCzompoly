@@ -1,5 +1,5 @@
 /**
- * POST /api/termin: rezervácia diagnostiky z variantu B.
+ * POST /api/termin: rezervácia diagnostiky z vlastného kalendára (B, od 2. 10. 2026 aj A).
  * Robí to isté, čo GHL kalendár na variante A (termín v tom istom kalendári,
  * WF3 potom pošle rovnaké potvrdenie a pripomienky), a navyše:
  *   značka diagnostika-lp-b, aby bolo v GHL vidieť, z ktorej stránky prišla,
@@ -21,6 +21,7 @@ import { GHL, json, hlavicky, nastavene, volneSloty,
          KALENDAR_ID, MIRIAM_USER_ID, PIPELINE_ID, FAZA_REZERVOVANA } from "../_lib/ghl.js";
 
 const ZNACKA = "diagnostika-lp-b";
+const ZNACKA_A = "diagnostika-lp-a";
 const CENA = 249;
 const DLZKA_MIN = 30;   // dĺžka slotu v kalendári, nie dĺžka diagnostiky
 const NAZOV_TERMINU = "Interiérová diagnostika";   // ten istý ako pri rezervácii cez GHL na A
@@ -42,6 +43,10 @@ export async function onRequestPost({ request, env }) {
   const start = cisty(b.start, 40), startMs = Date.parse(start);
   const meno = cisty(b.meno, 60), email = cisty(b.email, 254).toLowerCase(), tel = telefon(b.telefon);
   const ulica = cisty(b.ulica, 120), mesto = cisty(b.mesto, 60);
+  // priezvisko a PSČ pýtajú oba kalendáre kvôli faktúre FAPI; nepovinné, aby staršia stránka B nepadla
+  const priezvisko = cisty(b.priezvisko, 60), psc = cisty(b.psc, 10);
+  // od 2. 10. 2026 má vlastný kalendár aj A (GHL kalendár nevedel slovensky ani tlačidlo „s povinnosťou platby“)
+  const strA = b.stranka === "a";
   if (isNaN(startMs) || startMs < Date.now()) return json({ ok: false, error: "bad_start" }, 400);
   if (meno.length < 2 || !isEmail(email) || !tel) return json({ ok: false, error: "bad_contact" }, 400);
   if (ulica.length < 3 || mesto.length < 2) return json({ ok: false, error: "bad_address" }, 400);
@@ -60,7 +65,8 @@ export async function onRequestPost({ request, env }) {
 
     const up = await fetch(`${GHL}/contacts/upsert`, { method: "POST", headers: H,
       body: JSON.stringify({ locationId: env.GHL_LOCATION_ID, email, firstName: meno, phone: tel,
-                             address1: ulica, city: mesto, source: "Diagnostika, stránka B" }) });
+                             address1: ulica, city: mesto, source: strA ? "Diagnostika, stránka A" : "Diagnostika, stránka B",
+                             ...(priezvisko ? { lastName: priezvisko } : {}), ...(psc ? { postalCode: psc } : {}) }) });
     const upd = await up.json().catch(() => ({}));
     const id = upd.contact && upd.contact.id;
     if (!up.ok || !id) { console.error("upsert", up.status, JSON.stringify(upd).slice(0, 300)); return json({ ok: false, error: "ghl_contact" }, 502); }
@@ -69,7 +75,7 @@ export async function onRequestPost({ request, env }) {
     const c = ((await (await fetch(`${GHL}/contacts/${id}`, { headers: H })).json().catch(() => ({}))).contact) || {};
     if (c.address1 !== ulica || c.city !== mesto) { console.error("adresa sa neuložila"); return json({ ok: false, error: "ghl_address" }, 502); }
 
-    const tg = await fetch(`${GHL}/contacts/${id}/tags`, { method: "POST", headers: H, body: JSON.stringify({ tags: [ZNACKA] }) });
+    const tg = await fetch(`${GHL}/contacts/${id}/tags`, { method: "POST", headers: H, body: JSON.stringify({ tags: [strA ? ZNACKA_A : ZNACKA] }) });
     if (!tg.ok) console.error("značka", tg.status);
 
     const ap = await fetch(`${GHL}/calendars/events/appointments`, { method: "POST", headers: hlavicky(env, "2021-04-15"),
