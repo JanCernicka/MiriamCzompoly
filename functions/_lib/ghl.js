@@ -9,6 +9,8 @@ export const MIRIAM_USER_ID = "hSQHxikFZUetHZUYqJZO";
 // pipeline „Hlavný predajný proces“, fáza „Diagnostika rezervovaná“
 export const PIPELINE_ID = "Ue40eB5LDhvgIAOIcDqC";
 export const FAZA_REZERVOVANA = "3e4dff82-13e7-47c6-858a-67ba2a36d877";
+// „Diagnostika zaplatená (249 €)“: sem Miriam presunie zákazníčku, keď príde platba (potvrdí termín)
+export const FAZA_ZAPLATENA = "0fec74c8-1d54-4924-a7fb-9971f0c0b574";
 
 export const json = (data, status = 200) =>
   new Response(JSON.stringify(data), {
