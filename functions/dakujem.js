@@ -22,6 +22,10 @@ const STYL = `<style>
 .platba .platba-cena b{font-size:1.35rem}
 .platba .platba-termin{font-weight:700}
 .platba .platba-pozn{font-size:.9rem;color:#6F6557;margin:.8rem 0 0}
+/* 🔴 na mobile by cookie lišta dole zakryla tlačidlo Zaplatiť (overené naostro 2. 10.), tu ide hore */
+@media (max-width:620px){.cookie-banner{top:.8rem;bottom:auto}}
+/* 🔴 bublina chatu GHL zakryla tlačidlo na malom mobile (375x667), tu na mobile netreba */
+@media (max-width:620px){chat-widget{display:none!important}}
 </style>`;
 
 function blokA() {
