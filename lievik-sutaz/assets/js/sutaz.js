@@ -134,6 +134,8 @@
       return Promise.resolve({ ok: true, test: true });
     }
     data.website = hodnota('website');
+    // verzia lievika (data-verzia na <html>): video / poukazka, v GHL ako tag
+    data.verzia = root.getAttribute('data-verzia') || 'video';
     data.utm = {
       source: PARAMS.get('utm_source') || '',
       medium: PARAMS.get('utm_medium') || '',
