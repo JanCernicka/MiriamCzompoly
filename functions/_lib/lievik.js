@@ -66,6 +66,14 @@ function hlava(varianta) {
     if (window.top !== window.self) return;
     var AB = ${JSON.stringify(varianta)};
     window.LIEVIK_AB = AB;
+    /* 🔴 /dakujem sa ráta ako rezervácia LEN keď sem človek prišiel z kalendára po úspešnej
+       rezervácii (kalendár A aj B nastaví mc_rezervacia tesne pred presmerovaním). Otvorenie
+       odkazu, obnovenie stránky ani návrat späť sa nezapočíta (2. 10.: 18 z 21 boli testy). */
+    if (/^\\/dakujem/.test(location.pathname)) {
+      if (!sessionStorage.getItem("mc_rezervacia")) return;
+      sessionStorage.removeItem("mc_rezervacia");
+      window.LIEVIK_REZERVACIA = 1;
+    }
     var s = sessionStorage.getItem("lievik_sid");
     if (!s) { s = ((window.crypto && crypto.randomUUID) ? crypto.randomUUID() : String(Date.now()) + Math.random())
                 .replace(/[^a-z0-9]/gi, "").slice(0, 32);

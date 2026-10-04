@@ -133,6 +133,7 @@
         if (x.o && x.o.ok) {
           try {
             sessionStorage.setItem("mc_meno", d.meno);
+            sessionStorage.setItem("mc_rezervacia", "1");   // meranie: až teraz sa /dakujem ráta ako rezervácia
             /* pre formulár FAPI na /dakujem (assets/js/platba.js na hlavnom webe) */
             sessionStorage.setItem("mc_platba", JSON.stringify({ meno: d.meno, priezvisko: d.priezvisko, email: d.email,
               telefon: d.telefon, ulica: d.ulica, mesto: d.mesto, psc: d.psc, kedy: kedy(vybranyCas) }));

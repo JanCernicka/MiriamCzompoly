@@ -143,7 +143,7 @@
       .then(function (r) { return r.json().catch(function () { return {}; }).then(function (o) { return { s: r.status, o: o }; }); })
       .then(function (x) {
         if (x.o && x.o.ok) {
-          try { sessionStorage.setItem("mc_meno", d.meno); } catch (err) {}
+          try { sessionStorage.setItem("mc_meno", d.meno); sessionStorage.setItem("mc_rezervacia", "1"); } catch (err) {}
           location.href = "/dakujem";
           return;
         }
