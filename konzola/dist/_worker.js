@@ -2,7 +2,8 @@
  * Zdroj: šablóna Prezentacia/konzola/_worker.js (posledná zmena 24. 8. 2026, konzola
  * nasadená 26. 8.) + karta Lievik z konzola/worker-doplnok.js. Od 26. 9. 2026 je zdroj
  * TU, v repe klienta. Nasadenie: konzola/nasad.sh. Tajomstvá (GHL_API_KEY,
- * GHL_LOCATION_ID, DEMO_TAG, KONZOLA_HESLO, PIPELINE_ID, STAT_HESLO) sú v Cloudflare.
+ * GHL_LOCATION_ID, DEMO_TAG, KONZOLA_HESLO, PIPELINE_ID, STAT_HESLO, KALENDAR_ID,
+ * KALENDARE_NAVIAC) sú v Cloudflare. Od 4. 10. 2026 vlastný sub-account Miriam, DEMO_TAG=*.
  */
 /**
  * Konzola pre klienta. Cloudflare Pages worker.
@@ -85,7 +86,10 @@ function demoTag(env) {
   return t.length ? t : null;
 }
 
+/* 🔴 `tag === "*"` prepustí VŠETKO (vlastný sub-account klienta, ako DKP). Kontroluje
+   sa tu, na jednom mieste, aby sa na to nedalo zabudnúť v niektorom z volaní. */
 function maTag(tagy, tag) {
+  if (tag === "*") return true;
   return (tagy || []).some((x) => String(x).trim().toLowerCase() === tag);
 }
 
@@ -572,6 +576,188 @@ async function lievik(env, telo) {
 }
 
 
+/* ── kalendár ─────────────────────────────────────────────────────────── */
+
+/* Prvá záložka (od 4. 10. 2026, podľa konzoly DKP): týždeň s rezerváciami
+   zo VŠETKÝCH kalendárov Miriam a čas, ktorý si zavrela.
+
+   🔴 ZATVORENÝ ČAS SA ZAPISUJE DO GHL ako blokácia POUŽÍVATEĽKY (Miriam), nie
+      kalendára. Jej kalendáre nie sú typu „event", na kalendár GHL blokáciu
+      odmietne („The calendar is not an event calendar", overené 4. 10. 2026).
+      Blokácia používateľky platí pre všetky jej kalendáre naraz: web, bot aj
+      uvítací hovor čítajú free-slots a zavretý čas v nich nie je.
+
+   🔴 Blokácie NEVRACIA `GET /calendars/events`, len `GET /calendars/blocked-slots`
+      (a len ten dá `id`, bez ktorého sa nedajú zrušiť).
+
+   🔴 Kalendár diagnostiky nemá `openHours`, berie pracovný čas Miriam ako
+      používateľky. Preto sa otváracie hodiny skladajú zo všetkých kalendárov
+      a keď nemá žiadny, platí PRACOVNY_CAS (po až pi 9 až 17, overené proti
+      free-slots 4. 10. 2026). */
+
+const DNI_SK = ["nedeľa", "pondelok", "utorok", "streda", "štvrtok", "piatok", "sobota"];
+const PRACOVNY_CAS = { 1: [["09:00", "17:00"]], 2: [["09:00", "17:00"]], 3: [["09:00", "17:00"]],
+                       4: [["09:00", "17:00"]], 5: [["09:00", "17:00"]] };
+const NAZOV_BLOKU = "Zatvorené v konzole";
+
+/* Kalendáre: prvý je hlavný (z neho sa číta zavretý čas), ďalšie sa ukazujú
+   a blokujú s ním. KALENDAR_ID a KALENDARE_NAVIAC (čiarkami). */
+function kalendare(env) {
+  const vsetky = [env.KALENDAR_ID, ...String(env.KALENDARE_NAVIAC || "").split(",")]
+    .map((x) => String(x || "").trim()).filter((x) => /^[A-Za-z0-9]{10,40}$/.test(x));
+  return [...new Set(vsetky)];
+}
+
+/* Koho blokujeme: prvá vybraná osoba hlavného kalendára (Miriam). */
+async function pouzivatel(env) {
+  const ids = kalendare(env);
+  if (!ids.length) return "";
+  const r = await ghl(env, `/calendars/${ids[0]}`, { version: "2021-04-15" });
+  const tim = (((r.d || {}).calendar || {}).teamMembers) || [];
+  const m = tim.find((x) => x.selected) || tim[0] || {};
+  return String(m.userId || "");
+}
+
+/* Posun zóny pre daný deň, „+02:00" alebo „+01:00". Pre KAŽDÝ deň zvlášť,
+   cez zmenu času by inak polovica týždňa sadla o hodinu. */
+function posunZony(datum) {
+  const d = new Date(datum + "T12:00:00Z");
+  const cast = new Intl.DateTimeFormat("en-GB", { timeZone: CAS_ZONA, timeZoneName: "longOffset" })
+    .formatToParts(d).find((p) => p.type === "timeZoneName");
+  return String((cast || {}).value || "GMT+00:00").replace("GMT", "") || "+00:00";
+}
+function isoCas(datum, hhmm) { return `${datum}T${hhmm}:00${posunZony(datum)}`; }
+function plusDni(datum, n) {
+  const d = new Date(datum + "T12:00:00Z");
+  d.setUTCDate(d.getUTCDate() + n);
+  return d.toISOString().slice(0, 10);
+}
+/* Dátum a čas v Bratislave z ISO alebo z „2026-10-09 16:30:00" (GHL vracia oboje). */
+function vZone(iso) {
+  const s = String(iso || "");
+  if (/^\d{4}-\d{2}-\d{2}[ T]\d{2}:\d{2}(:\d{2})?$/.test(s)) return { datum: s.slice(0, 10), cas: s.slice(11, 16) };
+  const d = new Date(s);
+  if (isNaN(d)) return { datum: "", cas: "" };
+  const c = new Intl.DateTimeFormat("en-CA", { timeZone: CAS_ZONA, year: "numeric", month: "2-digit",
+    day: "2-digit", hour: "2-digit", minute: "2-digit", hour12: false }).formatToParts(d)
+    .reduce((o, p) => (o[p.type] = p.value, o), {});
+  return { datum: `${c.year}-${c.month}-${c.day}`, cas: `${c.hour === "24" ? "00" : c.hour}:${c.minute}` };
+}
+function minutyZo(hhmm) { const [h, m] = String(hhmm || "0:0").split(":").map(Number); return (h || 0) * 60 + (m || 0); }
+function hhmmZ(min) { return `${String(Math.floor(min / 60)).padStart(2, "0")}:${String(min % 60).padStart(2, "0")}`; }
+
+async function kalendar(env, telo) {
+  const ids = kalendare(env);
+  if (!ids.length) return json({ ok: false, error: "konzola nemá nastavený kalendár" }, 500);
+  const tag = demoTag(env);
+
+  const od = /^\d{4}-\d{2}-\d{2}$/.test(String(telo.od || "")) ? telo.od : vZone(new Date().toISOString()).datum;
+  const doDna = plusDni(od, 6);
+  const zac = Date.parse(isoCas(od, "00:00")), kon = Date.parse(isoCas(doDna, "23:59"));
+  const q = `locationId=${env.GHL_LOCATION_ID}&startTime=${zac}&endTime=${kon}`;
+
+  const kaly = await Promise.all(ids.map(async (id, poradie) => {
+    const [k, u] = await Promise.all([
+      ghl(env, `/calendars/${id}`, { version: "2021-04-15" }),
+      ghl(env, `/calendars/events?${q}&calendarId=${id}`, { version: "2021-04-15" }),
+    ]);
+    return { id, poradie, k, u, cal: (k.d || {}).calendar || {} };
+  }));
+  if (!kaly[0].k.ok) return json({ ok: false, error: "GHL nedalo kalendár" }, 502);
+  const tim = kaly[0].cal.teamMembers || [];
+  const kto = String((tim.find((x) => x.selected) || tim[0] || {}).userId || "");
+  const bl = kto ? await ghl(env, `/calendars/blocked-slots?${q}&userId=${kto}`, { version: "2021-04-15" })
+                 : { ok: true, d: {} };
+
+  /* Otváracie hodiny: zjednotenie všetkých kalendárov. GHL počíta 0 = nedeľa.
+     🔴 `openHours` MUSÍ byť pole, GHL ho vie vrátiť ako `{}`. */
+  const hodiny = {};
+  for (const x of kaly) {
+    for (const o of (Array.isArray(x.cal.openHours) ? x.cal.openHours : [])) {
+      for (const den of (o.daysOfTheWeek || [])) {
+        for (const h of (o.hours || [])) {
+          const usek = [hhmmZ((h.openHour || 0) * 60 + (h.openMinute || 0)), hhmmZ((h.closeHour || 0) * 60 + (h.closeMinute || 0))];
+          hodiny[den] = hodiny[den] || [];
+          if (!hodiny[den].some(([a, b]) => a === usek[0] && b === usek[1])) hodiny[den].push(usek);
+        }
+      }
+    }
+  }
+  const zdroj = Object.keys(hodiny).length ? hodiny : PRACOVNY_CAS;
+  const krok = Math.min(...kaly.map((x) => Number(x.cal.slotInterval) || Number(x.cal.slotDuration) || 30));
+
+  // termíny zo všetkých kalendárov, mená ľudí z kontaktov (strop 40, nech to nerastie s databázou)
+  const terminy = kaly.flatMap((x) => (((x.u.d || {}).events) || [])
+    .filter((e) => String(e.appointmentStatus || "") !== "cancelled")
+    .map((e) => ({ e, kal: x })));
+  const idKontaktov = [...new Set(terminy.map((t) => t.e.contactId).filter(Boolean))].slice(0, 40);
+  const kontakty = {};
+  await Promise.all(idKontaktov.map(async (cid) => {
+    const r = await ghl(env, `/contacts/${cid}`);
+    const c = (r.d || {}).contact;
+    if (r.ok && c) kontakty[cid] = c;
+  }));
+
+  const dni = [];
+  for (let i = 0; i < 7; i++) {
+    const datum = plusDni(od, i);
+    const denCislo = new Date(datum + "T12:00:00Z").getUTCDay();
+    const otvorene = (zdroj[denCislo] || []).map(([a, b]) => ({ od: a, do: b }));
+    if (!otvorene.length) continue;   // zatvorený deň sa nezobrazuje
+    dni.push({
+      datum, den: DNI_SK[denCislo], otvorene,
+      terminy: terminy.filter((t) => vZone(t.e.startTime).datum === datum).map((t) => {
+        const c = kontakty[t.e.contactId];
+        // 🔴 kontakt mimo tagu konzoly: termín vidno, kto to je a rozhovor nie
+        const smie = !!c && maTag(c.tags, tag);
+        const meno = smie ? ([c.firstName, c.lastName].filter(Boolean).join(" ") || c.name || c.phone || "Bez mena") : "Rezervované";
+        return { id: t.e.id, od: vZone(t.e.startTime).cas, do: vZone(t.e.endTime).cas, meno,
+                 co: t.kal.cal.name || "Termín", kal: t.kal.poradie, potvrdeny: t.e.appointmentStatus === "confirmed",
+                 contactId: smie ? t.e.contactId : "" };
+      }),
+      zavrete: (((bl.d || {}).events) || []).filter((e) => vZone(e.startTime).datum === datum)
+        .map((e) => ({ id: e.id, od: vZone(e.startTime).cas, do: vZone(e.endTime).cas })),
+    });
+  }
+
+  const vsetky = dni.flatMap((d) => d.otvorene);
+  return json({
+    ok: true, od, krok,
+    kalendare: kaly.map((x) => ({ poradie: x.poradie, nazov: x.cal.name || "Kalendár" })),
+    zaciatok: vsetky.length ? hhmmZ(Math.min(...vsetky.map((h) => minutyZo(h.od)))) : "09:00",
+    koniec: vsetky.length ? hhmmZ(Math.max(...vsetky.map((h) => minutyZo(h.do)))) : "17:00",
+    dni,
+  });
+}
+
+/* Zavrie čas: jedna blokácia Miriam ako používateľky, platí vo všetkých jej
+   kalendároch. Jedno ťahanie = jedna blokácia, zruší sa jedným klikom. */
+async function zavri(env, telo) {
+  const datum = String(telo.datum || ""), odCas = String(telo.od || ""), doCas = String(telo.do || "");
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(datum) || !/^\d{2}:\d{2}$/.test(odCas)
+      || !/^\d{2}:\d{2}$/.test(doCas) || minutyZo(doCas) <= minutyZo(odCas)) {
+    return json({ ok: false, error: "zlý čas" }, 400);
+  }
+  const kto = await pouzivatel(env);
+  if (!kto) return json({ ok: false, error: "kalendár nemá priradenú osobu" }, 500);
+  const r = await ghl(env, "/calendars/events/block-slots", {
+    method: "POST", version: "2021-04-15",
+    body: JSON.stringify({ assignedUserId: kto, locationId: env.GHL_LOCATION_ID,
+      startTime: isoCas(datum, odCas), endTime: isoCas(datum, doCas), title: NAZOV_BLOKU }),
+  });
+  if (!r.ok) return json({ ok: false, error: "GHL neuložilo zatvorenie", detail: r.d }, 502);
+  return json({ ok: true, id: (r.d || {}).id || "" });
+}
+
+/* Otvorí čas späť: zmaže blokáciu. */
+async function otvor(env, telo) {
+  const id = String(telo.id || "");
+  if (!/^[A-Za-z0-9_-]{10,40}$/.test(id)) return json({ ok: false, error: "zlé id" }, 400);
+  const r = await ghl(env, `/calendars/events/${id}`, { method: "DELETE", version: "2021-04-15" });
+  if (!r.ok) return json({ ok: false, error: "GHL nezmazalo zatvorenie" }, 502);
+  return json({ ok: true });
+}
+
 const CESTY = {
   "/api/konverzacie": (env) => konverzacie(env),
   "/api/sprava": (env, b) => sprava(env, b),
@@ -581,6 +767,9 @@ const CESTY = {
   "/api/prehlad": (env) => prehlad(env),
   "/api/lievik": (env, b) => lievik(env, b),
   "/api/ab": (env, b) => abTest(env, b),
+  "/api/kalendar": (env, b) => kalendar(env, b),
+  "/api/zavri": (env, b) => zavri(env, b),
+  "/api/otvor": (env, b) => otvor(env, b),
 };
 
 export default {
