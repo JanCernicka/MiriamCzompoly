@@ -716,7 +716,8 @@ async function kalendar(env, telo) {
                  contactId: smie ? t.e.contactId : "" };
       }),
       zavrete: (((bl.d || {}).events) || []).filter((e) => vZone(e.startTime).datum === datum)
-        .map((e) => ({ id: e.id, od: vZone(e.startTime).cas, do: vZone(e.endTime).cas })),
+        .map((e) => ({ id: e.id, od: vZone(e.startTime).cas, do: vZone(e.endTime).cas,
+                       nazov: e.title || "", zKonzoly: (e.title || "") === NAZOV_BLOKU })),
     });
   }
 
@@ -753,7 +754,25 @@ async function zavri(env, telo) {
 async function otvor(env, telo) {
   const id = String(telo.id || "");
   if (!/^[A-Za-z0-9_-]{10,40}$/.test(id)) return json({ ok: false, error: "zlé id" }, 400);
+  /* 🔴 Otvoriť smie len čas zavretý v konzole. Blokácie z GHL alebo Google kalendára
+        (napr. „Deň architektúry") sú Miriamine vlastné, tie sa tu nemažú.
+     🔴 `GET /calendars/events/{id}` s PIT nejde (401 „not yet supported by the IAM
+        Service", overené 5. 10. 2026), preto sa blokácia hľadá v zozname dňa. */
+  const datum = String(telo.datum || "");
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(datum)) return json({ ok: false, error: "chýba dátum" }, 400);
+  const kto = await pouzivatel(env);
+  const zoznam = await ghl(env, `/calendars/blocked-slots?locationId=${env.GHL_LOCATION_ID}&userId=${kto}`
+    + `&startTime=${Date.parse(isoCas(datum, "00:00"))}&endTime=${Date.parse(isoCas(datum, "23:59"))}`, { version: "2021-04-15" });
+  if (!zoznam.ok) return json({ ok: false, error: "GHL nedalo zavretý čas" }, 502);
+  const blok = (((zoznam.d || {}).events) || []).find((e) => e.id === id);
+  if (!blok) return json({ ok: true, uzBolo: true });   // už je otvorené (druhý klik)
+  if ((blok.title || "") !== NAZOV_BLOKU) {
+    return json({ ok: false, error: "Tento čas nebol zavretý v konzole, otvorte ho tam, kde vznikol." }, 403);
+  }
   const r = await ghl(env, `/calendars/events/${id}`, { method: "DELETE", version: "2021-04-15" });
+  /* 🔴 Druhý klik (alebo dvojklik) maže už zmazanú blokáciu a GHL vráti 400
+     „already been deleted" (overené 5. 10. 2026). Čas je otvorený, to je úspech. */
+  if (!r.ok && /already been deleted/i.test(JSON.stringify(r.d || ""))) return json({ ok: true, uzBolo: true });
   if (!r.ok) return json({ ok: false, error: "GHL nezmazalo zatvorenie" }, 502);
   return json({ ok: true });
 }

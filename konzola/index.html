@@ -567,6 +567,7 @@ h2{font-size:21px;margin:0 0 3px;font-weight:600;letter-spacing:-.02em}
   padding:0 6px;font-size:10.5px;font-style:normal;color:#fff;font-weight:600;
   white-space:nowrap;overflow:hidden;z-index:1}
 .bunka.zavrete.zaciatokBloku>i{color:#44485a}
+.bunka.zavrete.cudzie{cursor:default;background:repeating-linear-gradient(45deg,#d9dbe3 0 6px,#e6e8ee 6px 12px)}
 
 .kalLegenda{display:flex;gap:16px;flex-wrap:wrap;margin-top:12px;font-size:12.5px;
   color:var(--sivy);align-items:center}
@@ -791,7 +792,8 @@ $$("nav button").forEach((b) => b.addEventListener("click", () => prepniTab(b.da
       číta ten istý kalendár, takže čas, ktorý tu predajca zavrie, sa
       zákazníkovi z reklamy neponúkne. Overené naostro. */
 let TYZDEN = "";
-let MALUJEM = null;   // {datum, odMin, doMin} počas ťahania myšou
+let MALUJEM = null;
+let OTVARAM = false;  // práve sa maže zavretý čas   // {datum, odMin, doMin} počas ťahania myšou
 
 function pondelok(d) {
   const x = new Date(d + "T12:00:00Z");
@@ -874,6 +876,13 @@ function bunka(den, minuta, krok, znacka) {
       >${prvy ? `<i>${bezpecne(t.od + " " + t.meno)}</i>` : ""}</div>`;
   }
   const z = (den.zavrete || []).find(vnutri);
+  if (z && z.zKonzoly === false) {
+    // Miriamin vlastný zavretý čas z GHL alebo Google kalendára: len ukázať, neotvárať
+    const prvy = minuta === minutyZ(z.od);
+    return `<div class="bunka zavrete cudzie${h}${prvy ? " zaciatokBloku" : ""}"
+      title="${bezpecne(z.od + " až " + z.do + " " + (z.nazov || "obsadené"))}. Otvoriť sa dá tam, kde vznikol."
+      >${prvy ? `<i>${bezpecne(z.nazov || "obsadené")}</i>` : ""}</div>`;
+  }
   if (z) {
     const prvy = minuta === minutyZ(z.od);
     return `<div class="bunka zavrete${h}${prvy ? " zaciatokBloku" : ""}"
@@ -892,9 +901,14 @@ function rozsahTyzdna(dni) {
 
 function pripojKalendar() {
   // Otvoriť späť: jeden klik na zavretý blok.
-  $$(".bunka.zavrete").forEach((b) => b.addEventListener("click", async () => {
+  $$(".bunka.zavrete:not(.cudzie)").forEach((b) => b.addEventListener("click", async () => {
+    // 🔴 jeden klik = jedno mazanie; druhý klik počas načítavania by mazal už zmazané
+    if (OTVARAM) return;
+    OTVARAM = true;
+    $$(`.bunka.zavrete[data-otvor="${b.dataset.otvor}"]`).forEach((x) => x.style.opacity = ".5");
     const r = await api("/api/otvor", { id: b.dataset.otvor, datum: b.dataset.datum, od: b.dataset.od, do: b.dataset.do });
-    if (!r.ok) { alert(r.error || "Nepodarilo sa otvoriť."); return; }
+    OTVARAM = false;
+    if (!r.ok) { alert(r.error || "Nepodarilo sa otvoriť."); nacitajKalendar(); return; }
     nacitajKalendar();
   }));
 
