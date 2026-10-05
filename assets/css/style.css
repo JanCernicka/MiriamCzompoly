@@ -368,6 +368,7 @@ body.nav-open .mobile-menu a.m-link { animation: menuIn .5s var(--ease) forwards
 .pc-name { font-family: var(--font-display); font-size: 1.4rem; font-weight: 600; line-height: 1.15; margin-bottom: 0.9rem; min-height: 2.4em; }
 .pc-price { font-family: var(--font-display); font-size: 2.5rem; font-weight: 600; color: var(--ink); line-height: 1; letter-spacing: -0.02em; }
 .pc-price .from { font-size: 0.8rem; font-family: var(--font-body); font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 0.35rem; }
+.pc-ceny { display: flex; gap: 1.6rem; flex-wrap: wrap; }
 .pc-price-note { font-size: 0.82rem; color: var(--muted); margin-top: 0.55rem; line-height: 1.4; }
 .pc-list { display: flex; flex-direction: column; gap: 0.7rem; margin: 1.4rem 0; }
 .pc-list li { position: relative; padding-left: 1.7rem; font-size: 0.93rem; line-height: 1.45; color: var(--ink-soft); }

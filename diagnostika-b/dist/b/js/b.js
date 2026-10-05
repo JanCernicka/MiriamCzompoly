@@ -51,9 +51,32 @@
   var btn = $("#rezervovat"), chyba = $("#chyba");
   var dni = [], vybranyDen = 0, vybranyCas = null, bezi = false;
 
+  /* ---------- typ diagnostiky: u teba doma (290 €) alebo online (250 €), od 5. 10. 2026 ----------
+     Online má vlastný kalendár (iné voľné časy) a nepýta adresu. */
+  var typ = "osobne";
+  var POZN = {
+    osobne: "90 minút priamo v tvojom priestore + písomné zhrnutie. Do 25 km od Trnavy je cesta v cene, ďalej 0,50 € za km.",
+    online: "90 minút online + písomné zhrnutie do troch dní. Fotky a pôdorys mi pošleš vopred, aby sme čas nestrácali obhliadkou."
+  };
+  function nastavTyp(novy) {
+    typ = novy === "online" ? "online" : "osobne";
+    Array.prototype.forEach.call(document.querySelectorAll(".typ[data-typ]"), function (b) {
+      var je = b.getAttribute("data-typ") === typ;
+      b.classList.toggle("on", je); b.setAttribute("aria-checked", je ? "true" : "false");
+    });
+    var a = document.getElementById("adresa"); if (a) a.hidden = typ === "online";
+    var p = document.getElementById("typPozn"); if (p) p.textContent = POZN[typ];
+  }
+  Array.prototype.forEach.call(document.querySelectorAll(".typ[data-typ]"), function (b) {
+    b.addEventListener("click", function () {
+      if (b.getAttribute("data-typ") === typ) return;
+      nastavTyp(b.getAttribute("data-typ")); vybranyCas = null; form.hidden = true; nacitaj();
+    });
+  });
+
   function nacitaj() {
     stav.hidden = false; stav.textContent = "Načítavam voľné termíny…";
-    return fetch("/api/sloty").then(function (r) { return r.json(); }).then(function (o) {
+    return fetch("/api/sloty?typ=" + typ).then(function (r) { return r.json(); }).then(function (o) {
       if (!o || !o.ok) throw new Error("sloty");
       dni = (o.days || []).filter(function (d) { return d.slots && d.slots.length; }).slice(0, MAX_DNI)
         .map(function (d) { return { date: d.date, slots: d.slots.slice(0, MAX_CASOV) }; });
@@ -107,7 +130,7 @@
     chyba.classList.remove("vidno");
     if (!vybranyCas) { btn.disabled = true; btn.textContent = "Vyber si čas"; return; }
     btn.disabled = false;
-    btn.textContent = "Rezervovať s povinnosťou platby";   // termín vidno na vybranom čase, platba 249 € nasleduje na /dakujem
+    btn.textContent = "Rezervovať s povinnosťou platby";   // termín vidno na vybranom čase, platba (290 € alebo 250 €) nasleduje na /dakujem
   }
 
   function hodnota(meno) {
@@ -129,22 +152,23 @@
               ulica: hodnota("ulica"), mesto: hodnota("mesto"), suhlas: hodnota("suhlas") };
     var zlyMail = !/^[^@\s]+@[^@\s]+\.[a-z]{2,}$/i.test(d.email);
     zle("meno", d.meno.length < 2); zle("email", zlyMail); zle("telefon", d.telefon.replace(/\D/g, "").length < 9);
-    zle("ulica", d.ulica.length < 3 || !/\d/.test(d.ulica)); zle("mesto", d.mesto.length < 2);
+    var osobne = typ !== "online";
+    zle("ulica", osobne && (d.ulica.length < 3 || !/\d/.test(d.ulica))); zle("mesto", osobne && d.mesto.length < 2);
     if (d.meno.length < 2) return povedz("Napíš prosím krstné meno.");
     if (zlyMail) return povedz("Ten e-mail nevyzerá platne.");
     if (d.telefon.replace(/\D/g, "").length < 9) return povedz("Telefónne číslo vyzerá krátko.");
-    if (d.ulica.length < 3 || !/\d/.test(d.ulica) || d.mesto.length < 2) return povedz("Napíš prosím ulicu, číslo a mesto, kam mám prísť.");
+    if (typ !== "online" && (d.ulica.length < 3 || !/\d/.test(d.ulica) || d.mesto.length < 2)) return povedz("Napíš prosím ulicu, číslo a mesto, kam mám prísť.");
     if (!d.suhlas) return povedz("Bez zaškrtnutia ti neviem poslať potvrdenie termínu.");
 
     bezi = true; btn.disabled = true; btn.textContent = "Rezervujem…";
-    var telo = { start: vybranyCas, meno: d.meno, email: d.email, telefon: d.telefon, ulica: d.ulica, mesto: d.mesto,
+    var telo = { start: vybranyCas, meno: d.meno, email: d.email, telefon: d.telefon, ulica: d.ulica, mesto: d.mesto, typ: typ,
                  ab: window.LIEVIK_AB || "b", sid: window.LIEVIK_SID || "" };
     fetch("/api/termin", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(telo) })
       .then(function (r) { return r.json().catch(function () { return {}; }).then(function (o) { return { s: r.status, o: o }; }); })
       .then(function (x) {
         if (x.o && x.o.ok) {
           try { sessionStorage.setItem("mc_meno", d.meno); sessionStorage.setItem("mc_rezervacia", "1"); } catch (err) {}
-          location.href = "/dakujem";
+          location.href = "/dakujem?typ=" + typ;
           return;
         }
         bezi = false;

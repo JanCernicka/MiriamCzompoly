@@ -1,0 +1,42 @@
+/* Vyskakovacie okno „Nevieš, ako začať?“ (assets/js/navod.js). Samostatné, funguje na A
+   (style.css) aj na B (b.css). Vychádza z okna „Nie si si istá?“ z dispozície. */
+.navod{position:fixed;inset:0;z-index:500;display:flex;align-items:flex-end;justify-content:center;background:rgba(38,32,25,0);transition:background .2s ease;font-family:'Inter',system-ui,-apple-system,"Segoe UI",sans-serif}
+.navod.vidno{background:rgba(38,32,25,.55)}
+.navod[hidden],.navod [hidden]{display:none !important}
+.navod-karta{position:relative;width:100%;max-width:440px;max-height:94vh;overflow-y:auto;overscroll-behavior:contain;background:#fff;border-radius:20px 20px 0 0;color:#3a332b;
+  padding:22px 20px calc(20px + env(safe-area-inset-bottom,0px));box-shadow:0 -10px 40px rgba(38,32,25,.25);transform:translateY(100%);transition:transform .25s ease;box-sizing:border-box}
+.navod.vidno .navod-karta{transform:none}
+@media (min-width:600px){.navod{align-items:center}.navod-karta{border-radius:20px;transform:translateY(20px);opacity:0;transition:transform .2s ease,opacity .2s ease}.navod.vidno .navod-karta{opacity:1}}
+@media (prefers-reduced-motion:reduce){.navod,.navod-karta{transition:none}}
+.navod h2{font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;font-size:30px;line-height:1.1;color:#262019;margin:0 32px 12px 0}
+.navod p{font-size:15.5px;line-height:1.5;margin:0 0 12px}
+.navod-pp{margin:0 0 14px}
+.navod-pp-fotky{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.navod-pp-fotky span{position:relative;display:block;border-radius:10px;overflow:hidden;aspect-ratio:3/2;background:#F8F4EE}
+.navod-pp-fotky img{display:block;width:100%;height:100%;object-fit:cover}
+.navod-pp-fotky b{position:absolute;left:6px;top:6px;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;background:rgba(255,255,255,.92);color:#262019;padding:2px 7px;border-radius:999px}
+.navod-pp-fotky b.po{background:#262019;color:#fff}
+.navod-pp figcaption{margin-top:8px;font-size:14px;line-height:1.5;color:#4C453B}
+.navod-pp q{display:block;margin-top:6px;font-style:italic;color:#262019;quotes:"„" "“"}
+.navod-pp cite{display:block;margin-top:4px;font-style:normal;font-weight:600;font-size:13px;color:#7E6441}
+.navod .pole{margin-bottom:10px}
+.navod .pole label{display:block;font-size:14px;font-weight:600;color:#262019;margin-bottom:4px}
+.navod .pole input{width:100%;box-sizing:border-box;font:inherit;font-size:16px;padding:14px;border-radius:12px;border:1.5px solid #E4D9C6;background:#fff;color:#262019}
+.navod .pole input:focus{outline:0;border-color:#A9885E;box-shadow:0 0 0 3px rgba(169,136,94,.2)}
+.navod .pole input.zle{border-color:#b3261e}
+.navod .chyba{display:none;color:#b3261e;font-size:14.5px;margin:0 0 10px}
+.navod .chyba.vidno{display:block}
+.navod-btn{display:flex;align-items:center;justify-content:center;width:100%;min-height:54px;padding:14px 20px;border:0;border-radius:13px;background:#262019;color:#fff;font:inherit;font-size:17px;font-weight:700;cursor:pointer}
+.navod-btn[disabled]{opacity:.6;cursor:default}
+.navod-pozn{font-size:12.5px !important;color:#6F6557;text-align:center;margin:8px 0 0 !important}
+.navod-pozn a{color:#7E6441}
+.navod-hotovo p{background:#F8F4EE;border-radius:12px;padding:12px 14px}
+.navod-stretnut{display:flex;align-items:center;justify-content:center;width:100%;min-height:48px;margin-top:12px;border:1.5px solid #262019;border-radius:13px;
+  background:#fff;color:#262019;font-size:16px;font-weight:700;text-decoration:none;box-sizing:border-box}
+.navod-stretnut:hover{background:#F8F4EE}
+.navod-x{position:absolute;right:12px;top:10px;width:40px;height:40px;border:0;background:transparent;font-size:28px;line-height:1;color:#6F6557;cursor:pointer;border-radius:50%}
+.navod-x:focus-visible,.navod-btn:focus-visible,.navod-stretnut:focus-visible{outline:2px solid #A9885E;outline-offset:2px}
+.navod-pasca{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+html.navod-otvorene{overflow:hidden}
+/* bublina GHL chatu by inak prekryla tlačidlá okna; cookie lišta (z-index 400) je pod oknom (500) */
+html.navod-otvorene chat-widget{display:none !important}

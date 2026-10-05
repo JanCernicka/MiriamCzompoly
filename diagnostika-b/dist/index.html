@@ -15,6 +15,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/b/css/b.css" />
+  <link rel="stylesheet" href="/assets/css/navod.css" />
 </head>
 <body>
 
@@ -73,9 +74,10 @@
     <!-- PONUKA: čo presne dostane -->
     <section class="sekcia" id="diagnostika">
       <div class="obal">
-        <h2>Čo dostaneš za <span class="suma">249&nbsp;€</span></h2>
+        <h2>Čo dostaneš za <span class="suma">290&nbsp;€</span></h2>
+        <p class="uvod">Online za 250&nbsp;€, fotky a pôdorys mi pošleš vopred.</p>
         <ul class="body">
-          <li><b>90 minút u teba doma</b><span>Priamo v priestore, nie cez fotky. Vidím svetlo, rozmery aj to, ako tam naozaj žiješ.</span></li>
+          <li><b>90 minút u teba doma</b><span>Priamo v priestore. Vidím svetlo, rozmery aj to, ako tam naozaj žiješ. Do 25 km od Trnavy je cesta v cene.</span></li>
           <li><b>Analýzu dispozície a tvojich potrieb</b><span>Čo priestor dokáže a čo od neho potrebuješ ty, nie čo je práve v móde.</span></li>
           <li><b>Akčný plán priorít</b><span>Čo riešiť ako prvé a v akom poradí, aby na seba veci nadväzovali.</span></li>
           <li><b>Zoznam „čo prestať kupovať“</b><span>Jediná zle kúpená sedačka stojí stovky až tisíce eur. Tento zoznam ti ich ušetrí.</span></li>
@@ -90,8 +92,13 @@
     <!-- KALENDÁR priamo v stránke, kotva všetkých CTA -->
     <section class="sekcia svetla" id="kalendar">
       <div class="obal">
-        <h2>Vyber si čas, kedy k tebe prídem</h2>
-        <p class="uvod">Pracovné dni. Diagnostika trvá 90 minút a je u teba doma.</p>
+        <h2>Vyber si diagnostiku a čas</h2>
+        <p class="uvod">Pracovné dni. Diagnostika trvá 90 minút, u teba doma alebo online.</p>
+        <div class="typy" role="radiogroup" aria-label="Kde bude diagnostika">
+          <button type="button" class="typ on" data-typ="osobne" role="radio" aria-checked="true"><b>U teba doma</b><span>290&nbsp;€</span></button>
+          <button type="button" class="typ" data-typ="online" role="radio" aria-checked="false"><b>Online</b><span>250&nbsp;€</span></button>
+        </div>
+        <p class="typ-pozn" id="typPozn">90 minút priamo v tvojom priestore + písomné zhrnutie. Do 25 km od Trnavy je cesta v cene, ďalej 0,50 € za km.</p>
 
         <div class="kal" data-kalendar>
           <div class="dni" id="dni" role="tablist" aria-label="Deň"></div>
@@ -105,10 +112,12 @@
               <input id="email" name="email" type="email" inputmode="email" autocomplete="email" required></div>
             <div class="pole"><label for="telefon">Telefón</label>
               <input id="telefon" name="telefon" type="tel" inputmode="tel" autocomplete="tel" placeholder="0907 777 555" required></div>
+            <div id="adresa"><!-- pri online diagnostike skryté -->
             <div class="pole"><label for="ulica">Kde bude diagnostika? Ulica a číslo</label>
               <input id="ulica" name="ulica" type="text" autocomplete="street-address" required></div>
             <div class="pole"><label for="mesto">Mesto</label>
               <input id="mesto" name="mesto" type="text" autocomplete="address-level2" required></div>
+            </div>
             <label class="suhlas"><input id="optin" name="suhlas" type="checkbox" required>
               <span>Áno, môžeš mi písať. Pošlem ti len potvrdenie termínu a dve pripomienky pred ním. Viac o <a href="/gdpr" target="_blank" rel="noopener">ochrane údajov</a>.</span></label>
             <p class="chyba" id="chyba" role="alert"></p>
@@ -147,6 +156,8 @@
   <script src="/b/js/recenzie.js"></script>
   <script>try { postavKarty("#kopa", 6); } catch (e) { /* zvyšok stránky beží ďalej */ }</script>
   <script src="/b/js/b.js"></script>
+  <!-- okno „Nevieš, ako začať?“ z hlavného webu (B beží pod www, /assets ide odtiaľ) -->
+  <script src="/assets/js/navod.js" defer></script>
   <!-- rovnaký súhlas s cookies a pixel ako na variante A -->
   <script src="/assets/js/consent.js"></script>
 </body>

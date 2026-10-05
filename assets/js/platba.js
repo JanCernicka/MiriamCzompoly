@@ -1,4 +1,4 @@
-/* Platba 249 € cez FAPI na /dakujem pre variantu B.
+/* Platba cez FAPI na /dakujem pre variantu B.
    Kalendár B pred presmerovaním uloží údaje do sessionStorage „mc_platba“,
    tu sa vpíšu do formulára FAPI, aby ich zákazníčka nepísala druhýkrát.
    FAPI sa vkladá priamo do stránky (nie iframe), polia majú mená
@@ -6,9 +6,10 @@
    Overené 26. 9. 2026 na miriam-fapi-test.pages.dev/navrh. */
 (function () {
   "use strict";
-  var FAPI = "https://form.fapi.cz/script.php?id=33a88ecd-b33c-4a70-ab01-7f490ad088c0";
   var obal = document.getElementById("fapi");
   if (!obal) return;
+  /* formulár podľa typu diagnostiky (online / u teba doma), id dáva functions/dakujem.js */
+  var FAPI = "https://form.fapi.cz/script.php?id=" + (obal.getAttribute("data-fapi") || "91622c58-0243-4fe7-9f37-66f564381144");
 
   var u = null;
   try { u = JSON.parse(sessionStorage.getItem("mc_platba") || "null"); } catch (e) {}
