@@ -32,6 +32,17 @@ export async function onRequestGet({ request, env }) {
        FROM udalosti WHERE cas >= ? AND varianta IS NOT NULL AND krok='klik-cta'
       GROUP BY varianta, tlacidlo ORDER BY ludi DESC LIMIT 30`).bind(od).all();
 
+  /* Z ktorej reklamy (utm_content = kreatíva, nesie sa celú session) a koľko z nich rezervovalo. */
+  const reklamy = await env.DB.prepare(
+    `SELECT varianta, COALESCE(NULLIF(kreativa,''),'(bez reklamy)') AS kreativa, COUNT(DISTINCT sid) AS ludi,
+            COUNT(DISTINCT CASE WHEN krok='termin-rezervovany' THEN sid END) AS termin
+       FROM udalosti WHERE cas >= ? AND varianta IS NOT NULL GROUP BY varianta, kreativa`).bind(od).all();
+  /* Každá rezervácia zvlášť: kedy, ktorá stránka a z ktorej reklamy. */
+  const rezervacie = await env.DB.prepare(
+    `SELECT MIN(cas) AS cas, varianta, COALESCE(NULLIF(kreativa,''),'(bez reklamy)') AS kreativa, zariadenie
+       FROM udalosti WHERE cas >= ? AND varianta IS NOT NULL AND krok='termin-rezervovany'
+      GROUP BY sid ORDER BY cas DESC LIMIT 50`).bind(od).all();
+
   const v = {};
   for (const x of r.results) {
     v[x.varianta] = { ...x, miera: x.pristali ? Math.round((x.termin / x.pristali) * 1000) / 10 : null };
@@ -50,5 +61,6 @@ export async function onRequestGet({ request, env }) {
               rozdielBodov: Math.round((p1 - p2) * 1000) / 10 };
   }
   return json({ ok: true, dni, od: new Date(od).toISOString(), varianty: v, zaver,
-                zariadenia: zariadenia.results, tlacidla: tlacidla.results });
+                zariadenia: zariadenia.results, tlacidla: tlacidla.results,
+                reklamy: reklamy.results, rezervacie: rezervacie.results });
 }

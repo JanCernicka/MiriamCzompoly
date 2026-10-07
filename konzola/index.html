@@ -1447,6 +1447,34 @@ async function nacitajAB(volba) {
   }
   html += "</tbody></table>";
 
+  /* Z ktorej reklamy prišli (utm_content). Rezervácie zvlášť, aby bolo vidieť každú. */
+  if ((d.rezervacie || []).length) {
+    html += "<h3>Rezervácie a z ktorej reklamy</h3><table class='lievikT'><thead><tr>"
+          + "<th>kedy</th><th>varianta</th><th>reklama</th><th>zariadenie</th></tr></thead><tbody>";
+    for (const x of d.rezervacie) {
+      const kedy = new Date(x.cas).toLocaleString("sk-SK", { timeZone: "Europe/Bratislava", day: "numeric", month: "numeric", hour: "2-digit", minute: "2-digit" });
+      html += `<tr><td>${bezpecne(kedy)}</td><td>${bezpecne((AB_POPIS[x.varianta] || {}).nazov || x.varianta)}</td>
+        <td>${bezpecne(x.kreativa)}</td><td>${bezpecne(x.zariadenie || "")}</td></tr>`;
+    }
+    html += "</tbody></table>";
+  }
+  if ((d.reklamy || []).length) {
+    const sp = {};
+    for (const x of d.reklamy) {
+      const r = sp[x.kreativa] = sp[x.kreativa] || { kreativa: x.kreativa, a: { ludi: 0, termin: 0 }, b: { ludi: 0, termin: 0 } };
+      if (r[x.varianta]) { r[x.varianta].ludi += x.ludi; r[x.varianta].termin += x.termin; }
+    }
+    const riadky = Object.values(sp).sort((x, y) => (y.a.ludi + y.b.ludi) - (x.a.ludi + x.b.ludi));
+    html += `<h3>Podľa reklamy</h3><table class='lievikT'><thead><tr><th>reklama</th>
+      <th>${bezpecne((AB_POPIS.a || {}).nazov || "A")}: ľudí</th><th>rezervovalo</th>
+      <th>${bezpecne((AB_POPIS.b || {}).nazov || "B")}: ľudí</th><th>rezervovalo</th></tr></thead><tbody>`;
+    for (const x of riadky) {
+      html += `<tr><td>${bezpecne(x.kreativa)}</td><td class="lievikC">${x.a.ludi}</td><td class="lievikC">${x.a.termin}</td>
+        <td class="lievikC">${x.b.ludi}</td><td class="lievikC">${x.b.termin}</td></tr>`;
+    }
+    html += "</tbody></table>";
+  }
+
   /* Zariadenia a tlacidla uz staci pod sebou, su to podrobnosti. */
   if ((d.zariadenia || []).length) {
     html += "<h3>Podľa zariadenia</h3><table class='lievikT'><thead><tr>"
