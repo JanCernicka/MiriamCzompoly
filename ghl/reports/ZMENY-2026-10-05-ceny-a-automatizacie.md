@@ -34,3 +34,11 @@ v e-mailoch funguje (GHL nastaví DND na e-mail), text pod e-mailom je po anglic
   sloty od 12. 10. sedia s pôvodnými. PUT tiež chce `formSubmitRedirectURL` (veľké URL), GET vracia `Url`.
 - Konzola A/B: tabuľky „Rezervácie a z ktorej reklamy“ a „Podľa reklamy“. Testy z 5. 10. zmazané
   (D1 záloha v `udalosti_testy_zmazane`), Miriamine 2 testovacie príležitosti zmazané.
+- Termín v GHL a v Google kalendári má 90 minút (`DLZKA_MIN = 90` v `functions/api/termin.js`), predtým 30.
+  Rezerva po termíne skrátená o hodinu (osobne 270 na 210, online 90 na 30), voľné sloty overené ako rovnaké.
+- Vladimíra (9. 10. 11:00) a Roman (9. 10. 16:30) predĺžení na 90 min. Úprava termínu spúšťa WF3 znova,
+  preto bolo opakované spustenie na chvíľu vypnuté (v20) a potom zapnuté (v21). Vladimíra nedostala nič,
+  Roman áno: 7. 10. o 11:29 mu prišlo druhé rovnaké potvrdenie (e-mail + SMS), lebo jeho prvý beh WF3
+  z 1. 10. už bol skončený. Pripomienky 2 h a 10 min pred termínom idú obom.
+- 🔴 Ponaučenie: úprava existujúceho termínu cez API (aj predĺženie) spustí WF3 znova. `allowMultiple: false`
+  zastaví len kontakt, ktorý je vo WF3 ešte aktívny.
