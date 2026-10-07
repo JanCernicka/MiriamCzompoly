@@ -25,3 +25,12 @@ v e-mailoch funguje (GHL nastaví DND na e-mail), text pod e-mailom je po anglic
 - Ako sa Miriam online spojí (Zoom, Meet, WhatsApp, telefón)? Potom doplniť do WF3 online.
 - Anglická pozvánka z Google kalendára ostáva (Jano).
 - WF4 ponuka po diagnostike, WF5 no-show: zapnúť po dohode s Miriam.
+
+## 7. 10. 2026
+- Diagnostika aj online: minimálny predstih 2 dni (`allowBookingAfter` 2 days). Prvý voľný termín je teraz
+  najskôr o 48 hodín.
+- 🔴 Kalendár diagnostiky `fUjAz` nemal `openHours` (bral pracovný čas Miriam). PUT s `openHours: []`
+  zhodil free-slots na nulu, asi 2 minúty nebol na webe ani jeden termín. Opravené na po až pi 9 až 17,
+  sloty od 12. 10. sedia s pôvodnými. PUT tiež chce `formSubmitRedirectURL` (veľké URL), GET vracia `Url`.
+- Konzola A/B: tabuľky „Rezervácie a z ktorej reklamy“ a „Podľa reklamy“. Testy z 5. 10. zmazané
+  (D1 záloha v `udalosti_testy_zmazane`), Miriamine 2 testovacie príležitosti zmazané.
