@@ -23,7 +23,9 @@ import { GHL, json, hlavicky, nastavene, volneSloty,
 
 const ZNACKA = "diagnostika-lp-b";
 const ZNACKA_A = "diagnostika-lp-a";
-const DLZKA_MIN = 30;   // dĺžka slotu v kalendári, nie dĺžka diagnostiky
+// skutočná dĺžka diagnostiky (osobne aj online), nech ju Miriam v Google kalendári vidí celú (7. 10. 2026).
+// Rezerva po termíne je v GHL o hodinu kratšia (osobne 210, online 30 min), voľné časy sa tým nezmenili.
+const DLZKA_MIN = 90;
 const NAZOV_TERMINU = "Interiérová diagnostika";   // ten istý ako pri rezervácii cez GHL na A
 
 const cisty = (v, max) => String(v || "").replace(/\s+/g, " ").trim().slice(0, max);
