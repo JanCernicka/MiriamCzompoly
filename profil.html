@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Zisti, čo tvojmu domovu chýba · Miriam Czompoly, Trnava</title>
+  <meta name="description" content="6 krátkych otázok, minúta času. Zisti, čo tvojmu domovu chýba a čo urobiť ako prvé. Zadarmo od interiérovej dizajnérky Miriam Czompoly z Trnavy." />
+  <!-- Lievik „Pocitový profil domova“, NÁHĽAD (8. 10. 2026). Kým ho Miriam neschváli, nepatrí do reklamy ani do Googlu. -->
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="theme-color" content="#262019" />
+  <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/css/profil.css" />
+</head>
+<body>
+
+  <!-- PRUH: čo človeka čaká, nie logo -->
+  <div class="pruh">
+    <div class="obal">
+      <span class="zive"><i></i>Zadarmo</span>
+      <span class="co">Test na minútu</span>
+      <span class="cas">6 otázok</span>
+    </div>
+  </div>
+
+  <main>
+    <!-- 1. HERO aj s recenziami (rovnaká stavba ako pri ostatných lievikoch) -->
+    <section class="hero">
+      <div class="obal">
+        <h1>Zisti, čo tvojmu domovu <em>chýba</em></h1>
+        <p class="sub">Odpovedz na 6 krátkych otázok o tom, ako sa chceš doma cítiť. Podľa odpovedí ti poviem, kam ísť a čo urobiť ako prvé. <strong>Zadarmo a za minútu.</strong></p>
+
+        <div class="pred-po">
+          <figure><img src="/assets/img/realizacie/vidiecky-pred-2.jpg" alt="Obývačka pred premenou" width="600" height="450" /><figcaption>Pred</figcaption></figure>
+          <figure><img src="/assets/img/realizacie/vidiecky-4.jpg" alt="Tá istá obývačka po premene" width="600" height="450" /><figcaption>Po</figcaption></figure>
+        </div>
+        <p class="popis-foto">Jitkin byt v Trnave. Starý nábytok ostal a dostal okolo seba nový.</p>
+
+        <p class="veta">Štýl sa mení, pocit zostáva. Preto pri každom domove začínam tým, ako sa v ňom chceš cítiť.</p>
+        <button class="btn" type="button" data-test>Začať test zadarmo</button>
+
+        <div class="kopa" id="kopa"></div>
+      </div>
+    </section>
+
+    <!-- 2. ČO SA DOZVIE: 4 body -->
+    <section>
+      <div class="obal">
+        <h2>Čo sa z testu dozvieš</h2>
+        <ul class="body">
+          <li><b>Aký pocit má tvoj domov dávať</b><span>Pokoj, útulno, poriadok alebo niečo iné. Z toho vychádza všetko ostatné.</span></li>
+          <li><b>Prečo sa ti v jednej miestnosti nedarí</b><span>Miesto, ktoré doma obchádzaš, a čo s ním robí najväčší problém.</span></li>
+          <li><b>Čo urobiť ako prvé</b><span>Kroky na víkend s tým, čo už doma máš, bez nákupu nábytku.</span></li>
+          <li><b>Čo prestať kupovať</b><span>Aby si neminula peniaze na veci, ktoré tvojmu priestoru nepomôžu.</span></li>
+        </ul>
+        <button class="btn" type="button" data-test>Začať test zadarmo</button>
+      </div>
+    </section>
+
+    <!-- 3. KTO SOM -->
+    <section>
+      <div class="obal">
+        <div class="o-mne">
+          <img src="https://assets.cdn.filesafe.space/o86atLjsdR9IoUTWgYna/media/69e7d02403c24196d247704c.png" alt="Miriam Czompoly, interiérová dizajnérka" width="84" height="84" loading="lazy" />
+          <h2>Som Miriam, interiérová dizajnérka z&nbsp;Trnavy</h2>
+        </div>
+        <p>Od roku 2010 navrhujem interiéry, ktoré nie sú len na obdiv, ale na život. Test vychádza z toho, čím začínam s každým klientom: ako sa chceš doma cítiť a čo ti v tom dnes bráni.</p>
+        <button class="btn" type="button" data-test>Začať test zadarmo</button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="paticka">
+    <div class="obal">
+      <div><b>Miriam Czompoly</b>, interiérový dizajn</div>
+      <div>J. Hlubíka 42, 917 01 Trnava · IČO 45714088</div>
+      <div><a href="tel:+421918819906">+421 918 819 906</a> · <a href="mailto:dizajn@miriamczompoly.sk">dizajn@miriamczompoly.sk</a></div>
+      <nav><a href="/gdpr" target="_blank" rel="noopener">Ochrana osobných údajov</a></nav>
+    </div>
+  </footer>
+
+  <!-- TEST: jedna otázka na obrazovku, po poslednej sa rozhodne, kam človek ide -->
+  <div class="test" id="test" role="dialog" aria-modal="true" aria-labelledby="otazka" hidden>
+    <div class="test-hlava">
+      <button type="button" id="spat" aria-label="Predchádzajúca otázka">←</button>
+      <div class="postup" aria-hidden="true"><i id="postup"></i></div>
+      <button type="button" id="zavriet" aria-label="Zavrieť test">×</button>
+    </div>
+    <div class="test-telo" id="telo">
+      <p class="test-krok" id="krok">Otázka 1 zo 6</p>
+      <h2 id="otazka" tabindex="-1"></h2>
+      <div class="dlazdice" id="dlazdice"></div>
+      <p class="test-pozn">Netreba meno ani e-mail, len klikáš.</p>
+    </div>
+    <div class="vyhodnocujem" id="vyhodnocujem" role="status" hidden>
+      <div class="kruh" aria-hidden="true"></div>
+      <h2>Pozerám sa na tvoje odpovede…</h2>
+    </div>
+  </div>
+
+  <script src="/assets/js/profil-data.js"></script>
+  <script src="/assets/js/profil-test.js"></script>
+</body>
+</html>

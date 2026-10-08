@@ -5,7 +5,7 @@
  * TEST_REZIM bez kľúča: termíny podľa skutočného rozvrhu kalendára
  * (pracovné dni 9:00 až 16:00), nič sa nečíta z GHL.
  */
-import { json, nastavene, volneSloty, KALENDAR_ID, KALENDAR_ONLINE_ID } from "../_lib/ghl.js";
+import { json, nastavene, volneSloty, KALENDAR_ID, KALENDAR_ONLINE_ID, KALENDAR_HOVOR_ID } from "../_lib/ghl.js";
 
 function dve(n) { return (n < 10 ? "0" : "") + n; }
 function testove() {
@@ -27,17 +27,22 @@ function testove() {
 }
 
 export async function onRequestGet({ request, env }) {
-  // ?typ=online: kalendár online diagnostiky, inak diagnostika u zákazníčky doma
-  const online = new URL(request.url).searchParams.get("typ") === "online";
+  // ?typ=online: kalendár online diagnostiky, ?typ=rozhovor: 20-minútový rozhovor z lievika /profil
+  // (náhľad od 8. 10. 2026), inak diagnostika u zákazníčky doma
+  const typ = new URL(request.url).searchParams.get("typ");
+  const online = typ === "online", rozhovor = typ === "rozhovor";
+  const kalendar = rozhovor ? KALENDAR_HOVOR_ID : online ? KALENDAR_ONLINE_ID : KALENDAR_ID;
+  // diagnostika len celé hodiny, rozhovor aj polhodiny
+  const minuty = rozhovor ? ["00", "30"] : ["00"];
   if (!nastavene(env)) {
     if (env.TEST_REZIM === "1") return json({ ok: true, test: true, days: testove() });
     return json({ ok: false, error: "not_configured" }, 500);
   }
   try {
     const teraz = Date.now();
-    const sloty = await volneSloty(env, teraz, teraz + 14 * 86400000, online ? KALENDAR_ONLINE_ID : KALENDAR_ID);
+    const sloty = await volneSloty(env, teraz, teraz + 14 * 86400000, kalendar);
     const days = Object.keys(sloty).sort()
-      .map((date) => ({ date, slots: sloty[date].filter((s) => s.slice(14, 16) === "00").slice(0, 8) }))
+      .map((date) => ({ date, slots: sloty[date].filter((s) => minuty.includes(s.slice(14, 16))).slice(0, 8) }))
       .filter((d) => d.slots.length).slice(0, 5);
     return json({ ok: true, days });
   } catch (e) {

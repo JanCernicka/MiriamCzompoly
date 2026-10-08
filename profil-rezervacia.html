@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Riešenie pre tvoj domov zadarmo · Miriam Czompoly, Trnava</title>
+  <meta name="description" content="Pozriem sa na tvoje odpovede a pripravím ti riešenie. Prejdeme si ho spolu na 20-minútovom hovore, zadarmo." />
+  <!-- Lievik „Pocitový profil domova“, NÁHĽAD (8. 10. 2026): stránka pre kvalifikovaných z testu.
+       Profil tu nedostanú, dostanú rozhovor s Miriam, ktorá im riešenie pripraví vopred. -->
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="theme-color" content="#262019" />
+  <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/css/profil.css" />
+</head>
+<body>
+
+  <!-- PRUH: stav, nie logo. Najbližší voľný čas sa doplní z /api/sloty. -->
+  <div class="pruh">
+    <div class="obal">
+      <span class="zive"><i></i>Voľné</span>
+      <span class="co">Najbližší voľný čas</span>
+      <span class="cas" id="najblizsi">tento týždeň</span>
+    </div>
+  </div>
+
+  <main>
+    <section class="hero">
+      <div class="obal">
+        <h1>Pozriem sa na tvoje odpovede a <em>pripravím ti riešenie</em></h1>
+        <p class="sub">Zadarmo. Prejdeme si ho spolu na 20-minútovom hovore, telefonicky alebo cez video. <strong>Vyber si čas, ktorý ti vyhovuje.</strong></p>
+
+        <div class="suhrn" id="suhrn">
+          <h3>Tvoje odpovede</h3>
+          <dl id="odpovede"></dl>
+          <a href="/profil#test" id="zmenit">Zmeniť odpovede</a>
+        </div>
+
+        <a class="btn" href="#kalendar">Vybrať čas hovoru</a>
+      </div>
+    </section>
+
+    <section>
+      <div class="obal">
+        <h2>Čo na hovore dostaneš</h2>
+        <ul class="body">
+          <li><b id="bod1">Riešenie pre tvoj priestor</b><span>Pripravím ho vopred podľa tvojich odpovedí, aby sme nestrácali čas.</span></li>
+          <li><b>Paletu, materiály a svetlo</b><span id="bod2">Také, ktoré sedia na pocit, ktorý chceš doma mať.</span></li>
+          <li><b>Čo urobiť ako prvé</b><span>A čo prestať kupovať, aby si neminula zbytočne.</span></li>
+          <li><b>Žiadny záväzok</b><span>Ak budeš chcieť pokračovať, poviem ti, ako by vyzerala spolupráca. Ak nie, riešenie ti ostane.</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- KALENDÁR priamo v stránke -->
+    <section id="kalendar">
+      <div class="obal">
+        <h2>Vyber si čas hovoru</h2>
+        <p class="uvod">Pracovné dni. Hovor trvá 20 minút.</p>
+
+        <div class="kal" id="kal">
+          <div class="dni" id="dni" role="tablist" aria-label="Deň"></div>
+          <div class="sloty" id="sloty"></div>
+          <p class="kal-stav" id="kalStav">Načítavam voľné časy…</p>
+
+          <form class="formular" id="formular" novalidate hidden>
+            <div class="pole"><label for="meno">Krstné meno</label>
+              <input id="meno" name="meno" type="text" autocomplete="given-name" required></div>
+            <div class="pole"><label for="email">E-mail</label>
+              <input id="email" name="email" type="email" inputmode="email" autocomplete="email" required></div>
+            <div class="pole"><label for="telefon">Telefón</label>
+              <input id="telefon" name="telefon" type="tel" inputmode="tel" autocomplete="tel" placeholder="0907 777 555" required></div>
+            <label class="suhlas"><input id="suhlas" name="suhlas" type="checkbox" required>
+              <span>Áno, môžeš mi písať. Pošlem ti potvrdenie hovoru a pripomienku pred ním. Viac o <a href="/gdpr" target="_blank" rel="noopener">ochrane údajov</a>.</span></label>
+            <p class="chyba" id="chyba" role="alert"></p>
+            <button class="btn" type="submit" id="rezervovat">Vyber si čas</button>
+          </form>
+          <p class="kal-pozn">Ak chceš, po rezervácii mi pošli 2 až 3 fotky tej miestnosti. Pripravím sa lepšie.</p>
+        </div>
+
+        <div class="hotovo" id="hotovo" role="status" tabindex="-1" hidden></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="obal">
+        <h2>Čo hovoria klienti</h2>
+        <div class="kopa" id="kopa"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="paticka">
+    <div class="obal">
+      <div><b>Miriam Czompoly</b>, interiérový dizajn</div>
+      <div>J. Hlubíka 42, 917 01 Trnava · IČO 45714088</div>
+      <div><a href="tel:+421918819906">+421 918 819 906</a> · <a href="mailto:dizajn@miriamczompoly.sk">dizajn@miriamczompoly.sk</a></div>
+      <nav><a href="/gdpr" target="_blank" rel="noopener">Ochrana osobných údajov</a></nav>
+    </div>
+  </footer>
+
+  <script src="/assets/js/profil-data.js"></script>
+  <script src="/assets/js/profil-rezervacia.js"></script>
+</body>
+</html>

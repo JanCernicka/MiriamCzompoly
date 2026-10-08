@@ -9,6 +9,11 @@ export const KALENDAR_ID = "fUjAzOhv2VyiY3XTguPz";
 // po termíne, lebo Miriam môže byť na diagnostike u niekoho doma. Tá istá Miriam, GHL
 // konflikty medzi kalendármi rešpektuje (overené na termíne 9. 10. o 16:30).
 export const KALENDAR_ONLINE_ID = "wjoOfJUC7lOPYKU3pUlu";
+// kalendár „Bezplatná konzultácia s Miriam Czompoly“ (15 min po telefóne, volá z neho aj bot pri uvítacom hovore).
+// Lievik /profil (NÁHĽAD od 8. 10. 2026) z neho len ČÍTA voľné časy. 🔴 Rezervácia doňho zatiaľ nejde:
+// má vlastný workflow uvítacieho hovoru, ktorý by poslal iné SMS. Pred spustením rozhodnúť,
+// či rozhovor z testu dostane vlastný 20-minútový kalendár.
+export const KALENDAR_HOVOR_ID = "ZSPaMWEuejcfthaFxKZt";
 // ceny od 5. 10. 2026 (Miriam, zhodné s FAPI aj s návodom „Ako začať s interiérom“)
 export const CENA_OSOBNE = 290, CENA_ONLINE = 250;
 // Miriam, bez assignedUserId vráti GHL 422

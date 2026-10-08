@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Tvoj pocitový profil domova · Miriam Czompoly, Trnava</title>
+  <meta name="description" content="Tvoj pocitový profil domova: paleta, materiály, svetlo a prvé kroky s tým, čo už doma máš." />
+  <!-- Lievik „Pocitový profil domova“, NÁHĽAD (8. 10. 2026): výsledok pre tých, ktorí rozhovor nedostali
+       (len sa inšpirujú, rozpočet do 600 € alebo začnú neskôr). Profil sa poskladá zo šablón v profil-data.js. -->
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="theme-color" content="#262019" />
+  <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/css/profil.css" />
+</head>
+<body>
+
+  <main>
+    <section class="vysledok-hlava">
+      <div class="obal">
+        <p class="stitok">Tvoj pocitový profil</p>
+        <h1 id="nazov">Pokojný prístav</h1>
+        <p class="sub" id="text"></p>
+        <figure class="profil-foto">
+          <img id="foto" src="/assets/img/realizacie/arboria1-po.jpg" alt="" width="640" height="480" />
+          <figcaption>Ilustračná fotka z mojich realizácií</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section>
+      <div class="obal">
+        <h2>Tvoja paleta</h2>
+        <div class="paleta" id="paleta" aria-label="Paleta farieb"></div>
+        <div class="riadky">
+          <p><b>Materiály:</b> <span id="materialy"></span></p>
+          <p><b>Svetlo:</b> <span id="svetlo"></span></p>
+          <p id="svetloVeta"></p>
+        </div>
+
+        <div class="zona">
+          <div class="hl"><i aria-hidden="true"></i><span id="zona"></span></div>
+          <h3>3 kroky na víkend, s tým, čo už máš</h3>
+          <ol id="kroky"></ol>
+          <p class="nekupuj"><b>Prestaň kupovať:</b> <span id="nekupuj"></span></p>
+        </div>
+
+        <p class="most" id="most"></p>
+
+        <div class="email-karta">
+          <h2>Pošlem ti profil aj do e-mailu</h2>
+          <p class="uvod">Aby si sa k nemu vedela vrátiť, keď sa pustíš do zmeny.</p>
+          <form id="emailForm" novalidate>
+            <div class="riadok">
+              <div class="pole"><label for="email">E-mail</label>
+                <input id="email" name="email" type="email" inputmode="email" autocomplete="email" required></div>
+              <button class="btn" type="submit" id="poslat">Poslať profil</button>
+            </div>
+            <p class="chyba" id="chyba" role="alert"></p>
+            <p class="drobne">Pošlem ti profil a občas tip k bývaniu. Odhlásiť sa môžeš jedným klikom. Viac o <a href="/gdpr" target="_blank" rel="noopener">ochrane údajov</a>.</p>
+          </form>
+          <div id="poslane" role="status" tabindex="-1" hidden></div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="obal">
+        <h2>Keď budeš chcieť ísť ďalej</h2>
+        <p>Na diagnostike prejdeme tvoj priestor spolu a odídeš s plánom: čo zmeniť ako prvé, v akom poradí a čo prestať kupovať. U teba doma alebo online.</p>
+        <a class="btn btn--obrys" href="/diagnostika">Pozrieť diagnostiku</a>
+        <p class="drobne"><a href="/profil#test" id="znova">Zmeniť odpovede v teste</a></p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="paticka">
+    <div class="obal">
+      <div><b>Miriam Czompoly</b>, interiérový dizajn</div>
+      <div>J. Hlubíka 42, 917 01 Trnava · IČO 45714088</div>
+      <div><a href="tel:+421918819906">+421 918 819 906</a> · <a href="mailto:dizajn@miriamczompoly.sk">dizajn@miriamczompoly.sk</a></div>
+      <nav><a href="/gdpr" target="_blank" rel="noopener">Ochrana osobných údajov</a></nav>
+    </div>
+  </footer>
+
+  <script src="/assets/js/profil-data.js"></script>
+  <script src="/assets/js/profil-vysledok.js"></script>
+</body>
+</html>

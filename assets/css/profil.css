@@ -1,0 +1,222 @@
+/* Lievik „Pocitový profil domova“ (náhľad od 8. 10. 2026).
+   Stavba a tlačidlá ako varianta B (diagnostika-b/dist/b/css/b.css), farby a písmo Miriam.
+   🔴 Plocha stránky je VŽDY biela, značkové farby len na prvky (CLAUDE.md, 23. 9. 2026).
+   🔴 Mosadz #A9885E má na bielej 3,2:1, ako text sa používa len --akcent-tmavy. */
+:root{
+  --akcent:#A9885E;        /* mosadz, LEN výplň */
+  --akcent-tmavy:#7E6441;  /* mosadz ako text, 5,6:1 na bielej */
+  --tma:#262019;--text:#3a332b;--sivy:#6F6557;--linka:#E4D9C6;
+  --pozadie:#fff;--karta:#F8F4EE;--zlata:#D9C29C;--zvyraznenie:#F2DFA7;--zle:#b3261e;--cervena:#a5463a;
+  --sans:'Inter',system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  --display:'Cormorant Garamond',Georgia,serif;
+  --sirka:560px;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{margin:0;font-family:var(--sans);color:var(--text);background:var(--pozadie);
+  font-size:17px;line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{max-width:100%;display:block}
+h1,h2,h3{color:var(--tma);line-height:1.12;margin:0 0 .45em;font-family:var(--display);font-weight:600;
+  font-variant-numeric:lining-nums;font-feature-settings:"lnum" 1}
+h2{font-size:29px}
+p{margin:0 0 1em}
+a{color:var(--akcent-tmavy)}
+.obal{max-width:var(--sirka);margin:0 auto;padding:0 20px}
+section{padding:40px 0}
+section + section{border-top:1px solid var(--linka)}
+.nowrap{white-space:nowrap}
+
+/* ---------- lepkavý pruh ---------- */
+.pruh{background:var(--tma);color:#fff;position:sticky;top:0;z-index:50}
+.pruh .obal{display:flex;align-items:center;justify-content:center;gap:10px;height:38px;flex-wrap:nowrap;min-width:0}
+.zive{flex:0 0 auto;display:flex;align-items:center;gap:5px;font-size:11px;font-weight:800;
+  letter-spacing:.08em;text-transform:uppercase;color:#9fe0bd}
+.zive i{width:7px;height:7px;border-radius:50%;background:#4fd08b;display:block;animation:tep 1.6s ease-in-out infinite}
+@keyframes tep{0%,100%{opacity:1}50%{opacity:.35}}
+.pruh .co{font-size:12px;color:#c9bfb1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.pruh .cas{flex:0 0 auto;font-size:13.5px;font-weight:800;color:var(--zlata);font-variant-numeric:tabular-nums}
+
+/* ---------- hero ---------- */
+.hero{padding:18px 0 30px;text-align:center}
+.hero h1{font-size:34px;line-height:1.06;margin-bottom:.3em;text-wrap:balance}
+.hero h1 em{font-style:normal;color:var(--akcent-tmavy)}
+.hero .sub{font-size:15.5px;line-height:1.45;margin:0 0 16px;text-wrap:balance}
+.hero .sub strong{color:var(--tma)}
+.veta{font-size:15px;line-height:1.45;margin:14px 0 14px;color:var(--tma)}
+
+/* pred a po */
+.pred-po{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:0 0 6px}
+.pred-po figure{margin:0;position:relative}
+.pred-po img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:12px;background:var(--karta)}
+.pred-po figcaption{position:absolute;left:8px;top:8px;background:rgba(38,32,25,.78);color:#fff;
+  font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:4px 8px;border-radius:6px}
+.popis-foto{font-size:13px;color:var(--sivy);margin:0 0 4px}
+
+/* ---------- tlačidlá ---------- */
+.btn{display:flex;align-items:center;justify-content:center;width:100%;min-height:54px;
+  padding:14px 20px;border:0;border-radius:13px;background:var(--tma);color:#fff;
+  font:inherit;font-size:17px;font-weight:700;text-decoration:none;cursor:pointer;
+  box-shadow:0 8px 22px rgba(38,32,25,.22)}
+.btn::after{content:"→";margin-left:10px;color:var(--zlata)}
+.btn:active{transform:translateY(1px)}
+.btn[disabled]{opacity:.6;cursor:default}
+.btn:focus-visible{outline:3px solid var(--akcent);outline-offset:3px}
+.btn--obrys{background:#fff;color:var(--tma);border:1.5px solid var(--tma);box-shadow:none}
+.btn--obrys::after{color:var(--akcent-tmavy)}
+section > .obal > .btn{margin-top:22px}
+.uvod{color:var(--sivy);font-size:15.5px}
+
+/* ---------- recenzie ---------- */
+.kopa{display:block;margin-top:18px;text-align:left}
+.gkarta{background:#fff;border:1px solid var(--linka);border-radius:15px;padding:16px 16px 17px;margin:0 0 -14px;
+  box-shadow:0 10px 30px rgba(38,32,25,.12);position:relative;z-index:calc(100 - var(--i))}
+.gkarta:nth-child(odd){transform:rotate(-1.2deg);margin-right:14px}
+.gkarta:nth-child(even){transform:rotate(1.1deg);margin-left:14px}
+.gkarta:last-child{margin-bottom:0}
+.ghlava{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.gava{width:36px;height:36px;border-radius:50%;background:var(--tma);color:var(--zlata);
+  display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px;flex:0 0 36px}
+.gmeno{font-size:14.5px;font-weight:700;color:var(--tma);line-height:1.2}
+.gzdroj{font-size:12px;color:var(--sivy)}
+.ghviezdy{color:#e0a100;font-size:14px;letter-spacing:2px;margin-bottom:8px}
+.gtext{font-size:15px;color:var(--text);line-height:1.55;margin:0}
+.gtext mark{background:var(--zvyraznenie);color:var(--tma);font-weight:600;padding:1px 2px;border-radius:2px;
+  -webkit-box-decoration-break:clone;box-decoration-break:clone}
+
+/* ---------- body (číslovaný zoznam) ---------- */
+.body{list-style:none;padding:0;margin:16px 0 0;display:grid;gap:10px;counter-reset:b}
+.body li{counter-increment:b;position:relative;padding:14px 14px 14px 52px;border:1px solid var(--linka);border-radius:14px}
+.body li::before{content:counter(b);position:absolute;left:14px;top:14px;width:26px;height:26px;border-radius:50%;
+  background:var(--akcent);color:var(--tma);font-weight:800;font-size:14px;display:flex;align-items:center;justify-content:center}
+.body b{display:block;color:var(--tma);font-size:16.5px}
+.body span{display:block;font-size:15px;color:var(--sivy);margin-top:2px}
+
+/* ---------- o mne ---------- */
+.o-mne{display:grid;grid-template-columns:84px 1fr;gap:16px;align-items:center;text-align:left;margin-bottom:6px}
+.o-mne img{width:84px;height:84px;border-radius:50%;object-fit:cover;background:var(--karta)}
+
+/* ---------- TEST: celá obrazovka, jedna otázka ---------- */
+.test{position:fixed;inset:0;z-index:200;background:#fff;display:flex;flex-direction:column;
+  padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px);overflow-y:auto}
+.test[hidden]{display:none}
+.test-hlava{display:flex;align-items:center;gap:12px;max-width:var(--sirka);width:100%;margin:0 auto;padding:12px 20px 4px}
+.test-hlava button{flex:0 0 auto;width:40px;height:40px;border-radius:50%;border:1.5px solid var(--linka);background:#fff;
+  color:var(--tma);font:inherit;font-size:20px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.test-hlava button:focus-visible{outline:3px solid var(--akcent);outline-offset:2px}
+.test-hlava button[disabled]{visibility:hidden}
+.postup{flex:1 1 auto;height:6px;border-radius:3px;background:var(--karta);overflow:hidden}
+.postup i{display:block;height:100%;width:0;background:var(--akcent);transition:width .3s ease}
+.test-telo{max-width:var(--sirka);width:100%;margin:0 auto;padding:18px 20px 28px}
+.test-krok{font-size:12.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--akcent-tmavy);margin:0 0 6px}
+.test-telo h2{font-size:30px;line-height:1.1;margin:0 0 18px;text-wrap:balance;outline:0}
+.dlazdice{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.dlazdica{font:inherit;text-align:left;cursor:pointer;background:#fff;color:var(--tma);border:1.5px solid var(--linka);
+  border-radius:14px;padding:15px 14px;min-height:64px;display:flex;flex-direction:column;justify-content:center;gap:3px;line-height:1.25}
+.dlazdica b{font-size:16.5px}
+.dlazdica span{font-size:13px;color:var(--sivy)}
+.dlazdica:hover{border-color:var(--akcent)}
+.dlazdica:focus-visible{outline:3px solid var(--akcent);outline-offset:2px}
+.dlazdica.on{border-color:var(--tma);box-shadow:0 0 0 1.5px var(--tma);background:var(--karta)}
+.dlazdica.on b::before{content:"✓ ";color:var(--akcent-tmavy)}
+.dlazdice.siroke{grid-template-columns:1fr}
+.test-pozn{font-size:13px;color:var(--sivy);margin:16px 0 0;text-align:center}
+.vyhodnocujem{text-align:center;padding:60px 20px}
+.vyhodnocujem .kruh{width:44px;height:44px;margin:0 auto 18px;border-radius:50%;border:3px solid var(--linka);
+  border-top-color:var(--akcent);animation:toc .9s linear infinite}
+@keyframes toc{to{transform:rotate(360deg)}}
+
+/* ---------- súhrn odpovedí (rezervácia) ---------- */
+.suhrn{background:var(--karta);border:1px solid var(--linka);border-radius:14px;padding:14px 16px;text-align:left;margin:4px 0 18px}
+.suhrn h3{font-family:var(--sans);font-size:12px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--akcent-tmavy);margin:0 0 8px}
+.suhrn dl{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;margin:0;font-size:14.5px}
+.suhrn dt{color:var(--sivy)}
+.suhrn dd{margin:0;color:var(--tma);font-weight:600}
+.suhrn a{display:inline-block;margin-top:8px;font-size:13.5px}
+
+/* ---------- kalendár (ako B) ---------- */
+.kal{margin-top:12px}
+.dni{display:flex;gap:8px;overflow-x:auto;padding:2px 20px 10px;margin:0 -20px 13px;
+  scroll-snap-type:x proximity;scroll-padding:0 20px;-webkit-overflow-scrolling:touch;border-bottom:1px solid var(--linka);
+  -webkit-mask-image:linear-gradient(to right,#000 calc(100% - 26px),transparent);
+  mask-image:linear-gradient(to right,#000 calc(100% - 26px),transparent)}
+.dni::-webkit-scrollbar{height:0}
+.denP{flex:0 0 auto;scroll-snap-align:start;min-width:84px;cursor:pointer;border:1.5px solid var(--linka);
+  background:#fff;border-radius:13px;padding:9px 12px;text-align:center;font:inherit;line-height:1.25;color:var(--tma)}
+.denP .d1{display:block;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--sivy)}
+.denP .d2{display:block;font-size:17px;font-weight:800}
+.denP .d3{display:block;font-size:12px;color:var(--akcent-tmavy)}
+.denP.on{border-color:var(--tma);box-shadow:0 0 0 1.5px var(--tma),0 6px 16px rgba(38,32,25,.14)}
+.sloty{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.termin{font:inherit;font-size:15.5px;font-weight:700;color:var(--tma);background:#fff;
+  border:1.5px solid var(--linka);border-radius:11px;padding:12px 4px;cursor:pointer;font-variant-numeric:tabular-nums}
+.termin.vybrany{border-color:var(--tma);background:var(--tma);color:#fff;box-shadow:0 4px 12px rgba(38,32,25,.28)}
+.termin.vybrany::before{content:"✓ ";font-weight:800;color:var(--zlata)}
+.kal-stav{margin:10px 0 0;color:var(--sivy);font-size:15px}
+.kal-pozn{margin:12px 0 0;text-align:center;font-size:13px;color:var(--sivy)}
+.formular{margin-top:18px}
+.pole{margin-bottom:10px}
+.pole label{display:block;font-size:14px;font-weight:600;color:var(--tma);margin-bottom:4px}
+/* 🔴 16 px na input, inak iOS pri klepnutí priblíži celú stránku */
+.pole input{width:100%;font:inherit;font-size:16px;padding:14px;border-radius:12px;
+  border:1.5px solid var(--linka);background:#fff;color:var(--tma);-webkit-appearance:none}
+.pole input:focus{outline:0;border-color:var(--akcent);box-shadow:0 0 0 3px rgba(169,136,94,.2)}
+.pole input.zle{border-color:var(--zle)}
+.suhlas{display:flex;gap:10px;align-items:flex-start;font-size:13.5px;color:var(--sivy);margin:6px 0 12px;line-height:1.45}
+.suhlas input{width:20px;height:20px;flex:0 0 20px;margin-top:1px;accent-color:var(--tma)}
+.chyba{display:none;color:var(--zle);font-size:14.5px;margin:0 0 10px}
+.chyba.vidno{display:block}
+.hotovo{margin-top:6px;padding:20px 18px;border:2px solid var(--akcent);border-radius:14px;text-align:center}
+.hotovo h3{font-size:26px}
+.nahlad{display:inline-block;margin-top:6px;font-size:12.5px;font-weight:700;color:var(--akcent-tmavy);
+  background:var(--karta);border:1px dashed var(--akcent);border-radius:8px;padding:4px 8px}
+
+/* ---------- výsledok: pocitový profil ---------- */
+.vysledok-hlava{text-align:center;padding:26px 0 6px}
+.vysledok-hlava .stitok{font-size:12px;font-weight:800;letter-spacing:.11em;text-transform:uppercase;color:var(--akcent-tmavy);margin:0 0 4px}
+.vysledok-hlava h1{font-size:44px;line-height:1;margin:0 0 10px}
+.vysledok-hlava .sub{font-size:16px;margin:0 auto 14px;max-width:30em;text-wrap:balance}
+.profil-foto{margin:0 0 6px}
+.profil-foto img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:14px;background:var(--karta)}
+.profil-foto figcaption{font-size:12.5px;color:var(--sivy);margin-top:6px;text-align:center}
+.paleta{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px;margin:6px 0 4px}
+.farba{display:grid;gap:4px;font-size:11.5px;line-height:1.2;text-align:center;color:var(--sivy)}
+.farba i{display:block;aspect-ratio:1/1.15;border-radius:8px;border:1px solid var(--linka)}
+.riadky{display:grid;gap:6px;margin:14px 0 0;font-size:15px}
+.riadky p{margin:0}
+.riadky b{color:var(--tma)}
+.zona{background:var(--karta);border:1px solid var(--linka);border-radius:14px;padding:16px;margin-top:18px}
+.zona .hl{display:flex;align-items:center;gap:8px;font-weight:700;color:var(--tma);margin-bottom:10px;line-height:1.3}
+.zona .hl i{width:11px;height:11px;border-radius:50%;background:var(--cervena);flex:0 0 11px}
+.zona h3{font-family:var(--sans);font-size:12px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--akcent-tmavy);margin:0 0 8px}
+.zona ol{margin:0 0 12px;padding-left:20px;display:grid;gap:6px;font-size:15px}
+.zona .nekupuj{margin:0;font-size:14.5px}
+.most{margin:18px 0 0;font-size:16px;color:var(--tma);padding-top:16px;border-top:1px solid var(--linka)}
+.email-karta{border:1.5px solid var(--tma);border-radius:16px;padding:18px 16px;margin-top:22px}
+.email-karta h2{font-size:25px;margin-bottom:.25em}
+.email-karta .riadok{display:grid;grid-template-columns:1fr;gap:8px}
+.email-karta .pole{margin:0}
+.drobne{font-size:12.5px;color:var(--sivy);margin:10px 0 0;line-height:1.45}
+
+/* ---------- päta ---------- */
+.paticka{padding:26px 0 34px;border-top:1px solid var(--linka);font-size:13.5px;color:var(--sivy);text-align:center}
+.paticka div + div,.paticka nav{margin-top:3px}
+.paticka a{color:var(--sivy)}
+
+/* ---------- jediný breakpoint ---------- */
+@media(min-width:760px){
+  body{font-size:18px}
+  .hero h1{font-size:46px}
+  .hero .sub{font-size:17px}
+  h2{font-size:34px}
+  :root{--sirka:640px}
+  section{padding:56px 0}
+  .btn{width:auto;min-width:340px;margin-left:auto;margin-right:auto}
+  .sloty{grid-template-columns:repeat(4,1fr)}
+  .test-telo h2{font-size:38px}
+  .dlazdica{padding:18px 16px}
+  .email-karta .riadok{grid-template-columns:1fr auto}
+  .email-karta .btn{min-width:0}
+  .vysledok-hlava h1{font-size:56px}
+}
+@media(max-width:359px){.pruh .co{display:none}.dlazdice{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){.zive i,.vyhodnocujem .kruh{animation:none}.postup i{transition:none}html{scroll-behavior:auto}}
