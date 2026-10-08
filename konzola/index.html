@@ -580,6 +580,121 @@ h2{font-size:21px;margin:0 0 3px;font-weight:600;letter-spacing:-.02em}
 .bunka.termin.k3{background:#5E8C6A}
 .bunka.termin.nepotvrdeny{background-image:repeating-linear-gradient(45deg,rgba(255,255,255,.18) 0 6px,transparent 6px 12px)}
 
+
+/* ════ 8. 10. 2026: podľa konzoly DKP ════ */
+/* ── príležitosti: štádiá pod sebou, zákazníci vodorovne ──
+   🔴 Karta má pevnú šírku a pás sa posúva sám (`overflow-x`), stránka nie.
+      Na mobile je karta užšia než obrazovka, aby z ďalšej karty bolo vidieť okraj. */
+.stadia{display:flex;flex-direction:column;gap:12px}
+.stadium{background:var(--biela);border:1px solid var(--linka);border-radius:var(--r);
+  box-shadow:var(--tien);padding:12px 0 2px;min-width:0}
+.stadiumHlava{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 10px;padding:0 14px 9px}
+.stadiumHlava h3{font-size:14px;margin:0;font-weight:600;display:flex;gap:8px;align-items:center}
+.stadiumHlava h3 em{font-style:normal;font-size:11.5px;font-weight:600;color:var(--sivy);
+  background:var(--papier);border-radius:99px;padding:1px 8px;flex:none}
+.stadiumHlava .suma{font-size:12.5px;color:var(--slabo)}
+.stadiumHlava p{flex-basis:100%;margin:0;font-size:12.5px;color:var(--slabo);line-height:1.45}
+.pas{display:flex;gap:10px;overflow-x:auto;padding:2px 14px 12px;align-items:flex-start;
+  scroll-snap-type:x proximity;scroll-padding:0 14px;overscroll-behavior-x:contain}
+.pas .karta{flex:0 0 min(272px,78vw);margin-bottom:0;scroll-snap-align:start;cursor:default}
+.pas .karta::after{display:none}
+.pas .prazdny{flex:1;padding:12px 0;text-align:left}
+/* 🔴 Myš sa vodorovne neposúva sama a na Macu je posuvník skrytý, kým sa nezačne
+      posúvať. Preto tenký viditeľný posuvník a „posuňte doprava", keď sa karty nezmestia. */
+.pas{scrollbar-width:thin;scrollbar-color:#c9cbd6 transparent}
+.pas::-webkit-scrollbar{height:8px}
+.pas::-webkit-scrollbar-thumb{background:#c9cbd6;border-radius:99px}
+.pas::-webkit-scrollbar-track{background:transparent}
+.stadiumHlava .viac{display:none;font-size:12.5px;font-weight:600;color:var(--akcent-tmavy)}
+.stadium.pretieka .stadiumHlava .viac{display:inline}
+/* Polia na karte: termín, adresa, zdroj. Názov a hodnota na jednom riadku. */
+.karta .kval{margin:7px 0 0;padding:7px 0 0;border-top:1px solid var(--linka2);font-size:12px;line-height:1.45}
+.karta .kval b{display:inline;font-size:12px;font-weight:500;color:var(--slabo);margin-right:5px;padding:0}
+.karta .kval div{overflow-wrap:anywhere}
+.karta .tlacidlaKarty{display:flex;gap:14px;flex-wrap:wrap}
+.karta .presunut,.karta .doRozhovoru{margin-top:7px;font-size:12px;font-weight:600;color:var(--akcent-tmavy)}
+.karta .presunut:hover,.karta .doRozhovoru:hover{text-decoration:underline}
+.karta .stavKarty{display:inline-block;margin-left:8px;padding:1px 8px;border-radius:999px;
+  font-size:11px;font-weight:600;vertical-align:1px}
+.karta .stavKarty.vyhra{background:color-mix(in srgb,var(--dobre) 14%,var(--biela));color:var(--dobre)}
+.karta .stavKarty.prehra{background:#FDECEA;color:var(--zle)}
+
+/* ── kalendár: termín, na ktorý neprišiel (karta v No-show) ── */
+.bunka.termin.neprisiel{background:repeating-linear-gradient(135deg,#8B90A0 0 6px,#9DA2B1 6px 12px)}
+.bunka.termin.neprisiel>i{text-decoration:line-through}
+
+/* ── okienko termínu a okienko Presunúť ── */
+.terminOkno{border:none;border-radius:16px;padding:20px;width:min(400px,calc(100vw - 32px));
+  box-shadow:var(--tien2);color:var(--text);background:var(--biela)}
+.terminOkno::backdrop{background:rgba(18,18,28,.38)}
+.terminOkno h3{margin:0 0 4px;font-size:17px;line-height:1.3}
+.terminOkno .kedy{margin:0;color:var(--sivy);font-size:13.5px}
+.terminOkno .udaje{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;margin:12px 0 0;font-size:13.5px}
+.terminOkno .udaje dt{color:var(--slabo)}
+.terminOkno .udaje dd{margin:0;overflow-wrap:anywhere}
+.terminOkno .udaje[hidden]{display:none}
+.terminOkno .stavTerminu{margin:12px 0 0;font-size:13.5px;line-height:1.5}
+.terminOkno .tlacidla{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.terminOkno .tlacidla button,.terminOkno .tlacidla a{padding:10px 14px;border-radius:10px;font-weight:600;
+  font-size:13.5px;border:1px solid var(--linka);background:var(--biela);color:var(--text);text-decoration:none}
+.terminOkno .tlacidla a[hidden],.terminOkno .tlacidla button[hidden]{display:none}
+.terminOkno .tlacidla button:hover:not(:disabled),.terminOkno .tlacidla a:hover{border-color:var(--akcent)}
+.terminOkno .tlacidla .hlavne{background:var(--akcent);border-color:var(--akcent);color:var(--na-akcente)}
+.terminOkno .tlacidla .hlavne:hover:not(:disabled){filter:brightness(.95)}
+.terminOkno .tlacidla .zle{color:var(--zle);border-color:color-mix(in srgb,var(--zle) 40%,var(--linka))}
+.terminOkno .tlacidla .zle:hover:not(:disabled){background:#FDECEA;border-color:var(--zle)}
+.terminOkno .tlacidla button:disabled{opacity:.5;cursor:default}
+.terminOkno .pozn{margin:10px 0 0;font-size:12.5px;color:var(--slabo);line-height:1.5}
+.presunOkno .moznosti{display:flex;flex-direction:column;gap:6px;margin-top:12px;
+  max-height:min(46vh,430px);overflow-y:auto;overscroll-behavior:contain}
+.presunOkno .moznost{display:flex;gap:10px;align-items:flex-start;padding:9px 11px;
+  border:1px solid var(--linka);border-radius:10px;cursor:pointer;font-size:13.5px;line-height:1.35}
+.presunOkno .moznost:hover:not(.zakazane){border-color:var(--akcent)}
+.presunOkno .moznost input{margin:2px 0 0;flex:none;accent-color:var(--akcent-tmavy)}
+.presunOkno .moznost small{display:block;color:var(--slabo);font-size:12px;margin-top:2px;font-weight:400}
+.presunOkno .moznost.zakazane{opacity:.6;cursor:default;background:var(--papier)}
+.presunOkno .moznost:has(input:checked){border-color:var(--akcent);
+  background:color-mix(in srgb,var(--akcent) 10%,var(--biela))}
+.presunOkno .pole{display:block;margin-top:12px;font-size:13px;font-weight:600}
+/* 🔴 `[hidden]` výslovne, inak display:block prebije atribút hidden (chyba z DKP 6. 10.). */
+.presunOkno .pole[hidden]{display:none}
+/* 16 px, inak iPhone pri ťuknutí do poľa priblíži celú stránku. */
+.presunOkno .pole input,.presunOkno .pole textarea{display:block;width:100%;margin-top:6px;
+  padding:9px 11px;border:1px solid var(--linka);border-radius:10px;font:inherit;
+  font-weight:400;font-size:16px;box-sizing:border-box;background:var(--biela);color:var(--text)}
+.presunOkno .pole textarea{resize:vertical;min-height:62px}
+.presunOkno .pole small{display:block;margin-top:4px;font-weight:400;color:var(--slabo);font-size:12px}
+.presunOkno .chybaPresunu{margin:10px 0 0;font-size:13px;color:var(--zle);line-height:1.45}
+
+/* ── konverzácie: Nevybavené / Všetky a hľadanie ──
+   🔴 `min-width:0` na `.konvStlpec` MUSÍ ostať, inak sa na mobile roztiahne na najdlhšie slovo. */
+.konvStlpec{display:flex;flex-direction:column;gap:10px;min-height:0;min-width:0}
+.konvStlpec .zoznam{flex:1;min-height:0}
+.konvTaby{display:flex;gap:4px;padding:4px;background:var(--biela);
+  border:1px solid var(--linka);border-radius:var(--r);box-shadow:var(--tien)}
+.konvTaby button{flex:1 1 auto;display:inline-flex;align-items:center;justify-content:center;
+  gap:7px;padding:8px 10px;border-radius:calc(var(--r) - 4px);font-size:13.5px;
+  font-weight:600;color:var(--sivy);transition:background var(--rychlo),color var(--rychlo)}
+.konvTaby button:hover{color:var(--text)}
+.konvTaby button.on{background:color-mix(in srgb,var(--akcent) 16%,var(--biela));color:var(--akcent-tmavy)}
+.konvTaby b{min-width:20px;height:20px;padding:0 6px;border-radius:10px;font-size:11.5px;
+  font-weight:700;line-height:20px;background:var(--zle);color:#fff;text-align:center}
+.konvTaby b[hidden]{display:none}
+.hladaj{width:100%;min-width:0;padding:9px 12px 9px 36px;border:1px solid var(--linka);
+  border-radius:var(--r);box-shadow:var(--tien);font:inherit;font-size:14.5px;box-sizing:border-box;
+  background:var(--biela) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%238a8f98' stroke-width='2.2' stroke-linecap='round'%3E%3Ccircle cx='11' cy='11' r='7'/%3E%3Cpath d='m20 20-3.5-3.5'/%3E%3C/svg%3E") no-repeat 12px center}
+.hladaj:focus{outline:none;border-color:var(--akcent);
+  box-shadow:0 0 0 3px color-mix(in srgb,var(--akcent) 18%,transparent)}
+.rozhovor .vrch .vybavene{margin-left:auto;font-size:13px;font-weight:600;
+  color:var(--dobre);border:1px solid color-mix(in srgb,var(--dobre) 40%,var(--biela));
+  border-radius:999px;padding:6px 13px;background:var(--biela)}
+.rozhovor .vrch .vybavene:hover{background:color-mix(in srgb,var(--dobre) 10%,var(--biela))}
+.rozhovor .vrch .vybavene[hidden]{display:none}
+.rozhovor .vrch .vybavene[disabled]{opacity:.6;cursor:default}
+@media(max-width:760px){
+  body.otvoreny .konvStlpec{display:none}
+  .hladaj{font-size:16px}
+}
 </style>
 </head>
 <body>
@@ -607,8 +722,9 @@ h2{font-size:21px;margin:0 0 3px;font-weight:600;letter-spacing:-.02em}
     <div class="kalHlava">
       <div>
         <h2>Kalendár</h2>
-        <p class="podnadpis">Všetky rezervácie na jednom mieste. Kliknutím na termín otvoríte rozhovor
-          s tým človekom. Ťahaním myšou zavriete čas, keď nemôžete, a nikto si ho nerezervuje.</p>
+        <p class="podnadpis">Všetky rezervácie na jednom mieste. Kliknutím na termín uvidíte, kto to je,
+          adresu a telefón, otvoríte rozhovor alebo zapíšete, že neprišiel. Ťahaním myšou zavriete
+          čas, keď nemôžete, a nikto si ho nerezervuje.</p>
       </div>
       <div class="kalOvladanie">
         <button id="tyzdenSpat" title="Predošlý týždeň">←</button>
@@ -622,14 +738,25 @@ h2{font-size:21px;margin:0 0 3px;font-weight:600;letter-spacing:-.02em}
 
   <section class="panel" id="p-chat">
     <h2>Konverzácie</h2>
-    <p class="podnadpis">Všetko, čo vám ľudia napísali, na jednom mieste.</p>
+    <p class="podnadpis">Všetko, čo vám ľudia napísali, na jednom mieste. Nevybavené sú rozhovory,
+      na ktoré ešte nikto nereagoval. Keď ho vybavíte, kliknite na ✓ Vybavené.</p>
     <div class="chat">
-      <div class="zoznam" id="zoznam"><div class="kostra"><i></i><i></i><i></i><i></i></div></div>
+      <div class="konvStlpec">
+        <div class="konvTaby" role="tablist" aria-label="Ktoré konverzácie">
+          <button type="button" role="tab" data-f="nevybavene" class="on" aria-selected="true">Nevybavené<b id="pocetNevyb" hidden></b></button>
+          <button type="button" role="tab" data-f="vsetky" aria-selected="false">Všetky správy</button>
+        </div>
+        <input type="search" class="hladaj" id="hladaj" placeholder="Hľadať meno, číslo alebo e-mail"
+          autocomplete="off" aria-label="Hľadať v konverzáciách">
+        <div class="zoznam" id="zoznam"><div class="kostra"><i></i><i></i><i></i><i></i></div></div>
+      </div>
       <div class="rozhovor">
         <div class="vrch">
           <button class="spat" id="spat">← Späť</button>
           <b id="ktoMeno">Vyberte rozhovor</b>
           <span id="ktoKontakt"></span>
+          <button type="button" class="vybavene" id="vybavene" hidden
+            title="Rozhovor zmizne z nevybavených">✓ Vybavené</button>
         </div>
         <div class="tok" id="tok"><div class="stav">Vyberte niekoho zo zoznamu vľavo.</div></div>
         <div class="odpovedam" id="odpovedam">
@@ -650,9 +777,10 @@ h2{font-size:21px;margin:0 0 3px;font-weight:600;letter-spacing:-.02em}
 
   <section class="panel" id="p-prilezitosti">
     <h2>Príležitosti</h2>
-    <p class="podnadpis">Kliknite na zákazku a vyberte, kam ju presunúť.
-      Na počítači ju viete aj potiahnuť myšou.</p>
-    <div id="stlpce"><div class="kostra karta-panel"><i></i><i></i><i></i><i></i></div></div>
+    <p class="podnadpis">Štádiá idú zhora nadol, zákazníci v štádiu zľava doprava. Kartu presuniete
+      tlačidlom Presunúť na karte. Pri zaplatenej diagnostike a pri projekte sa pýta suma,
+      pri prehranom projekte dôvod. Presun karty zákazníkovi nič nepošle.</p>
+    <div id="stadia"><div class="kostra karta-panel"><i></i><i></i><i></i><i></i></div></div>
   </section>
 
   <section class="panel" id="p-lievik">
@@ -673,16 +801,42 @@ h2{font-size:21px;margin:0 0 3px;font-weight:600;letter-spacing:-.02em}
 
 </main>
 
-<div id="sheet" aria-hidden="true">
-  <div class="tien" id="sheetTien"></div>
-  <div class="list" role="dialog" aria-modal="true" aria-labelledby="sheetKto">
-    <div class="uchyt"></div>
-    <p class="kto" id="sheetKto"></p>
-    <p class="kam">Kam ju presunúť?</p>
-    <div id="sheetFazy"></div>
-    <button class="zavri" id="sheetZavri">Zrušiť</button>
+<!-- Okienko termínu v kalendári (8. 10. 2026, podľa konzoly DKP). Do vtedy klik na termín
+     rovno otvoril rozhovor. -->
+<dialog class="terminOkno" id="terminOkno" aria-labelledby="terminMeno">
+  <h3 id="terminMeno"></h3>
+  <p class="kedy" id="terminKedy"></p>
+  <dl class="udaje" id="terminUdaje"></dl>
+  <p class="stavTerminu" id="terminStav" hidden></p>
+  <div class="tlacidla">
+    <button type="button" class="hlavne" id="terminRozhovor">Otvoriť rozhovor</button>
+    <a id="terminVolat" href="#" hidden>Zavolať</a>
+    <button type="button" class="zle" id="terminNeprisiel" hidden>Neprišiel</button>
+    <button type="button" id="terminZavri">Zavrieť</button>
   </div>
-</div>
+  <p class="pozn" id="terminPozn" hidden></p>
+</dialog>
+
+<!-- Okienko Presunúť na karte (8. 10. 2026, podľa konzoly DKP). Do vtedy sa karta ťahala myšou. -->
+<dialog class="terminOkno presunOkno" id="presunOkno" aria-labelledby="presunMeno">
+  <h3 id="presunMeno"></h3>
+  <p class="kedy" id="presunTeraz"></p>
+  <div class="moznosti" id="presunMoznosti" role="radiogroup" aria-label="Kam kartu presunúť"></div>
+  <label class="pole" id="presunHodnotaPole" hidden><span id="presunHodnotaPopis">Suma v eurách</span>
+    <input id="presunHodnota" type="text" inputmode="decimal" autocomplete="off" placeholder="napríklad 290 alebo 3 900">
+    <small id="presunHodnotaNapoveda"></small>
+  </label>
+  <label class="pole" id="presunDovodPole" hidden>Prečo zákazník nekúpi?
+    <textarea id="presunDovod" rows="2" maxlength="500"
+      placeholder="napríklad je to pre neho drahé, odložil to, vybral si inú dizajnérku"></textarea>
+  </label>
+  <p class="pozn" id="presunPozn" hidden></p>
+  <p class="chybaPresunu" id="presunChyba" hidden></p>
+  <div class="tlacidla">
+    <button type="button" class="hlavne" id="presunPotvrd" disabled>Presunúť</button>
+    <button type="button" id="presunZrus">Zrušiť</button>
+  </div>
+</dialog>
 
 <script>
 const $ = (s) => document.querySelector(s);
@@ -744,15 +898,32 @@ function iniciala(meno) {
 }
 
 /* ── zámok ─────────────────────────────────────────────── */
+/* 🔴 `?kontakt=<id>` otvorí rozhovor toho človeka (8. 10. 2026, ako v konzole DKP).
+   Interná SMS alebo e-mail pre Miriam tak môže odkázať priamo na neho. Id sa drží aj
+   cez zámok a rozhovor sa otvára až po načítaní zoznamu, aby bol v ňom zvýraznený. */
+function chcenyKontakt() {
+  try {
+    const id = new URLSearchParams(location.search).get("kontakt");
+    return id && /^[A-Za-z0-9_-]{10,40}$/.test(id) ? id : "";
+  } catch (e) { return ""; }
+}
+async function poOdomknuti() {
+  $("#zamok").classList.add("von");
+  nacitajKalendar();
+  await nacitajKonverzacie();
+  const chcem = chcenyKontakt();
+  if (!chcem) return;
+  prepniTab("chat");
+  await otvor(chcem);
+}
+
 $("#heslo").addEventListener("keydown", async (e) => {
   if (e.key !== "Enter") return;
   HESLO = e.target.value.trim();
   const r = await api("/api/prehlad", {});
   if (r.ok) {
     try { localStorage.setItem("konzola-heslo", HESLO); } catch {}
-    $("#zamok").classList.add("von");
-    nacitajKalendar();
-    nacitajKonverzacie();
+    await poOdomknuti();
   } else {
     e.target.classList.add("zle"); e.target.value = "";
     $("#napoveda").textContent = r.error || "nesedí";
@@ -765,10 +936,7 @@ window.addEventListener("load", async () => {
   if (ulozene) {
     HESLO = ulozene;
     const r = await api("/api/prehlad", {});
-    if (r.ok) {
-      $("#zamok").classList.add("von");
-      nacitajKalendar(); nacitajKonverzacie(); return;
-    }
+    if (r.ok) { await poOdomknuti(); return; }
     HESLO = "";
   }
   $("#heslo").focus();
@@ -794,6 +962,9 @@ $$("nav button").forEach((b) => b.addEventListener("click", () => prepniTab(b.da
 let TYZDEN = "";
 let MALUJEM = null;
 let OTVARAM = false;  // práve sa maže zavretý čas   // {datum, odMin, doMin} počas ťahania myšou
+let TERMINY = {};     // termíny týždňa podľa id, kvôli okienku termínu
+let NO_SHOW_ID = "";  // štádium No-show, kam ide karta po „Neprišiel"
+let TERMIN = null;    // termín v otvorenom okienku
 
 function pondelok(d) {
   const x = new Date(d + "T12:00:00Z");
@@ -828,6 +999,10 @@ function vykresliKalendar(r) {
   if (!r.dni.length) { kam.innerHTML =
     '<div class="kal"><div class="kalPrazdny">V tomto týždni nemá kalendár otvorené.</div></div>'; return; }
 
+  TERMINY = {};
+  NO_SHOW_ID = r.noShow || "";
+  for (const d of r.dni) for (const t of (d.terminy || [])) TERMINY[t.id] = { ...t, den: d.den, datum: d.datum };
+  const nikto = Object.values(TERMINY).some((t) => t.neprisiel);
   const krok = r.krok || 20;
   const zac = minutyZ(r.zaciatok), kon = minutyZ(r.koniec);
   const dnes = dnesDatum();
@@ -853,6 +1028,7 @@ function vykresliKalendar(r) {
   kusy.push("</div>");
   kusy.push(`<div class="kalLegenda">
     ${(r.kalendare || []).map((k) => `<span><i class="bunka termin k${Number(k.poradie) || 0}" style="height:13px"></i>${bezpecne(k.nazov)}</span>`).join("")}
+    ${nikto ? '<span><i class="bunka termin neprisiel" style="height:13px"></i>neprišiel</span>' : ""}
     <span><i style="background:#d9dbe3"></i>zavreté, klikni a otvorí sa</span>
     <span><i style="background:var(--papier);border:1px solid var(--linka)"></i>voľné</span>
   </div>`);
@@ -871,8 +1047,8 @@ function bunka(den, minuta, krok, znacka) {
   const t = (den.terminy || []).find(vnutri);
   if (t) {
     const prvy = minuta === minutyZ(t.od);
-    return `<div class="bunka termin k${Number(t.kal) || 0}${t.potvrdeny ? "" : " nepotvrdeny"}${h}${prvy ? " zaciatokBloku" : ""}"
-      data-kontakt="${bezpecne(t.contactId || "")}" title="${bezpecne(t.od + " " + t.meno + " · " + t.co + (t.potvrdeny ? "" : " (nepotvrdený)"))}"
+    return `<div class="bunka termin k${Number(t.kal) || 0}${t.potvrdeny ? "" : " nepotvrdeny"}${t.neprisiel ? " neprisiel" : ""}${h}${prvy ? " zaciatokBloku" : ""}"
+      data-termin="${bezpecne(t.id)}" data-kontakt="${bezpecne(t.contactId || "")}" title="${bezpecne(t.od + " " + t.meno + " · " + t.co + (t.neprisiel ? " (neprišiel)" : t.potvrdeny ? "" : " (nepotvrdený)"))}"
       >${prvy ? `<i>${bezpecne(t.od + " " + t.meno)}</i>` : ""}</div>`;
   }
   const z = (den.zavrete || []).find(vnutri);
@@ -912,11 +1088,10 @@ function pripojKalendar() {
     nacitajKalendar();
   }));
 
-  // Z termínu rovno do rozhovoru.
-  $$(".bunka.termin").forEach((b) => b.addEventListener("click", async () => {
-    if (!b.dataset.kontakt) return;
-    prepniTab("chat");
-    await otvor(b.dataset.kontakt);
+  // Klik na termín otvorí okienko: kto, kde, telefón, rozhovor, Neprišiel.
+  $$(".bunka.termin").forEach((b) => b.addEventListener("click", () => {
+    const t = TERMINY[b.dataset.termin];
+    if (t) otvorTermin(t);
   }));
 
   /* Zavrieť čas ťahaním. Maľuje sa len v rámci jedného dňa, rozsah cez dva
@@ -978,15 +1153,133 @@ function posunTyzden(dni) {
   return d.toISOString().slice(0, 10);
 }
 
+/* ── okienko termínu (8. 10. 2026, podľa konzoly DKP) ──
+   „Neprišiel" presunie kartu do štádia No-show a do poznámky kontaktu zapíše dátum.
+   🔴 Stav termínu v GHL sa NEMENÍ. V DKP zmena stavu termínu znova spustila potvrdzovací
+      workflow, u Miriam by to bol WF3. Zákazníkovi sa nič nepošle: žiadny zapnutý workflow
+      nereaguje na zmenu štádia (overené 8. 10. 2026) a presun cez API ho ani nespustí. */
+const NEPRISIEL_DNI = 7;
+
+function terminKedy(t) {
+  return `${t.den} ${Number(t.datum.slice(8))}. ${Number(t.datum.slice(5, 7))}. o ${t.od}`;
+}
+
+function otvorTermin(t) {
+  TERMIN = t;
+  $("#terminMeno").textContent = t.meno || "Termín";
+  $("#terminKedy").textContent = `${t.co || "Termín"} · ${terminKedy(t)} až ${t.do}`;
+  const udaje = [];
+  if (t.adresa) udaje.push(["Adresa", t.adresa]);
+  if (t.tel) udaje.push(["Telefón", t.tel]);
+  if (t.karta && t.karta.stage) udaje.push(["Karta", t.karta.stage]);
+  if (!t.potvrdeny) udaje.push(["Stav", "nepotvrdený"]);
+  $("#terminUdaje").innerHTML = udaje.map(([a, b]) => `<dt>${bezpecne(a)}</dt><dd>${bezpecne(b)}</dd>`).join("");
+  $("#terminUdaje").hidden = !udaje.length;
+  const stav = $("#terminStav");
+  stav.hidden = !t.neprisiel;
+  stav.innerHTML = t.neprisiel ? '<b style="color:var(--zle)">Neprišiel.</b> Karta je v štádiu No-show.' : "";
+  $("#terminRozhovor").disabled = !t.contactId;
+  const volat = $("#terminVolat");
+  volat.hidden = !t.tel;
+  volat.href = t.tel ? "tel:" + String(t.tel).replace(/[^\d+]/g, "") : "#";
+  const zaciatok = Date.parse(t.zaciatok || "");
+  const zacal = Number.isFinite(zaciatok) && zaciatok <= Date.now();
+  const stary = Number.isFinite(zaciatok) && Date.now() - zaciatok > NEPRISIEL_DNI * 864e5;
+  const tl = $("#terminNeprisiel");
+  tl.hidden = !t.karta || !NO_SHOW_ID || t.neprisiel || t.karta.stageId === NO_SHOW_ID;
+  tl.disabled = !zacal || stary;
+  tl.textContent = "Neprišiel";
+  const pozn = $("#terminPozn");
+  pozn.hidden = tl.hidden;
+  pozn.textContent = !zacal ? "„Neprišiel“ sa dá zapísať, až keď termín začne."
+    : stary ? `Termín bol pred viac ako ${NEPRISIEL_DNI} dňami. Kartu presuňte v Príležitostiach.`
+    : "Neprišiel presunie kartu do No-show a zapíše dátum do poznámky. Zákazníkovi sa nič nepošle.";
+  $("#terminOkno").showModal();
+}
+
+$("#terminZavri").addEventListener("click", () => $("#terminOkno").close());
+// Klik mimo okienka ho zavrie. Pozerá sa na súradnice, nie na cieľ kliknutia.
+$("#terminOkno").addEventListener("click", (e) => {
+  const o = e.currentTarget.getBoundingClientRect();
+  if (e.clientX < o.left || e.clientX > o.right || e.clientY < o.top || e.clientY > o.bottom) {
+    e.currentTarget.close();
+  }
+});
+$("#terminRozhovor").addEventListener("click", async () => {
+  const t = TERMIN;
+  $("#terminOkno").close();
+  if (!t || !t.contactId) return;
+  prepniTab("chat");
+  await otvor(t.contactId);
+});
+$("#terminNeprisiel").addEventListener("click", async () => {
+  const t = TERMIN;
+  if (!t || !t.karta || !NO_SHOW_ID) return;
+  const kedy = terminKedy(t);
+  if (!confirm(`Zapísať, že ${t.meno || "zákazník"} neprišiel na termín ${kedy}?\n\n`
+      + `Karta sa presunie z „${t.karta.stage || "doterajšieho štádia"}“ do No-show a do poznámky sa zapíše dátum. `
+      + "Zákazníkovi sa nič nepošle.")) return;
+  const tl = $("#terminNeprisiel");
+  tl.disabled = true; tl.textContent = "Zapisujem…";
+  const r = await api("/api/presun", { id: t.karta.id, stageId: NO_SHOW_ID, poznamka: `Neprišiel na termín ${kedy}` });
+  tl.disabled = false; tl.textContent = "Neprišiel";
+  if (!r.ok) { alert(r.error || "Nepodarilo sa zapísať."); return; }
+  PRESUNUTE[t.karta.id] = NO_SHOW_ID;
+  $("#terminOkno").close();
+  nacitajKalendar();
+});
+
+
 
 /* ── konverzácie ───────────────────────────────────────── */
-async function nacitajKonverzacie() {
-  const r = await api("/api/konverzacie", {});
+/* Nevybavené a hľadanie (8. 10. 2026, podľa konzoly DKP). Predvolené sú nevybavené. */
+let FILTER_KONV = "nevybavene";
+let HLADAJ = "", HLADAJ_CAKA = null, POZIADAVKA_KONV = 0;
+
+/* 🔴 GHL po označení zaostáva o niekoľko sekúnd. Práve vybavený rozhovor sa preto
+   3 minúty neukazuje medzi nevybavenými, kým od človeka nepríde novšia správa.
+   `hranica` je čas servera v chvíli vybavenia, nie hodiny v tomto počítači. */
+const PRAVE_VYBAVENE = new Map();
+const SKRY_NA = 3 * 60 * 1000;
+function zapamatajVybavene(cid, hranica) {
+  PRAVE_VYBAVENE.set(cid, { hranica: Date.parse(hranica || "") || Date.now(), kedy: Date.now() });
+}
+function praveVybavene(cid, kedy) {
+  const z = PRAVE_VYBAVENE.get(cid);
+  if (!z) return false;
+  if (Date.now() - z.kedy > SKRY_NA) { PRAVE_VYBAVENE.delete(cid); return false; }
+  // 🔴 GHL posiela čas správy ako číslo (milisekundy). Date.parse(číslo) je NaN,
+  //    takže bez tohto by novšia správa od človeka ostala 3 minúty skrytá.
+  const t = typeof kedy === "number" ? kedy : (Date.parse(kedy || "") || 0);
+  return !(t > z.hranica);
+}
+function ukazPocetNevybavenych(n) {
+  const b = $("#pocetNevyb");
+  if (!b) return;
+  b.hidden = !n;
+  b.textContent = n > 99 ? "99+" : String(n || "");
+}
+
+async function nacitajKonverzacie(ticho) {
+  const cislo = ++POZIADAVKA_KONV;
+  const r = await api("/api/konverzacie", { filter: FILTER_KONV, hladaj: HLADAJ });
+  // medzitým preklikol záložku alebo hľadá niečo iné
+  if (cislo !== POZIADAVKA_KONV) return;
+  // 🔴 Tiché obnovenie (po Vybavené, po odoslaní) chybou nezmaže zoznam, ktorý už je
+  //    na obrazovke. GHL pri rýchlom preklikávaní vie na chvíľu odmietnuť (429).
+  if (!r.ok && ticho && $(".polozka")) return;
   if (!r.ok) { $("#zoznam").innerHTML =
     `<div class="stav chyba">${bezpecne(r.error || "nedostupné")}</div>`; return; }
-  if (!r.konverzacie.length) { $("#zoznam").innerHTML =
-    '<div class="stav">Zatiaľ tu nikto nič nenapísal.<br>Keď niekto napíše, objaví sa tu.</div>'; return; }
-  $("#zoznam").innerHTML = r.konverzacie.map((k) => `
+  ukazPocetNevybavenych((r.nevybaveni || []).filter((x) => !praveVybavene(x.contactId, x.kedy)).length);
+  const zoznam = (r.konverzacie || [])
+    .map((k) => (praveVybavene(k.contactId, k.kedy) ? { ...k, neprecitane: 0 } : k))
+    .filter((k) => FILTER_KONV !== "nevybavene" || k.neprecitane > 0);
+  if (!zoznam.length) { $("#zoznam").innerHTML = HLADAJ
+      ? `<div class="stav">Pre „${bezpecne(HLADAJ)}“ sme nikoho nenašli.<br>Skúste časť mena alebo číslo.</div>`
+      : FILTER_KONV === "nevybavene"
+        ? '<div class="stav">Nič nečaká na odpoveď.<br>Keď niekto napíše, objaví sa tu.</div>'
+        : '<div class="stav">Zatiaľ tu nikto nič nenapísal.<br>Keď niekto napíše, objaví sa tu.</div>'; return; }
+  $("#zoznam").innerHTML = zoznam.map((k) => `
     <button class="polozka${k.neprecitane ? " nove" : ""}" data-id="${bezpecne(k.contactId)}">
       <span class="avatar">${bezpecne(iniciala(k.meno))}</span>
       <span class="telo">
@@ -1003,6 +1296,64 @@ async function nacitajKonverzacie() {
   });
 }
 
+function nastavZalozku(f) {
+  FILTER_KONV = f;
+  $$(".konvTaby button").forEach((x) => {
+    x.classList.toggle("on", x.dataset.f === f);
+    x.setAttribute("aria-selected", x.dataset.f === f ? "true" : "false");
+  });
+  $("#zoznam").innerHTML = '<div class="kostra"><i></i><i></i><i></i><i></i></div>';
+  nacitajKonverzacie();
+}
+$$(".konvTaby button").forEach((b) => b.addEventListener("click", () => {
+  if (FILTER_KONV === b.dataset.f) return;
+  // Nevybavené sa neprehľadávajú. Keby text v poli ostal, vyzeralo by to, že zoznam je vyfiltrovaný.
+  if (b.dataset.f === "nevybavene" && HLADAJ) { $("#hladaj").value = ""; HLADAJ = ""; }
+  nastavZalozku(b.dataset.f);
+}));
+
+/* Hľadá GHL vo všetkých konverzáciách, od dvoch znakov. Z Nevybavených sa prepne na Všetky. */
+function hladajZmena(v) {
+  const q = String(v || "").trim();
+  if (q.length === 1 || q === HLADAJ) return;
+  HLADAJ = q;
+  if (HLADAJ && FILTER_KONV !== "vsetky") { nastavZalozku("vsetky"); return; }
+  $("#zoznam").innerHTML = '<div class="kostra"><i></i><i></i><i></i><i></i></div>';
+  nacitajKonverzacie();
+}
+$("#hladaj").addEventListener("input", (e) => {
+  clearTimeout(HLADAJ_CAKA);
+  HLADAJ_CAKA = setTimeout(() => hladajZmena(e.target.value), 350);
+});
+$("#hladaj").addEventListener("keydown", (e) => {
+  if (e.key === "Escape") e.target.value = "";
+  if (e.key === "Escape" || e.key === "Enter") { clearTimeout(HLADAJ_CAKA); hladajZmena(e.target.value); }
+});
+
+/* Vybavené: rozhovor zmizne z nevybavených (v GHL sa označí ako prečítaný).
+   Samotné otvorenie ho neoznačí, aby nezmizol skôr, než ho niekto vybaví. */
+$("#vybavene").addEventListener("click", async () => {
+  // 🔴 Kontakt sa berie PRED čakaním. Keby medzitým preklikol inam, zapamätal by sa iný rozhovor.
+  const cid = OTVORENY;
+  if (!cid) return;
+  const b = $("#vybavene");
+  b.disabled = true;
+  const r = await api("/api/vybavene", { contactId: cid });
+  b.disabled = false;
+  if (!r.ok) { alert(r.error || "Nepodarilo sa označiť."); return; }
+  zapamatajVybavene(cid, r.teraz);
+  if (cid === OTVORENY) b.hidden = true;
+  // Zo zoznamu nevybavených zmizne hneď, nečaká sa na GHL.
+  const pol = FILTER_KONV === "nevybavene" ? $(`.polozka[data-id="${CSS.escape(cid)}"]`) : null;
+  if (pol) {
+    pol.remove();
+    ukazPocetNevybavenych(Math.max(0, (parseInt($("#pocetNevyb").textContent, 10) || 1) - 1));
+    if (!$(".polozka")) $("#zoznam").innerHTML =
+      '<div class="stav">Nič nečaká na odpoveď.<br>Keď niekto napíše, objaví sa tu.</div>';
+  }
+  nacitajKonverzacie(true);
+});
+
 const NAZVY = { sms: "SMS", email: "E-mail", chat: "Chat na webe", fb: "Messenger",
                 ig: "Instagram", whatsapp: "WhatsApp", gmb: "Google", recenzia: "Recenzia" };
 
@@ -1011,11 +1362,16 @@ async function otvor(contactId) {
   document.body.classList.add("otvoreny");
   $$(".polozka").forEach((p) => p.classList.toggle("tu", p.dataset.id === contactId));
   $("#tok").innerHTML = '<div class="kostra"><i></i><i></i><i></i></div>';
+  $("#vybavene").hidden = true;
   const r = await api("/api/sprava", { contactId });
+  // 🔴 Medzitým otvoril iný rozhovor. Bez tohto by pomalšia odpoveď prekreslila panel
+  //    na predošlého človeka, ale odpoveď aj Vybavené by išli na OTVORENY.
+  if (contactId !== OTVORENY) return;
   if (!r.ok) { $("#tok").innerHTML =
     `<div class="stav chyba">${bezpecne(r.error || "nedostupné")}</div>`; return; }
   $("#ktoMeno").textContent = r.meno;
   $("#ktoKontakt").textContent = [r.tel, r.email].filter(Boolean).join(" · ");
+  $("#vybavene").hidden = !(r.neprecitane > 0);
   vykresliKanaly(r.kanaly || []);
   zrusOdpoved();
 
@@ -1149,27 +1505,23 @@ async function posliOdpoved() {
   // 🔴 Nekreslím správu z hlavy. Načítam rozhovor späť, nech je v konzole to,
   //    čo naozaj leží v GHL, a nie to, čo som dúfal, že sa uložilo.
   await otvor(OTVORENY);
-  nacitajKonverzacie();
+  nacitajKonverzacie(true);
 }
 $("#posli").addEventListener("click", posliOdpoved);
 $("#text").addEventListener("keydown", (e) => {
   if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) posliOdpoved();
 });
 
-/* ── príležitosti ──────────────────────────────────────── */
-let NESIEM = null;
+/* ── príležitosti (8. 10. 2026, podľa konzoly DKP) ──────────
+   Štádiá pod sebou, zákazníci v štádiu vodorovne. Karta sa presúva tlačidlom
+   Presunúť, nie myšou. Pri zaplatenej diagnostike a pri projekte treba zadať sumu,
+   pri prehranom projekte dôvod. Pravidlá posiela worker pri každom štádiu a sám
+   ich aj vynucuje, okienko je pohodlie, nie zámok. */
 
-/* 🔴 Zoznam príležitostí z GHL po zápise ZAOSTÁVA. Presun sa uloží
-   a `GET /opportunities/{id}` už vracia nový stage, ale `/opportunities/search`
-   ešte sekundu vracia starý. Overené 21.08.2026: hneď po presune starý stage,
-   po jednej sekunde už nový.
-
-   Kým sa to nedosadzovalo, karta po pustení skočila naspäť do pôvodného
-   stĺpca, hoci v GHL už bola presunutá správne. Vyzeralo to, že presun
-   nefunguje, a človek ho spravil druhýkrát.
-
-   Preto si tu držíme, čo sme práve presunuli, a do každej odpovede to
-   dosadíme. Záznam sa zahodí, až keď sa GHL prizná k tomu istému stage. */
+/* 🔴 Zoznam príležitostí z GHL po zápise ZAOSTÁVA. Presun sa uloží a `GET
+   /opportunities/{id}` už vracia nový stage, ale `/opportunities/search` ešte
+   sekundu vracia starý (overené 21. 8. 2026). Preto si tu držíme, čo sme práve
+   presunuli, a do každej odpovede to dosadíme, kým sa GHL neprizná. */
 const PRESUNUTE = {};
 
 function dosadPresuny(karty) {
@@ -1177,127 +1529,230 @@ function dosadPresuny(karty) {
     const nove = PRESUNUTE[k.id];
     if (!nove) continue;
     if (k.stageId === nove) delete PRESUNUTE[k.id];   // replika dobehla
-    else k.stageId = nove;
+    else { k.stageId = nove; k.zmena = new Date().toISOString(); }
   }
 }
 
-let STAGE = [];   // fázy tak, ako prišli z GHL
-let KARTY = [];   // zákazky, kvôli výberu fázy v paneli
-let FAZA = null;  // ktorú fázu vidno na telefóne
+/* Čo štádium znamená, podľa kľúča názvu (bez zátvorky, malými písmenami, posiela ho worker).
+   🔴 Štádium, ktoré tu nie je, sa ukáže bez popisu, nič sa nerozbije. */
+const POPIS_STADIA = {
+  "lead": "Nový kontakt z reklamy, webu alebo bota.",
+  "krátky hovor rezervovaný": "Má rezervovaný krátky telefonát s Miriam.",
+  "diagnostika rezervovaná": "Má rezervovanú diagnostiku. Rezervácia z webu sem kartu dá sama, s cenou podľa toho, či je doma alebo online.",
+  "diagnostika potvrdená": "Termín diagnostiky je potvrdený, napríklad po telefonáte.",
+  "diagnostika zaplatená": "Diagnostiku zaplatil. Pri presune sem treba zadať, koľko zaplatil, ponúkne sa cena z rezervácie.",
+  "diagnostika absolvovaná": "Diagnostika prebehla. Ďalší krok je ponuka projektu.",
+  "no-show": "Na termín neprišiel. Z kalendára sem kartu dá tlačidlo Neprišiel.",
+  "ponuka projektu poslaná": "Ponuka projektu odišla, čaká sa na rozhodnutie.",
+  "projekt vyhraný": "Zákazník projekt prijal. Pri presune sem treba zadať cenu projektu.",
+  "realizácia": "Projekt sa realizuje. Pri presune sem sa ponúkne cena projektu z karty.",
+  "recenzia / referral": "Projekt je hotový, čas požiadať o recenziu alebo odporúčanie.",
+  "projekt prehraný": "Zákazník nekúpi. Pri presune sem treba napísať prečo.",
+};
+
+let STADIA = [];
+
+function kartaHtml(k) {
+  const stav = k.stav === "won" ? '<span class="stavKarty vyhra">vyhraná</span>'
+    : k.stav === "lost" ? '<span class="stavKarty prehra">prehraná</span>' : "";
+  return `<div class="karta" data-id="${bezpecne(k.id)}" data-stage="${bezpecne(k.stageId)}"
+      data-hodnota="${Number(k.hodnota) || 0}"
+      data-kontakt="${bezpecne(k.contactId || "")}" data-meno="${bezpecne(k.nazov)}">
+    <b>${bezpecne(k.nazov)}</b>
+    ${k.firma ? `<div class="drobne">${bezpecne(k.firma)}</div>` : ""}
+    ${k.tel ? `<div class="drobne">${bezpecne(k.tel)}</div>` : ""}
+    ${k.hodnota || stav ? `<div class="cena">${k.hodnota ? eur(k.hodnota) : ""}${stav}</div>` : ""}
+    ${(k.polia || []).length ? `<div class="kval">${k.polia.map((x) =>
+        `<div><b>${bezpecne(x.nazov)}</b>${bezpecne(x.hodnota)}</div>`).join("")}</div>` : ""}
+    <div class="tlacidlaKarty">
+      <button class="presunut" title="Presunúť do iného štádia">Presunúť</button>
+      ${k.contactId ? '<button class="doRozhovoru">Rozhovor</button>' : ""}
+    </div>
+  </div>`;
+}
 
 async function nacitajPrilezitosti() {
   const r = await api("/api/prilezitosti", {});
-  if (!r.ok) { $("#stlpce").innerHTML =
+  if (!r.ok) { $("#stadia").innerHTML =
     `<div class="stav chyba">${bezpecne(r.error || "nedostupné")}</div>`; return; }
   dosadPresuny(r.karty);
-  STAGE = r.stage; KARTY = r.karty;
-  // 🔴 Vybraná fáza musí prežiť načítanie. Po presune sa panel načíta znova
-  //    a keby sa FAZA resetovala na prvú, človek by po každom presune na
-  //    telefóne skočil naspäť na začiatok pipeline.
-  if (!STAGE.some((s) => s.id === FAZA)) FAZA = (STAGE[0] || {}).id || null;
-
-  const chipy = STAGE.map((s) => {
-    const n = r.karty.filter((k) => k.stageId === s.id).length;
-    return `<button data-faza="${bezpecne(s.id)}"${s.id === FAZA ? ' class="tu"' : ""}>${
-      bezpecne(s.nazov)}<em>${n}</em></button>`;
-  }).join("");
-
-  const stlpce = STAGE.map((s) => {
-    const karty = r.karty.filter((k) => k.stageId === s.id);
+  STADIA = r.stage || [];
+  /* Kto bol v páse posunutý doprava, ostane tam aj po presune karty. */
+  const posun = {};
+  $$(".stadium").forEach((x) => { posun[x.dataset.stage] = x.querySelector(".pas").scrollLeft; });
+  /* Naposledy zmenené vľavo: nová rezervácia a práve presunutá karta sú vidieť bez posúvania. */
+  const cas = (k) => Date.parse(k.zmena || "") || 0;
+  $("#stadia").innerHTML = (r.neuplne ? `<p class="podnadpis" style="color:var(--zle)">
+      Zobrazených ${r.karty.length} z ${r.spolu} kariet, ostatné sa nenačítali.</p>` : "")
+    + `<div class="stadia">${STADIA.map((s) => {
+    const karty = r.karty.filter((k) => k.stageId === s.id).sort((a, b) => cas(b) - cas(a));
     const suma = karty.reduce((a, k) => a + (k.hodnota || 0), 0);
-    return `<div class="stlpec${s.id === FAZA ? " tu" : ""}" data-stage="${bezpecne(s.id)}">
-      <h3>${bezpecne(s.nazov)}<em>${karty.length}</em></h3>
-      <p class="suma">${suma ? eur(suma) : "&nbsp;"}</p>
-      ${karty.map((k) => `<div class="karta" draggable="true" data-id="${bezpecne(k.id)}">
-          <b>${bezpecne(k.nazov)}</b>
-          ${k.firma ? `<div class="drobne">${bezpecne(k.firma)}</div>` : ""}
-          ${k.tel ? `<div class="drobne">${bezpecne(k.tel)}</div>` : ""}
-          ${k.hodnota ? `<div class="cena">${eur(k.hodnota)}</div>` : ""}
-        </div>`).join("") || '<div class="prazdny">prázdne</div>'}
-    </div>`;
+    const popis = POPIS_STADIA[s.kluc] || "";
+    return `<section class="stadium" data-stage="${bezpecne(s.id)}">
+      <div class="stadiumHlava">
+        <h3>${bezpecne(s.nazov)}<em>${karty.length}</em></h3>
+        ${suma ? `<span class="suma">${eur(suma)}</span>` : ""}
+        <span class="viac">posuňte doprava →</span>
+        ${popis ? `<p>${bezpecne(popis)}</p>` : ""}
+      </div>
+      <div class="pas">${karty.map(kartaHtml).join("")
+        || '<div class="prazdny">prázdne</div>'}</div>
+    </section>`;
+  }).join("")}</div>`;
+  $$(".stadium").forEach((x) => {
+    if (posun[x.dataset.stage]) x.querySelector(".pas").scrollLeft = posun[x.dataset.stage];
+  });
+  oznacPretekajuce();
+  pripojTlacidla();
+}
+
+function oznacPretekajuce() {
+  $$(".stadium").forEach((x) => {
+    const pas = x.querySelector(".pas");
+    x.classList.toggle("pretieka", pas.scrollWidth > pas.clientWidth + 1);
+  });
+}
+window.addEventListener("resize", oznacPretekajuce);
+
+function pripojTlacidla() {
+  $$(".karta .presunut").forEach((b) => b.addEventListener("click", (e) => {
+    e.stopPropagation();
+    otvorPresun(b.closest(".karta"));
+  }));
+  // Z karty do rozhovoru na jeden klik.
+  $$(".karta .doRozhovoru").forEach((b) => b.addEventListener("click", async (e) => {
+    e.stopPropagation();
+    const id = b.closest(".karta").dataset.kontakt;
+    if (!id) return;
+    prepniTab("chat");
+    await otvor(id);
+  }));
+}
+
+/* ── okienko Presunúť ── */
+let PRESUN = null;   // { id, stageId, meno, hodnota } práve otváranej karty
+
+/* Rovnaká ako `hodnotaEur` vo workeri: „290", „3 900", „3900,50", „3.900,50".
+   „3.900" bez čiarky odmietne, nehádame, či je to 3 900 alebo 3,9. */
+function hodnotaEur(x) {
+  let s = String(x == null ? "" : x).replace(/[\s  ]/g, "").replace(/(€|eur)$/i, "");
+  if (s.includes(",") && s.includes(".")) s = s.replace(/\./g, "").replace(",", ".");
+  else if (s.includes(",")) s = s.replace(",", ".");
+  if (!/^\d+(\.\d{1,2})?$/.test(s)) return null;
+  const n = Number(s);
+  return Number.isFinite(n) && n > 0 && n <= 1e7 ? Math.round(n * 100) / 100 : null;
+}
+function eurPresne(n) {
+  return new Intl.NumberFormat("sk-SK", { style: "currency", currency: "EUR" }).format(n || 0);
+}
+
+function otvorPresun(karta) {
+  if (!karta) return;
+  PRESUN = { id: karta.dataset.id, stageId: karta.dataset.stage, meno: karta.dataset.meno,
+             hodnota: Number(karta.dataset.hodnota) || 0 };
+  const teraz = STADIA.find((s) => s.id === PRESUN.stageId);
+  $("#presunMeno").textContent = PRESUN.meno || "Karta";
+  $("#presunTeraz").textContent = teraz ? `Teraz je v štádiu ${teraz.nazov}. Kam ju presunúť?` : "Kam ju presunúť?";
+  $("#presunMoznosti").innerHTML = STADIA.map((s) => {
+    const tu = s.id === PRESUN.stageId;
+    const nedaSa = tu || !s.rucne;
+    const pod = tu ? "Tu je teraz."
+      : !s.rucne ? (s.preco || "Sem ju presunie automat.")
+      : s.hodnota ? (s.predvyplnit ? "Treba potvrdiť sumu." : "Treba zadať sumu.")
+      : s.dovod ? "Treba napísať, prečo nekúpi." : "";
+    return `<label class="moznost${nedaSa ? " zakazane" : ""}">
+      <input type="radio" name="presunKam" value="${bezpecne(s.id)}"${nedaSa ? " disabled" : ""}>
+      <span><b>${bezpecne(s.nazov)}</b>${pod ? `<small>${bezpecne(pod)}</small>` : ""}</span>
+    </label>`;
   }).join("");
-
-  $("#stlpce").innerHTML =
-    `<div class="fazy">${chipy}</div><div class="stlpce">${stlpce}</div>`;
-  pripojFazy();
-  pripojTahanie();
+  const pole = $("#presunHodnota");
+  pole.value = ""; pole.dataset.zdroj = "";
+  $("#presunDovod").value = "";
+  $("#presunHodnotaNapoveda").textContent = "";
+  $("#presunChyba").hidden = true;
+  vyberPresunu();
+  $("#presunOkno").showModal();
 }
 
-function pripojFazy() {
-  $$(".fazy button").forEach((b) => b.addEventListener("click", () => {
-    FAZA = b.dataset.faza;
-    $$(".fazy button").forEach((x) => x.classList.toggle("tu", x === b));
-    $$(".stlpec").forEach((s) => s.classList.toggle("tu", s.dataset.stage === FAZA));
-    b.scrollIntoView({ block: "nearest", inline: "center", behavior: "smooth" });
-  }));
+/* Podľa vybraného štádia ukáže pole na sumu alebo dôvod, vetu o štádiu a odomkne
+   tlačidlo, až keď je všetko vyplnené.
+   🔴 Ponúknutá suma z karty sa pri prepnutí na štádium bez ponuky ZMAŽE. Inak by sa
+      cena diagnostiky (290 €) ľahko zapísala ako cena projektu. Čo napísal človek, ostáva. */
+function vyberPresunu() {
+  const id = ($("#presunMoznosti input:checked") || {}).value || "";
+  const s = STADIA.find((x) => x.id === id) || null;
+  const pole = $("#presunHodnota");
+  $("#presunHodnotaPole").hidden = !(s && s.hodnota);
+  $("#presunDovodPole").hidden = !(s && s.dovod);
+  if (s && s.hodnota) {
+    $("#presunHodnotaPopis").textContent = s.otazka || "Suma v eurách";
+    if (pole.dataset.zdroj !== "clovek") {
+      const ponuknut = s.predvyplnit && PRESUN && PRESUN.hodnota > 0;
+      pole.value = ponuknut ? String(PRESUN.hodnota).replace(".", ",") : "";
+      pole.dataset.zdroj = ponuknut ? "karta" : "";
+    }
+  }
+  const pozn = $("#presunPozn");
+  pozn.textContent = s ? (POPIS_STADIA[s.kluc] || "") : "";
+  pozn.hidden = !pozn.textContent;
+  let ok = !!s;
+  if (s && s.hodnota) {
+    const surove = pole.value.trim();
+    const h = hodnotaEur(surove);
+    ok = ok && h !== null;
+    $("#presunHodnotaNapoveda").textContent = surove && h === null
+      ? "Napíšte sumu v eurách, napríklad 290 alebo 3 900,50."
+      : h !== null ? (pole.dataset.zdroj === "karta"
+          ? `Ponúkam sumu z karty. Na kartu sa zapíše ${eurPresne(h)}.` : `Na kartu sa zapíše ${eurPresne(h)}.`)
+      : PRESUN && PRESUN.hodnota ? `Na karte je teraz ${eurPresne(PRESUN.hodnota)}.` : "";
+  }
+  if (s && s.dovod) ok = ok && $("#presunDovod").value.trim().length >= 3;
+  const tl = $("#presunPotvrd");
+  tl.disabled = !ok;
+  tl.textContent = s ? `Presunúť do ${s.nazov}` : "Presunúť";
 }
 
-/* 🔴 Jedna cesta pre ťahanie aj pre výber z panela. Keby to boli dve, raz sa
-   opraví jedna a druhá ostane rozbitá. */
-async function presun(id, kam) {
-  PRESUNUTE[id] = kam;
-  const r = await api("/api/presun", { id, stageId: kam });
-  if (!r.ok) { delete PRESUNUTE[id]; alert(r.error || "Presun sa neuložil."); }
-  await nacitajPrilezitosti();
-  return !!r.ok;
+async function potvrdPresun() {
+  const id = ($("#presunMoznosti input:checked") || {}).value || "";
+  const s = STADIA.find((x) => x.id === id);
+  if (!PRESUN || !s) return;
+  const telo = { id: PRESUN.id, stageId: s.id };
+  if (s.hodnota) telo.hodnota = hodnotaEur($("#presunHodnota").value);
+  if (s.dovod) telo.dovod = $("#presunDovod").value.trim();
+  const tl = $("#presunPotvrd");
+  tl.disabled = true; tl.textContent = "Presúvam…";
+  const r = await api("/api/presun", telo);
+  if (!r.ok) {
+    // Okienko ostane otvorené aj s tým, čo bolo napísané.
+    $("#presunChyba").textContent = r.error || "Presun sa neuložil, karta ostala, kde bola.";
+    $("#presunChyba").hidden = false;
+    vyberPresunu();
+    return;
+  }
+  PRESUNUTE[PRESUN.id] = s.id;
+  $("#presunOkno").close();
+  if (r.overene === false) {
+    alert(`Karta je v štádiu ${s.nazov}, ale stav alebo suma karty sa neuložili. Dajte nám, prosím, vedieť.`);
+  }
+  nacitajPrilezitosti();
 }
 
-/* 🔴 Po skutočnom ťahaní vie prehliadač poslať aj `click`. Bez tejto pamäte
-   by sa hneď po pustení karty otvoril ešte aj panel s výberom fázy. */
-let PRAVE_TAHAL = 0;
-
-function pripojTahanie() {
-  $$(".karta").forEach((k) => {
-    k.addEventListener("dragstart", () => { NESIEM = k; k.classList.add("nesiem"); });
-    k.addEventListener("dragend", () => {
-      k.classList.remove("nesiem"); NESIEM = null; PRAVE_TAHAL = Date.now();
-    });
-    k.addEventListener("click", () => {
-      if (Date.now() - PRAVE_TAHAL < 300) return;
-      otvorVyberFazy(k.dataset.id);
-    });
-  });
-  $$(".stlpec").forEach((s) => {
-    s.addEventListener("dragover", (e) => { e.preventDefault(); s.classList.add("cielim"); });
-    s.addEventListener("dragleave", () => s.classList.remove("cielim"));
-    s.addEventListener("drop", async (e) => {
-      e.preventDefault(); s.classList.remove("cielim");
-      if (!NESIEM) return;
-      const karta = NESIEM, id = karta.dataset.id, kam = s.dataset.stage;
-      s.appendChild(karta);   // nech je presun vidieť hneď, nie až po odpovedi
-      await presun(id, kam);
-    });
-  });
-}
-
-/* ── výber fázy bez ťahania ────────────────────────────── */
-/* 🔴 Toto je jediná cesta, ako presunúť zákazku na dotykovom displeji. HTML5
-   drag-and-drop sa na ňom nespustí vôbec, takže konzola bola na telefóne
-   v tomto tabe len na pozeranie. */
-function otvorVyberFazy(id) {
-  const k = KARTY.find((x) => x.id === id);
-  if (!k) return;
-  $("#sheetKto").textContent = k.nazov + (k.firma ? " · " + k.firma : "");
-  $("#sheetFazy").innerHTML = STAGE.map((s) =>
-    `<button class="fazaBtn${s.id === k.stageId ? " tu" : ""}" data-stage="${bezpecne(s.id)}">${
-      bezpecne(s.nazov)}${s.id === k.stageId ? "<i>teraz tu</i>" : ""}</button>`).join("");
-  $$("#sheetFazy button").forEach((b) => b.addEventListener("click", async () => {
-    const kam = b.dataset.stage;
-    zavriVyberFazy();
-    if (kam !== k.stageId) await presun(id, kam);
-  }));
-  $("#sheet").classList.add("tu");
-  $("#sheet").setAttribute("aria-hidden", "false");
-}
-
-function zavriVyberFazy() {
-  $("#sheet").classList.remove("tu");
-  $("#sheet").setAttribute("aria-hidden", "true");
-}
-$("#sheetTien").addEventListener("click", zavriVyberFazy);
-$("#sheetZavri").addEventListener("click", zavriVyberFazy);
-document.addEventListener("keydown", (e) => {
-  if (e.key === "Escape") zavriVyberFazy();
+$("#presunMoznosti").addEventListener("change", () => { $("#presunChyba").hidden = true; vyberPresunu(); });
+$("#presunHodnota").addEventListener("input", (e) => { e.target.dataset.zdroj = "clovek"; vyberPresunu(); });
+$("#presunDovod").addEventListener("input", vyberPresunu);
+$("#presunHodnota").addEventListener("keydown", (e) => {
+  if (e.key === "Enter" && !$("#presunPotvrd").disabled) potvrdPresun();
+});
+$("#presunPotvrd").addEventListener("click", potvrdPresun);
+$("#presunZrus").addEventListener("click", () => $("#presunOkno").close());
+// 🔴 Len klik na samotný `dialog` (podklad). Klik na štítok pošle prepínaču umelý
+//    klik so súradnicami 0, 0 a ten by okienko zavrel pri výbere.
+$("#presunOkno").addEventListener("click", (e) => {
+  if (e.target !== e.currentTarget) return;
+  const o = e.currentTarget.getBoundingClientRect();
+  if (e.clientX < o.left || e.clientX > o.right || e.clientY < o.top || e.clientY > o.bottom) {
+    e.currentTarget.close();
+  }
 });
 
 /* ── lievik ────────────────────────────────────────────── */
