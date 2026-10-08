@@ -56,3 +56,26 @@ Výsledok na obrazovke dostane každý. Kvalifikovaní navyše pozvánku na 20 m
 - Rozhodnúť, či Meta bude optimalizovať na dokončený test.
 - Spustenie: nové reklamy, prepnúť a 2 až 3 týždne porovnávať s číslami vyššie. Stránka `/diagnostika` ostáva.
 - Ak má návrh vidieť Miriam, treba verziu bez sekcie „Len pre nás“ a bez výpočtov.
+
+## Zmena 8. 10. večer: kvalifikovaní idú na rezerváciu (Jano)
+- Kvalifikovaní profil nedostanú. Uvidia stránku „Pozriem sa na tvoje odpovede a pripravím ti riešenie“, svoje odpovede a kalendár 20-minútového hovoru. Profil dostanú len ostatní.
+- Test má 6 otázok: pocit, miesto, dôvod, svetlo, kedy (aj „zatiaľ sa len inšpirujem“), rozpočet. Preč sú „kam ti pošlem“, „kde bývaš“, fáza (zlúčená s „kedy“) a podlaha.
+- Rozpočty (Jano): do 600 € (urobím si sama), 600 až 3 000, 3 000 až 8 000, prémiová prerábka na kľúč nad 8 000, zatiaľ neviem.
+- Pravidlo: „len sa inšpirujem“ alebo do 600 € = profil. „Hneď“ alebo „do 3 mesiacov“ = rezervácia. „Tento rok“ = rezervácia len od 3 000 €. Overené na všetkých 20 kombináciách.
+
+## Lieviky (náhľad, nie naostro)
+- Vetva `claude/profil-lievik`, nasadené `./nasad-web.sh profil`:
+  - test: https://profil.miriam-web-staging.pages.dev/profil
+  - rezervácia: https://profil.miriam-web-staging.pages.dev/profil-rezervacia?p=pokoj&m=obyvacka&d=tma&s=tma&k=3m&r=600-3000
+  - profil: https://profil.miriam-web-staging.pages.dev/profil-vysledok?p=pokoj&m=obyvacka&d=tma&s=tma&k=inspiracia&r=do600
+- Súbory: `profil.html`, `profil-rezervacia.html`, `profil-vysledok.html`, `assets/css/profil.css`, `assets/js/profil-*.js`, `functions/api/rozhovor.js`, `functions/api/profil.js`, `functions/_lib/profil.js`; `/api/sloty?typ=rozhovor` číta kalendár `ZSPaMWEuejcfthaFxKZt` (uvítací hovor).
+- Overené: obe cesty preklikané na mobile (390 px), bez vodorovného posúvania a bez chýb v konzole. Na náhľade sú voľné časy skutočné, rezervácia aj e-mail vracajú úspech bez zápisu.
+- Na spustenie chýba:
+  - vlastný kalendár hovoru (ten z uvítacieho hovoru má workflow s inými SMS)
+  - potvrdenie a pripomienka
+  - polia na odpovede v GHL
+  - e-mail s profilom a séria tipov
+  - meranie v konzole a pixel
+  - Miriamine texty a farby
+- `/api/rozhovor` a `/api/profil` naostro vracajú 503.
+- Kontakt sa v teste nepýta. Slabé leady bez e-mailu nám nezostanú. Dá sa doplniť e-mail na obrazovku s rozpočtom.
