@@ -1,7 +1,9 @@
 # Návrh: lead magnet „Pocitový profil domova“ (8. 10. 2026)
 
-Celý návrh je artifact: https://claude.ai/artifact/KdZW2mfqNvj7iPA4aXZyfv
-Tu sú len fakty okolo neho. Text návrhu sem nekopírovať.
+Interný návrh pre Jana (s Hormozim, číslami a výpočtami): https://claude.ai/artifact/KdZW2mfqNvj7iPA4aXZyfv
+Verzia pre Miriam (bez Hormoziho a interných čísel, ukážka profilu, 6 profilov, kroky na víkend): https://claude.ai/artifact/MQ9GxqMR1bm99cfRiW69Wo
+Správa pre Miriam je v internom návrhu. Zásady v nej idú ako naše skúsenosti, stylistka ako príklad z podobného odboru,
+Miriam má sama navrhnúť 2 až 3 magnety. Tu sú len fakty okolo. Text návrhu sem nekopírovať.
 
 ## Prečo
 Podľa videa Hormozi a Ashley (YouTube nrounb8NlFQ). Rovnaká diera ako u Ashley:
