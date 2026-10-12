@@ -3,6 +3,7 @@
 Nahrádza „Pocitový profil domova“ z 8. 10. (`NAVRH-2026-10-08-lead-magnet.md`). Otázky, odpovede a texty plánu
 napísala Miriam a Jano s ňou dohodol 10-minútovú konzultáciu, na ktorej plán horúcim odovzdá osobne.
 Vetva `claude/profil-lievik`, nasadené `./nasad-web.sh profil`: https://profil.miriam-web-staging.pages.dev/profil
+Všetky SMS a e-maily na schválenie (artifact): https://claude.ai/artifact/Bj7X7TxZY8GE6k7HDWWT5S . Texty sem nekopírovať, žijú v šablónach GHL a v `functions/_lib/profil.js`.
 
 ## Tok
 1. `/profil`: landing (3 sekcie, 4 recenzie, 4 body, 3 tlačidlá) a test so 6 otázkami od Miriam:
