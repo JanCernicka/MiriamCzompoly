@@ -71,6 +71,26 @@ async function ghl(env, cesta, moznosti = {}) {
   return { ok: r.ok, kod: r.status, d };
 }
 
+/* Kontakty jedným volaním namiesto jedného volania na človeka (8. 10. 2026).
+   🔴 GHL dovolí 100 volaní za 10 sekúnd. Kalendár a príležitosti predtým brali
+   kontakty po jednom (35 a 30 volaní) a pri rýchlom preklikávaní GHL vracalo 429.
+   Vyhľadávanie podľa id vracia adresu v `address`, nie v `address1` ako GET na
+   kontakt, preto sa to tu zjednotí. Overené 8. 10. 2026 na účte Miriam. */
+async function kontaktyNaraz(env, ids) {
+  const zoznam = [...new Set((ids || []).filter(Boolean))];
+  const out = {};
+  for (let i = 0; i < zoznam.length; i += 100) {
+    const r = await ghl(env, "/contacts/search", { method: "POST", body: JSON.stringify({
+      locationId: env.GHL_LOCATION_ID, pageLimit: 100,
+      filters: [{ field: "id", operator: "eq", value: zoznam.slice(i, i + 100) }] }) });
+    if (!r.ok) continue;
+    for (const c of ((r.d || {}).contacts || [])) {
+      if (c && c.id) out[c.id] = { ...c, address1: c.address1 || c.address || "" };
+    }
+  }
+  return out;
+}
+
 /* ── zámok ────────────────────────────────────────────────────────────── */
 
 function heslomOk(env, telo) {
@@ -95,28 +115,91 @@ function maTag(tagy, tag) {
 
 /* ── konverzácie ──────────────────────────────────────────────────────── */
 
-async function konverzacie(env) {
-  const tag = demoTag(env);
-  const r = await ghl(env, `/conversations/search?locationId=${env.GHL_LOCATION_ID}&limit=${STROP}`);
-  if (!r.ok) return json({ ok: false, error: "GHL nedalo konverzácie" }, 502);
+/* Nevybavené a hľadanie (8. 10. 2026, podľa konzoly DKP).
+   `filter: "nevybavene"` = len neprečítané (GHL `status=unread`), inak všetky.
+   `hladaj` = časť mena, číslo alebo e-mail (GHL `query`, od dvoch znakov). Hľadá vo
+   VŠETKÝCH konverzáciách, nielen v posledných sto (8. 10. ich bolo 117).
+   🔴 Číslo s medzerami GHL nenájde, preto sa z neho nechajú len číslice a plus. */
+function upravHladanie(q) {
+  const s = String(q || "").replace(/\s+/g, " ").trim().slice(0, 60);
+  return /^[\d\s+()\/.-]+$/.test(s) ? s.replace(/[^\d+]/g, "") : s;
+}
 
-  const vsetky = (r.d.conversations || []);
-  const moje = vsetky.filter((k) => maTag(k.tags, tag));
+async function konverzacie(env, telo = {}) {
+  const tag = demoTag(env);
+  const hladaj = upravHladanie(telo.hladaj);
+  const nevybavene = telo.filter === "nevybavene" && hladaj.length < 2;
+  let q = `/conversations/search?locationId=${env.GHL_LOCATION_ID}&limit=${STROP}`;
+  if (nevybavene) q += "&status=unread";
+  if (hladaj.length >= 2) q += `&query=${encodeURIComponent(hladaj)}`;
+  const [r, n] = await Promise.all([
+    ghl(env, q),
+    ghl(env, `/conversations/search?locationId=${env.GHL_LOCATION_ID}&limit=${STROP}&status=unread`),
+  ]);
+  if (!r.ok) return json({ ok: false, error: "GHL nedalo konverzácie", kod: r.kod }, 502);
+
+  const moje = ((r.d || {}).conversations || []).filter((k) => maTag(k.tags, tag));
+  // 🔴 Zoznam z konverzácií s tagom konzoly, nie `total` celého účtu (demo konzola by ho prezradila).
+  //    Stránka z neho ráta počet na záložke a vynechá práve vybavené, kým ich GHL nedobehne.
+  const nevybaveni = n.ok
+    ? ((n.d || {}).conversations || []).filter((k) => maTag(k.tags, tag) && (k.unreadCount || 0) > 0)
+        .map((k) => ({ contactId: k.contactId, kedy: k.lastMessageDate || k.dateUpdated || "" }))
+    : [];
 
   return json({
     ok: true,
-    konverzacie: moje.map((k) => ({
-      contactId: k.contactId,
-      meno: k.fullName || k.contactName || k.companyName || "Bez mena",
-      firma: k.companyName || "",
-      tel: k.phone || "",
-      email: k.email || "",
-      posledna: k.lastMessageBody || "",
-      kedy: k.lastMessageDate || k.dateUpdated || "",
-      smer: k.lastMessageDirection || "",
-      neprecitane: k.unreadCount || 0,
-    })).sort((a, b) => String(b.kedy).localeCompare(String(a.kedy))),
+    filter: nevybavene ? "nevybavene" : "vsetky",
+    hladaj, nevybaveni,
+    konverzacie: moje
+      .filter((k) => !nevybavene || (k.unreadCount || 0) > 0)
+      .map((k) => ({
+        contactId: k.contactId,
+        meno: k.fullName || k.contactName || k.companyName || "Bez mena",
+        firma: k.companyName || "",
+        tel: k.phone || "",
+        email: k.email || "",
+        posledna: k.lastMessageBody || "",
+        kedy: k.lastMessageDate || k.dateUpdated || "",
+        smer: k.lastMessageDirection || "",
+        neprecitane: k.unreadCount || 0,
+      })).sort((a, b) => String(b.kedy).localeCompare(String(a.kedy))),
   });
+}
+
+/* Vybavené (8. 10. 2026, podľa konzoly DKP): rozhovor sa v GHL označí ako prečítaný
+   a zmizne z nevybavených. Samotné otvorenie ho neoznačí, aby nezmizol skôr,
+   než ho niekto vybaví. */
+async function oznacVybavene(env, cid) {
+  const h = await ghl(env, `/conversations/search?locationId=${env.GHL_LOCATION_ID}&contactId=${cid}`);
+  if (!h.ok) return { ok: false, error: "GHL nedalo konverzácie" };
+  for (const { id } of ((h.d || {}).conversations || [])) {
+    const g = await ghl(env, `/conversations/${id}`);
+    if (!g.ok) return { ok: false, error: "GHL nedalo konverzáciu" };
+    if (((g.d || {}).unreadCount || 0) === 0) continue;
+    const p = await ghl(env, `/conversations/${id}`, { method: "PUT",
+      body: JSON.stringify({ locationId: env.GHL_LOCATION_ID, unreadCount: 0 }) });
+    if (!p.ok) return { ok: false, error: "GHL zmenu neprijalo" };
+    // 🔴 200 nie je dôkaz, prečítaj späť.
+    const s = await ghl(env, `/conversations/${id}`);
+    if (!s.ok || ((s.d || {}).unreadCount || 0) !== 0) {
+      return { ok: false, error: "GHL stále hlási neprečítané" };
+    }
+  }
+  return { ok: true, neprecitane: 0, teraz: new Date().toISOString() };
+}
+
+async function vybavene(env, telo) {
+  const tag = demoTag(env);
+  const cid = String(telo.contactId || "");
+  if (!/^[A-Za-z0-9_-]{10,40}$/.test(cid)) return json({ ok: false, error: "chýba kontakt" }, 400);
+  // 🔴 To isté overenie ako pri čítaní, contactId chodí z prehliadača.
+  const k = await ghl(env, `/contacts/${cid}`);
+  if (!k.ok) return json({ ok: false, error: "kontakt sa nenašiel" }, 404);
+  if (!maTag(((k.d || {}).contact || {}).tags, tag)) {
+    return json({ ok: false, error: "tento rozhovor sem nepatrí" }, 403);
+  }
+  const v = await oznacVybavene(env, cid);
+  return json(v, v.ok ? 200 : 502);
 }
 
 /* Čo z konverzácie je správa a čo len udalosť.
@@ -270,6 +353,7 @@ async function sprava(env, telo) {
     meno: `${c.firstName || ""} ${c.lastName || ""}`.trim() || c.companyName || "Bez mena",
     tel: c.phone || "", email: c.email || "",
     kanaly: dostupneKanaly(c, konv, von),
+    neprecitane: konv.unreadCount || 0,
     spravy: von,
   });
 }
@@ -424,39 +508,221 @@ function vyberPipeline(pipeliny, prilezitosti, env) {
   return { pipeline: pipeliny[0], podla: "prvá v poradí" };
 }
 
+/* Názov štádia na porovnávanie: bez textu v zátvorke, malými písmenami.
+   „Diagnostika zaplatená (249 €)" aj po premenovaní na „Diagnostika zaplatená" je ten istý
+   kľúč, takže pravidlá a popisy sa pri zmene ceny v názve štádia nerozbijú. */
+function kluc(nazov) {
+  return String(nazov || "").replace(/\([^)]*\)/g, " ").replace(/\s+/g, " ").trim().toLowerCase();
+}
+
+/* ── pravidlá presunu karty (8. 10. 2026, podľa konzoly DKP) ──
+   Jan: „pri miestach s hodnotami treba zadať hodnotu, napr. zaplatil konzultáciu treba
+   zadať sumu čo zaplatil, alebo projekt tiež zadať sumu".
+     hodnota      true: treba zadať sumu, zapíše sa na kartu (monetaryValue) aj do poznámky
+     otazka       popis poľa na sumu v okienku
+     predvyplnit  true: okienko ponúkne sumu, ktorá je na karte (pri diagnostike cena z rezervácie)
+     dovod        true: treba napísať dôvod, ide do poznámky kontaktu
+     rucne        false: ručne sa tam nedá, v okienku je sivé s vetou z `preco`
+     stav         stav karty po presune: won, lost, inak open
+   Štádium, ktoré tu nie je, sa vybrať dá a karta je po presune otvorená.
+   Premenná PRAVIDLA_PRESUNU (JSON v rovnakom tvare, kľúč = názov štádia) ich celé nahradí.
+   🔴 Pravidlá platia TU, na serveri. Okienko ich len ukazuje. */
+const PRAVIDLA_PREDVOLENE = {
+  "diagnostika zaplatená": { hodnota: true, predvyplnit: true, otazka: "Koľko zaplatil za diagnostiku (v eurách)" },
+  "projekt vyhraný": { hodnota: true, stav: "won", otazka: "Za koľko je projekt (v eurách)" },
+  "realizácia": { hodnota: true, predvyplnit: true, stav: "won", otazka: "Za koľko je projekt (v eurách)" },
+  "recenzia / referral": { stav: "won" },
+  "projekt prehraný": { dovod: true, stav: "lost" },
+};
+const STAVY_KARTY = ["open", "won", "lost"];
+const BEZ_PRAVIDLA = { rucne: true, preco: "", hodnota: false, dovod: false, stav: "open", otazka: "", predvyplnit: false };
+
+function pravidlaPresunu(env) {
+  let p = null;
+  try { p = JSON.parse(env.PRAVIDLA_PRESUNU || "null"); } catch { p = null; }
+  if (!p || typeof p !== "object" || Array.isArray(p) || !Object.keys(p).length) p = PRAVIDLA_PREDVOLENE;
+  const out = {};
+  for (const [nazov, r] of Object.entries(p)) {
+    const x = r && typeof r === "object" ? r : {};
+    out[kluc(nazov)] = {
+      rucne: x.rucne !== false,
+      preco: String(x.preco || "").trim(),
+      hodnota: x.hodnota === true,
+      dovod: x.dovod === true,
+      stav: STAVY_KARTY.includes(x.stav) ? x.stav : "open",
+      otazka: String(x.otazka || "").trim(),
+      predvyplnit: x.predvyplnit === true,
+    };
+  }
+  return out;
+}
+
+function pravidloStadia(pravidla, nazov) {
+  return pravidla[kluc(nazov)] || BEZ_PRAVIDLA;
+}
+
+/* Suma tak, ako ju napíše človek: „290", „3 900", „3900,50", „3.900,50", „3 900 €".
+   🔴 „3.900" bez čiarky sa ODMIETNE: je to 3 900 alebo 3,9? Nehádame. Rovnaká funkcia je v stránke. */
+function hodnotaEur(x) {
+  let n;
+  if (typeof x === "number") n = x;
+  else {
+    let s = String(x == null ? "" : x).replace(/[\s  ]/g, "").replace(/(€|eur)$/i, "");
+    if (s.includes(",") && s.includes(".")) s = s.replace(/\./g, "").replace(",", ".");
+    else if (s.includes(",")) s = s.replace(",", ".");
+    if (!/^\d+(\.\d{1,2})?$/.test(s)) return null;
+    n = Number(s);
+  }
+  if (!Number.isFinite(n) || n <= 0 || n > 1e7) return null;
+  return Math.round(n * 100) / 100;
+}
+
+/* „3 900,00 €" bez Intl.NumberFormat, rovnako všade. */
+function eurText(n) {
+  return Number(n).toFixed(2).replace(".", ",").replace(/\B(?=(\d{3})+(?!\d))/g, " ") + " €";
+}
+
+/* „8. 10. 2026 o 19:45" v čase Miriam, do poznámky na kontakte. */
+function terazText() {
+  const c = Object.fromEntries(new Intl.DateTimeFormat("en-GB", { timeZone: CAS_ZONA,
+    day: "numeric", month: "numeric", year: "numeric", hour: "2-digit", minute: "2-digit",
+    hourCycle: "h23" }).formatToParts(new Date()).map((x) => [x.type, x.value]));
+  return `${Number(c.day)}. ${Number(c.month)}. ${c.year} o ${c.hour}:${c.minute}`;
+}
+
+/* 🔴 GHL vráti najviac 100 kariet na jedno volanie. Stránkuje sa cez `startAfter`
+   a `startAfterId`, najviac STRANY_KARIET strán. Keď sa nenačíta všetko, konzola to napíše. */
+const STRANY_KARIET = 10;
+async function vsetkyKarty(env) {
+  let karty = [], dalej = "", spolu = null;
+  for (let i = 0; i < STRANY_KARIET; i++) {
+    const o = await ghl(env,
+      `/opportunities/search?location_id=${env.GHL_LOCATION_ID}&limit=${STROP}${dalej}`);
+    if (!o.ok) return i ? { ok: true, karty, spolu, neuplne: true } : { ok: false };
+    const strana = (o.d || {}).opportunities || [];
+    const m = (o.d || {}).meta || {};
+    karty = karty.concat(strana);
+    if (Number.isFinite(m.total)) spolu = m.total;
+    if (strana.length < STROP || !m.startAfterId || (spolu !== null && karty.length >= spolu)) break;
+    dalej = `&startAfter=${encodeURIComponent(m.startAfter)}&startAfterId=${encodeURIComponent(m.startAfterId)}`;
+  }
+  return { ok: true, karty, spolu, neuplne: spolu !== null && karty.length < spolu };
+}
+
+/* „pi 9. 10. o 16:30" v čase Miriam. */
+const SKRATKY_DNI = { Sun: "ne", Mon: "po", Tue: "ut", Wed: "st", Thu: "št", Fri: "pi", Sat: "so" };
+function kratkyTermin(ms) {
+  const c = Object.fromEntries(new Intl.DateTimeFormat("en-GB", { timeZone: CAS_ZONA, weekday: "short",
+    day: "numeric", month: "numeric", hour: "2-digit", minute: "2-digit", hourCycle: "h23" })
+    .formatToParts(new Date(ms)).map((x) => [x.type, x.value]));
+  return `${SKRATKY_DNI[c.weekday] || ""} ${Number(c.day)}. ${Number(c.month)}. o ${c.hour}:${c.minute}`;
+}
+
+/* GHL vracia čas termínu raz ako ISO, raz ako „2026-10-09 16:30:00" v miestnom čase. */
+function msZo(x) {
+  const s = String(x || "");
+  if (/^\d{4}-\d{2}-\d{2}[ T]\d{2}:\d{2}(:\d{2})?$/.test(s)) return Date.parse(isoCas(s.slice(0, 10), s.slice(11, 16)));
+  return Date.parse(s);
+}
+
+/* Čo je na karte okrem mena (8. 10. 2026, podľa konzoly DKP, kde sú na karte polia
+   z dotazníka). U Miriam: najbližší termín (alebo posledný, keď ďalší nie je), adresa
+   a odkiaľ karta prišla. Termíny z tých istých kalendárov ako záložka Kalendár, jedno
+   volanie na kalendár, nie na kartu. Adresy pre najviac 100 naposledy zmenených kariet
+   jedným volaním (kontaktyNaraz). */
+const STROP_KONTAKTOV_KARIET = 100;
+async function detailKariet(env, karty) {
+  const teraz = Date.now();
+  const kedy = (x) => Date.parse(x.lastStageChangeAt || x.updatedAt || "") || 0;
+  const cids = [...new Set(karty.slice().sort((a, b) => kedy(b) - kedy(a))
+    .map((x) => (x.contact || {}).id).filter(Boolean))].slice(0, STROP_KONTAKTOV_KARIET);
+  const ids = kalendare(env);
+  const q = `locationId=${env.GHL_LOCATION_ID}&startTime=${teraz - 30 * 864e5}&endTime=${teraz + 90 * 864e5}`;
+  const [zoznamKal, udalosti, kontakty] = await Promise.all([
+    ghl(env, `/calendars/?locationId=${env.GHL_LOCATION_ID}`, { version: "2021-04-15" }),
+    Promise.all(ids.map((id) => ghl(env, `/calendars/events?${q}&calendarId=${id}`, { version: "2021-04-15" }))),
+    kontaktyNaraz(env, cids),
+  ]);
+  const nazvyKal = {};
+  for (const k of (((zoznamKal.d || {}).calendars) || [])) nazvyKal[k.id] = k.name || "";
+  const terminy = {};
+  for (const u of udalosti) {
+    for (const e of (((u.d || {}).events) || [])) {
+      if (!e.contactId || String(e.appointmentStatus || "") === "cancelled") continue;
+      const ms = msZo(e.startTime);
+      if (!Number.isFinite(ms)) continue;
+      const t = terminy[e.contactId] = terminy[e.contactId] || {};
+      const z = { ms, co: nazvyKal[e.calendarId] || e.title || "Termín" };
+      // termín, ktorý začal pred menej ako 3 hodinami, ešte beží, berie sa ako ďalší
+      if (ms >= teraz - 3 * 3600e3) { if (!t.dalsi || ms < t.dalsi.ms) t.dalsi = z; }
+      else if (!t.posledny || ms > t.posledny.ms) t.posledny = z;
+    }
+  }
+  const out = {};
+  cids.forEach((cid) => {
+    const c = kontakty[cid] || {};
+    out[cid] = { adresa: [c.address1, c.city].filter(Boolean).join(", ") };
+  });
+  for (const [cid, t] of Object.entries(terminy)) {
+    out[cid] = out[cid] || {};
+    out[cid].termin = t.dalsi ? { nazov: "Termín", ...t.dalsi } : t.posledny ? { nazov: "Bol termín", ...t.posledny } : null;
+  }
+  return out;
+}
+
+function poliaKarty(x, d) {
+  const polia = [];
+  if (d && d.termin) polia.push({ nazov: d.termin.nazov, hodnota: `${kratkyTermin(d.termin.ms)}, ${d.termin.co}` });
+  if (d && d.adresa && !/^online$/i.test(d.adresa)) polia.push({ nazov: "Adresa", hodnota: d.adresa });
+  if (x.source) polia.push({ nazov: "Zdroj", hodnota: x.source });
+  return polia;
+}
+
 async function prilezitosti(env) {
   const tag = demoTag(env);
   const [p, o] = await Promise.all([
     ghl(env, `/opportunities/pipelines?locationId=${env.GHL_LOCATION_ID}`),
-    ghl(env, `/opportunities/search?location_id=${env.GHL_LOCATION_ID}&limit=${STROP}`),
+    vsetkyKarty(env),
   ]);
   if (!p.ok) return json({ ok: false, error: "GHL nedalo pipeline" }, 502);
   if (!o.ok) return json({ ok: false, error: "GHL nedalo príležitosti" }, 502);
 
   // 🔴 Tu sa filtruje na tagoch VNORENÉHO kontaktu, ktoré /opportunities/search
   //    vracia rovno v odpovedi. Preto na to netreba ďalšie volanie na kontakt.
-  const tagovane = ((o.d || {}).opportunities || [])
-    .filter((x) => maTag((x.contact || {}).tags, tag));
+  const tagovane = o.karty.filter((x) => maTag((x.contact || {}).tags, tag));
 
   const pipeliny = (p.d || {}).pipelines || [];
   if (!pipeliny.length) return json({ ok: false, error: "v účte nie je žiadna pipeline" }, 404);
   const { pipeline, podla } = vyberPipeline(pipeliny, tagovane, env);
-
   const moje = tagovane.filter((x) => x.pipelineId === pipeline.id);
+
+  // Polia na karte sú bonus: keď zlyhajú, karty sa ukážu aj bez nich.
+  let detail = {};
+  try { detail = await detailKariet(env, moje); } catch (e) { detail = {}; }
+  const pravidla = pravidlaPresunu(env);
 
   return json({
     ok: true,
     pipeline: pipeline.name,
     vybrana_podla: podla,
-    stage: (pipeline.stages || []).map((s) => ({ id: s.id, nazov: s.name })),
+    neuplne: !!o.neuplne, spolu: o.spolu,
+    stage: (pipeline.stages || []).map((s) => {
+      const r = pravidloStadia(pravidla, s.name);
+      return { id: s.id, nazov: s.name, kluc: kluc(s.name), rucne: r.rucne, preco: r.preco,
+               hodnota: r.hodnota, dovod: r.dovod, otazka: r.otazka, predvyplnit: r.predvyplnit, stav: r.stav };
+    }),
     karty: moje.map((x) => ({
       id: x.id, stageId: x.pipelineStageId,
+      // kvôli tlačidlu Rozhovor na karte
+      contactId: (x.contact || {}).id || "",
       nazov: x.name || (x.contact || {}).name || "Bez názvu",
       firma: (x.contact || {}).companyName || "",
       tel: (x.contact || {}).phone || "",
       hodnota: x.monetaryValue || 0,
+      stav: x.status || "open",
       zdroj: x.source || "",
       zmena: x.lastStageChangeAt || x.updatedAt || "",
+      polia: poliaKarty(x, detail[(x.contact || {}).id]),
     })),
   });
 }
@@ -465,28 +731,107 @@ async function presun(env, telo) {
   const tag = demoTag(env);
   const id = String(telo.id || "");
   const stageId = String(telo.stageId || "");
-  if (!id || !stageId) return json({ ok: false, error: "chýba karta alebo stĺpec" }, 400);
+  if (!id || !stageId) return json({ ok: false, error: "chýba karta alebo štádium" }, 400);
 
-  const o = await ghl(env, `/opportunities/${id}`);
+  const [o, pl] = await Promise.all([
+    ghl(env, `/opportunities/${id}`),
+    ghl(env, `/opportunities/pipelines?locationId=${env.GHL_LOCATION_ID}`),
+  ]);
   if (!o.ok) return json({ ok: false, error: "príležitosť sa nenašla" }, 404);
   const p = (o.d || {}).opportunity || {};
   if (!maTag((p.contact || {}).tags, tag)) {
     return json({ ok: false, error: "táto karta sem nepatrí" }, 403);
   }
+  if (!pl.ok) return json({ ok: false, error: "GHL nedalo pipeline" }, 502);
+  const stadia = ((((pl.d || {}).pipelines || []).find((x) => x.id === p.pipelineId)) || {}).stages || [];
+  const ciel = stadia.find((s) => s.id === stageId);
+  if (!ciel) return json({ ok: false, error: "také štádium v pipeline tejto karty nie je" }, 400);
+  if (p.pipelineStageId === stageId) return json({ ok: false, error: "karta už v tomto štádiu je" }, 409);
 
-  // 🔴 PUT chce pipelineId AJ pipelineStageId. Bez pipelineId to GHL odmietne
-  //    a karta ostane, kde bola, hoci UI ju už presunulo.
-  const r = await ghl(env, `/opportunities/${id}`, {
-    method: "PUT",
-    body: JSON.stringify({ pipelineId: p.pipelineId, pipelineStageId: stageId }),
-  });
+  const pravidlo = pravidloStadia(pravidlaPresunu(env), ciel.name);
+  if (!pravidlo.rucne) {
+    return json({ ok: false, error: pravidlo.preco || `Do „${ciel.name}" sa karta presúva sama.` }, 403);
+  }
+  let hodnota = null;
+  if (pravidlo.hodnota) {
+    hodnota = hodnotaEur(telo.hodnota);
+    if (hodnota === null) {
+      return json({ ok: false, error: "Zadajte sumu v eurách, napríklad 290 alebo 3 900,50." }, 400);
+    }
+  }
+  const dovod = pravidlo.dovod ? String(telo.dovod || "").replace(/\s+/g, " ").trim().slice(0, 500) : "";
+  if (pravidlo.dovod && dovod.length < 3) {
+    return json({ ok: false, error: "Napíšte, prečo zákazník nekúpi." }, 400);
+  }
+  // Voliteľná veta do poznámky, napríklad z kalendára „Neprišiel na termín pi 9. 10. o 16:30".
+  const veta = String(telo.poznamka || "").replace(/\s+/g, " ").trim().slice(0, 300);
+
+  const plan = {
+    zo: (stadia.find((s) => s.id === p.pipelineStageId) || {}).name || "",
+    do: ciel.name, stav: pravidlo.stav, hodnota, dovod, poznamka: veta,
+  };
+  if (telo.skusobne === true) return json({ ok: true, skusobne: true, plan });
+
+  // 🔴 PUT chce pipelineId AJ pipelineStageId. Stav ide v tom istom PUTe: karta vrátená
+  //    z Projekt prehraný do otvoreného štádia je zase otvorená.
+  const zmena = { pipelineId: p.pipelineId, pipelineStageId: stageId, status: pravidlo.stav };
+  if (hodnota !== null) zmena.monetaryValue = hodnota;
+  const r = await ghl(env, `/opportunities/${id}`, { method: "PUT", body: JSON.stringify(zmena) });
   if (!r.ok) return json({ ok: false, error: "presun sa neuložil", detail: r.d }, 502);
 
-  // 🔴 200 nie je dôkaz, prečítaj späť. Frontend podľa toho vráti kartu
-  //    naspäť, keď sa presun neujal.
-  const spat = await ghl(env, `/opportunities/${id}`);
-  const teraz = ((spat.d || {}).opportunity || {}).pipelineStageId;
-  return json({ ok: teraz === stageId, stageId: teraz });
+  // 🔴 200 nie je dôkaz, prečítaj späť. Keď `status` v tele PUTu neprejde,
+  //    skúsi sa samostatný endpoint na stav.
+  const nacitaj = async () => ((await ghl(env, `/opportunities/${id}`)).d || {}).opportunity || {};
+  let spat = await nacitaj();
+  if (spat.pipelineStageId === stageId && spat.status !== pravidlo.stav) {
+    await ghl(env, `/opportunities/${id}/status`, {
+      method: "PUT", body: JSON.stringify({ status: pravidlo.stav }),
+    });
+    spat = await nacitaj();
+  }
+  if (spat.pipelineStageId !== stageId) {
+    return json({ ok: false, error: "presun sa neuložil", stageId: spat.pipelineStageId || "" });
+  }
+  const overene = spat.status === pravidlo.stav
+    && (hodnota === null || Number(spat.monetaryValue) === hodnota);
+
+  // Suma sa na karte prepíše bez stopy (projekt prepíše sumu za diagnostiku) a dôvod
+  // na karte nemá kam ísť, preto oboje aj do poznámky kontaktu, s dátumom.
+  let poznamka = null;
+  const cid = (p.contact || {}).id;
+  const casti = [hodnota !== null ? eurText(hodnota) : "", dovod, veta].filter(Boolean);
+  if (cid && casti.length) {
+    const text = `${ciel.name}: ${casti.join(". ")}\nZapísané v konzole ${terazText()}.`;
+    poznamka = (await ghl(env, `/contacts/${cid}/notes`, {
+      method: "POST", body: JSON.stringify({ body: text }),
+    })).ok;
+  }
+
+  const znacka = await oznacPresunom(env, p, ciel.name);
+  return json({ ok: true, stageId: spat.pipelineStageId, stav: spat.status || "",
+                hodnota: spat.monetaryValue ?? null, overene, poznamka, znacka });
+}
+
+/* Presun karty môže spustiť sekvenciu značkou (ako v konzole DKP).
+   🔴 GHL trigger `pipeline_stage_updated` sa pri presune cez API NESPUSTÍ (overené na DKP),
+   preto by sa sekvencia spúšťala značkou. Mapa `ZNACKY_PRE_STAGE` (JSON {"názov štádia":
+   "znacka"}) je zatiaľ PRÁZDNA: u Miriam 8. 10. 2026 nie je zapnutý ani jeden workflow,
+   ktorý by mal presun karty niečo poslať. Bez mapy presun nepošle nič. */
+async function oznacPresunom(env, prilezitost, nazov) {
+  let mapa;
+  try { mapa = JSON.parse(env.ZNACKY_PRE_STAGE || "{}"); } catch { return null; }
+  if (!mapa || typeof mapa !== "object" || !Object.keys(mapa).length) return null;
+  const cid = (prilezitost.contact || {}).id;
+  if (!cid) return null;
+  const k = Object.keys(mapa).find((x) => kluc(x) === kluc(nazov));
+  if (!k) return null;
+  const znacka = String(mapa[k] || "").trim().toLowerCase();
+  if (!znacka) return null;
+  await ghl(env, `/contacts/${cid}/tags`, { method: "POST", body: JSON.stringify({ tags: [znacka] }) });
+  // 🔴 Aj tu platí, že 200 nie je dôkaz.
+  const kontakt = await ghl(env, `/contacts/${cid}`);
+  const tagy = ((kontakt.d || {}).contact || {}).tags || [];
+  return tagy.map((x) => String(x).toLowerCase()).includes(znacka) ? znacka : null;
 }
 
 /* ── prehľad ──────────────────────────────────────────────────────────── */
@@ -599,6 +944,8 @@ const DNI_SK = ["nedeľa", "pondelok", "utorok", "streda", "štvrtok", "piatok",
 const PRACOVNY_CAS = { 1: [["09:00", "17:00"]], 2: [["09:00", "17:00"]], 3: [["09:00", "17:00"]],
                        4: [["09:00", "17:00"]], 5: [["09:00", "17:00"]] };
 const NAZOV_BLOKU = "Zatvorené v konzole";
+// štádium, do ktorého ide karta po „Neprišiel" v okienku termínu (porovnáva sa cez kluc())
+const NO_SHOW = "No-show";
 
 /* Kalendáre: prvý je hlavný (z neho sa číta zavretý čas), ďalšie sa ukazujú
    a blokujú s ním. KALENDAR_ID a KALENDARE_NAVIAC (čiarkami). */
@@ -686,17 +1033,35 @@ async function kalendar(env, telo) {
   const zdroj = Object.keys(hodiny).length ? hodiny : PRACOVNY_CAS;
   const krok = Math.min(...kaly.map((x) => Number(x.cal.slotInterval) || Number(x.cal.slotDuration) || 30));
 
-  // termíny zo všetkých kalendárov, mená ľudí z kontaktov (strop 40, nech to nerastie s databázou)
+  // termíny zo všetkých kalendárov, mená ľudí z kontaktov
   const terminy = kaly.flatMap((x) => (((x.u.d || {}).events) || [])
     .filter((e) => String(e.appointmentStatus || "") !== "cancelled")
     .map((e) => ({ e, kal: x })));
-  const idKontaktov = [...new Set(terminy.map((t) => t.e.contactId).filter(Boolean))].slice(0, 40);
-  const kontakty = {};
-  await Promise.all(idKontaktov.map(async (cid) => {
-    const r = await ghl(env, `/contacts/${cid}`);
-    const c = (r.d || {}).contact;
-    if (r.ok && c) kontakty[cid] = c;
-  }));
+  // Kontakty jedným volaním (kontaktyNaraz), týždeň ich má ďaleko menej ako 100.
+  const idKontaktov = [...new Set(terminy.map((t) => t.e.contactId).filter(Boolean))].slice(0, 100);
+  /* Karta k termínu (8. 10. 2026, okienko termínu ako v konzole DKP): v okienku je
+     tlačidlo „Neprišiel", ktoré kartu presunie do štádia No-show. Preto treba vedieť,
+     ktorá karta patrí k človeku a ktoré štádium je No-show. */
+  const [kontakty, pl, op] = await Promise.all([
+    kontaktyNaraz(env, idKontaktov),
+    ghl(env, `/opportunities/pipelines?locationId=${env.GHL_LOCATION_ID}`),
+    ghl(env, `/opportunities/search?location_id=${env.GHL_LOCATION_ID}&limit=${STROP}`),
+  ]);
+  const vsetkyKartyKal = ((op.d || {}).opportunities || []).filter((x) => maTag((x.contact || {}).tags, tag));
+  const pipeliny = (pl.d || {}).pipelines || [];
+  const pipeline = pipeliny.length ? vyberPipeline(pipeliny, vsetkyKartyKal, env).pipeline : null;
+  const stadia = (pipeline && pipeline.stages) || [];
+  const noShow = (stadia.find((s) => kluc(s.name) === kluc(NO_SHOW)) || {}).id || "";
+  const kartaKontaktu = {};
+  for (const x of vsetkyKartyKal) {
+    const cid = (x.contact || {}).id;
+    if (!cid || !pipeline || x.pipelineId !== pipeline.id) continue;
+    // otvorená karta má prednosť pred uzavretou
+    if (kartaKontaktu[cid] && kartaKontaktu[cid].stav === "open") continue;
+    kartaKontaktu[cid] = { id: x.id, stageId: x.pipelineStageId, stav: x.status || "open",
+      stage: (stadia.find((s) => s.id === x.pipelineStageId) || {}).name || "" };
+  }
+  const teraz = Date.now();
 
   const dni = [];
   for (let i = 0; i < 7; i++) {
@@ -711,9 +1076,18 @@ async function kalendar(env, telo) {
         // 🔴 kontakt mimo tagu konzoly: termín vidno, kto to je a rozhovor nie
         const smie = !!c && maTag(c.tags, tag);
         const meno = smie ? ([c.firstName, c.lastName].filter(Boolean).join(" ") || c.name || c.phone || "Bez mena") : "Rezervované";
+        const zaciatokMs = msZo(t.e.startTime);
+        const karta = smie ? (kartaKontaktu[t.e.contactId] || null) : null;
         return { id: t.e.id, od: vZone(t.e.startTime).cas, do: vZone(t.e.endTime).cas, meno,
                  co: t.kal.cal.name || "Termín", kal: t.kal.poradie, potvrdeny: t.e.appointmentStatus === "confirmed",
-                 contactId: smie ? t.e.contactId : "" };
+                 contactId: smie ? t.e.contactId : "",
+                 zaciatok: Number.isFinite(zaciatokMs) ? new Date(zaciatokMs).toISOString() : "",
+                 // adresa z termínu, staršie termíny ju nemajú, vtedy z kontaktu
+                 adresa: smie ? (String(t.e.address || "").trim() || [c.address1, c.city].filter(Boolean).join(", ")) : "",
+                 tel: smie ? (c.phone || "") : "",
+                 karta,
+                 // neprišiel = karta je v No-show a termín už bol
+                 neprisiel: !!(karta && noShow && karta.stageId === noShow && zaciatokMs < teraz) };
       }),
       zavrete: (((bl.d || {}).events) || []).filter((e) => vZone(e.startTime).datum === datum)
         .map((e) => ({ id: e.id, od: vZone(e.startTime).cas, do: vZone(e.endTime).cas,
@@ -723,7 +1097,7 @@ async function kalendar(env, telo) {
 
   const vsetky = dni.flatMap((d) => d.otvorene);
   return json({
-    ok: true, od, krok,
+    ok: true, od, krok, noShow,
     kalendare: kaly.map((x) => ({ poradie: x.poradie, nazov: x.cal.name || "Kalendár" })),
     zaciatok: vsetky.length ? hhmmZ(Math.min(...vsetky.map((h) => minutyZo(h.od)))) : "09:00",
     koniec: vsetky.length ? hhmmZ(Math.max(...vsetky.map((h) => minutyZo(h.do)))) : "17:00",
@@ -778,7 +1152,8 @@ async function otvor(env, telo) {
 }
 
 const CESTY = {
-  "/api/konverzacie": (env) => konverzacie(env),
+  "/api/konverzacie": (env, b) => konverzacie(env, b),
+  "/api/vybavene": (env, b) => vybavene(env, b),
   "/api/sprava": (env, b) => sprava(env, b),
   "/api/odpovedz": (env, b) => odpovedz(env, b),
   "/api/prilezitosti": (env) => prilezitosti(env),
