@@ -1,14 +1,14 @@
-/* /profil-rezervacia: kvalifikovaní z testu. Profil nedostanú, dostanú 20 minút s Miriam,
-   ktorá im podľa odpovedí pripraví riešenie vopred.
+/* /profil-rezervacia: horúci z testu (chce začať do 3 mesiacov a má od 3 000 €).
+   Plán jej Miriam odovzdá osobne na 10-minútovom hovore, Miriam volá.
    Kalendár ako na variante B (diagnostika-b/dist/b/js/b.js), voľné časy z /api/sloty?typ=rozhovor.
-   Rezervácia ide na /api/rozhovor. 🔴 Ten je zatiaľ zapojený LEN na náhľade (TEST_REZIM=1),
-   naostro vráti 503, kým sa s Miriam nedohodne kalendár a potvrdenie. */
+   Rezervácia ide na /api/rozhovor. Meno a e-mail sú predvyplnené z testu (sessionStorage „mc_kontakt“),
+   stránka ale funguje aj bez nich, napríklad z odkazu v e-maile. */
 (function () {
   "use strict";
   var P = window.PROFIL;
   if (!P) return;
-  var TEL = "+421 918 819 906";
-  var MAX_DNI = 5, MAX_CASOV = 8;
+  var TEL = "0918 819 906";
+  var MAX_DNI = 5, MAX_CASOV = 16;
 
   function $(s) { return document.querySelector(s); }
   var esc = P.esc;
@@ -18,15 +18,16 @@
   if (!o) { location.replace("/profil#test"); return; }
   P.uloz(o);
 
+  var kontakt = {};
+  try { kontakt = JSON.parse(sessionStorage.getItem("mc_kontakt") || "null") || {}; } catch (e) {}
   var M = P.MIESTA[o.m];
-  var riadky = [
-    ["Pocit", P.POCITY[o.p].n], ["Miesto", M.n], ["Prečo", P.DOVODY[o.d].n],
-    ["Svetlo", P.SVETLO[o.s].n], ["Začať", P.KEDY[o.k].n], ["Rozpočet", P.ROZPOCET[o.r].n]
-  ];
-  $("#odpovede").innerHTML = riadky.map(function (r) { return "<dt>" + esc(r[0]) + "</dt><dd>" + esc(r[1]) + "</dd>"; }).join("");
+  $("#odpovede").innerHTML = P.OTAZKY.map(function (q) {
+    var nazvy = { m: "Miestnosť", d: "Prekáža", n: "Ponechať", p: "Pocit", k: "Začať", r: "Rozpočet" };
+    return "<dt>" + esc(nazvy[q.k]) + "</dt><dd>" + esc(q.z[o[q.k]].n) + "</dd>";
+  }).join("");
   $("#zmenit").href = "/profil?" + P.doAdresy(o) + "#test";
-  $("#bod1").textContent = "Riešenie " + (o.m === "kut" ? "pre tvoj " : "pre tvoju ") + M.akuz;
-  $("#bod2").textContent = "Aby si doma cítila " + P.POCITY[o.p].n.toLowerCase() + ". Vyberiem ich podľa svetla, ktoré máš.";
+  $("#bod1").textContent = "Čo by som " + M.lok + " riešila ako prvé";
+  if (kontakt.meno) $("#sub").innerHTML = esc(kontakt.meno) + ", podľa tvojich odpovedí to so zmenou myslíš vážne. Preto ti plán nepošlem len e-mailom. Pozriem sa naň vopred a za 10 minút ti ho prejdem po telefóne. <strong>Zadarmo. Vyber si čas, zavolám ti ja.</strong>";
   try { P.recenzie("#kopa", 3); } catch (e) {}
 
   /* ---------- slovenský dátum si skladáme sami ----------
@@ -53,6 +54,8 @@
   var dniEl = $("#dni"), slotyEl = $("#sloty"), stav = $("#kalStav"), form = $("#formular");
   var btn = $("#rezervovat"), chyba = $("#chyba");
   var dni = [], vybranyCas = null, bezi = false;
+  if (kontakt.meno) form.meno.value = kontakt.meno;
+  if (kontakt.email) form.email.value = kontakt.email;
 
   function nacitaj() {
     stav.hidden = false; stav.textContent = "Načítavam voľné časy…";
@@ -114,10 +117,7 @@
     btn.textContent = "Rezervovať hovor zadarmo";
   }
 
-  function hodnota(meno) {
-    var e = form.querySelector('[name="' + meno + '"]');
-    return e ? (e.type === "checkbox" ? e.checked : String(e.value || "").trim()) : "";
-  }
+  function hodnota(meno) { var e = form.querySelector('[name="' + meno + '"]'); return e ? String(e.value || "").trim() : ""; }
   function zle(meno, je) { var e = form.querySelector('[name="' + meno + '"]'); if (e) e.classList.toggle("zle", je); }
   function povedz(t) { chyba.innerHTML = t; chyba.classList.add("vidno"); }
 
@@ -128,9 +128,8 @@
   function hotovo(d, test) {
     var h = $("#hotovo");
     h.innerHTML = "<h3>Hotovo, " + esc(d.meno) + "</h3>" +
-      "<p>Hovor máme <b>" + esc(kedy(vybranyCas)) + "</b>. Potvrdenie ti príde e-mailom aj SMS.</p>" +
-      "<p>Ak chceš, odpíš na potvrdenie 2 až 3 fotkami tej miestnosti. Pripravím sa lepšie.</p>" +
-      "<p>Ak sa rozhodujete spolu s partnerom, príďte na hovor obaja.</p>" +
+      "<p>Zavolám ti <b>" + esc(kedy(vybranyCas)) + "</b> na číslo " + esc(d.telefon) + ". Potvrdenie ti príde SMS aj e-mailom.</p>" +
+      "<p>Ak chceš, odpíš na potvrdzujúci e-mail fotkou tej miestnosti. Pripravím sa lepšie.</p>" +
       (test ? '<span class="nahlad">Náhľad: rezervácia sa neuložila a nič neodišlo.</span>' : "");
     $("#kal").hidden = true;
     h.hidden = false;
@@ -141,15 +140,16 @@
   form.addEventListener("submit", function (e) {
     e.preventDefault();
     if (bezi || !vybranyCas) return;
-    var d = { meno: hodnota("meno"), email: hodnota("email"), telefon: hodnota("telefon"), suhlas: hodnota("suhlas") };
+    var d = { meno: hodnota("meno").replace(/\s+/g, " "), email: hodnota("email"), telefon: hodnota("telefon") };
     var zlyMail = !/^[^@\s]+@[^@\s]+\.[a-z]{2,}$/i.test(d.email);
-    zle("meno", d.meno.length < 2); zle("email", zlyMail); zle("telefon", d.telefon.replace(/\D/g, "").length < 9);
+    var zlyTel = d.telefon.replace(/\D/g, "").length < 9;
+    zle("meno", d.meno.length < 2); zle("email", zlyMail); zle("telefon", zlyTel);
     if (d.meno.length < 2) return povedz("Napíš prosím krstné meno.");
     if (zlyMail) return povedz("Ten e-mail nevyzerá platne.");
-    if (d.telefon.replace(/\D/g, "").length < 9) return povedz("Telefónne číslo vyzerá krátko.");
-    if (!d.suhlas) return povedz("Bez zaškrtnutia ti neviem poslať potvrdenie hovoru.");
+    if (zlyTel) return povedz("Telefónne číslo vyzerá krátko.");
 
     bezi = true; btn.disabled = true; btn.textContent = "Rezervujem…";
+    try { sessionStorage.setItem("mc_kontakt", JSON.stringify({ meno: d.meno, email: d.email })); } catch (err) {}
     var telo = { start: vybranyCas, meno: d.meno, email: d.email, telefon: d.telefon, odpovede: o };
     fetch("/api/rozhovor", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(telo) })
       .then(function (r) { return r.json().catch(function () { return {}; }).then(function (x) { return { s: r.status, x: x }; }); })
@@ -157,6 +157,7 @@
         if (v.x && v.x.ok) { hotovo(d, !!v.x.test); return; }
         bezi = false;
         if (v.s === 409) { obnov(); povedz("Tento čas si práve niekto vzal. Vyber si prosím iný."); nacitaj(); return; }
+        if (v.x && v.x.error === "bad_phone") { obnov(); zle("telefon", true); povedz("Toto telefónne číslo nevyzerá správne. Skontroluj ho prosím."); return; }
         throw new Error("rozhovor");
       })
       .catch(function () {

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Tvoj plán od Miriam · Miriam Czompoly, Trnava</title>
+  <meta name="description" content="Čo by som v tvojej miestnosti riešila ako prvé a 3 kroky na tento víkend." />
+  <!-- Lievik „Plán od Miriam“ (12. 10. 2026): samotný plán. Odkaz naň chodí e-mailom
+       (/api/profil vlažným a ostatným hneď, horúcim po hovore). Poradie zhora nadol určila Miriam:
+       oslovenie, verdikt a úvod, veta o nábytku, 3 kroky, odsek o pocite, realizácia, diagnostika. -->
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="theme-color" content="#262019" />
+  <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/css/profil.css" />
+</head>
+<body>
+
+  <main>
+    <section class="vysledok-hlava">
+      <div class="obal">
+        <p class="stitok">Plán od Miriam</p>
+        <h1 class="oslovenie" id="oslovenie">Tu je, čo by som riešila ako prvé.</h1>
+      </div>
+    </section>
+
+    <section class="plan">
+      <div class="obal">
+        <div class="verdikt">
+          <h2 id="verdikt"></h2>
+          <p id="uvod"></p>
+        </div>
+        <p class="nabytok" id="nabytok"></p>
+
+        <div class="zona">
+          <h3>3 kroky na tento víkend</h3>
+          <ol id="kroky"></ol>
+        </div>
+
+        <div class="pocit">
+          <h3 id="pocitNadpis">Pocit, ktorý chceš</h3>
+          <p id="pocit"></p>
+        </div>
+
+        <div class="realizacia">
+          <h3>Moja realizácia</h3>
+          <figure class="profil-foto">
+            <img id="foto" src="/assets/img/realizacie/vidiecky-4.jpg" alt="" width="640" height="480" />
+            <figcaption id="fotoVeta"></figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="obal">
+        <h2>Keď budeš chcieť ísť ďalej</h2>
+        <p id="most">Toto je smer. Čo v tvojej miestnosti konkrétne zmeniť, čo nechať a v akom poradí, aby si neprepálila peniaze, robím na diagnostike.</p>
+        <p>Trvá 90 minút a stojí 290 € u teba doma alebo 250 € online. Ak potom pokračuješ projektom, cenu diagnostiky ti odpočítam.</p>
+        <a class="btn" href="/diagnostika">Pozrieť diagnostiku</a>
+        <p class="drobne stred"><a href="/profil#test" id="znova">Chceš plán aj pre inú miestnosť?</a></p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="paticka">
+    <div class="obal">
+      <div><b>Miriam Czompoly</b>, interiérový dizajn</div>
+      <div>J. Hlubíka 42, 917 01 Trnava · IČO 45714088</div>
+      <div><a href="tel:+421918819906">+421 918 819 906</a> · <a href="mailto:dizajn@miriamczompoly.sk">dizajn@miriamczompoly.sk</a></div>
+      <nav><a href="/gdpr" target="_blank" rel="noopener">Ochrana osobných údajov</a></nav>
+    </div>
+  </footer>
+
+  <script src="/assets/js/profil-data.js"></script>
+  <script src="/assets/js/plan.js"></script>
+</body>
+</html>

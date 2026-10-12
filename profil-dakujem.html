@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Plán ti odišiel do e-mailu · Miriam Czompoly, Trnava</title>
+  <meta name="description" content="Plán pre tvoju miestnosť ti práve odišiel do e-mailu." />
+  <!-- Lievik „Plán od Miriam“, NÁHĽAD (12. 10. 2026): ďakovná stránka pre vlažných a ostatných.
+       Plán im odišiel e-mailom (/api/profil), tu je ponuka diagnostiky. -->
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="theme-color" content="#262019" />
+  <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/css/profil.css" />
+</head>
+<body>
+
+  <main>
+    <section class="hero dakujem">
+      <div class="obal">
+        <p class="stitok">Hotovo</p>
+        <h1>Plán ti práve <em>odišiel do e-mailu</em></h1>
+        <p class="sub" id="komu">Ak ho do pár minút nevidíš, pozri priečinok Promo alebo Spam.</p>
+        <div class="ochutnavka" id="ochutnavka" hidden>
+          <p class="stitok">Čo by som riešila ako prvé</p>
+          <p class="verdikt-nazov" id="verdikt"></p>
+          <p id="uvod"></p>
+          <p class="drobne">Tri kroky na tento víkend a celý plán máš v e-maile.</p>
+        </div>
+        <span class="nahlad" id="nahlad" hidden>Náhľad: nič sa neuložilo a e-mail neodišiel.</span>
+      </div>
+    </section>
+
+    <section>
+      <div class="obal">
+        <h2>Keď budeš chcieť ísť ďalej</h2>
+        <p id="most">Plán ti ukáže smer. Čo v tvojej miestnosti konkrétne zmeniť, čo nechať a v akom poradí, aby si neprepálila peniaze, robím na diagnostike.</p>
+        <p>Trvá 90 minút a stojí 290 € u teba doma alebo 250 € online. Ak potom pokračuješ projektom, cenu diagnostiky ti odpočítam.</p>
+        <a class="btn" href="/diagnostika">Pozrieť diagnostiku</a>
+      </div>
+    </section>
+
+    <section>
+      <div class="obal">
+        <h2>Čo hovoria klienti</h2>
+        <div class="kopa" id="kopa"></div>
+        <p class="drobne stred"><a href="/profil#test">Chceš plán aj pre inú miestnosť?</a></p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="paticka">
+    <div class="obal">
+      <div><b>Miriam Czompoly</b>, interiérový dizajn</div>
+      <div>J. Hlubíka 42, 917 01 Trnava · IČO 45714088</div>
+      <div><a href="tel:+421918819906">+421 918 819 906</a> · <a href="mailto:dizajn@miriamczompoly.sk">dizajn@miriamczompoly.sk</a></div>
+      <nav><a href="/gdpr" target="_blank" rel="noopener">Ochrana osobných údajov</a></nav>
+    </div>
+  </footer>
+
+  <script src="/assets/js/profil-data.js"></script>
+  <script src="/assets/js/profil-dakujem.js"></script>
+</body>
+</html>

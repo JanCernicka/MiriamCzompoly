@@ -1,5 +1,7 @@
 # Návrh: lead magnet „Pocitový profil domova“ (8. 10. 2026)
 
+🔴 Nahradené 12. 10. 2026 lievikom „Plán od Miriam“ s Miriaminými otázkami a textami: `ZMENY-2026-10-12-plan-od-miriam.md`.
+
 Interný návrh pre Jana (s Hormozim, číslami a výpočtami): https://claude.ai/artifact/KdZW2mfqNvj7iPA4aXZyfv
 Verzia pre Miriam (bez Hormoziho a interných čísel, ukážka profilu, 6 profilov, kroky na víkend): https://claude.ai/artifact/MQ9GxqMR1bm99cfRiW69Wo
 Správa pre Miriam je v internom návrhu. Zásady v nej idú ako naše skúsenosti, stylistka ako príklad z podobného odboru,

@@ -1,4 +1,4 @@
-/* Lievik „Pocitový profil domova“ (náhľad od 8. 10. 2026).
+/* Lievik „Plán od Miriam“ (/profil, náhľad od 12. 10. 2026, predtým „Pocitový profil domova“).
    Stavba a tlačidlá ako varianta B (diagnostika-b/dist/b/css/b.css), farby a písmo Miriam.
    🔴 Plocha stránky je VŽDY biela, značkové farby len na prvky (CLAUDE.md, 23. 9. 2026).
    🔴 Mosadz #A9885E má na bielej 3,2:1, ako text sa používa len --akcent-tmavy. */
@@ -47,7 +47,8 @@ section + section{border-top:1px solid var(--linka)}
 /* pred a po */
 .pred-po{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:0 0 6px}
 .pred-po figure{margin:0;position:relative}
-.pred-po img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:12px;background:var(--karta)}
+/* 🔴 height:auto, inak atribút height="450" prebije aspect-ratio a fotka je na mobile vysoká */
+.pred-po img{width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;border-radius:12px;background:var(--karta)}
 .pred-po figcaption{position:absolute;left:8px;top:8px;background:rgba(38,32,25,.78);color:#fff;
   font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:4px 8px;border-radius:6px}
 .popis-foto{font-size:13px;color:var(--sivy);margin:0 0 4px}
@@ -170,32 +171,33 @@ section > .obal > .btn{margin-top:22px}
 .nahlad{display:inline-block;margin-top:6px;font-size:12.5px;font-weight:700;color:var(--akcent-tmavy);
   background:var(--karta);border:1px dashed var(--akcent);border-radius:8px;padding:4px 8px}
 
-/* ---------- výsledok: pocitový profil ---------- */
-.vysledok-hlava{text-align:center;padding:26px 0 6px}
-.vysledok-hlava .stitok{font-size:12px;font-weight:800;letter-spacing:.11em;text-transform:uppercase;color:var(--akcent-tmavy);margin:0 0 4px}
-.vysledok-hlava h1{font-size:44px;line-height:1;margin:0 0 10px}
-.vysledok-hlava .sub{font-size:16px;margin:0 auto 14px;max-width:30em;text-wrap:balance}
-.profil-foto{margin:0 0 6px}
-.profil-foto img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:14px;background:var(--karta)}
-.profil-foto figcaption{font-size:12.5px;color:var(--sivy);margin-top:6px;text-align:center}
-.paleta{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px;margin:6px 0 4px}
-.farba{display:grid;gap:4px;font-size:11.5px;line-height:1.2;text-align:center;color:var(--sivy)}
-.farba i{display:block;aspect-ratio:1/1.15;border-radius:8px;border:1px solid var(--linka)}
-.riadky{display:grid;gap:6px;margin:14px 0 0;font-size:15px}
-.riadky p{margin:0}
-.riadky b{color:var(--tma)}
+/* ---------- plán a ďakovná stránka ---------- */
+.pasca{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
+.stitok{font-size:12px;font-weight:800;letter-spacing:.11em;text-transform:uppercase;color:var(--akcent-tmavy);margin:0 0 6px}
+.stred{text-align:center}
+.vysledok-hlava{text-align:center;padding:30px 0 4px}
+.vysledok-hlava + section{border-top:0;padding-top:14px}
+.oslovenie{font-size:34px;line-height:1.08;margin:0 auto;max-width:15em;text-wrap:balance}
+.verdikt{border:2px solid var(--akcent);border-radius:16px;padding:18px 18px 4px;text-align:left}
+.verdikt h2{font-size:31px;margin-bottom:.3em}
+.verdikt p{font-size:16.5px;color:var(--tma)}
+.nabytok{margin:18px 2px 0;font-size:16px}
 .zona{background:var(--karta);border:1px solid var(--linka);border-radius:14px;padding:16px;margin-top:18px}
-.zona .hl{display:flex;align-items:center;gap:8px;font-weight:700;color:var(--tma);margin-bottom:10px;line-height:1.3}
-.zona .hl i{width:11px;height:11px;border-radius:50%;background:var(--cervena);flex:0 0 11px}
-.zona h3{font-family:var(--sans);font-size:12px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--akcent-tmavy);margin:0 0 8px}
-.zona ol{margin:0 0 12px;padding-left:20px;display:grid;gap:6px;font-size:15px}
-.zona .nekupuj{margin:0;font-size:14.5px}
-.most{margin:18px 0 0;font-size:16px;color:var(--tma);padding-top:16px;border-top:1px solid var(--linka)}
-.email-karta{border:1.5px solid var(--tma);border-radius:16px;padding:18px 16px;margin-top:22px}
-.email-karta h2{font-size:25px;margin-bottom:.25em}
-.email-karta .riadok{display:grid;grid-template-columns:1fr;gap:8px}
-.email-karta .pole{margin:0}
+.zona h3,.pocit h3,.realizacia h3{font-family:var(--sans);font-size:12px;font-weight:800;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--akcent-tmavy);margin:0 0 10px}
+.zona ol{margin:0;padding-left:22px;display:grid;gap:8px;font-size:16px;color:var(--tma)}
+.pocit{margin-top:24px}
+.pocit p{font-size:16px;margin:0}
+.realizacia{margin-top:24px}
+.profil-foto{margin:0}
+.profil-foto img{width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;border-radius:14px;background:var(--karta)}
+.profil-foto figcaption{font-size:14px;color:var(--sivy);margin-top:8px}
+.dakujem{padding-top:34px}
+.ochutnavka{background:var(--karta);border:1px solid var(--linka);border-radius:14px;padding:16px;margin:16px 0 0;text-align:left}
+.verdikt-nazov{font-family:var(--display);font-size:27px;font-weight:600;color:var(--tma);line-height:1.1;margin:0 0 6px}
+.ochutnavka p{margin-bottom:.5em}
 .drobne{font-size:12.5px;color:var(--sivy);margin:10px 0 0;line-height:1.45}
+.drobne.stred{font-size:14px;margin-top:18px}
 
 /* ---------- päta ---------- */
 .paticka{padding:26px 0 34px;border-top:1px solid var(--linka);font-size:13.5px;color:var(--sivy);text-align:center}
@@ -214,9 +216,7 @@ section > .obal > .btn{margin-top:22px}
   .sloty{grid-template-columns:repeat(4,1fr)}
   .test-telo h2{font-size:38px}
   .dlazdica{padding:18px 16px}
-  .email-karta .riadok{grid-template-columns:1fr auto}
-  .email-karta .btn{min-width:0}
-  .vysledok-hlava h1{font-size:56px}
+  .oslovenie{font-size:44px}
 }
 @media(max-width:359px){.pruh .co{display:none}.dlazdice{grid-template-columns:1fr}}
 @media(prefers-reduced-motion:reduce){.zive i,.vyhodnocujem .kruh{animation:none}.postup i{transition:none}html{scroll-behavior:auto}}
