@@ -1,6 +1,6 @@
 /* Lievik „Plán od Miriam“ (/profil), od 12. 10. 2026 podľa Miriam.
-   Spoločné dáta pre stránky /profil (test), /profil-rezervacia (horúci), /profil-dakujem (ostatní)
-   a /plan (plán, odkaz z e-mailu). Ten istý súbor číta aj server (functions/_lib/profil.js),
+   Spoločné dáta pre stránky /profil (formulár), /profil-rezervacia (horúci) a /plan (plán, odkaz
+   z e-mailu). Vlažní a ostatní idú po formulári na /diagnostika so zeleným pruhom. Ten istý súbor číta aj server (functions/_lib/profil.js),
    preto tu nesmie byť nič, čo pri načítaní siaha na window alebo document.
 
    🔴 Otázky, odpovede a všetky texty plánu napísala Miriam (12. 10. 2026). Nič v nich

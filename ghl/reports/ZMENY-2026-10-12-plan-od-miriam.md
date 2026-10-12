@@ -5,13 +5,18 @@ napísala Miriam a Jano s ňou dohodol 10-minútovú konzultáciu, na ktorej pl�
 Vetva `claude/profil-lievik`, nasadené `./nasad-web.sh profil`: https://profil.miriam-web-staging.pages.dev/profil
 Všetky SMS a e-maily na schválenie (artifact): https://claude.ai/artifact/Bj7X7TxZY8GE6k7HDWWT5S . Texty sem nekopírovať, žijú v šablónach GHL a v `functions/_lib/profil.js`.
 
-## Tok
-1. `/profil`: landing (3 sekcie, 4 recenzie, 4 body, 3 tlačidlá) a test so 6 otázkami od Miriam:
-   miestnosť (7), čo prekáža (6), čo ponechať (5), pocit (6), kedy (4), rozpočet (5).
-2. Na konci krstné meno a e-mail (Miriam: e-mail pred výsledkom), `/api/profil` zapíše kontakt a vráti skupinu.
+## Tok (zmena 12. 10. večer, Jano: celý formulár na stránke, rezervácia len telefón)
+1. `/profil`: hero s videom 16:9, 4 body, **celý formulár na stránke** (6 otázok od Miriam, 7. krstné meno,
+   8. e-mail), o mne. Otázky: miestnosť (7), čo prekáža (6), čo ponechať (5), pocit (6), kedy (4), rozpočet (5).
+2. `/api/profil` zapíše kontakt a vráti skupinu.
 3. Skupiny (Miriam): **horúci** = hneď alebo do 3 mesiacov A ZÁROVEŇ od 3 000 €. **Vlažný** = platí jedno z toho. **Ostatní** = nič.
-   - horúci → `/profil-rezervacia`: „Tvoj plán ti odovzdám osobne“, 10-minútový hovor, Miriam volá.
-   - vlažní a ostatní → `/profil-dakujem`: plán odišiel e-mailom, prvá veta z neho a ponuka diagnostiky.
+   - horúci → `/profil-rezervacia`: „Tvoj plán ti odovzdám osobne“, video 16:9, 10-minútový hovor, Miriam volá.
+     Doplní **len telefón**, meno a e-mail nesie sessionStorage. Bez nich (odkaz z e-mailu) sa ukážu aj tie polia.
+   - vlažní a ostatní → plán e-mailom (s pozvánkou na diagnostiku) a hneď **`/diagnostika?plan=odoslany&utm_source=plan-od-miriam`**:
+     dnešná stránka diagnostiky (A aj B, s jej videom), hore zelený pruh „Plán ti odišiel do e-mailu. Ešte neodchádzaj“
+     (`functions/diagnostika.js`). Lišta s návodom sa im nezobrazí. `/profil-dakujem` je preč.
+   - 🔴 A/B test diagnostiky: títo ľudia sa delia na A/B ako ostatní. Pri vyhodnotení ich vyradiť cez `zdroj = plan-od-miriam`.
+4. Videá na `/profil` a `/profil-rezervacia` Miriam ešte natočí. Zatiaľ je tam miesto, video sa doplní do `data-src` (`assets/js/profil-video.js`).
 4. `/plan?m=&d=&n=&p=`: plán v poradí od Miriam (oslovenie, verdikt a úvod, veta o nábytku, 3 kroky,
    odsek o pocite, jej realizácia, diagnostika). Odkaz naň chodí e-mailom.
 
@@ -19,10 +24,10 @@ Videoponuku pre horúcich („pošli fotku, pošlem video“) nahradil hovor. Fo
 (`MIESTA` v `assets/js/profil-data.js`), vety pod nimi sú z popisov projektov na webe.
 
 ## Súbory
-`profil.html`, `profil-rezervacia.html`, `profil-dakujem.html`, `plan.html`, `assets/css/profil.css`,
-`assets/js/profil-data.js` (otázky, texty, skupiny; číta ho aj server), `profil-test.js`, `profil-rezervacia.js`,
-`profil-dakujem.js`, `plan.js`, `functions/api/profil.js`, `functions/api/rozhovor.js`, `functions/_lib/profil.js`
-(e-maily a SMS), `functions/api/sloty.js` (`typ=rozhovor`). `profil-vysledok` je preč.
+`profil.html`, `profil-rezervacia.html`, `plan.html`, `functions/diagnostika.js` (zelený pruh), `assets/css/profil.css`,
+`assets/js/profil-data.js` (otázky, texty, skupiny; číta ho aj server), `profil-formular.js`, `profil-video.js`,
+`profil-rezervacia.js`, `plan.js`, `functions/api/profil.js`, `functions/api/rozhovor.js`, `functions/_lib/profil.js`
+(e-maily a SMS), `functions/api/sloty.js` (`typ=rozhovor`). `profil-vysledok`, `profil-dakujem` a `profil-test.js` sú preč.
 
 ## GHL (založené 12. 10.)
 - Kalendár „Hovor k plánu (10 min)“ `Mrfqa49pMQPuVyba2nqm`: po až pi 9:00 až 16:30 každú pol hodinu, 5 min rezerva,

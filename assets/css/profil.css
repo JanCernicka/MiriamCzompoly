@@ -96,44 +96,6 @@ section > .obal > .btn{margin-top:22px}
 .o-mne{display:grid;grid-template-columns:84px 1fr;gap:16px;align-items:center;text-align:left;margin-bottom:6px}
 .o-mne img{width:84px;height:84px;border-radius:50%;object-fit:cover;background:var(--karta)}
 
-/* ---------- TEST: celá obrazovka, jedna otázka ---------- */
-.test{position:fixed;inset:0;z-index:200;background:#fff;display:flex;flex-direction:column;
-  padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px);overflow-y:auto}
-.test[hidden]{display:none}
-.test-hlava{display:flex;align-items:center;gap:12px;max-width:var(--sirka);width:100%;margin:0 auto;padding:12px 20px 4px}
-.test-hlava button{flex:0 0 auto;width:40px;height:40px;border-radius:50%;border:1.5px solid var(--linka);background:#fff;
-  color:var(--tma);font:inherit;font-size:20px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center}
-.test-hlava button:focus-visible{outline:3px solid var(--akcent);outline-offset:2px}
-.test-hlava button[disabled]{visibility:hidden}
-.postup{flex:1 1 auto;height:6px;border-radius:3px;background:var(--karta);overflow:hidden}
-.postup i{display:block;height:100%;width:0;background:var(--akcent);transition:width .3s ease}
-.test-telo{max-width:var(--sirka);width:100%;margin:0 auto;padding:18px 20px 28px}
-.test-krok{font-size:12.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--akcent-tmavy);margin:0 0 6px}
-.test-telo h2{font-size:30px;line-height:1.1;margin:0 0 18px;text-wrap:balance;outline:0}
-.dlazdice{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.dlazdica{font:inherit;text-align:left;cursor:pointer;background:#fff;color:var(--tma);border:1.5px solid var(--linka);
-  border-radius:14px;padding:15px 14px;min-height:64px;display:flex;flex-direction:column;justify-content:center;gap:3px;line-height:1.25}
-.dlazdica b{font-size:16.5px}
-.dlazdica span{font-size:13px;color:var(--sivy)}
-.dlazdica:hover{border-color:var(--akcent)}
-.dlazdica:focus-visible{outline:3px solid var(--akcent);outline-offset:2px}
-.dlazdica.on{border-color:var(--tma);box-shadow:0 0 0 1.5px var(--tma);background:var(--karta)}
-.dlazdica.on b::before{content:"✓ ";color:var(--akcent-tmavy)}
-.dlazdice.siroke{grid-template-columns:1fr}
-.test-pozn{font-size:13px;color:var(--sivy);margin:16px 0 0;text-align:center}
-.vyhodnocujem{text-align:center;padding:60px 20px}
-.vyhodnocujem .kruh{width:44px;height:44px;margin:0 auto 18px;border-radius:50%;border:3px solid var(--linka);
-  border-top-color:var(--akcent);animation:toc .9s linear infinite}
-@keyframes toc{to{transform:rotate(360deg)}}
-
-/* ---------- súhrn odpovedí (rezervácia) ---------- */
-.suhrn{background:var(--karta);border:1px solid var(--linka);border-radius:14px;padding:14px 16px;text-align:left;margin:4px 0 18px}
-.suhrn h3{font-family:var(--sans);font-size:12px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--akcent-tmavy);margin:0 0 8px}
-.suhrn dl{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;margin:0;font-size:14.5px}
-.suhrn dt{color:var(--sivy)}
-.suhrn dd{margin:0;color:var(--tma);font-weight:600}
-.suhrn a{display:inline-block;margin-top:8px;font-size:13.5px}
-
 /* ---------- kalendár (ako B) ---------- */
 .kal{margin-top:12px}
 .dni{display:flex;gap:8px;overflow-x:auto;padding:2px 20px 10px;margin:0 -20px 13px;
@@ -171,7 +133,41 @@ section > .obal > .btn{margin-top:22px}
 .nahlad{display:inline-block;margin-top:6px;font-size:12.5px;font-weight:700;color:var(--akcent-tmavy);
   background:var(--karta);border:1px dashed var(--akcent);border-radius:8px;padding:4px 8px}
 
-/* ---------- plán a ďakovná stránka ---------- */
+/* ---------- video 16:9 (Miriam ho ešte natočí) ---------- */
+.video{margin:4px 0 18px;border-radius:14px;overflow:hidden;background:var(--tma);aspect-ratio:16/9;max-width:100%}
+.video video{display:block;width:100%;height:100%;object-fit:cover;background:var(--tma)}
+.video-miesto{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;
+  color:#fff;font-size:14px;font-weight:600;letter-spacing:.02em;text-shadow:0 1px 6px rgba(0,0,0,.5);
+  background:linear-gradient(rgba(38,32,25,.45),rgba(38,32,25,.55)),var(--poster,none) center/cover no-repeat}
+.video-play{width:58px;height:58px;border-radius:50%;background:rgba(255,255,255,.92);position:relative;box-shadow:0 6px 18px rgba(0,0,0,.25)}
+.video-play::after{content:"";position:absolute;left:23px;top:18px;border-style:solid;border-width:11px 0 11px 17px;border-color:transparent transparent transparent var(--tma)}
+
+/* ---------- formulár na stránke ---------- */
+.formular-sekcia{background:var(--karta)}
+.formular-sekcia .uvod{margin-bottom:6px}
+.otazka{border:0;margin:0;padding:22px 0 4px;min-width:0}
+.otazka legend{display:flex;gap:10px;align-items:baseline;padding:0;margin:0 0 12px;font-family:var(--display);font-size:24px;
+  font-weight:600;color:var(--tma);line-height:1.15}
+.otazka .cislo{flex:0 0 auto;font-family:var(--sans);font-size:13px;font-weight:800;color:var(--akcent-tmavy);
+  width:24px;height:24px;border-radius:50%;border:1.5px solid var(--akcent);display:inline-flex;align-items:center;justify-content:center;transform:translateY(-3px)}
+.moznosti{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.moznosti.siroke{grid-template-columns:1fr}
+.moznost{position:relative;display:block;cursor:pointer;min-width:0}
+.moznost input{position:absolute;opacity:0;width:1px;height:1px}
+.moznost span{display:flex;align-items:center;min-height:52px;padding:12px 14px;border:1.5px solid var(--linka);border-radius:12px;
+  background:#fff;color:var(--tma);font-weight:600;font-size:15.5px;line-height:1.25}
+.moznost:hover span{border-color:var(--akcent)}
+.moznost input:focus-visible + span{outline:3px solid var(--akcent);outline-offset:2px}
+.moznost input:checked + span{border-color:var(--tma);box-shadow:0 0 0 1.5px var(--tma);background:#fff}
+.moznost input:checked + span::before{content:"✓";color:var(--akcent-tmavy);font-weight:800;margin-right:7px}
+.chyba-otazka legend{color:var(--zle)}
+.chyba-otazka .moznost span{border-color:#e3b4ae}
+.formular-sekcia .pole{margin-bottom:4px}
+.formular-sekcia form > .btn{margin-top:18px}
+.ako{font-size:14px;color:var(--sivy);margin:0 0 10px}
+.odkaz{font:inherit;color:var(--akcent-tmavy);background:none;border:0;padding:0;text-decoration:underline;cursor:pointer}
+
+/* ---------- plán ---------- */
 .pasca{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
 .stitok{font-size:12px;font-weight:800;letter-spacing:.11em;text-transform:uppercase;color:var(--akcent-tmavy);margin:0 0 6px}
 .stred{text-align:center}
@@ -192,10 +188,6 @@ section > .obal > .btn{margin-top:22px}
 .profil-foto{margin:0}
 .profil-foto img{width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;border-radius:14px;background:var(--karta)}
 .profil-foto figcaption{font-size:14px;color:var(--sivy);margin-top:8px}
-.dakujem{padding-top:34px}
-.ochutnavka{background:var(--karta);border:1px solid var(--linka);border-radius:14px;padding:16px;margin:16px 0 0;text-align:left}
-.verdikt-nazov{font-family:var(--display);font-size:27px;font-weight:600;color:var(--tma);line-height:1.1;margin:0 0 6px}
-.ochutnavka p{margin-bottom:.5em}
 .drobne{font-size:12.5px;color:var(--sivy);margin:10px 0 0;line-height:1.45}
 .drobne.stred{font-size:14px;margin-top:18px}
 
@@ -214,9 +206,10 @@ section > .obal > .btn{margin-top:22px}
   section{padding:56px 0}
   .btn{width:auto;min-width:340px;margin-left:auto;margin-right:auto}
   .sloty{grid-template-columns:repeat(4,1fr)}
-  .test-telo h2{font-size:38px}
-  .dlazdica{padding:18px 16px}
   .oslovenie{font-size:44px}
+  .otazka legend{font-size:27px}
+  .moznosti{grid-template-columns:repeat(3,1fr)}
+  .moznosti.siroke{grid-template-columns:1fr 1fr}
 }
-@media(max-width:359px){.pruh .co{display:none}.dlazdice{grid-template-columns:1fr}}
-@media(prefers-reduced-motion:reduce){.zive i,.vyhodnocujem .kruh{animation:none}.postup i{transition:none}html{scroll-behavior:auto}}
+@media(max-width:359px){.pruh .co{display:none}.moznosti{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){.zive i{animation:none}html{scroll-behavior:auto}}

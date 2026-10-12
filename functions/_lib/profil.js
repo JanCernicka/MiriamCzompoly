@@ -43,7 +43,7 @@ const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replac
 const obal = (vnutro) => `<div style="font-family:Arial,Helvetica,sans-serif;font-size:16px;line-height:1.55;color:#262019;max-width:560px">${vnutro}<p>Miriam</p></div>`;
 const tlacidlo = (href, text) => `<p><a href="${esc(href)}" style="display:inline-block;background:#262019;color:#ffffff;text-decoration:none;padding:12px 22px;border-radius:10px;font-weight:bold">${esc(text)}</a></p>`;
 
-/* E-mail s plánom: vlažným a ostatným hneď po teste. */
+/* E-mail s plánom: vlažným a ostatným hneď po formulári, s pozvánkou na diagnostiku (Jano, 12. 10.). */
 export function emailPlan(meno, o, base) {
   const M = P.MIESTA[o.m], D = P.PROBLEMY[o.d];
   return {
@@ -53,6 +53,7 @@ export function emailPlan(meno, o, base) {
 <p><b>${esc(D.nazov)}.</b> ${esc(D.uvod)}</p>
 ${tlacidlo(odkazy(base, o).plan, "Otvoriť môj plán")}
 <p>V pláne máš 3 kroky na tento víkend. Ak chceš začať ešte dnes, začni prvým: ${esc(D.kroky[0])}</p>
+<p>Plán ti ukáže smer. Čo ${esc(M.lok)} konkrétne zmeniť, čo nechať a v akom poradí, aby si neprepálila peniaze, robím na <a href="${esc(base)}/diagnostika" style="color:#7E6441">diagnostike</a>.</p>
 <p>Ak by ti niečo nebolo jasné, stačí odpísať na tento e-mail, čítam každú správu.</p>`),
   };
 }

@@ -1,8 +1,9 @@
-/* /profil-rezervacia: horúci z testu (chce začať do 3 mesiacov a má od 3 000 €).
+/* /profil-rezervacia: horúci z formulára (chce začať do 3 mesiacov a má od 3 000 €).
    Plán jej Miriam odovzdá osobne na 10-minútovom hovore, Miriam volá.
    Kalendár ako na variante B (diagnostika-b/dist/b/js/b.js), voľné časy z /api/sloty?typ=rozhovor.
-   Rezervácia ide na /api/rozhovor. Meno a e-mail sú predvyplnené z testu (sessionStorage „mc_kontakt“),
-   stránka ale funguje aj bez nich, napríklad z odkazu v e-maile. */
+   Rezervácia ide na /api/rozhovor. Meno a e-mail už dala vo formulári (sessionStorage „mc_kontakt“),
+   tu doplní len telefón (Jano, 12. 10.). Keď ich stránka nemá (odkaz z e-mailu, iný prehliadač),
+   ukážu sa aj polia na meno a e-mail. */
 (function () {
   "use strict";
   var P = window.PROFIL;
@@ -15,17 +16,13 @@
 
   /* ---------- odpovede z testu ---------- */
   var o = P.zAdresy(location.search);
-  if (!o) { location.replace("/profil#test"); return; }
+  if (!o) { location.replace("/profil#formular"); return; }
   P.uloz(o);
 
   var kontakt = {};
   try { kontakt = JSON.parse(sessionStorage.getItem("mc_kontakt") || "null") || {}; } catch (e) {}
   var M = P.MIESTA[o.m];
-  $("#odpovede").innerHTML = P.OTAZKY.map(function (q) {
-    var nazvy = { m: "Miestnosť", d: "Prekáža", n: "Ponechať", p: "Pocit", k: "Začať", r: "Rozpočet" };
-    return "<dt>" + esc(nazvy[q.k]) + "</dt><dd>" + esc(q.z[o[q.k]].n) + "</dd>";
-  }).join("");
-  $("#zmenit").href = "/profil?" + P.doAdresy(o) + "#test";
+  var poznam = !!(kontakt.meno && kontakt.email);
   $("#bod1").textContent = "Čo by som " + M.lok + " riešila ako prvé";
   if (kontakt.meno) $("#sub").innerHTML = esc(kontakt.meno) + ", podľa tvojich odpovedí to so zmenou myslíš vážne. Preto ti plán nepošlem len e-mailom. Pozriem sa naň vopred a za 10 minút ti ho prejdem po telefóne. <strong>Zadarmo. Vyber si čas, zavolám ti ja.</strong>";
   try { P.recenzie("#kopa", 3); } catch (e) {}
@@ -56,6 +53,13 @@
   var dni = [], vybranyCas = null, bezi = false;
   if (kontakt.meno) form.meno.value = kontakt.meno;
   if (kontakt.email) form.email.value = kontakt.email;
+  if (poznam) {
+    $("#ako").innerHTML = "Potvrdenie pošlem na " + esc(kontakt.email) + ". <button type=\"button\" class=\"odkaz\" id=\"inyKontakt\">Zmeniť</button>";
+    $("#ako").hidden = false;
+    $("#inyKontakt").addEventListener("click", function () { $("#kontaktPolia").hidden = false; $("#ako").hidden = true; });
+  } else {
+    $("#kontaktPolia").hidden = false;
+  }
 
   function nacitaj() {
     stav.hidden = false; stav.textContent = "Načítavam voľné časy…";
@@ -105,6 +109,7 @@
         });
         obnov();
         form.hidden = false;
+        if (!form.telefon.value) try { form.telefon.focus({ preventScroll: true }); } catch (e) {}
       });
     });
     obnov();

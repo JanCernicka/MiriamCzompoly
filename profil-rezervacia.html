@@ -5,8 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Tvoj plán ti odovzdám osobne · Miriam Czompoly, Trnava</title>
   <meta name="description" content="Plán pre tvoju miestnosť ti Miriam prejde na 10-minútovom hovore. Zadarmo." />
-  <!-- Lievik „Plán od Miriam“, NÁHĽAD (12. 10. 2026): stránka pre horúcich z testu
-       (chce začať do 3 mesiacov a má od 3 000 €). Plán jej Miriam odovzdá osobne na hovore. -->
+  <!-- Lievik „Plán od Miriam“, NÁHĽAD (12. 10. 2026): stránka pre horúcich z formulára
+       (chce začať do 3 mesiacov a má od 3 000 €). Plán jej Miriam odovzdá osobne na hovore.
+       Meno a e-mail už dala vo formulári, tu doplní len telefón. -->
   <meta name="robots" content="noindex, nofollow" />
   <meta name="theme-color" content="#262019" />
   <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml" />
@@ -32,13 +33,44 @@
         <h1>Tvoj plán ti <em>odovzdám osobne</em></h1>
         <p class="sub" id="sub">Podľa tvojich odpovedí to so zmenou myslíš vážne. Preto ti plán nepošlem len e-mailom. Pozriem sa naň vopred a za 10 minút ti ho prejdem po telefóne. <strong>Zadarmo. Vyber si čas, zavolám ti ja.</strong></p>
 
-        <div class="suhrn" id="suhrn">
-          <h3>Tvoje odpovede</h3>
-          <dl id="odpovede"></dl>
-          <a href="/profil#test" id="zmenit">Zmeniť odpovede</a>
+        <!-- 🔴 VIDEO: Miriam ho ešte nenatočila. Keď bude, stačí doplniť data-src (mp4) a data-poster. -->
+        <figure class="video" data-video data-src="" data-poster="/assets/img/realizacie/stajnerka-po.jpg">
+          <div class="video-miesto"><span class="video-play" aria-hidden="true"></span><span>Video od Miriam pribudne</span></div>
+        </figure>
+
+        <a class="btn" href="#kalendar" data-cta>Vybrať čas hovoru</a>
+      </div>
+    </section>
+
+    <!-- KALENDÁR priamo v stránke, z údajov už len telefón -->
+    <section id="kalendar">
+      <div class="obal">
+        <h2>Vyber si čas hovoru</h2>
+        <p class="uvod">Pracovné dni. Hovor trvá 10 minút, zavolám ti ja.</p>
+
+        <div class="kal" id="kal" data-kalendar>
+          <div class="dni" id="dni" role="tablist" aria-label="Deň"></div>
+          <div class="sloty" id="sloty"></div>
+          <p class="kal-stav" id="kalStav">Načítavam voľné časy…</p>
+
+          <form class="formular" id="formular" novalidate hidden>
+            <div class="pole"><label for="telefon">Telefón, na ktorý ti zavolám</label>
+              <input id="telefon" name="telefon" type="tel" inputmode="tel" autocomplete="tel" placeholder="0907 777 555" required></div>
+            <!-- meno a e-mail sú z formulára; ukážu sa, len keď ich stránka nemá (napríklad odkaz z e-mailu) -->
+            <div id="kontaktPolia" hidden>
+              <div class="pole"><label for="meno">Krstné meno</label>
+                <input id="meno" name="meno" type="text" autocomplete="given-name"></div>
+              <div class="pole"><label for="email">E-mail</label>
+                <input id="email" name="email" type="email" inputmode="email" autocomplete="email"></div>
+            </div>
+            <p class="ako" id="ako" hidden></p>
+            <p class="chyba" id="chyba" role="alert"></p>
+            <button class="btn" type="submit" id="rezervovat">Vyber si čas</button>
+            <p class="drobne">Potvrdenie a pripomienku ti pošlem SMS a e-mailom. Viac o <a href="/gdpr" target="_blank" rel="noopener">ochrane údajov</a>.</p>
+          </form>
         </div>
 
-        <a class="btn" href="#kalendar">Vybrať čas hovoru</a>
+        <div class="hotovo" id="hotovo" role="status" tabindex="-1" hidden></div>
       </div>
     </section>
 
@@ -51,34 +83,7 @@
           <li><b>Odpovede na tvoje otázky</b><span>Na hovore sa môžeš pýtať. To e-mail nedokáže.</span></li>
           <li><b>Plán ti ostane</b><span>Po hovore ti ho pošlem aj e-mailom. Žiadny záväzok.</span></li>
         </ul>
-      </div>
-    </section>
-
-    <!-- KALENDÁR priamo v stránke -->
-    <section id="kalendar">
-      <div class="obal">
-        <h2>Vyber si čas hovoru</h2>
-        <p class="uvod">Pracovné dni. Hovor trvá 10 minút, zavolám ti ja.</p>
-
-        <div class="kal" id="kal">
-          <div class="dni" id="dni" role="tablist" aria-label="Deň"></div>
-          <div class="sloty" id="sloty"></div>
-          <p class="kal-stav" id="kalStav">Načítavam voľné časy…</p>
-
-          <form class="formular" id="formular" novalidate hidden>
-            <div class="pole"><label for="meno">Krstné meno</label>
-              <input id="meno" name="meno" type="text" autocomplete="given-name" required></div>
-            <div class="pole"><label for="email">E-mail</label>
-              <input id="email" name="email" type="email" inputmode="email" autocomplete="email" required></div>
-            <div class="pole"><label for="telefon">Telefón, na ktorý ti zavolám</label>
-              <input id="telefon" name="telefon" type="tel" inputmode="tel" autocomplete="tel" placeholder="0907 777 555" required></div>
-            <p class="chyba" id="chyba" role="alert"></p>
-            <button class="btn" type="submit" id="rezervovat">Vyber si čas</button>
-            <p class="drobne">Potvrdenie a pripomienku ti pošlem SMS a e-mailom. Viac o <a href="/gdpr" target="_blank" rel="noopener">ochrane údajov</a>.</p>
-          </form>
-        </div>
-
-        <div class="hotovo" id="hotovo" role="status" tabindex="-1" hidden></div>
+        <a class="btn" href="#kalendar" data-cta>Vybrať čas hovoru</a>
       </div>
     </section>
 
@@ -100,6 +105,7 @@
   </footer>
 
   <script src="/assets/js/profil-data.js"></script>
+  <script src="/assets/js/profil-video.js"></script>
   <script src="/assets/js/profil-rezervacia.js"></script>
 </body>
 </html>

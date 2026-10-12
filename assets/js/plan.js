@@ -8,7 +8,7 @@
   var esc = P.esc;
 
   var o = P.zAdresy(location.search, P.PLAN_KLUCE);
-  if (!o) { location.replace("/profil#test"); return; }
+  if (!o) { location.replace("/profil#formular"); return; }
 
   var M = P.MIESTA[o.m], D = P.PROBLEMY[o.d], N = P.NABYTOK[o.n], C = P.POCITY[o.p];
   document.title = D.nazov + " · tvoj plán od Miriam";
