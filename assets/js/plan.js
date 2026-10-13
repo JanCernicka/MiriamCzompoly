@@ -23,5 +23,7 @@
   pred.src = M.pred; pred.alt = "Pred premenou: " + M.veta;
   po.src = M.po; po.alt = "Po premene: " + M.veta;
   $("#fotoVeta").textContent = M.veta;
-  $("#most").textContent = "Toto je smer. Čo " + M.lok + " konkrétne zmeniť, čo nechať a v akom poradí, aby si neprepálila peniaze, robím na diagnostike.";
+  // Jano 13. 10.: „Keď budeš chcieť ísť ďalej, toto je iba smer.“ (predtým nadpis a „Toto je smer.“)
+  $("#most").innerHTML = "<b>Keď budeš chcieť ísť ďalej, toto je iba smer.</b> Čo " + esc(M.lok) +
+    " konkrétne zmeniť, čo nechať a v akom poradí, aby si neprepálila peniaze, robím na diagnostike.";
 })();

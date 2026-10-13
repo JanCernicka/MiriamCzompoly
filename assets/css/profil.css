@@ -235,6 +235,8 @@ section > .obal > .btn{margin-top:22px}
 .profil-foto figcaption{font-size:14px;color:var(--sivy);margin-top:8px}
 .drobne{font-size:12.5px;color:var(--sivy);margin:10px 0 0;line-height:1.45}
 .drobne.stred{font-size:14px;margin-top:18px}
+.most-veta{font-size:18px;line-height:1.5;color:var(--tma)}
+.most-veta b{font-family:var(--display);font-size:25px;font-weight:600;line-height:1.15;display:block;margin-bottom:6px}
 
 /* ---------- päta ---------- */
 .paticka{padding:26px 0 34px;border-top:1px solid var(--linka);font-size:13.5px;color:var(--sivy);text-align:center}
