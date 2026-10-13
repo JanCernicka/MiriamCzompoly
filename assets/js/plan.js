@@ -19,7 +19,9 @@
   $("#kroky").innerHTML = D.kroky.map(function (k) { return "<li>" + esc(k) + "</li>"; }).join("");
   $("#pocitNadpis").textContent = "Pocit, ktorý chceš: " + C.n.toLowerCase();
   $("#pocit").textContent = C.odsek;
-  var f = $("#foto"); f.src = M.foto; f.alt = M.veta;
+  var pred = $("#fotoPred"), po = $("#fotoPo");
+  pred.src = M.pred; pred.alt = "Pred premenou: " + M.veta;
+  po.src = M.po; po.alt = "Po premene: " + M.veta;
   $("#fotoVeta").textContent = M.veta;
   $("#most").textContent = "Toto je smer. Čo " + M.lok + " konkrétne zmeniť, čo nechať a v akom poradí, aby si neprepálila peniaze, robím na diagnostike.";
 })();

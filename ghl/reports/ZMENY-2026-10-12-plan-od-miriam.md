@@ -21,6 +21,11 @@ Pre Miriam (tok, snímky stránok, ukážka plánu, 6 šablón, miestnosti s fot
 4. `/plan?m=&d=&n=&p=`: plán v poradí od Miriam (oslovenie, verdikt a úvod, veta o nábytku, 3 kroky,
    odsek o pocite, jej realizácia, diagnostika). Odkaz naň chodí e-mailom.
 
+13. 10. (Jano): otázka o miestnosti má ikony namiesto fotiek (na každú miestnosť fotky nemáme) a plán ukazuje
+realizáciu **pred a po**. Dvojice z toho istého bytu: obývačka a spálňa (Jitka), kuchyňa a kúpeľňa (byt pre staršiu pani).
+Detská, predsieň a pracovný kút vlastnú dvojicu nemajú, majú byt pre staršiu pani s vetou, ktorá to nezamlčí.
+Od Miriam pýtame fotky pred a po pre tieto tri miestnosti. Na úvode sa nesľubuje „pošlem“, len „dostaneš“ a „získať“.
+
 Videoponuku pre horúcich („pošli fotku, pošlem video“) nahradil hovor. Fotky realizácií sme vybrali z webu
 (`MIESTA` v `assets/js/profil-data.js`), vety pod nimi sú z popisov projektov na webe.
 

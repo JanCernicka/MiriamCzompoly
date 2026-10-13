@@ -4,7 +4,7 @@
    preto tu nesmie byť nič, čo pri načítaní siaha na window alebo document.
 
    🔴 Otázky, odpovede a všetky texty plánu napísala Miriam (12. 10. 2026). Nič v nich
-   nedopisovať bez nej. Naše sú len fotky realizácií a vety pod nimi (z popisov na webe).
+   nedopisovať bez nej. Naše sú len fotky realizácií pred a po a vety pod nimi (z popisov na webe).
 
    Odpovede sa nesú v adrese (?m=&d=&n=&p=&k=&r=) aj v sessionStorage („mc_profil“),
    aby stránky fungovali aj pri zablokovanom úložisku a plán sa dal poslať odkazom. */
@@ -14,21 +14,30 @@
   var FOTO = "/assets/img/realizacie/";
 
   // n: na dlaždici, oslovenie: prvý riadok plánu, lok: „v tvojej …“
+  // pred/po: Miriamina realizácia v pláne (13. 10. 2026, Jano: pred aj po). Dvojice sú z toho istého
+  // bytu a podľa popisov na webe tá istá miestnosť. Detská, predsieň a pracovný kút vlastnú dvojicu
+  // nemajú, majú dvojicu z bytu pre staršiu pani a veta to nezamlčí. 🔴 Keď Miriam dodá fotky, vymeniť.
+  var STARSIA = { pred: FOTO + "starsia-pani-pred-2.jpg", po: FOTO + "starsia-pani-2.jpg",
+                  veta: "Byt pre staršiu pani v Trnave pred premenou a po nej." };
   var MIESTA = {
     obyvacka: { n: "Obývačka", oslovenie: "Tvoja obývačka: tu je, čo by som riešila ako prvé.", lok: "v tvojej obývačke",
-                foto: FOTO + "vidiecky-4.jpg", veta: "Jitkin byt v Trnave. Starý nábytok ostal a dostal okolo seba nový." },
+                pred: FOTO + "vidiecky-pred-2.jpg", po: FOTO + "vidiecky-4.jpg",
+                veta: "Jitkina obývačka v Trnave. Starý nábytok ostal a dostal okolo seba nový." },
     spalna:   { n: "Spálňa", oslovenie: "Tvoja spálňa: tu je, čo by som riešila ako prvé.", lok: "v tvojej spálni",
-                foto: FOTO + "stajnerka-3.jpg", veta: "Spálňa v byte Štajnerka v Trnave: tapeta za posteľou a dve lampy pri posteli." },
+                pred: FOTO + "vidiecky-pred-3.jpg", po: FOTO + "vidiecky-po-2.jpg",
+                veta: "Jitkina spálňa v Trnave pred premenou a po nej." },
     kuchyna:  { n: "Kuchyňa a jedáleň", oslovenie: "Tvoja kuchyňa a jedáleň: tu je, čo by som riešila ako prvé.", lok: "v tvojej kuchyni a jedálni",
-                foto: FOTO + "vidiecky-6.jpg", veta: "Kuchyňa v Jitkinom byte v Trnave: drevená pracovná doska a otvorené police." },
+                pred: FOTO + "starsia-pani-pred-3.jpg", po: FOTO + "starsia-pani-4.jpg",
+                veta: "Kuchyňa v byte pre staršiu pani v Trnave pred premenou a po nej." },
     detska:   { n: "Detská", oslovenie: "Tvoja detská izba: tu je, čo by som riešila ako prvé.", lok: "v tvojej detskej izbe",
-                foto: FOTO + "dievcenska-po.jpg", veta: "Dievčenská izba v podkroví. Pôvodné kreslo majiteľky v nej zostalo." },
+                pred: STARSIA.pred, po: STARSIA.po, veta: STARSIA.veta },
     predsien: { n: "Predsieň", oslovenie: "Tvoja predsieň: tu je, čo by som riešila ako prvé.", lok: "v tvojej predsieni",
-                foto: FOTO + "arboria2-6.jpg", veta: "Predsieň v byte Arboria v Trnave: všetko je schované vo vstavanej skrini." },
+                pred: STARSIA.pred, po: STARSIA.po, veta: STARSIA.veta },
     kut:      { n: "Pracovný kút", oslovenie: "Tvoj pracovný kút: tu je, čo by som riešila ako prvé.", lok: "v tvojom pracovnom kúte",
-                foto: FOTO + "starsia-pani-3.jpg", veta: "Byt pre staršiu pani v Trnave: pracovný stolík pri okne a police nad ním." },
+                pred: STARSIA.pred, po: STARSIA.po, veta: STARSIA.veta },
     kupelna:  { n: "Kúpeľňa a WC", oslovenie: "Tvoja kúpeľňa: tu je, čo by som riešila ako prvé.", lok: "v tvojej kúpeľni",
-                foto: FOTO + "stajnerka-6.jpg", veta: "Kúpeľňa v byte Štajnerka v Trnave: mramorový obklad, sprchový kút a WC." }
+                pred: FOTO + "starsia-pani-pred.jpg", po: FOTO + "starsia-pani-5.jpg",
+                veta: "Kúpeľňa v byte pre staršiu pani v Trnave pred premenou a po nej." }
   };
 
   // otázka 2: verdikt, úvod a 3 kroky na tento víkend

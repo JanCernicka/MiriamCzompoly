@@ -175,21 +175,15 @@ section > .obal > .btn{margin-top:22px}
   background:var(--tma);color:#fff;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;
   box-shadow:0 2px 6px rgba(0,0,0,.25)}
 
-/* 1. miestnosť: fotka realizácie */
-.typ-foto .moznosti{grid-template-columns:1fr 1fr}
-.vol-foto{flex-direction:column;align-items:stretch;gap:0;overflow:hidden;padding:0}
-.vol-foto img{width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;display:block;background:var(--karta)}
-.vol-foto .nazov{padding:10px 12px 11px}
-.moznost input:checked + .vol-foto img{filter:none}
-.typ-foto .moznost:last-child:nth-child(odd){grid-column:1 / -1}
-.typ-foto .moznost:last-child:nth-child(odd) img{aspect-ratio:16/7}
-
-/* 2. čo prekáža: ikona */
+/* 1. miestnosť a 2. čo prekáža: ikona */
 .typ-ikona .moznosti{grid-template-columns:1fr 1fr}
 .vol-ikona{flex-direction:column;align-items:flex-start;gap:10px;padding:14px 14px 15px;min-height:104px}
 .vol-ikona .ikona{width:40px;height:40px;border-radius:12px;background:var(--karta);color:var(--akcent-tmavy);display:flex;align-items:center;justify-content:center}
 .vol-ikona svg{fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
 .moznost input:checked + .vol-ikona .ikona{background:var(--tma);color:var(--zlata)}
+.miestnosti .vol-ikona{min-height:96px}
+.miestnosti .moznost:last-child:nth-child(odd){grid-column:1 / -1}
+.miestnosti .moznost:last-child:nth-child(odd) .vol-ikona{flex-direction:row;align-items:center;min-height:0}
 
 /* 3. nábytok: stupnica od všetkého po nič */
 .typ-stupnica .moznosti{display:flex;flex-wrap:wrap;gap:8px}
@@ -261,10 +255,10 @@ section > .obal > .btn{margin-top:22px}
   .formular-sekcia .obal{max-width:780px}
   .otazka{padding:24px 24px 24px}
   .otazka .text{font-size:31px}
-  .typ-foto .moznosti{grid-template-columns:repeat(4,1fr)}
-  .typ-foto .moznost:last-child:nth-child(odd){grid-column:auto}
-  .typ-foto .moznost:last-child:nth-child(odd) img{aspect-ratio:4/3}
   .typ-ikona .moznosti,.typ-nalada .moznosti{grid-template-columns:repeat(3,1fr)}
+  .miestnosti .moznosti{grid-template-columns:repeat(4,1fr)}
+  .miestnosti .moznost:last-child:nth-child(odd){grid-column:auto}
+  .miestnosti .moznost:last-child:nth-child(odd) .vol-ikona{flex-direction:column;align-items:flex-start;min-height:96px}
   .typ-zoznam .moznosti{grid-template-columns:1fr 1fr}
   .form-postup{margin:0 0 12px;padding:10px 0}
 }

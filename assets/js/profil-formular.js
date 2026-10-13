@@ -5,8 +5,8 @@
                        (functions/diagnostika.js, ?plan=odoslany). utm_source oddelí túto návštevu
                        v meraní od ľudí z reklamy na diagnostiku.
    Vzhľad otázok (13. 10. 2026, Jano: otázky splývali): každá otázka je karta a každá má svoj typ
-   odpovedí. Miestnosť s fotkou realizácie, problém s ikonou, nábytok ako stupnica, pocit s farbami
-   nálady, termín a rozpočet ako zoznam. Texty odpovedí sa berú z profil-data.js, tu je len vzhľad. */
+   odpovedí. Miestnosť aj problém s ikonou (fotky miestností Jano nechcel, na každú miestnosť ich
+   nemáme), nábytok ako stupnica, pocit s farbami nálady, termín a rozpočet ako zoznam. Texty odpovedí sa berú z profil-data.js, tu je len vzhľad. */
 (function () {
   "use strict";
   var P = window.PROFIL;
@@ -18,8 +18,17 @@
   var plynulo = !(window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches);
 
   /* ---------- vzhľad odpovedí ---------- */
-  var TYP = { m: "foto", d: "ikona", n: "stupnica", p: "nalada", k: "zoznam", r: "zoznam" };
+  var TYP = { m: "ikona", d: "ikona", n: "stupnica", p: "nalada", k: "zoznam", r: "zoznam" };
   var IKONY = {
+    // miestnosti
+    obyvacka: '<path d="M4.5 11V8.6A2.6 2.6 0 0 1 7.1 6h9.8a2.6 2.6 0 0 1 2.6 2.6V11"/><path d="M3 12.6a1.6 1.6 0 0 1 3.2 0V15h11.6v-2.4a1.6 1.6 0 0 1 3.2 0V17a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z"/><path d="M5.5 18v1.6M18.5 18v1.6"/>',
+    spalna: '<path d="M3 19V6.5M21 19v-5.6a2.4 2.4 0 0 0-2.4-2.4H3"/><path d="M3 16h18"/><path d="M6 11V9.6A1.6 1.6 0 0 1 7.6 8h2.8A1.6 1.6 0 0 1 12 9.6V11"/>',
+    kuchyna: '<path d="M5 11h14v4.5a3.5 3.5 0 0 1-3.5 3.5h-7A3.5 3.5 0 0 1 5 15.5z"/><path d="M3 11h2M19 11h2"/><path d="M9 4.5c-.8.8.8 1.7 0 2.5M12 4.5c-.8.8.8 1.7 0 2.5M15 4.5c-.8.8.8 1.7 0 2.5"/>',
+    detska: '<circle cx="12" cy="13.2" r="6.2"/><path d="M7.4 9a2.3 2.3 0 1 1 2.4-2.9M16.6 9a2.3 2.3 0 1 0-2.4-2.9"/><ellipse cx="12" cy="15.4" rx="2.2" ry="1.7"/><path d="M9.6 11.6h.01M14.4 11.6h.01M12 14.9v.4"/>',
+    predsien: '<path d="M10.3 7a1.8 1.8 0 1 1 2.6 1.6c-.5.3-.9.7-.9 1.3V11"/><path d="M12 11l-8.1 5.9a1 1 0 0 0 .6 1.8h15a1 1 0 0 0 .6-1.8z"/>',
+    kut: '<rect x="5" y="5.5" width="14" height="9.5" rx="1.3"/><path d="M3 18.5h18M10 18.5l.6-1.5h2.8l.6 1.5"/>',
+    kupelna: '<path d="M3 12h18v2.4a4.6 4.6 0 0 1-4.6 4.6H7.6A4.6 4.6 0 0 1 3 14.4z"/><path d="M6 12V6.4a2.2 2.2 0 0 1 4-1.3"/><path d="M8.6 7l2.4-1.6"/><path d="M7 19l-1 1.6M17 19l1 1.6"/>',
+    // čo prekáža
     tma: '<path d="M19.5 14.6A7.6 7.6 0 1 1 9.4 4.5a6.1 6.1 0 0 0 10.1 10.1z"/>',
     neporiadok: '<rect x="3.5" y="12.5" width="7.5" height="7.5" rx="1"/><rect x="13" y="12.5" width="7.5" height="7.5" rx="1"/><rect x="8.2" y="4.5" width="7.5" height="7.5" rx="1"/>',
     stiesnene: '<path d="M4 4l5 5M9 5.5V9H5.5M20 4l-5 5M15 5.5V9h3.5M4 20l5-5M9 18.5V15H5.5M20 20l-5-5M15 18.5V15h3.5"/>',
@@ -36,7 +45,6 @@
 
   function obsah(q, k) {
     var v = q.z[k], typ = TYP[q.k], nazov = '<span class="nazov">' + esc(v.n) + "</span>";
-    if (typ === "foto") return '<span class="vol vol-foto"><img src="/assets/img/plan/miestnost-' + esc(k) + '.jpg" alt="" width="400" height="300" loading="lazy">' + nazov + "</span>";
     if (typ === "ikona") return '<span class="vol vol-ikona"><span class="ikona" aria-hidden="true"><svg viewBox="0 0 24 24" width="24" height="24">' + (IKONY[k] || "") + "</svg></span>" + nazov + "</span>";
     if (typ === "nalada") {
       var c = NALADA[k] || ["#ddd", "#bbb", "#999"];
@@ -47,7 +55,7 @@
   }
 
   otazky.innerHTML = P.OTAZKY.map(function (q, i) {
-    return '<fieldset class="otazka typ-' + TYP[q.k] + '" data-k="' + q.k + '">' +
+    return '<fieldset class="otazka typ-' + TYP[q.k] + (q.k === "m" ? " miestnosti" : "") + '" data-k="' + q.k + '">' +
       '<legend><span class="poradie">Otázka ' + (i + 1) + " zo " + n + '</span><span class="text">' + esc(q.t) + "</span></legend>" +
       '<p class="otazka-chyba">Vyber jednu možnosť.</p>' +
       '<div class="moznosti">' + Object.keys(q.z).map(function (k) {
