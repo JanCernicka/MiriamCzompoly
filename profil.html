@@ -32,7 +32,7 @@
     <section class="hero">
       <div class="obal">
         <h1>Čo by som v tvojej miestnosti <em>riešila ako prvé</em></h1>
-        <p class="sub">Odpovedz na 6 krátkych otázok o jednej miestnosti. Pošlem ti plán: čo by som riešila ako prvé a 3 kroky na tento víkend s tým, čo už doma máš. <strong>Zadarmo.</strong></p>
+        <p class="sub">Odpovedz na 6 krátkych otázok o jednej miestnosti a dostaneš plán: čo by som riešila ako prvé a 3 kroky na tento víkend s tým, čo už doma máš. <strong>Zadarmo.</strong></p>
 
         <!-- 🔴 VIDEO: Miriam ho ešte nenatočila. Keď bude, stačí doplniť data-src (mp4) a data-poster. -->
         <figure class="video" data-video data-src="" data-poster="/assets/img/realizacie/vidiecky-4.jpg">
@@ -63,24 +63,24 @@
     <section id="formular" class="formular-sekcia">
       <div class="obal">
         <h2>Tvoj plán za minútu</h2>
-        <p class="uvod">Odpovedz na 6 otázok o jednej miestnosti. Plán ti pošlem e-mailom.</p>
+        <p class="uvod">Šesť otázok o jednej miestnosti, na konci meno a e-mail.</p>
+        <div class="form-postup" aria-hidden="true"><span id="postupText">Zodpovedané 0 zo 6</span><i><b id="postupPas"></b></i></div>
         <form id="planForm" novalidate>
           <div id="otazky"></div>
-          <fieldset class="otazka">
-            <legend><span class="cislo">7</span>Ako ti môžem hovoriť?</legend>
-            <div class="pole"><label for="meno">Krstné meno</label>
-              <input id="meno" name="meno" type="text" autocomplete="given-name" required></div>
-          </fieldset>
-          <fieldset class="otazka">
-            <legend><span class="cislo">8</span>Kam ti mám poslať plán?</legend>
-            <div class="pole"><label for="email">E-mail</label>
-              <input id="email" name="email" type="email" inputmode="email" autocomplete="email" required></div>
+          <fieldset class="otazka kontakt-karta" id="kontaktKarta">
+            <legend><span class="poradie">Posledný krok</span><span class="text">Komu mám plán pripraviť?</span></legend>
+            <div class="kontakt-polia">
+              <div class="pole"><label for="meno">Krstné meno</label>
+                <input id="meno" name="meno" type="text" autocomplete="given-name" required></div>
+              <div class="pole"><label for="email">E-mail</label>
+                <input id="email" name="email" type="email" inputmode="email" autocomplete="email" required></div>
+            </div>
           </fieldset>
           <!-- pasca na roboty, človek ju nevidí -->
           <div class="pasca" aria-hidden="true"><label>Web <input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
           <p class="chyba" id="chyba" role="alert"></p>
-          <button class="btn" type="submit" id="poslat">Poslať mi plán</button>
-          <p class="drobne">Pošlem ti plán a občas tip k bývaniu. Odhlásiť sa môžeš jedným klikom. Viac o <a href="/gdpr" target="_blank" rel="noopener">ochrane údajov</a>.</p>
+          <button class="btn" type="submit" id="poslat">Získať môj plán</button>
+          <p class="drobne">E-mail použijem na tvoj plán a občas na tip k bývaniu. Odhlásiť sa môžeš jedným klikom. Viac o <a href="/gdpr" target="_blank" rel="noopener">ochrane údajov</a>.</p>
         </form>
       </div>
     </section>

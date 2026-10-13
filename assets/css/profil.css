@@ -142,28 +142,79 @@ section > .obal > .btn{margin-top:22px}
 .video-play{width:58px;height:58px;border-radius:50%;background:rgba(255,255,255,.92);position:relative;box-shadow:0 6px 18px rgba(0,0,0,.25)}
 .video-play::after{content:"";position:absolute;left:23px;top:18px;border-style:solid;border-width:11px 0 11px 17px;border-color:transparent transparent transparent var(--tma)}
 
-/* ---------- formulár na stránke ---------- */
+/* ---------- formulár na stránke (13. 10. 2026: každá otázka je karta, odpovede majú vlastný typ) ---------- */
 .formular-sekcia{background:var(--karta)}
-.formular-sekcia .uvod{margin-bottom:6px}
-.otazka{border:0;margin:0;padding:22px 0 4px;min-width:0}
-.otazka legend{display:flex;gap:10px;align-items:baseline;padding:0;margin:0 0 12px;font-family:var(--display);font-size:24px;
-  font-weight:600;color:var(--tma);line-height:1.15}
-.otazka .cislo{flex:0 0 auto;font-family:var(--sans);font-size:13px;font-weight:800;color:var(--akcent-tmavy);
-  width:24px;height:24px;border-radius:50%;border:1.5px solid var(--akcent);display:inline-flex;align-items:center;justify-content:center;transform:translateY(-3px)}
-.moznosti{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.moznosti.siroke{grid-template-columns:1fr}
+.formular-sekcia .uvod{margin-bottom:14px}
+.form-postup{position:sticky;top:38px;z-index:20;display:flex;align-items:center;gap:12px;margin:0 -20px 12px;padding:10px 20px;
+  background:var(--karta);font-size:13px;font-weight:700;color:var(--akcent-tmavy);font-variant-numeric:tabular-nums}
+.form-postup i{flex:1 1 auto;height:6px;border-radius:3px;background:#e9dfcf;overflow:hidden}
+.form-postup b{display:block;height:100%;width:0;background:var(--akcent);border-radius:3px;transition:width .35s ease}
+
+.otazka{background:#fff;border:1px solid var(--linka);border-radius:18px;padding:18px 16px 18px;margin:0 0 14px;min-width:0;
+  box-shadow:0 8px 24px rgba(38,32,25,.06);transition:border-color .2s ease,box-shadow .2s ease;scroll-margin-top:110px}
+.otazka legend{float:left;width:100%;padding:0;margin:0 0 14px}
+.otazka legend + *{clear:both}
+.poradie{display:flex;align-items:center;gap:8px;font-size:11.5px;font-weight:800;letter-spacing:.11em;text-transform:uppercase;color:var(--akcent-tmavy);margin-bottom:5px}
+.otazka .text{display:block;font-family:var(--display);font-size:26px;font-weight:600;line-height:1.12;color:var(--tma);text-wrap:balance}
+.otazka.hotova{border-color:#d9c29c}
+.otazka.hotova .poradie::after{content:"✓";display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:50%;
+  background:var(--akcent);color:#fff;font-size:11px;letter-spacing:0}
+.otazka-chyba{display:none;margin:-6px 0 10px;color:var(--zle);font-size:14px;font-weight:600;clear:both}
+.chyba-otazka{border-color:var(--zle);box-shadow:0 0 0 3px rgba(179,38,30,.12)}
+.chyba-otazka .otazka-chyba{display:block}
+
+.moznosti{display:grid;gap:10px;clear:both}
 .moznost{position:relative;display:block;cursor:pointer;min-width:0}
 .moznost input{position:absolute;opacity:0;width:1px;height:1px}
-.moznost span{display:flex;align-items:center;min-height:52px;padding:12px 14px;border:1.5px solid var(--linka);border-radius:12px;
-  background:#fff;color:var(--tma);font-weight:600;font-size:15.5px;line-height:1.25}
-.moznost:hover span{border-color:var(--akcent)}
-.moznost input:focus-visible + span{outline:3px solid var(--akcent);outline-offset:2px}
-.moznost input:checked + span{border-color:var(--tma);box-shadow:0 0 0 1.5px var(--tma);background:#fff}
-.moznost input:checked + span::before{content:"✓";color:var(--akcent-tmavy);font-weight:800;margin-right:7px}
-.chyba-otazka legend{color:var(--zle)}
-.chyba-otazka .moznost span{border-color:#e3b4ae}
-.formular-sekcia .pole{margin-bottom:4px}
-.formular-sekcia form > .btn{margin-top:18px}
+.vol{position:relative;display:flex;align-items:center;gap:10px;height:100%;border:1.5px solid var(--linka);border-radius:14px;background:#fff;
+  color:var(--tma);font-weight:600;font-size:15.5px;line-height:1.25;transition:border-color .15s ease,background .15s ease,box-shadow .15s ease}
+.moznost:hover .vol{border-color:var(--akcent)}
+.moznost input:focus-visible + .vol{outline:3px solid var(--akcent);outline-offset:2px}
+.moznost input:checked + .vol{border-color:var(--tma);box-shadow:0 0 0 1.5px var(--tma);background:#fffdf9}
+.moznost input:checked + .vol::after{content:"✓";position:absolute;top:8px;right:8px;width:22px;height:22px;border-radius:50%;
+  background:var(--tma);color:#fff;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;
+  box-shadow:0 2px 6px rgba(0,0,0,.25)}
+
+/* 1. miestnosť: fotka realizácie */
+.typ-foto .moznosti{grid-template-columns:1fr 1fr}
+.vol-foto{flex-direction:column;align-items:stretch;gap:0;overflow:hidden;padding:0}
+.vol-foto img{width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;display:block;background:var(--karta)}
+.vol-foto .nazov{padding:10px 12px 11px}
+.moznost input:checked + .vol-foto img{filter:none}
+.typ-foto .moznost:last-child:nth-child(odd){grid-column:1 / -1}
+.typ-foto .moznost:last-child:nth-child(odd) img{aspect-ratio:16/7}
+
+/* 2. čo prekáža: ikona */
+.typ-ikona .moznosti{grid-template-columns:1fr 1fr}
+.vol-ikona{flex-direction:column;align-items:flex-start;gap:10px;padding:14px 14px 15px;min-height:104px}
+.vol-ikona .ikona{width:40px;height:40px;border-radius:12px;background:var(--karta);color:var(--akcent-tmavy);display:flex;align-items:center;justify-content:center}
+.vol-ikona svg{fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.moznost input:checked + .vol-ikona .ikona{background:var(--tma);color:var(--zlata)}
+
+/* 3. nábytok: stupnica od všetkého po nič */
+.typ-stupnica .moznosti{display:flex;flex-wrap:wrap;gap:8px}
+.typ-stupnica .moznost{flex:1 1 auto}
+.vol-stupnica{justify-content:center;text-align:center;min-height:50px;padding:12px 16px;border-radius:999px}
+.typ-stupnica .moznost input:checked + .vol::after{display:none}
+.typ-stupnica .moznost input:checked + .vol{background:var(--tma);color:#fff}
+
+/* 4. pocit: farby nálady */
+.typ-nalada .moznosti{grid-template-columns:1fr 1fr}
+.vol-nalada{padding:12px 14px;min-height:62px}
+.farby{flex:0 0 34px;width:34px;height:34px;border-radius:50%;border:1px solid rgba(38,32,25,.12);
+  background:conic-gradient(var(--f1) 0 33.3%,var(--f2) 0 66.6%,var(--f3) 0)}
+
+/* 5. a 6. termín a rozpočet: zoznam */
+.typ-zoznam .moznosti{grid-template-columns:1fr;gap:8px}
+.vol-zoznam{padding:13px 14px;min-height:52px}
+.kruzok{flex:0 0 22px;width:22px;height:22px;border-radius:50%;border:2px solid #cdbfa8;background:#fff}
+.moznost input:checked + .vol-zoznam .kruzok{border:7px solid var(--tma)}
+.typ-zoznam .moznost input:checked + .vol::after{display:none}
+
+/* kontakt */
+.kontakt-karta .pole{margin-bottom:10px}
+.kontakt-polia{display:grid;gap:2px;clear:both}
+.formular-sekcia form > .btn{margin-top:8px}
 .ako{font-size:14px;color:var(--sivy);margin:0 0 10px}
 .odkaz{font:inherit;color:var(--akcent-tmavy);background:none;border:0;padding:0;text-decoration:underline;cursor:pointer}
 
@@ -207,9 +258,15 @@ section > .obal > .btn{margin-top:22px}
   .btn{width:auto;min-width:340px;margin-left:auto;margin-right:auto}
   .sloty{grid-template-columns:repeat(4,1fr)}
   .oslovenie{font-size:44px}
-  .otazka legend{font-size:27px}
-  .moznosti{grid-template-columns:repeat(3,1fr)}
-  .moznosti.siroke{grid-template-columns:1fr 1fr}
+  .formular-sekcia .obal{max-width:780px}
+  .otazka{padding:24px 24px 24px}
+  .otazka .text{font-size:31px}
+  .typ-foto .moznosti{grid-template-columns:repeat(4,1fr)}
+  .typ-foto .moznost:last-child:nth-child(odd){grid-column:auto}
+  .typ-foto .moznost:last-child:nth-child(odd) img{aspect-ratio:4/3}
+  .typ-ikona .moznosti,.typ-nalada .moznosti{grid-template-columns:repeat(3,1fr)}
+  .typ-zoznam .moznosti{grid-template-columns:1fr 1fr}
+  .form-postup{margin:0 0 12px;padding:10px 0}
 }
-@media(max-width:359px){.pruh .co{display:none}.moznosti{grid-template-columns:1fr}}
-@media(prefers-reduced-motion:reduce){.zive i{animation:none}html{scroll-behavior:auto}}
+@media(max-width:359px){.pruh .co{display:none}.typ-ikona .moznosti,.typ-nalada .moznosti{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){.zive i{animation:none}html{scroll-behavior:auto}.form-postup b,.vol,.otazka{transition:none}}
