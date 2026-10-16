@@ -15,8 +15,9 @@
 
   // n: na dlaždici, oslovenie: prvý riadok plánu, lok: „v tvojej …“
   // pred/po: Miriamina realizácia v pláne (13. 10. 2026, Jano: pred aj po). Dvojice sú z toho istého
-  // bytu a podľa popisov na webe tá istá miestnosť. Detská, predsieň a pracovný kút vlastnú dvojicu
-  // nemajú, majú dvojicu z bytu pre staršiu pani a veta to nezamlčí. 🔴 Keď Miriam dodá fotky, vymeniť.
+  // bytu a podľa popisov na webe tá istá miestnosť. Detskú, predsieň a celú fotku kúpeľne poslala Miriam
+  // 16. 10. (miriam-*.jpg). Pracovný kút vlastnú dvojicu nemá, má byt pre staršiu pani a veta to nezamlčí.
+  // vysoke: fotky sú na výšku, v pláne sa ukážu 3:4 namiesto 4:3, aby sa neorezali.
   var STARSIA = { pred: FOTO + "starsia-pani-pred-2.jpg", po: FOTO + "starsia-pani-2.jpg",
                   veta: "Byt pre staršiu pani v Trnave pred premenou a po nej." };
   var MIESTA = {
@@ -30,13 +31,15 @@
                 pred: FOTO + "starsia-pani-pred-3.jpg", po: FOTO + "starsia-pani-4.jpg",
                 veta: "Kuchyňa v byte pre staršiu pani v Trnave pred premenou a po nej." },
     detska:   { n: "Detská", oslovenie: "Tvoja detská izba: tu je, čo by som riešila ako prvé.", lok: "v tvojej detskej izbe",
-                pred: STARSIA.pred, po: STARSIA.po, veta: STARSIA.veta },
+                pred: FOTO + "miriam-detska-pred.jpg", po: FOTO + "miriam-detska-po.jpg", vysoke: true,
+                veta: "Detská izba počas stavby a hotová, s posteľou na poschodí a úložným priestorom pod schodmi." },
     predsien: { n: "Predsieň", oslovenie: "Tvoja predsieň: tu je, čo by som riešila ako prvé.", lok: "v tvojej predsieni",
-                pred: STARSIA.pred, po: STARSIA.po, veta: STARSIA.veta },
+                pred: FOTO + "miriam-predsien-pred.jpg", po: FOTO + "miriam-predsien-po.jpg", vysoke: true,
+                veta: "Predsieň pred premenou a po nej. Zrkadlo aj skrine ostali, pribudla tapeta a starý šijací stolík." },
     kut:      { n: "Pracovný kút", oslovenie: "Tvoj pracovný kút: tu je, čo by som riešila ako prvé.", lok: "v tvojom pracovnom kúte",
                 pred: STARSIA.pred, po: STARSIA.po, veta: STARSIA.veta },
     kupelna:  { n: "Kúpeľňa a WC", oslovenie: "Tvoja kúpeľňa: tu je, čo by som riešila ako prvé.", lok: "v tvojej kúpeľni",
-                pred: FOTO + "starsia-pani-pred.jpg", po: FOTO + "starsia-pani-5.jpg",
+                pred: FOTO + "starsia-pani-pred.jpg", po: FOTO + "miriam-kupelna-po.jpg",
                 veta: "Kúpeľňa v byte pre staršiu pani v Trnave pred premenou a po nej." }
   };
 
