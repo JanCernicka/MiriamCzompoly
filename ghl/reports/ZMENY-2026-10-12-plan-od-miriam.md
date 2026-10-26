@@ -67,6 +67,12 @@ Videoponuku pre horúcich („pošli fotku, pošlem video“) nahradil hovor. Fo
 3. Zlúčiť vetvu do `claude/lievik-checklist`, nasadiť `./nasad-web.sh`, zmeniť `noindex` podľa toho, či ide aj do Googlu.
 4. Meranie a pixel (stránky zatiaľ neposielajú udalosti do konzoly ani do Meta) a reklama na `/profil`.
 
+## Videá od Miriam (26. 10.)
+Miriam poslala nové videá, časť na reklamu a časť na VSL, neoznačené. Jano ich dáva inému AI na kontrolu a strih.
+Prompt a kontext preň (kto je Miriam, lievik, presné zadanie videí 1 a 2 z 15. 10., pravidlá reklám, staršie skripty,
+formát výstupu A až I): https://claude.ai/artifact/JL44cPSUqJAwnviftmAYZ6 . Text sem nekopírovať.
+Na reklamné videá k lead magnetu Miriam žiadne zadanie nedostala. Výsledok kontroly ešte nemáme.
+
 ## Otvorené
 - Kúpeľňa: niektoré kroky sedia horšie (lampa do rohu, záclony po zem, presunúť veľký kus nábytku, vankúše). Jano sa pýtal prečo,
   vysvetlené 12. 10. v chate. Kým sa nerozhodne, ostávajú Miriamine texty bez zmeny.
