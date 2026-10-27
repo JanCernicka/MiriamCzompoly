@@ -25,12 +25,13 @@ Nasadené `./nasad-web.sh` na www.miriamczompoly.sk, vetva `claude/lievik-checkl
   a bežiaci A/B test. Nenačítajú `tmava.css`, nemajú ani Blog v menu.
 
 ## Čaká na Miriam
-1. Hlavná fotka s medenými svietidlami: v dokumente „posielam v prílohe“, ale príloha neprišla.
+1. ~~Hlavná fotka~~ hotové 27. 10.: `assets/img/hero-medene-svietidla.jpg` (853x1280, poslal Jano).
 2. Tri fotky detailov do Môj podpis a ku každej nadpis a jedna veta. Miesto je pripravené ako komentár v `index.html`,
    štýl oblúkových fotiek (`.podpis-fotky`) je v `tmava.css`.
 3. Písmo Simple Serenity Script je platené (Set Sail Studios). Treba súbor s licenciou na web, alebo podpis ako
    PNG/SVG v #DDC16A a #856A44. Potom `--font-podpis` v `tmava.css`.
-4. „Zrušiť svetlý rám okolo fotky“: zrušená svetlá žiara okolo hlavnej fotky. Ak myslela niečo iné, doplniť.
+4. „Zrušiť svetlý rám okolo fotky“: zrušená svetlá žiara za fotkou a svetlé pozadie `.ph`, ktoré presvitalo
+   na zaoblených rohoch ako tenký lem. Ak myslela niečo iné, doplniť.
 
 ## Mimo webu
 - Bublina chatu je widget GHL (`69fca8895b108d17d66edd1c`), farba sa nastavuje v GHL v nastaveniach chat widgetu.
