@@ -3,7 +3,10 @@
 /ebook         /5-chyb        301
 /kontakt       /#kontakt      301
 /realizacie    /#realizacie   301
-/blog          /              302
+
+# Blog je späť (27. 10. 2026) na /blog a /post/<slug> ako na starom webe. Kategória z GHL vedie na zoznam.
+/blog/*        /blog          301
+/post          /blog          301
 
 # Rezervačný funnel a interná adresa starého webu v GHL
 /rezervacia      /diagnostika   301

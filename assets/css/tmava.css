@@ -1,0 +1,206 @@
+/* =========================================================
+   Tmavá téma webu (Miriam, návrh z 27. 10. 2026)
+   Načítava sa LEN na tmavých stránkach (úvod, služby), vždy po style.css.
+   Lievikové stránky (diagnostika, dakujem, profil) ju nenačítajú: majú biele
+   pozadie (pravidlo z 23. 9. 2026) a beží na nich A/B test. Stránky na čítanie
+   (blog, e-book, GDPR) sú svetlé, tie majú citanie.css.
+
+   Farby sú len tieto. Žiadne ďalšie:
+     #1E1B1A pozadie, #262221 odlíšené sekcie, #302B29 plochy, #241F1E karty,
+     #ECEAE7 text, #C9C4BD medzitext, #A8A29A sekundárny text,
+     #DDC16A akcent, #E6D08A svetlejší akcent, #3E3835 linky, #6E5F43 rámy kariet,
+     #786A3C rám strany.
+   Pasca: style.css používa --ink ako tmavé pozadie a --paper ako text na ňom.
+   Tu sa tie dve premenné otáčajú, preto každé také miesto nižšie prepisujeme.
+   ========================================================= */
+
+:root {
+  --paper:      #1E1B1A;   /* hlavné pozadie */
+  --paper-2:    #262221;   /* odlíšené sekcie */
+  --sand:       #302B29;   /* plochy, štítky */
+  --white:      #241F1E;   /* karty (cenník, boxy) */
+  --ink:        #ECEAE7;   /* hlavný text, nie čistá biela */
+  --ink-soft:   #C9C4BD;   /* medzitext */
+  --muted:      #A8A29A;   /* sekundárny text */
+  --brass:      #DDC16A;   /* akcent, odkazy, nadpisy sekcií */
+  --brass-soft: #E6D08A;   /* akcent svetlejší */
+  --brass-deep: #DDC16A;   /* zjednotené s --brass */
+  --line:       #3E3835;   /* vodorovné deliace linky */
+  --line-2:     #6E5F43;   /* rámy kariet */
+
+  /* odvodené, aby nikde neostala farba zo svetlej palety */
+  --ink-2:      #1E1B1A;
+  --greige:     #302B29;
+  --greige-2:   #3E3835;
+  --na-zlatej:  #1E1B1A;   /* text a ikony na zlatej výplni */
+  --ramec:      #786A3C;   /* art deco rám strany */
+  --ramec-odstup: 26px;
+
+  /* tiene na tmavom nefungujú, nahrádza ich rám alebo svetlejšia výplň */
+  --shadow-sm: none;
+  --shadow-md: none;
+  --shadow-lg: none;
+}
+
+body { font-size: 1.125rem; line-height: 1.7; }
+::selection { background: var(--brass); color: var(--na-zlatej); }
+
+/* ---------- Art deco rám strany: jediný ozdobný prvok ----------
+   Tenká linka v odstupe od okraja okna, rohy zvýraznené zlatým úsekom.
+   Leží v okraji stránky, kam obsah nesiaha, preto nikdy nejde cez fotku ani
+   medzi odstavce. Hlavička má väčší horný odstup, aby linka nešla cez logo. */
+body::after {
+  content: ""; position: fixed; inset: var(--ramec-odstup); z-index: 110; pointer-events: none;
+  background:
+    linear-gradient(var(--brass), var(--brass)) left top / 26px 1px no-repeat,
+    linear-gradient(var(--brass), var(--brass)) left top / 1px 26px no-repeat,
+    linear-gradient(var(--brass), var(--brass)) right top / 26px 1px no-repeat,
+    linear-gradient(var(--brass), var(--brass)) right top / 1px 26px no-repeat,
+    linear-gradient(var(--brass), var(--brass)) left bottom / 26px 1px no-repeat,
+    linear-gradient(var(--brass), var(--brass)) left bottom / 1px 26px no-repeat,
+    linear-gradient(var(--brass), var(--brass)) right bottom / 26px 1px no-repeat,
+    linear-gradient(var(--brass), var(--brass)) right bottom / 1px 26px no-repeat,
+    linear-gradient(var(--ramec), var(--ramec)) left top / 100% 1px no-repeat,
+    linear-gradient(var(--ramec), var(--ramec)) left bottom / 100% 1px no-repeat,
+    linear-gradient(var(--ramec), var(--ramec)) left top / 1px 100% no-repeat,
+    linear-gradient(var(--ramec), var(--ramec)) right top / 1px 100% no-repeat;
+}
+@media (max-width: 720px) { :root { --ramec-odstup: 14px; } }
+.site-header, .site-header.scrolled { padding-top: calc(var(--ramec-odstup) + 0.9rem); }
+html { scroll-padding-top: 170px; }
+@media (max-width: 720px) { html { scroll-padding-top: 120px; } }
+
+/* ---------- Hlavička a menu ---------- */
+.site-header.scrolled { background: rgba(30, 27, 26, 0.94); border-color: var(--line); }
+.nav-list a { color: var(--ink-soft); }
+
+/* ---------- Tlačidlá: hlavné je zlatá výplň s tmavým textom ---------- */
+.btn, .btn--primary, .btn--brass, .btn--light { --btn-bg: var(--brass); --btn-fg: var(--na-zlatej); }
+.btn:hover { box-shadow: none; }
+.btn--primary:hover, .btn--brass:hover, .btn--light:hover { background: var(--brass-soft); color: var(--na-zlatej); }
+.btn--outline, .section--dark .btn--outline { --btn-bg: transparent; --btn-fg: var(--ink); border: 1px solid var(--line-2); }
+.btn--outline:hover, .section--dark .btn--outline:hover { background: var(--sand); color: var(--ink); border-color: var(--brass); }
+.skip-link { background: var(--brass); color: var(--na-zlatej); }
+
+/* ---------- Tmavé pásy zo svetlej verzie ---------- */
+.section--dark { background: var(--paper-2); color: var(--ink); }
+.section--dark + .section--dark { background: var(--paper); border-top: 1px solid var(--line); }
+.section--dark h1, .section--dark h2, .section--dark h3 { color: var(--ink); }
+.section--dark .lead, .section--dark p,
+.section--dark .steps-inline li .t, .section--dark .benefit-list li { color: var(--ink-soft); }
+.section--dark .muted, .section--dark .note { color: var(--muted); }
+.section--dark .eyebrow { color: var(--brass); }
+
+/* úvod: bez svetlej žiary okolo fotky */
+.hero::before, .page-hero::before { display: none; }
+.hero-figure .ph-badge { border: 1px solid var(--line-2); }
+
+.trustbar { background: var(--paper-2); color: var(--ink); border-block: 1px solid var(--line); }
+.tb-text { color: var(--ink); }
+.tb-who { color: var(--ink); }
+.tb-proj { color: var(--muted); }
+.tb-stars, .tb-more { color: var(--brass); }
+
+/* ---------- Karty: rám #6E5F43 namiesto tieňa ---------- */
+.pain-list li, .qualify-card, .review, .value-panel, .optin-card,
+.callout, .cookie-banner, .modal-quote, .legal-box { border-color: var(--line-2); }
+.modal { border: 1px solid var(--line-2); }
+.modal-close { background: var(--sand); color: var(--ink); }
+.modal-close:hover { background: var(--line); }
+.ph-chip { background: var(--sand); color: var(--ink-soft); }
+.ba-tag.pred { color: var(--ink); }
+.ba-tag.po, .steps-inline li .n { color: var(--na-zlatej); }
+.callout--anchor { background: var(--white); border-color: var(--brass); color: var(--ink); }
+.callout--anchor h3 { color: var(--ink); }
+.callout--anchor p { color: var(--ink-soft); }
+.callout--anchor .c-icon { color: var(--brass); }
+
+/* ---------- Cenník ---------- */
+.price-card { background: var(--white); border: 1px solid var(--line-2); }
+.price-card:hover { border-color: var(--line-2); background: var(--sand); }
+.price-card--featured,
+.price-card--featured:hover { border: 1px solid var(--brass); }
+.price-card--featured { background: var(--white); }
+/* štítok sedí nad rámom karty, neprerušuje ho */
+.price-card--featured::before {
+  top: auto; bottom: calc(100% + 0.55rem);
+  background: var(--brass); color: var(--na-zlatej); box-shadow: none;
+}
+.pc-list li { font-size: 1rem; }
+@media (max-width: 900px) { .price-card--featured { margin-top: 2.2rem; } }
+
+.premium-banner { background: var(--white); border: 1px solid var(--brass); color: var(--ink); }
+.premium-banner::before { display: none; }
+.pb-info .eyebrow, .pb-price .from { color: var(--brass); }
+.pb-name, .pb-price, .pb-forwhom strong, .premium-banner .pc-list li strong { color: var(--ink); }
+.pb-note, .premium-banner .pc-list li { color: var(--ink-soft); }
+.pb-forwhom { color: var(--ink-soft); border-top-color: var(--line); }
+.premium-banner .pc-list .tick { color: var(--brass); }
+.pb-foot .proof-link { color: var(--brass); border-color: var(--line-2); }
+.pb-foot .proof-link:hover { color: var(--ink); border-color: var(--brass); }
+
+.guarantee { background: var(--white); border-color: var(--line-2); }
+.guarantee .g-icon { border-color: var(--brass); color: var(--brass); }
+.guarantee h3 { color: var(--ink); }
+.guarantee p { color: var(--ink-soft); }
+
+/* ---------- Realizácie: menšie medzery medzi dlaždicami ---------- */
+.gallery-grid { gap: 0.5rem; }
+.tile .tile-title, .pm-cap, .pc-step h3 { color: var(--ink); }
+.tile .tile-cta, .pm-more, .pc-num, .pc-step .step-price { color: var(--brass); }
+.pc-num { border-color: var(--brass); }
+.pc-step p { color: var(--ink-soft); }
+.pc-opt { color: var(--muted); }
+
+/* ---------- Lead magnet ---------- */
+.leadmagnet { background: var(--white); border: 1px solid var(--line-2); color: var(--ink); }
+.leadmagnet::before { display: none; }
+.leadmagnet h2 { color: var(--ink); }
+.leadmagnet p { color: var(--ink-soft); }
+.leadmagnet .lm-book { color: var(--brass); }
+.leadmagnet .form label, .leadmagnet .form-note { color: var(--muted); }
+.leadmagnet .form .field { background: var(--paper); border-color: var(--line-2); }
+
+/* ---------- Formuláre ---------- */
+.form .field::placeholder { color: var(--muted); }
+.form .field:focus { border-color: var(--brass); box-shadow: 0 0 0 3px rgba(221, 193, 106, .2); }
+
+/* ---------- Záver a päta ---------- */
+.finalcta .scarcity { color: var(--ink-soft); }
+.finalcta .contact-line a { color: var(--ink-soft); border-bottom-color: var(--line-2); }
+.finalcta .contact-line a:hover { color: var(--ink); border-color: var(--brass); }
+.merge-field { color: var(--brass); }
+
+.site-footer { background: var(--paper); color: var(--ink-soft); border-top: 1px solid var(--line); }
+.footer-top { border-bottom-color: var(--line); }
+.footer-brand .brand-name, .footer-col h4 { color: var(--ink); }
+.footer-brand p, .footer-bottom { color: var(--muted); }
+.footer-col a { color: var(--ink-soft); }
+.footer-col a:hover, .footer-bottom a:hover { color: var(--brass); }
+
+/* ---------- Svetelný box ---------- */
+.lb-btn { background: var(--sand); color: var(--ink); border-color: var(--line-2); }
+.lb-btn:hover { background: var(--line); }
+.lb-caption { color: var(--ink-soft); }
+
+/* ---------- Podpis ----------
+   Písmo Simple Serenity Script (Set Sail Studios) je platené. Kým nemáme od Miriam
+   súbor s licenciou na web, ostáva náhradné písmo. Po dodaní: @font-face sem
+   a --font-podpis: 'Simple Serenity Script', var(--font-display). */
+:root { --font-podpis: var(--font-display); }
+.about-copy .signature, .podpis-meno {
+  font-family: var(--font-podpis); font-style: italic; font-weight: 400;
+  color: var(--brass); line-height: 1.1;
+}
+
+/* ---------- Sekcia Môj podpis ---------- */
+.podpis .section-head { max-width: 50rem; }
+.podpis .section-head p { max-width: 46rem; font-size: 1.15rem; color: var(--ink-soft); }
+.podpis-meno { text-align: center; font-size: clamp(2.2rem, 1.8rem + 1.6vw, 3rem); margin: 0 auto; max-width: none; }
+.podpis-fotky { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(1rem, 2.5vw, 2rem); margin-bottom: clamp(2.5rem, 4vw, 3.5rem); }
+.podpis-fotka { margin: 0; text-align: center; }
+/* oblúkový vrch: polkruh hore, rovný spodok */
+.podpis-fotka img { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; border-radius: 1000px 1000px 0 0; }
+.podpis-fotka h3 { color: var(--brass); font-size: 1.35rem; margin-top: 1.1rem; }
+.podpis-fotka p { color: var(--muted); font-size: 1rem; margin: 0.4rem auto 0; max-width: 30ch; }
+@media (max-width: 760px) { .podpis-fotky { grid-template-columns: minmax(0, 1fr); max-width: 22rem; margin-inline: auto; } }
