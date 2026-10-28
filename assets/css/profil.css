@@ -282,3 +282,24 @@ section > .obal > .btn{margin-top:22px}
 .cookie-banner .btn{flex:1 1 0;min-height:42px;padding:8px 10px;font-size:14px;border-radius:10px;width:auto}
 .cookie-banner .btn::after{content:none}
 .cookie-banner .btn--outline{background:#fff;color:var(--tma);border:1.5px solid var(--tma)}
+
+/* ---------- video: beží samo bez zvuku, pulzujúci prekryv „Klikni a zapni zvuk“ (28. 10. 2026) ----------
+   Podľa GHLtool lievik/02_KOD.md. Prekryv je o 20 % menší ako video, pulz je rozpínajúci sa prstenec
+   plus mierne zväčšenie, nie blikanie. Farby Miriam: tmavá výplň, mosadzný prstenec, biely text. */
+.video{position:relative;cursor:pointer}
+.zvuk{position:absolute;left:10%;top:10%;width:80%;height:80%;padding:8px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  border:2px solid rgba(255,255,255,.85);border-radius:12px;cursor:pointer;
+  background:rgba(38,32,25,.5);color:#fff;font:inherit;text-align:center;
+  animation:tlkot 1.9s ease-in-out infinite}
+.zvuk:focus-visible{outline:3px solid #fff;outline-offset:3px}
+/* 🔴 display:flex prebije [hidden], preto skrývanie explicitne */
+.zvuk[hidden]{display:none}
+@keyframes tlkot{
+  0%,100%{box-shadow:0 0 0 0 rgba(169,136,94,.75),inset 0 0 26px rgba(255,255,255,.12);transform:scale(1)}
+  50%{box-shadow:0 0 0 15px rgba(169,136,94,0),inset 0 0 26px rgba(255,255,255,.26);transform:scale(1.025)}
+}
+.zvuk .ikona{width:clamp(40px,13vw,66px);height:auto;margin-bottom:7px;color:#fff;filter:drop-shadow(0 2px 10px rgba(0,0,0,.35))}
+.zvuk .r1{font-size:clamp(14px,4.2vw,21px);font-weight:800;letter-spacing:-.015em;line-height:1.2;text-shadow:0 1px 8px rgba(0,0,0,.35)}
+.zvuk .r2{font-size:clamp(12px,3.6vw,17px);font-weight:700;line-height:1.25;margin-top:3px;text-shadow:0 1px 8px rgba(0,0,0,.35)}
+@media(prefers-reduced-motion:reduce){.zvuk{animation:none}}

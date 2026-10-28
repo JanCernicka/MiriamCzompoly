@@ -77,8 +77,23 @@ export async function onRequestPost({ request, env }) {
 
     // 🔴 200 OK nie je dôkaz: Miriam volá na číslo z kontaktu
     const c = ((await (await fetch(`${GHL}/contacts/${id}`, { headers: H })).json().catch(() => ({}))).contact) || {};
-    // GHL číslo, ktoré nepovažuje za platné (napríklad 0900…), ticho zahodí: povedať to človeku, nie „chyba“
-    if (c.phone !== tel) { console.error("rozhovor: telefón sa neuložil", tel, c.phone); return json({ ok: false, error: "bad_phone" }, 400); }
+    /* GHL číslo ku kontaktu ticho nepriradí v dvoch prípadoch a upsert aj tak vráti 200 so starým číslom:
+       1. číslo nepovažuje za platné (napríklad 0900…): povedať človeku, nech ho skontroluje,
+       2. 🔴 číslo už má iný kontakt (žena tu už bola s iným e-mailom, napríklad pri diagnostike).
+          Predtým to tiež hlásilo „zlé číslo“ a hovor sa nedal rezervovať (28. 10. 2026, Jano).
+          Teraz rezervácia pokračuje na kontakte z formulára, číslo je v termíne, v poznámke aj v SMS
+          Miriam a potvrdzujúca SMS ide cez kontakt, ktorý to číslo má. */
+    let smsKontakt = id, inyKontakt = null;
+    if (c.phone !== tel) {
+      const dr = await fetch(`${GHL}/contacts/search/duplicate?locationId=${env.GHL_LOCATION_ID}&number=${encodeURIComponent(tel)}`, { headers: H });
+      const dup = ((await dr.json().catch(() => ({}))).contact) || null;
+      if (!dup || !dup.id || dup.id === id) {
+        console.error("rozhovor: telefón sa neuložil", tel, c.phone);
+        return json({ ok: false, error: "bad_phone" }, 400);
+      }
+      inyKontakt = smsKontakt = dup.id;
+      console.log("rozhovor: číslo má iný kontakt", dup.id, "rezervácia ide na", id);
+    }
 
     const tg = await fetch(`${GHL}/contacts/${id}/tags`, { method: "POST", headers: H,
       body: JSON.stringify({ tags: [ZNACKA.vsetci, ZNACKA.hovor] }) });
@@ -109,7 +124,8 @@ export async function onRequestPost({ request, env }) {
     } catch (e) { console.error("rozhovor príležitosť", String(e)); }
 
     const nt = await fetch(`${GHL}/contacts/${id}/notes`, { method: "POST", headers: H,
-      body: JSON.stringify({ body: poznamka(o, base, `Hovor k plánu ${kedyText(startMs)}, Miriam volá na ${tel}.`) }) });
+      body: JSON.stringify({ body: poznamka(o, base, `Hovor k plánu ${kedyText(startMs)}, Miriam volá na ${tel}.` +
+        (inyKontakt ? ` Toto číslo má v GHL aj iný kontakt (${inyKontakt}), pri tomto kontakte sa neuložilo.` : "")) }) });
     if (!nt.ok) console.error("rozhovor poznámka", nt.status);
 
     if (!ticho) {
@@ -118,7 +134,7 @@ export async function onRequestPost({ request, env }) {
       if (!smsOk(sms) || !smsOk(smsM)) console.error("rozhovor: SMS nie je čisté GSM-7 do 160 znakov");
       await Promise.all([
         posli(env, { type: "Email", contactId: id, subject: e.predmet, html: e.html }),
-        posli(env, { type: "SMS", contactId: id, message: sms }),
+        posli(env, { type: "SMS", contactId: smsKontakt, message: sms }),
         posli(env, { type: "SMS", contactId: MIRIAM_KONTAKT_ID, message: smsM }),
       ]);
     }
