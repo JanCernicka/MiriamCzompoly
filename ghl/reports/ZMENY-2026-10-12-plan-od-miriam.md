@@ -61,7 +61,29 @@ Videoponuku pre horúcich („pošli fotku, pošlem video“) nahradil hovor. Fo
   v novom kalendári, karta, obsadený čas vráti 409, neplatné číslo vráti hlášku. Termín, karta aj kontakt potom zmazané.
 - Neoverené naostro: odoslanie e-mailu s plánom a SMS (rovnaké volanie ako `/api/navod` a WF3) a beh workflowov.
 
-## Na spustenie treba
+## Naostro 28. 10. 2026 (Jano: Miriam súhlasí, zapnúť workflowy, nasadiť na poddoménu, nová kampaň 15 €/deň)
+- **Web:** vetva zlúčená do `claude/lievik-checklist`, nasadené `./nasad-web.sh`. Lievik beží na www.miriamczompoly.sk/profil
+  a po DNS aj na **plan.miriamczompoly.sk** (`functions/_middleware.js`: „/“ ukáže /profil, lievik a API idú ďalej,
+  ostatné presmeruje na www; noindex v `_headers`).
+- 🔴 **DNS čaká na Jana:** u Webhouse CNAME `plan` → `miriam-web-staging.pages.dev`. Doména je v Cloudflare projekte
+  pridaná, stav pending. DNS miriamczompoly.sk nie je v Cloudflare (ns*.webhouse.sk).
+- **Videá** (Drive „Plán od Miriam - VSL a jadrá reklám (27. 10.)“, strihový dokument tam), v GHL médiách:
+  VSL 1 `735fcb7d-ca44-4979-bc0a-a56d898f610c.mp4` + poster `a3dcad50…jpg`, VSL 2 `1635dab4-0242-4c22-8d4e-e573a66fb276.mp4`
+  + poster `0b24f32a…jpg`, jadro A `f7810eb1…mp4`, jadro B `f257fafd…mp4`. Formulár je hneď pod VSL 1.
+- **Pixel** 2324280084711918 cez `consent.js` (len po súhlase): Lead po odoslaní formulára, Schedule po rezervácii hovoru.
+- **Workflowy:** všetkých 6 publikovaných (draft → published), všetky triggery `active: true`, prečítané späť.
+- **Ostrý test** 28. 10. ~10:00 UTC na www: ostatní (e-mail s plánom prišiel do team@shapelesai.com, Primary, odkazy OK)
+  aj horúci (značky plan-test + plan-horuci, bez e-mailu, ako má byť). Kontakty `xJpQPk7hh11uXdMCxv3W`, `wJDbjUv7Wqqi2BdwUTCP`
+  sa zmažú po overení e-mailu z workflowu 3c140460 (2 h). Rezervácia hovoru naostro netestovaná: poslala by SMS Miriam.
+- ⚠️ E-maily odchádzajú z `dizajn+miriamczompoly.sk@lc.shapelesai.com`, nie z Miriaminej domény (docs/odosielacia-domena.md).
+- **Meta** (ad účet 1210955550121224), všetko PAUSED: kampaň `120250871021660477` „Miriam Czompoly: Leads - Plán od Miriam -
+  október 2026“, Leads, CBO 15 €/deň; zostava `120250871026540477` Trnava +70 km (pokryje BA aj NR), ženy, vek 30-65 ako návrh
+  (Advantage+), bez AT/CZ/HU, pixel LEAD; reklamy `120250871038440477` (jadro A) a `120250871047400477` (jadro B), jedno copy,
+  „Zistiť viac“, odkaz plan.miriamczompoly.sk s UTM. Stará kampaň na diagnostiku `120250318272510477` už bola pozastavená.
+  Hooky zatiaľ nie (Jano), preto 2 reklamy namiesto 10. Spustiť až po DNS a po Janovom „spusti“.
+- Prehľad pre Jana (artifact): https://claude.ai/artifact/LLpdm2S8HxVDKejbcR4soR
+
+## Na spustenie treba (stav pred 28. 10.)
 1. Jano a Miriam prejdú náhľad a texty e-mailov (šablóny vyššie).
 2. Publikovať workflowy a urobiť jeden ostrý test na vlastnom čísle a e-maile.
 3. Zlúčiť vetvu do `claude/lievik-checklist`, nasadiť `./nasad-web.sh`, zmeniť `noindex` podľa toho, či ide aj do Googlu.
