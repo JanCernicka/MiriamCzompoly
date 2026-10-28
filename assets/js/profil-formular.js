@@ -143,8 +143,16 @@
       .then(function (x) {
         if (!x || !x.ok) throw new Error("profil");
         var nahlad = x.test ? "&nahlad=1" : "";
-        if ((x.skupina || P.skupina(o)) === "horuci") location.href = "/profil-rezervacia?" + P.doAdresy(o) + nahlad;
-        else location.href = "/diagnostika?plan=odoslany&utm_source=plan-od-miriam" + nahlad;
+        var skupina = x.skupina || P.skupina(o);
+        /* Na poddoméne plan.* je len lievik, diagnostika a zvyšok webu sú na www. */
+        var web = /^plan\./.test(location.hostname) ? "https://www.miriamczompoly.sk" : "";
+        var ciel = skupina === "horuci" ? "/profil-rezervacia?" + P.doAdresy(o) + nahlad
+          : web + "/diagnostika?plan=odoslany&utm_source=plan-od-miriam" + nahlad;
+        /* Lead pre Meta, na ňu optimalizuje kampaň. Pixel beží len po súhlase s cookies (consent.js).
+           Chvíľka čakania, aby udalosť odišla skôr, než stránka odíde. */
+        var lead = !x.test && window.fbq;
+        if (lead) window.fbq("track", "Lead", { content_name: "Plan od Miriam", skupina: skupina });
+        setTimeout(function () { location.href = ciel; }, lead ? 400 : 0);
       })
       .catch(function () {
         bezi = false; poslat.disabled = false; poslat.textContent = "Získať môj plán";

@@ -191,7 +191,7 @@
       var t = esc(r[1]), z = esc(r[2]);
       if (t.indexOf(z) !== -1) t = t.replace(z, "<mark>" + z + "</mark>");
       return '<figure class="gkarta" style="--i:' + i + '"><div class="ghlava"><span class="gava" aria-hidden="true">' +
-        esc(r[0].charAt(0)) + '</span><div><div class="gmeno">' + esc(r[0]) + '</div><div class="gzdroj">Recenzia klienta</div></div></div>' +
+        esc(r[0].charAt(0)) + '</span><div><div class="gmeno">' + esc(r[0]) + '</div><div class="gzdroj">Recenzia klientky</div></div></div>' +
         '<div class="ghviezdy" aria-label="5 z 5">★★★★★</div><blockquote class="gtext">' + t + '</blockquote></figure>';
     }).join("");
   }

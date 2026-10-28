@@ -159,7 +159,11 @@
     fetch("/api/rozhovor", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(telo) })
       .then(function (r) { return r.json().catch(function () { return {}; }).then(function (x) { return { s: r.status, x: x }; }); })
       .then(function (v) {
-        if (v.x && v.x.ok) { hotovo(d, !!v.x.test); return; }
+        if (v.x && v.x.ok) {
+          /* rezervovaný hovor pre Meta (pixel len po súhlase s cookies) */
+          if (!v.x.test && window.fbq) window.fbq("track", "Schedule", { content_name: "Hovor k planu" });
+          hotovo(d, !!v.x.test); return;
+        }
         bezi = false;
         if (v.s === 409) { obnov(); povedz("Tento čas si práve niekto vzal. Vyber si prosím iný."); nacitaj(); return; }
         if (v.x && v.x.error === "bad_phone") { obnov(); zle("telefon", true); povedz("Toto telefónne číslo nevyzerá správne. Skontroluj ho prosím."); return; }

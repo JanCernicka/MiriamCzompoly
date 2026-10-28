@@ -267,3 +267,18 @@ section > .obal > .btn{margin-top:22px}
 }
 @media(max-width:359px){.pruh .co{display:none}.typ-ikona .moznosti,.typ-nalada .moznosti{grid-template-columns:1fr}}
 @media(prefers-reduced-motion:reduce){.zive i{animation:none}html{scroll-behavior:auto}.form-postup b,.vol,.otazka{transition:none}}
+
+/* ---------- lišta cookies (consent.js, Meta pixel až po súhlase) ----------
+   Rovnaké značky ako na webe, ale v štýle lievika. .btn lievika je veľké tlačidlo na celú
+   šírku, tu musí byť malé, preto všetko pod .cookie-banner. */
+.cookie-banner{position:fixed;left:12px;right:12px;bottom:12px;z-index:400;max-width:440px;margin:0 auto;
+  padding:16px 16px 14px;background:#fff;color:var(--text);border:1px solid var(--linka);border-radius:15px;
+  box-shadow:0 14px 40px rgba(38,32,25,.18);opacity:0;transform:translateY(12px);transition:opacity .3s,transform .3s}
+.cookie-banner.show{opacity:1;transform:none}
+.cookie-banner .cb-title{font-family:var(--display);font-size:20px;font-weight:600;color:var(--tma);margin:0 0 4px}
+.cookie-banner .cb-text{font-size:13.5px;line-height:1.5;margin:0 0 12px;color:var(--text)}
+.cookie-banner .cb-text a{color:var(--akcent-tmavy)}
+.cookie-banner .cb-actions{display:flex;gap:8px}
+.cookie-banner .btn{flex:1 1 0;min-height:42px;padding:8px 10px;font-size:14px;border-radius:10px;width:auto}
+.cookie-banner .btn::after{content:none}
+.cookie-banner .btn--outline{background:#fff;color:var(--tma);border:1.5px solid var(--tma)}
