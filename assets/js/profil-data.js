@@ -182,12 +182,32 @@
      "Náš byt má smer, charakter a jednoliaty štýl."]
   ];
 
+  /* Ďalšie skutočné recenzie z miriamczompoly.sk (sekcia Recenzie na úvode), doslovne, s projektom.
+     Ležia v pozadí za štyrmi prednými a vidno z nich len kúsky zhora a z bokov,
+     aby bolo jasné, že recenzií je viac (Jano, 28. 10. 2026). */
+  var RECENZIE_POZADIE = [
+    ["Sebastián Farský", "Byt Štajnerka", "Chcel som niečo s charakterom, moderné art deco, ale vkusne. Spravila presne to, čo som mal v hlave."],
+    ["Tomáš Segul", "Arboria, 1-izbový byt", "Dizajnérka sa nebála farieb. Pôvodne som sa tmavohnedej steny bál, ale nakoniec je to super."],
+    ["Hlavatí", "Byt pre staršiu pani, Trnava", "Vždy keď prídem k mame do bytu, mám radosť z výsledku. Je to pekný, útulný, moderný bytík, kde sa mama cíti dobre."],
+    ["Hugo Štefánek", "Garsónka Hlohovec", "Môj prvý byt. Návrh aj realizáciu som zveril do rúk dizajnérky a neľutujem ani euro."],
+    ["Tatiana Lániková", "Podkrovie, dievčenská izba", "Každý máme nejaký vkus, ale len dizajnér vie, ako z toho urobiť čarovné miesto pre oddych."],
+    ["Sivokoví", "Arboria, 2-izbový byt", "Byt máme zariadený nadštandardne. Podľa realitnej maklérky patrí k najkrajším v komplexe."],
+    ["Miriam Gašparíková", "Kaderníctvo Špačince", "Jej kreativita, profesionálny prístup a rýchla reakcia ma naozaj ohromili. Určite ju odporúčam."],
+    ["Novotní", "Motorest Bučany", "Dostávame obdiv od zákazníkov. Vracajú sa nielen kvôli našej kuchyni, ale aj kvôli pôsobivému interiéru."]
+  ];
+
   function esc(s) { return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;"); }
 
   function recenzie(sel, kolko) {
     var kde = document.querySelector(sel);
     if (!kde) return;
-    kde.innerHTML = RECENZIE.slice(0, kolko || 4).map(function (r, i) {
+    var zadne = RECENZIE_POZADIE.map(function (r, i) {
+      return '<figure class="gkarta gkarta--zadna z' + (i + 1) + '"><div class="ghlava"><span class="gava">' + esc(r[0].charAt(0)) +
+        '</span><div><div class="gmeno">' + esc(r[0]) + '</div><div class="gzdroj">' + esc(r[1]) + '</div></div></div>' +
+        '<div class="ghviezdy">★★★★★</div><blockquote class="gtext">' + esc(r[2]) + '</blockquote></figure>';
+    }).join("");
+    kde.innerHTML = '<div class="kopa-zadne" aria-hidden="true">' + zadne + '</div>' +
+      RECENZIE.slice(0, kolko || 4).map(function (r, i) {
       var t = esc(r[1]), z = esc(r[2]);
       if (t.indexOf(z) !== -1) t = t.replace(z, "<mark>" + z + "</mark>");
       return '<figure class="gkarta" style="--i:' + i + '"><div class="ghlava"><span class="gava" aria-hidden="true">' +

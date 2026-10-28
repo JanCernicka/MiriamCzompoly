@@ -69,12 +69,33 @@ section > .obal > .btn{margin-top:22px}
 .uvod{color:var(--sivy);font-size:15.5px}
 
 /* ---------- recenzie ---------- */
-.kopa{display:block;margin-top:18px;text-align:left}
+.kopa{display:block;position:relative;margin-top:18px;padding-top:30px;text-align:left;--vytrc:14px}
+@media (min-width:640px){.kopa{--vytrc:46px}}
 .gkarta{background:#fff;border:1px solid var(--linka);border-radius:15px;padding:16px 16px 17px;margin:0 0 -14px;
   box-shadow:0 10px 30px rgba(38,32,25,.12);position:relative;z-index:calc(100 - var(--i))}
-.gkarta:nth-child(odd){transform:rotate(-1.2deg);margin-right:14px}
-.gkarta:nth-child(even){transform:rotate(1.1deg);margin-left:14px}
-.gkarta:last-child{margin-bottom:0}
+/* nth-of-type, lebo prvý potomok .kopa je vrstva zadných kariet */
+.kopa > .gkarta:nth-of-type(odd){transform:rotate(-1.2deg);margin-right:14px}
+.kopa > .gkarta:nth-of-type(even){transform:rotate(1.1deg);margin-left:14px}
+.kopa > .gkarta:last-of-type{margin-bottom:0}
+
+/* Zadné karty: ďalšie skutočné recenzie za štyrmi prednými. Vidno z nich len kúsky zhora a z bokov.
+   Ležia v okraji stránky (na mobile 16 px, obal má 20 px), takže stránka sa nikdy neposúva do strán. */
+.kopa-zadne{position:absolute;inset:0;z-index:0;pointer-events:none}
+/* pevná výška, aby spodné karty nikdy nevyliezli pod kôpku do ďalšej sekcie */
+.gkarta--zadna{position:absolute;margin:0;z-index:0;height:128px;overflow:hidden;
+  box-shadow:0 6px 18px rgba(38,32,25,.08);background:#fdfbf8}
+.gkarta--zadna > *{opacity:.72}
+.gkarta--zadna .gtext{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.z1{top:0;left:calc(var(--vytrc) * -.4);right:22%;transform:rotate(-4deg)}
+.z2{top:6px;left:26%;right:calc(var(--vytrc) * -.5);transform:rotate(3.2deg)}
+.z3{top:15%;left:calc(var(--vytrc) * -1);right:38%;transform:rotate(-3.5deg)}
+.z4{top:26%;left:40%;right:calc(var(--vytrc) * -1);transform:rotate(3deg)}
+.z5{top:42%;left:calc(var(--vytrc) * -1);right:42%;transform:rotate(2.6deg)}
+.z6{top:54%;left:44%;right:calc(var(--vytrc) * -1);transform:rotate(-3deg)}
+.z7{bottom:34px;left:calc(var(--vytrc) * -.9);right:40%;transform:rotate(-2.4deg)}
+.z8{bottom:8px;left:42%;right:calc(var(--vytrc) * -.9);transform:rotate(2.8deg)}
+/* otočené karty v okraji nesmú stránku rozšíriť do strán; clip neorezáva zhora */
+.hero{overflow-x:clip}
 .ghlava{display:flex;align-items:center;gap:10px;margin-bottom:8px}
 .gava{width:36px;height:36px;border-radius:50%;background:var(--tma);color:var(--zlata);
   display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px;flex:0 0 36px}
