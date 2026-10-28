@@ -73,8 +73,14 @@ Videoponuku pre horúcich („pošli fotku, pošlem video“) nahradil hovor. Fo
 - **Pixel** 2324280084711918 cez `consent.js` (len po súhlase): Lead po odoslaní formulára, Schedule po rezervácii hovoru.
 - **Workflowy:** všetkých 6 publikovaných (draft → published), všetky triggery `active: true`, prečítané späť.
 - **Ostrý test** 28. 10. ~10:00 UTC na www: ostatní (e-mail s plánom prišiel do team@shapelesai.com, Primary, odkazy OK)
-  aj horúci (značky plan-test + plan-horuci, bez e-mailu, ako má byť). Kontakty `xJpQPk7hh11uXdMCxv3W`, `wJDbjUv7Wqqi2BdwUTCP`
-  sa zmažú po overení e-mailu z workflowu 3c140460 (2 h). Rezervácia hovoru naostro netestovaná: poslala by SMS Miriam.
+  aj horúci (značky plan-test + plan-horuci, bez e-mailu, ako má byť). Rezervácia hovoru naostro netestovaná: poslala by SMS Miriam.
+- **Workflow 3c140460 overený 28. 10. 13:20 UTC:** horúci kontakt z formulára o 10:49:18 dostal e-mail „Tvoj plán čaká na
+  10 minút“ o 12:49:21, presne po 2 h. GHL ho hlási ako `delivered` cez Mailgun na team+plan-test-horuci2@shapelesai.com.
+  ⚠️ V Gmaile team@shapelesai.com ho cez MCP nevidno (ani v koši). MCP nečíta spam, takže skončil asi tam: Jano, pozri spam.
+  Zastavenie funguje: kontakt, ktorý o 10:47 dostal plan-hovor (rezervácia), e-mail nedostal, v konverzácii má len aktivity.
+- Testovacie kontakty `wJDbjUv7Wqqi2BdwUTCP`, `xJpQPk7hh11uXdMCxv3W` a `1jeusXIqHzmuJJSBvQqi` (horuci2) zmazané 28. 10.,
+  GET vracia „Contact not found“. Janov kontakt `76LuqqtLjgAoHQtUlaH3` ostáva, má z testu rezervácie značky plan-test,
+  plan-horuci a plan-hovor.
 - ⚠️ E-maily odchádzajú z `dizajn+miriamczompoly.sk@lc.shapelesai.com`, nie z Miriaminej domény (docs/odosielacia-domena.md).
 - **Meta** (ad účet 1210955550121224), všetko PAUSED: kampaň `120250871021660477` „Miriam Czompoly: Leads - Plán od Miriam -
   október 2026“, Leads, CBO 15 €/deň; zostava `120250871026540477` Trnava +70 km (pokryje BA aj NR), ženy, vek 30-65 ako návrh
