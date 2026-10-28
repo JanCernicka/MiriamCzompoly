@@ -1,0 +1,46 @@
+/* =========================================================
+   Svetlé stránky na čítanie: blog, e-booky, ochrana osobných údajov
+   (Miriam, 27. 10. 2026). Načítava sa po style.css.
+   Na svetlom podklade je zlatá #856A44, nikdy #DDC16A.
+   ========================================================= */
+:root {
+  --brass:      #856A44;
+  --brass-deep: #856A44;
+}
+
+/* ---------- Blog: zoznam článkov ---------- */
+.blog-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(1.4rem, 3vw, 2.4rem); }
+.blog-card { display: flex; flex-direction: column; background: var(--white); border: 1px solid var(--line); border-radius: var(--radius-lg); overflow: hidden; transition: border-color .3s var(--ease); }
+.blog-card:hover { border-color: var(--brass); }
+.blog-card img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; }
+.blog-card .bc-body { display: flex; flex-direction: column; gap: 0.6rem; padding: 1.4rem 1.5rem 1.6rem; flex: 1; }
+.blog-card h2 { font-size: clamp(1.4rem, 1.2rem + 0.8vw, 1.8rem); }
+.blog-card h2 a:hover { color: var(--brass-deep); }
+.blog-card p { color: var(--ink-soft); font-size: 1rem; }
+.blog-card .textlink { margin-top: auto; padding-top: 0.4rem; }
+.blog-meta { font-size: 0.82rem; letter-spacing: 0.04em; color: var(--muted); }
+@media (max-width: 760px) { .blog-grid { grid-template-columns: minmax(0, 1fr); } }
+
+/* ---------- Blog: článok ---------- */
+.clanok { max-width: 46rem; margin-inline: auto; }
+.clanok-hlava { display: grid; gap: 1rem; margin-bottom: 2rem; }
+.clanok-hlava h1 { font-size: clamp(2.2rem, 1.5rem + 2.6vw, 3.4rem); }
+.clanok-obal { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: var(--radius-lg); margin-bottom: 2.4rem; }
+.clanok-telo { font-size: 1.125rem; line-height: 1.7; color: var(--ink-soft); }
+.clanok-telo > * + * { margin-top: 1rem; }
+.clanok-telo p { max-width: 65ch; }
+.clanok-telo h2 { font-size: clamp(1.6rem, 1.3rem + 1vw, 2.1rem); color: var(--ink); margin-top: 2.6rem; }
+.clanok-telo h3 { font-size: 1.35rem; color: var(--ink); margin-top: 2rem; }
+.clanok-telo strong { color: var(--ink); }
+.clanok-telo ul, .clanok-telo ol { padding-left: 1.3rem; list-style: disc; display: grid; gap: 0.35rem; }
+.clanok-telo ol { list-style: decimal; }
+.clanok-telo a { color: var(--brass-deep); text-decoration: underline; text-underline-offset: 3px; }
+.clanok-telo a:hover { color: var(--ink); }
+/* obrázky z GHL majú rôzne veľkosti: malé sa nenaťahujú, veľké sa zmestia */
+.clanok-telo img { display: block; max-width: 100%; height: auto; border-radius: var(--radius); margin: 1.8rem auto; }
+.clanok-telo hr { border: 0; border-top: 1px solid var(--line-2); margin-block: 2.4rem; }
+.clanok-paticka { margin-top: 3.4rem; padding-top: 2rem; border-top: 1px solid var(--line-2); display: grid; gap: 1.2rem; }
+.clanok-paticka h2 { font-size: 1.5rem; }
+.clanok-dalsie { display: grid; gap: 0.6rem; }
+.clanok-dalsie a { color: var(--brass-deep); font-family: var(--font-display); font-size: 1.25rem; }
+.clanok-dalsie a:hover { color: var(--ink); }

@@ -19,6 +19,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="stylesheet" href="assets/css/tmava.css" />
 </head>
 <body>
   <a class="skip-link" href="#main">Preskočiť na obsah</a>
@@ -27,7 +28,7 @@
   <header class="site-header">
     <div class="container header-inner">
       <a href="index.html" class="brand" aria-label="Miriam Czompoly · domovská stránka">
-        <img src="assets/img/logo.png" alt="Miriam Czompoly Design" class="brand-logo" width="392" height="240" fetchpriority="high" />
+        <img src="assets/img/logo-zlate.png" alt="Miriam Czompoly Design" class="brand-logo" width="392" height="240" fetchpriority="high" />
       </a>
       <nav class="nav" aria-label="Hlavná navigácia">
         <ul class="nav-list">
@@ -36,7 +37,8 @@
           <li><a href="sluzby.html">Služby</a></li>
           <li><a href="index.html#realizacie">Realizácie</a></li>
           <li><a href="index.html#o-mne">O mne</a></li>
-                    <li><a href="index.html#kontakt">Kontakt</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="index.html#kontakt">Kontakt</a></li>
         </ul>
         <a href="diagnostika.html" class="btn btn--primary btn--sm">Chcem diagnostiku <span class="arrow" aria-hidden="true">→</span></a>
       </nav>
@@ -52,7 +54,8 @@
       <li><a class="m-link" href="sluzby.html">Služby</a></li>
       <li><a class="m-link" href="index.html#realizacie">Realizácie</a></li>
       <li><a class="m-link" href="index.html#o-mne">O mne</a></li>
-            <li><a class="m-link" href="index.html#kontakt">Kontakt</a></li>
+      <li><a class="m-link" href="blog.html">Blog</a></li>
+      <li><a class="m-link" href="index.html#kontakt">Kontakt</a></li>
     </ul>
     <a href="diagnostika.html" class="btn btn--primary">Chcem diagnostiku <span class="arrow" aria-hidden="true">→</span></a>
     <p class="m-contact">Beriem iba 3 až 4 projekty mesačne.</p>
@@ -72,7 +75,7 @@
           </div>
         </div>
         <div class="hero-figure reveal d2">
-          <div class="ph has-img"><img src="https://assets.cdn.filesafe.space/o86atLjsdR9IoUTWgYna/media/6a0ee00a2bd282d082fe6792.jpg" alt="Svetlá obývačka s rybinovou podlahou: realizácia Miriam Czompoly" loading="lazy" /></div>
+          <div class="ph has-img"><img src="assets/img/hero-medene-svietidla.jpg" alt="Jedálenský stôl pod medenými guľovými svietidlami: realizácia Miriam Czompoly" width="853" height="1280" fetchpriority="high" /></div>
           <div class="ph-badge">
             <span class="num">15+</span>
             <span class="txt">rokov navrhujem interiéry na mieru žene, ktorá v nich žije</span>
@@ -275,8 +278,25 @@
       </div>
     </section>
 
+    <!-- ===================== MÔJ PODPIS ===================== -->
+    <section class="section section--paper2 podpis" id="moj-podpis">
+      <div class="container">
+        <div class="section-head center reveal">
+          <span class="eyebrow">Môj podpis · trocha dekadencie</span>
+          <h2>Odvážne spájam nespojiteľné.</h2>
+          <p>Noblesu s výstrednosťou, eleganciu s dekadenciou. Nebojím sa kontrastov, nečakaných kombinácií ani prvkov, ktoré vybočujú z radu. Práve tie dávajú interiéru osobitosť, napätie a charakter.</p>
+        </div>
+        <!-- Tri fotky detailov s oblúkovým vrchom dodá Miriam. Potom sem:
+        <div class="podpis-fotky">
+          <figure class="podpis-fotka reveal d1"><img src="assets/img/podpis/1.jpg" alt="" loading="lazy" /><h3>Nadpis</h3><p>Jedna veta.</p></figure>
+          ...
+        </div> -->
+        <p class="podpis-meno reveal">Miriam Czompoly</p>
+      </div>
+    </section>
+
     <!-- ===================== RECENZIE ===================== -->
-    <section class="section section--paper2" id="recenzie">
+    <section class="section" id="recenzie">
       <div class="container">
         <div class="section-head center reveal">
           <span class="eyebrow center">Recenzie</span>
@@ -353,7 +373,7 @@
     </section>
 
     <!-- ===================== O MNE ===================== -->
-    <section class="section" id="o-mne">
+    <section class="section section--paper2" id="o-mne">
       <div class="container about-grid">
         <div class="about-figure reveal">
           <img src="https://assets.cdn.filesafe.space/o86atLjsdR9IoUTWgYna/media/69e7d02403c24196d247704c.png" alt="Miriam Czompoly: interiérová dizajnérka" style="width:100%;height:auto;border-radius:14px;display:block" />
@@ -367,13 +387,13 @@
             <div class="stat"><div class="n">15+</div><div class="l">Rokov praxe</div></div>
             <div class="stat"><div class="n">100&nbsp;%</div><div class="l">Návrh o tebe</div></div>
           </div>
-          <p class="signature">Miriam</p>
+          <p class="signature">Miriam Czompoly</p>
         </div>
       </div>
     </section>
 
     <!-- ===================== LEAD MAGNET ===================== -->
-    <section class="section section--paper2" id="lead-magnet">
+    <section class="section" id="lead-magnet">
       <div class="container">
         <div class="leadmagnet reveal">
           <div class="leadmagnet-inner">
@@ -399,7 +419,7 @@
     </section>
 
     <!-- ===================== FAQ ===================== -->
-    <section class="section" id="faq">
+    <section class="section section--paper2" id="faq">
       <div class="container">
         <div class="section-head center reveal">
           <span class="eyebrow center">Časté otázky</span>
@@ -457,6 +477,7 @@
             <li><a href="sluzby.html">Služby</a></li>
             <li><a href="index.html#realizacie">Realizácie</a></li>
             <li><a href="index.html#o-mne">O mne</a></li>
+            <li><a href="blog.html">Blog</a></li>
           </ul>
         </div>
         <div class="footer-col">
