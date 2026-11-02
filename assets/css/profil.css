@@ -150,10 +150,6 @@ section > .obal > .btn{margin-top:22px}
 .suhlas input{width:20px;height:20px;flex:0 0 20px;margin-top:1px;accent-color:var(--tma)}
 .chyba{display:none;color:var(--zle);font-size:14.5px;margin:0 0 10px}
 .chyba.vidno{display:block}
-.hotovo{margin-top:6px;padding:20px 18px;border:2px solid var(--akcent);border-radius:14px;text-align:center}
-.hotovo h3{font-size:26px}
-.nahlad{display:inline-block;margin-top:6px;font-size:12.5px;font-weight:700;color:var(--akcent-tmavy);
-  background:var(--karta);border:1px dashed var(--akcent);border-radius:8px;padding:4px 8px}
 
 /* ---------- video 16:9 (Miriam ho ešte natočí) ---------- */
 .video{margin:4px 0 18px;border-radius:14px;overflow:hidden;background:var(--tma);aspect-ratio:16/9;max-width:100%}

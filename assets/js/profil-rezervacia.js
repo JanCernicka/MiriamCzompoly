@@ -3,7 +3,9 @@
    Kalendár ako na variante B (diagnostika-b/dist/b/js/b.js), voľné časy z /api/sloty?typ=rozhovor.
    Rezervácia ide na /api/rozhovor. Meno a e-mail už dala vo formulári (sessionStorage „mc_kontakt“),
    tu doplní len telefón (Jano, 12. 10.). Keď ich stránka nemá (odkaz z e-mailu, iný prehliadač),
-   ukážu sa aj polia na meno a e-mail. */
+   ukážu sa aj polia na meno a e-mail.
+   Po rezervácii ide na /diagnostika s pruhom „Tvoj termín je rezervovaný. Ešte neodchádzaj“
+   (functions/diagnostika.js, upsell na diagnostiku, Jano 2. 11. 2026). */
 (function () {
   "use strict";
   var P = window.PROFIL;
@@ -30,22 +32,13 @@
   /* ---------- slovenský dátum si skladáme sami ----------
      🔴 toLocaleString("sk-SK") sa nedá spoľahnúť a časová zóna sa musí vynútiť. */
   var ZONA = "Europe/Bratislava";
-  var DNI_SK = { Sun: "v nedeľu", Mon: "v pondelok", Tue: "v utorok", Wed: "v stredu", Thu: "vo štvrtok", Fri: "v piatok", Sat: "v sobotu" };
   var SKRAT = { Sun: "ne", Mon: "po", Tue: "ut", Wed: "st", Thu: "št", Fri: "pi", Sat: "so" };
   function casti(iso) {
     return new Intl.DateTimeFormat("en-GB", { timeZone: ZONA, weekday: "short", day: "numeric", month: "numeric",
       hour: "2-digit", minute: "2-digit", hour12: false }).formatToParts(new Date(iso))
       .reduce(function (a, p) { a[p.type] = p.value; return a; }, {});
   }
-  function den(iso) { return new Intl.DateTimeFormat("en-CA", { timeZone: ZONA }).format(new Date(iso)); }
   function cas(iso) { var c = casti(iso); return Number(c.hour) + ":" + c.minute; }
-  function kedy(iso) {
-    var c = casti(iso);
-    var dnes = den(new Date().toISOString()), zajtra = den(new Date(Date.now() + 86400000).toISOString());
-    var d = den(iso);
-    var slovo = d === dnes ? "dnes" : d === zajtra ? "zajtra" : (DNI_SK[c.weekday] + " " + Number(c.day) + ". " + Number(c.month) + ".");
-    return slovo + " o " + cas(iso);
-  }
 
   /* ---------- kalendár ---------- */
   var dniEl = $("#dni"), slotyEl = $("#sloty"), stav = $("#kalStav"), form = $("#formular");
@@ -130,18 +123,6 @@
     e.addEventListener("input", function () { e.classList.remove("zle"); chyba.classList.remove("vidno"); });
   });
 
-  function hotovo(d, test) {
-    var h = $("#hotovo");
-    h.innerHTML = "<h3>Hotovo, " + esc(d.meno) + "</h3>" +
-      "<p>Zavolám ti <b>" + esc(kedy(vybranyCas)) + "</b> na číslo " + esc(d.telefon) + ". Potvrdenie ti príde SMS aj e-mailom.</p>" +
-      "<p>Ak chceš, odpíš na potvrdzujúci e-mail fotkou tej miestnosti. Pripravím sa lepšie.</p>" +
-      (test ? '<span class="nahlad">Náhľad: rezervácia sa neuložila a nič neodišlo.</span>' : "");
-    $("#kal").hidden = true;
-    h.hidden = false;
-    try { h.focus({ preventScroll: true }); } catch (e) {}
-    h.scrollIntoView({ block: "center" });
-  }
-
   form.addEventListener("submit", function (e) {
     e.preventDefault();
     if (bezi || !vybranyCas) return;
@@ -160,9 +141,17 @@
       .then(function (r) { return r.json().catch(function () { return {}; }).then(function (x) { return { s: r.status, x: x }; }); })
       .then(function (v) {
         if (v.x && v.x.ok) {
-          /* rezervovaný hovor pre Meta (pixel len po súhlase s cookies) */
-          if (!v.x.test && window.fbq) window.fbq("track", "Schedule", { content_name: "Hovor k planu" });
-          hotovo(d, !!v.x.test); return;
+          /* Telefón ani e-mail do adresy nejdú (adresu stránky dostáva pixel), len čas hovoru v ms.
+             Na poddoméne plan.* je len lievik, diagnostika je na www.
+             replace: tlačidlo Späť nevráti na kalendár, kde by si hovor rezervovala druhýkrát. */
+          var web = /^plan\./.test(location.hostname) ? "https://www.miriamczompoly.sk" : "";
+          var ciel = web + "/diagnostika?hovor=rezervovany&kedy=" + Date.parse(vybranyCas) +
+            "&utm_source=plan-od-miriam" + (v.x.test ? "&nahlad=1" : "");
+          /* rezervovaný hovor pre Meta (pixel len po súhlase s cookies), chvíľka, aby udalosť odišla */
+          var sch = !v.x.test && window.fbq;
+          if (sch) window.fbq("track", "Schedule", { content_name: "Hovor k planu" });
+          setTimeout(function () { location.replace(ciel); }, sch ? 400 : 0);
+          return;
         }
         bezi = false;
         if (v.s === 409) { obnov(); povedz("Tento čas si práve niekto vzal. Vyber si prosím iný."); nacitaj(); return; }
