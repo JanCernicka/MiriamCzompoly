@@ -9,8 +9,8 @@ desaťbloková kostra, jedno telo nahraté raz, 4 hooky a 3 subhooky.
 ## Čísla
 | | |
 |---|---|
-| Telo | 128 slov, asi 53 s (145 slov = 60 s) |
-| Celé video s hookom | 62 až 69 s |
+| Telo | 130 slov, asi 54 s (145 slov = 60 s) |
+| Celé video s hookom | 63 až 70 s |
 | Úvody s AI premenou (H1+S1, H2+S2) | 15 a 16 s, ostatné 9 až 12 s |
 | Do kampane | 7 reklám z nového tela + 3 zo starých jadier A a B s hookom = 10 |
 
@@ -20,8 +20,8 @@ desaťbloková kostra, jedno telo nahraté raz, 4 hooky a 3 subhooky.
 - H1 (Hlavatí) je u Miriam na nahratie ako hlas nad premenou (správa z 28. 10.).
 
 ## Overené
-- Elimination: plán naozaj píše „Nič nové nekupuj, kým nevyskúšaš kroky nižšie“ (`assets/js/profil-data.js`)
-  a formulár sa pýta, čo chce nechať.
+- Elimination (Jano 2. 11.: obava z cudzieho štýlu): formulár sa naozaj pýta na pocit aj na to, čo chce nechať
+  (`assets/js/profil-data.js`).
 - Bonus: plán ukazuje jej realizáciu pred a po (pri pracovnom kúte z bytu pre staršiu pani).
 - H2 podľa recenzie Jitky Lennerovej (Drive, P/P Vidiecky byt Trnava, „Recenzia“).
 
