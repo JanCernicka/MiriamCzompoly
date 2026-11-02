@@ -15,6 +15,17 @@
   var form = document.getElementById("planForm"), otazky = document.getElementById("otazky");
   var chyba = document.getElementById("chyba"), poslat = document.getElementById("poslat");
   var bezi = false, n = P.OTAZKY.length;
+
+  /* Z ktorej reklamy prišla (audit pred spustením, 2. 11. 2026): utm_content je meno reklamy v Mete,
+     /api/profil ho zapíše do poznámky kontaktu. Formulár je na vstupnej stránke, UTM sú v adrese;
+     sessionStorage ich podrží, keby sa adresa medzitým zmenila. */
+  var UTM = ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term"], utm = {};
+  try {
+    var q = new URLSearchParams(location.search);
+    UTM.forEach(function (k) { if (q.get(k)) utm[k] = q.get(k).slice(0, 100); });
+    if (Object.keys(utm).length) sessionStorage.setItem("mc_utm", JSON.stringify(utm));
+    else utm = JSON.parse(sessionStorage.getItem("mc_utm") || "null") || {};
+  } catch (e) { utm = {}; }
   var plynulo = !(window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches);
 
   /* ---------- vzhľad odpovedí ---------- */
@@ -138,7 +149,7 @@
     P.uloz(o);
     try { sessionStorage.setItem("mc_kontakt", JSON.stringify({ meno: meno, email: email })); } catch (err) {}
     fetch("/api/profil", { method: "POST", headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ meno: meno, email: email, odpovede: o, website: form.website.value || "" }) })
+      body: JSON.stringify({ meno: meno, email: email, odpovede: o, website: form.website.value || "", utm: utm }) })
       .then(function (r) { return r.json().catch(function () { return {}; }); })
       .then(function (x) {
         if (!x || !x.ok) throw new Error("profil");

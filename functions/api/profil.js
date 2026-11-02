@@ -5,7 +5,7 @@
  *  2. upsert kontaktu BEZ značiek (upsert by existujúce značky prepísal), s poľami plan_*
  *  3. e-mail a polia prečítať späť (200 OK nie je dôkaz)
  *  4. značky plan-test + plan-<skupina> samostatným volaním (spúšťajú sekvencie e-mailov)
- *  5. poznámka s odpoveďami a odkazom na plán
+ *  5. poznámka s odpoveďami, odkazom na plán a reklamou, z ktorej prišla (utm_content, 2. 11. 2026)
  *  6. vlažným a ostatným e-mail s plánom hneď, cez GHL Conversations (ako /api/navod).
  *     Horúci plán e-mailom nedostanú, Miriam im ho odovzdá na hovore (stránka ich pošle na rezerváciu).
  * TEST_REZIM=1: nič sa nezapíše, len sa overia údaje a vráti sa skupina.
@@ -17,6 +17,16 @@ import { P, platneOdpovede, polia, ZNACKA, emailPlan, poznamka, POLIA } from "..
 const ZDROJ = "Plán od Miriam (/profil)";
 const cisty = (v, max) => String(v || "").replace(/\s+/g, " ").trim().slice(0, max);
 const isEmail = (v) => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v) && v.length < 255;
+
+/* Odkiaľ prišla: utm_content je meno reklamy v Mete. Pole na to v účte nie je, ide do poznámky.
+   Pixel vidí len ľudí so súhlasom s cookies, poznámka každého. */
+function odkial(u) {
+  const x = u && typeof u === "object" ? u : {};
+  const v = (k) => cisty(x[k], 100).replace(/[<>]/g, "");
+  const zdroj = [v("utm_source"), v("utm_medium"), v("utm_campaign")].filter(Boolean).join(" / ");
+  if (v("utm_content")) return `Reklama: ${v("utm_content")}` + (zdroj ? ` (${zdroj})` : "") + ".";
+  return zdroj ? `Zdroj: ${zdroj}.` : "Zdroj: bez UTM, teda nie z tlačidla reklamy.";
+}
 
 export async function onRequestPost({ request, env }) {
   let b;
@@ -54,7 +64,7 @@ export async function onRequestPost({ request, env }) {
     if (!tg.ok) console.error("profil značka", tg.status);
 
     const nt = await fetch(`${GHL}/contacts/${id}/notes`, { method: "POST", headers: H,
-      body: JSON.stringify({ body: poznamka(o, base, `Test na /profil, skupina: ${skupina}.`) }) });
+      body: JSON.stringify({ body: poznamka(o, base, `Test na /profil, skupina: ${skupina}. ${odkial(b.utm)}`) }) });
     if (!nt.ok) console.error("profil poznámka", nt.status);
 
     if (skupina !== "horuci" && env.TEST_REZIM !== "ghl-bez-sprav") {
