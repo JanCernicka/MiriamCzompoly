@@ -106,7 +106,17 @@ Správa pre Jana (artifact): https://claude.ai/artifact/XQx8Crpwa1Vs1ib4Zd8ewW .
   voľné časy na 7 dní: hovor 80, diagnostika 48, online 48. Rezervácia hovoru len na náhľade (naostro by poslala SMS Miriam).
 - **Otvorené:** reklama so záhradou (h10, formulár záhradu nemá; odporúčam vypnúť, rozhodne Jano), OK od Miriam na mená
   Hlavatých a Jitky v reklame (na webe sú verejne), pixel Lead len po súhlase (2 za 27 dní, Schedule 0, bez CAPI),
-  agentúrna odosielacia doména, 9 osirelých príspevkov po placeholder reklamách, októbrová kampaň s odkazom na plan.*.
+  agentúrna odosielacia doména, 18 osirelých príspevkov po placeholder reklamách, októbrová kampaň s odkazom na plan.*.
+- **Druhá dávka 9 reklám s AI hlasom** (2. 11. večer, od druhého AI, podklady na Drive „Plán od Miriam: 9 reklám s AI hlasom“):
+  AI1, AI2, AI3 (verzie jadra) × h11 vidiecky byt, h12 Hlavatí, h13 záhrada. Celý hlas je klon Miriaminho hlasu (ElevenLabs).
+  Placeholdery DELETED, nové ACTIVE s rovnakým copy, nadpisom, LEARN_MORE, odkazom s UTM (overené v náhľade) a AI označením:
+  `120250979364110477` … `120250979367620477`. V kampani je 18 reklám, kampaň stále PAUSED.
+- **Všetky správy na kontrolu** (artifact, 21 e-mailov a SMS): https://claude.ai/artifact/RKcFqGoTsNZNfpc62tscwM .
+  Nahrádza verziu z 12. 10. (https://claude.ai/artifact/Bj7X7TxZY8GE6k7HDWWT5S). Texty sem nekopírovať.
+- **Ďalšie otvorené z 2. 11. večer:** citát Hlavatých v hooku (h12 aj B2-h9) je iný než recenzia na webe („prídeme… máme obrovskú
+  radosť“ verzus „prídem k mame do bytu, mám radosť“); AI hlas hovorí „Plány zadarmo robím do konca mesiaca“ (1. 12. obnoviť alebo
+  vypnúť); záhradu ukazujú 4 reklamy; online diagnostika: odkaz na hovor žiadna automatická správa neposiela; SMS diagnostiky s
+  diakritikou v mene alebo adrese idú ako 2 SMS; zrušený hovor = plán e-mailom nepríde.
 
 ## Na spustenie treba (stav pred 28. 10.)
 1. Jano a Miriam prejdú náhľad a texty e-mailov (šablóny vyššie).
