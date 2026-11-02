@@ -14,8 +14,8 @@ Pre Miriam (tok, snímky stránok, ukážka plánu, 6 šablón, miestnosti s fot
    - horúci → `/profil-rezervacia`: „Tvoj plán ti odovzdám osobne“, video 16:9, 10-minútový hovor, Miriam volá.
      Doplní **len telefón**, meno a e-mail nesie sessionStorage. Bez nich (odkaz z e-mailu) sa ukážu aj tie polia.
    - vlažní a ostatní → plán e-mailom (s pozvánkou na diagnostiku) a hneď **`/diagnostika?plan=odoslany&utm_source=plan-od-miriam`**:
-     dnešná stránka diagnostiky (A aj B, s jej videom), hore zelený pruh „Plán ti odišiel do e-mailu. Ešte neodchádzaj“
-     (`functions/diagnostika.js`). Lišta s návodom sa im nezobrazí. `/profil-dakujem` je preč.
+     dnešná stránka diagnostiky (A aj B, s jej videom), hore zelený pruh: plán odišiel na e-mail, pozri aj spam,
+     ešte neodchádzaj (`functions/diagnostika.js`, text tam). Lišta s návodom sa im nezobrazí. `/profil-dakujem` je preč.
    - 🔴 A/B test diagnostiky: títo ľudia sa delia na A/B ako ostatní. Pri vyhodnotení ich vyradiť cez `zdroj = plan-od-miriam`.
 4. Videá na `/profil` a `/profil-rezervacia` Miriam ešte natočí. Zatiaľ je tam miesto, video sa doplní do `data-src` (`assets/js/profil-video.js`).
 4. `/plan?m=&d=&n=&p=`: plán v poradí od Miriam (oslovenie, verdikt a úvod, veta o nábytku, 3 kroky,
@@ -88,6 +88,25 @@ Videoponuku pre horúcich („pošli fotku, pošlem video“) nahradil hovor. Fo
   „Zistiť viac“, odkaz plan.miriamczompoly.sk s UTM. Stará kampaň na diagnostiku `120250318272510477` už bola pozastavená.
   Hooky zatiaľ nie (Jano), preto 2 reklamy namiesto 10. Spustiť až po DNS a po Janovom „spusti“.
 - Prehľad pre Jana (artifact): https://claude.ai/artifact/LLpdm2S8HxVDKejbcR4soR
+
+## Pred spustením 2. 11. 2026 (Jano: oprav placeholder kampaň, oblasti do 70 km od Trnavy, upsell, audit)
+Správa pre Jana (artifact): https://claude.ai/artifact/XQx8Crpwa1Vs1ib4Zd8ewW . Text sem nekopírovať, tu len fakty.
+- **Meta:** kampaň `120250960912100477` „Miriam Czompoly: Leads - Plán od Miriam - 9 kreatív - november 2026“ PAUSED,
+  15 €/deň CBO, Leads. Zostava `120250960914520477` ACTIVE: 6 bodov s polomerom (BA 20 km, Senec 8, Pezinok 8,
+  Trnava 15, Piešťany 8, Nitra 12; najďalší okraj 64 km od Trnavy), bez AT/CZ/HU, ženy 30-65 ako návrh A+A, pixel LEAD.
+  9 placeholder reklám (`[PLACEHOLDER]`, example.com, SIGN_UP) DELETED, 9 nových ACTIVE: jedno copy, nadpis,
+  LEARN_MORE, odkaz `www.miriamczompoly.sk/profil` s UTM (`utm_content` = meno reklamy, overené v živom náhľade),
+  AI označenie h8, h9, h10. 7 schválených, B3-h5 a B3-h7 v kontrole. **Spustenie = zapnúť kampaň.**
+- **Upsell** (commit `b4e20e5`): `/diagnostika?plan=odoslany` ukáže e-mail zo sessionStorage a spam,
+  `/diagnostika?hovor=rezervovany&kedy=<ms>` po rezervácii hovoru (`location.replace`). E-mail ani telefón do adresy nejdú (pixel).
+- **Reklama na kontakte** (commit `9f2d850`): `/api/profil` píše do poznámky „Reklama: <utm_content> (zdroj / médium / kampaň)“.
+- **Overené naostro 2. 11.:** cesta ostatní na www s UTM reklamy B2-h5 (kontakt `ZJdQ72KcpAcKVVQXYgKv`: 2 značky,
+  6 polí, poznámka s reklamou, plán v doručenej pošte team@shapelesai.com, 0 požiadaviek na Metu bez súhlasu),
+  potom zmazaný, čítanie späť „Contact not found“. Triggre 6 workflowov a starých pripomienok (iné kalendáre),
+  voľné časy na 7 dní: hovor 80, diagnostika 48, online 48. Rezervácia hovoru len na náhľade (naostro by poslala SMS Miriam).
+- **Otvorené:** reklama so záhradou (h10, formulár záhradu nemá; odporúčam vypnúť, rozhodne Jano), OK od Miriam na mená
+  Hlavatých a Jitky v reklame (na webe sú verejne), pixel Lead len po súhlase (2 za 27 dní, Schedule 0, bez CAPI),
+  agentúrna odosielacia doména, 9 osirelých príspevkov po placeholder reklamách, októbrová kampaň s odkazom na plan.*.
 
 ## Na spustenie treba (stav pred 28. 10.)
 1. Jano a Miriam prejdú náhľad a texty e-mailov (šablóny vyššie).
