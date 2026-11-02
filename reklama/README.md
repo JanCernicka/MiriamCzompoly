@@ -9,6 +9,7 @@ Postavené podľa `playbook/` v GHLtool.
 | [`03_copy.md`](03_copy.md) | copy do reklamy, jedno na všetky kreatívy |
 | [`domov.html`](domov.html) | to isté ako klikacia vizualizácia, **interné** |
 | [`pre-miriam-skripty.html`](pre-miriam-skripty.html) | **na poslanie Miriam**: iba skripty a návod na natáčanie, žiadna stratégia |
+| [`07_skript_plan_od_miriam.md`](07_skript_plan_od_miriam.md) | skript na lead magnet „Plán od Miriam“ (2. 11.), text v artifacte, tu fakty a otvorené body |
 | `_archiv/` | zrušený smer, viď nižšie |
 
 ---
