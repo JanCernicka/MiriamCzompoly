@@ -9,8 +9,8 @@ desaťbloková kostra, jedno telo nahraté raz, 4 hooky a 3 subhooky.
 ## Čísla
 | | |
 |---|---|
-| Telo | 130 slov, asi 54 s (145 slov = 60 s) |
-| Celé video s hookom | 63 až 70 s |
+| Telo | 121 slov, asi 50 s (145 slov = 60 s) |
+| Celé video s hookom | 59 až 66 s |
 | Úvody s AI premenou (H1+S1, H2+S2) | 15 a 16 s, ostatné 9 až 12 s |
 | Do kampane | 7 reklám z nového tela + 3 zo starých jadier A a B s hookom = 10 |
 
@@ -20,15 +20,16 @@ desaťbloková kostra, jedno telo nahraté raz, 4 hooky a 3 subhooky.
 - H1 (Hlavatí) je u Miriam na nahratie ako hlas nad premenou (správa z 28. 10.).
 
 ## Overené
-- Elimination (Jano 2. 11.: obava z cudzieho štýlu): formulár sa naozaj pýta na pocit aj na to, čo chce nechať
-  (`assets/js/profil-data.js`).
+- Elimination (Jano 2. 11.: obava z cudzieho štýlu, „štýl vždy staviam podľa toho, ako bývaš ty a ako sa chceš doma cítiť“):
+  formulár sa naozaj pýta na pocit (`assets/js/profil-data.js`).
+- Scarcity (Jano 2. 11.): bez čísla, „s niektorými vybranými záujemcami ich prejdem aj osobne cez telefón“.
+  Pravdivé, hovor dostanú len horúce leady.
 - Bonus: plán ukazuje jej realizáciu pred a po (pri pracovnom kúte z bytu pre staršiu pani).
 - H2 podľa recenzie Jitky Lennerovej (Drive, P/P Vidiecky byt Trnava, „Recenzia“).
 
 ## Otvorené, potvrdiť u Miriam pred natáčaním
-1. TIME LIMIT „Plány zadarmo robím do konca novembra.“ Ak áno, 1. 12. vetu zmeniť alebo kampaň pozastaviť.
-2. SCARCITY: koľko hovorov k plánu týždenne zvládne (návrh 10). Potom obmedziť kalendár „Hovor k plánu“, aby viac nepustil.
-3. Súhlas Hlavatých a Jitky Lennerovej s menom a vetou z recenzie v reklame.
+1. TIME LIMIT „Plány zadarmo robím do konca mesiaca.“ Prvého v mesiaci ponuku obnoviť alebo kampaň pozastaviť.
+2. Súhlas Hlavatých a Jitky Lennerovej s menom a vetou z recenzie v reklame.
 
 ## Mimo tejto reklamy
 - Premena záhrady v Pezinku sem nepatrí: formulár ponúka 7 miestností, záhradu nie.
