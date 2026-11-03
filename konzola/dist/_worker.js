@@ -880,12 +880,19 @@ async function prehlad(env) {
  *    KTO PREROBÍ WEB ALEBO ZAPNE A/B TEST, PRIDÁ SEM RIADOK a do prepínača v index.html
  *    voľbu v:<id>. Riadok s ab: true má čas, keď test začal doručovať ľuďom z reklamy. */
 const VERZIE = [
+  /* 🔴 RESET 3. 11. 2026 o 09:09 UTC (10:09 miestneho), pred spustením kampane „Plán od Miriam“.
+     Všetkých 3702 riadkov spred resetu (diagnostika od 26. 9., 3 rezervácie) je v D1 v tabuľke
+     udalosti_archiv, stĺpec archivovane = 1793696940000. Preto všetky tri pohľady začínajú až
+     resetom; dátumy 26. 9. nižšie ostali v komentároch kvôli histórii. */
+  /* Lievik „Plán od Miriam“ (/profil). Ten istý čas je ako PLAN_OD v zberači (meranie/zberac).
+     `cast` = zberač vráti kroky plánu. */
+  { id: "plan", nazov: "Plán od Miriam (od 3. 11. 10:09)", od: Date.UTC(2026, 10, 3, 9, 9), cast: "plan" },
   /* A/B delenie 50/50 zapnuté 26. 9. 2026, nasadené 14:29:39 UTC (16:29 miestneho) */
-  { id: "diagnostika-ab", nazov: "diagnostika, A/B test (od 26. 9. 16:30)",
-    od: Date.UTC(2026, 8, 26, 14, 30), ab: true },
+  { id: "diagnostika-ab", nazov: "diagnostika, A/B test (od 3. 11. 10:09)",
+    od: Date.UTC(2026, 10, 3, 9, 9), ab: true },
   /* meranie išlo naostro 26. 9. 2026 o 15:28 miestneho času (13:28:38 UTC) */
-  { id: "diagnostika", nazov: "diagnostika s meraním (od 26. 9. 15:28)",
-    od: Date.UTC(2026, 8, 26, 13, 28) },
+  { id: "diagnostika", nazov: "diagnostika s meraním (od 3. 11. 10:09)",
+    od: Date.UTC(2026, 10, 3, 9, 9) },
 ];
 
 const ZBERAC = "https://miriam-lievik.pages.dev";
@@ -909,13 +916,13 @@ async function lievik(env, telo) {
   const v = VERZIE.find((x) => x.id === telo.verzia);
   const dni = Math.min(90, Math.max(1, parseInt(telo.dni || 7, 10) || 7));
   // 🔴 `od` prebíja `dni`; neznáme id padá na dni, nie na chybu
-  const otazka = v ? `od=${v.od}` : `dni=${dni}`;
+  const otazka = (v ? `od=${v.od}` : `dni=${dni}`) + (v && v.cast ? `&cast=${v.cast}` : "");
   const r = await fetch(`${ZBERAC}/prehlad?heslo=${encodeURIComponent(env.STAT_HESLO)}&${otazka}`);
   const t = await r.text();
   if (!r.ok) return json({ ok: false, error: `zberač vrátil ${r.status}` }, 502);
   let d; try { d = JSON.parse(t); } catch (e) { d = null; }
   if (!d) return json({ ok: false, error: "zberač nevrátil JSON" }, 502);
-  d.verzie = VERZIE.map((x) => ({ id: x.id, nazov: x.nazov, ab: !!x.ab, od: new Date(x.od).toISOString() }));
+  d.verzie = VERZIE.map((x) => ({ id: x.id, nazov: x.nazov, ab: !!x.ab, cast: x.cast || null, od: new Date(x.od).toISOString() }));
   d.verzia = v ? v.id : null;
   return json(d);
 }

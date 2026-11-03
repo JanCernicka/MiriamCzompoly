@@ -148,6 +148,7 @@
           var ciel = web + "/diagnostika?hovor=rezervovany&kedy=" + Date.parse(vybranyCas) +
             "&utm_source=plan-od-miriam" + (v.x.test ? "&nahlad=1" : "");
           /* rezervovaný hovor pre Meta (pixel len po súhlase s cookies), chvíľka, aby udalosť odišla */
+          if (window.PLAN_KROK) window.PLAN_KROK("plan-hovor-rezervovany", null, true);
           var sch = !v.x.test && window.fbq;
           if (sch) window.fbq("track", "Schedule", { content_name: "Hovor k planu" });
           setTimeout(function () { location.replace(ciel); }, sch ? 400 : 0);

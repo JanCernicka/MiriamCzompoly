@@ -118,6 +118,29 @@ Správa pre Jana (artifact): https://claude.ai/artifact/XQx8Crpwa1Vs1ib4Zd8ewW .
   vypnúť); záhradu ukazujú 4 reklamy; online diagnostika: odkaz na hovor žiadna automatická správa neposiela; SMS diagnostiky s
   diakritikou v mene alebo adrese idú ako 2 SMS; zrušený hovor = plán e-mailom nepríde.
 
+## Spustené 3. 11. 2026 (Jano: „skontroluj, či všetko správne posiela, napojené na konzolu, resetuj štatistiku a zapni reklamu“)
+- **Meranie plánu do konzoly** (predtým stránky plánu do D1 neposielali nič): `assets/js/plan-meranie.js` na `/profil` a
+  `/profil-rezervacia`, kroky `plan-pristal`, `plan-video-zvuk`, `plan-video-polovica`, `plan-formular-videl`,
+  `plan-formular-zacal`, `plan-odoslal` (meta = skupina), `plan-rezervacia-pristal`, `plan-hovor-rezervovany`. Ten istý sid
+  ako na `/diagnostika`, takže upsell sa počíta na toho istého človeka a tú istú reklamu. Nový krok treba pridať do
+  `KROKY` vo `functions/_lib/lievik.js`, do zberača (`KROKY_PLAN`) aj do konzoly (`PLAN_POPIS`).
+- **Zberač** `cast=plan`, **konzola** pohľad „Plán od Miriam“ (predvolený): lievik, skupiny, podľa reklamy, podľa zariadenia.
+  Overené naostro testom s `utm_content=testmerania` (všetky kroky 200, v konzole 1 človek), potom zmazané resetom.
+- 🔴 `/api/krok` zahodí UA s HeadlessChrome (robot). Test v Playwright potrebuje bežný UA, beacon sa chytá cez `ctx.route`.
+- **Konzola na mobile:** tabuľka podľa reklamy bola širšia ako displej (447 až 601 px na 390 px), teraz užšie bunky a posun len vo karte.
+- **Reset štatistiky 3. 11. 09:09 UTC (10:09 miestneho):** všetkých 3702 riadkov `udalosti` (diagnostika od 26. 9.,
+  1680 príchodov, 3 rezervácie, plus test) skopírovaných do D1 tabuľky `udalosti_archiv` (`archivovane = 1793696940000`,
+  počty aj súčty overené), potom zmazané z `udalosti`. Súbor: `meranie/zalohy/miriam-lievik-2026-11-03-pred-resetom.sql.gz`
+  (`wrangler d1 export --remote`, overený obnovou do SQLite, sha256 nerozbaleného `39261a9a…ec3c`). Všetky tri pohľady
+  konzoly (plán, diagnostika, A/B) aj `PLAN_OD` v zberači začínajú týmto časom.
+- **Pred zapnutím overené:** 6 workflowov plánu published s aktívnymi triggrami, WF3 diagnostika aj online published,
+  hovor k plánu 76 voľných časov na 7 dní, 18 reklám schválených (CAMPAIGN_PAUSED), 0 chýb doručenia. Odosielanie:
+  pozri 28. 10. a 2. 11. (potvrdenie, SMS zákazníkovi aj Miriam, pripomienka, plán e-mailom, E1, horúci 2 h).
+- **Kampaň `120250960912100477` ACTIVE** 3. 11. okolo 09:14 UTC, 15 €/deň, všetkých 18 reklám ACTIVE. Októbrová a
+  septembrová kampaň ostávajú PAUSED. Meno kampane stále hovorí „9 kreatív“ (kozmetické, nemenené).
+- **Stále otvorené (Jano nerozhodol):** 4 reklamy so záhradou (B2-h10, AI1/2/3-h13), citát Hlavatých v B2-h9 a AI1/2/3-h12,
+  „Plány zadarmo robím do konca mesiaca“ v AI hlase (do 1. 12. obnoviť alebo vypnúť).
+
 ## Na spustenie treba (stav pred 28. 10.)
 1. Jano a Miriam prejdú náhľad a texty e-mailov (šablóny vyššie).
 2. Publikovať workflowy a urobiť jeden ostrý test na vlastnom čísle a e-maile.

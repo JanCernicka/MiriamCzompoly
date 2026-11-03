@@ -518,6 +518,14 @@ h2{font-size:21px;margin:0 0 3px;font-weight:600;letter-spacing:-.02em}
   font-size:14px;vertical-align:middle}
 .lievikT th{text-align:left;color:var(--sivy);font-weight:600;font-size:12px;
   text-transform:uppercase;letter-spacing:.06em}
+/* 🔴 Na mobile bola tabuľka podľa reklamy širšia ako displej a posúvala celú stránku
+   (390 px displej, 447 až 601 px tabuľka, 3. 11. 2026). Užšie bunky a vodorovný posun
+   len vo vnútri karty, stránka sama sa nehýbe. */
+#lievikObsah{overflow-x:auto}
+@media (max-width:520px){
+  .lievikT td,.lievikT th{padding:6px 5px;font-size:13px}
+  .lievikT th{font-size:11px;letter-spacing:.02em}
+}
 .lievikC{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
 /* 🔴 Pruh má PEVNÚ šírku bunky, inak sa stĺpce pri každom načítaní hýbu. */
 .lievikP{width:34%;min-width:90px}
@@ -790,8 +798,9 @@ h2{font-size:21px;margin:0 0 3px;font-weight:600;letter-spacing:-.02em}
     <!-- 🔴 PREDVOLENÁ JE VERZIA STRÁNKY, nie počet dní. Každý riadok vo VERZIE
          vo workeri potrebuje tu voľbu v:<id>, mená prepíše skript zo servera. -->
     <select id="lievikDni">
+      <option value="v:plan" selected>Plán od Miriam (od 3. 11. 10:09)</option>
       <option value="v:diagnostika">diagnostika s meraním</option>
-      <option value="v:diagnostika-ab" selected>diagnostika, A/B test (od 26. 9. 16:30)</option>
+      <option value="v:diagnostika-ab">diagnostika, A/B test (od 3. 11. 10:09)</option>
       <option value="1">dnes</option>
       <option value="7">7 dní</option>
       <option value="30">30 dní</option>
@@ -1969,6 +1978,7 @@ async function nacitajLievik() {
     c.innerHTML = `<p class="podnadpis">Nepodarilo sa načítať. ${(d && d.error) || ""}</p>`;
     return;
   }
+  if (d.cast === "plan") { c.innerHTML = kresliPlan(d); premenujVerzie(d); return; }
   /* 🔴 OBDOBIE SA VŽDY NAPÍŠE, a berie sa z odpovede servera, nie z toho,
      čo je v prepínači. Keby sa raz rozišiel názov voľby a skutočný dátum,
      musí to byť vidieť tu, nie až o mesiac na zlom rozhodnutí. */
@@ -2026,20 +2036,97 @@ async function nacitajLievik() {
       <th>kreatíva (utm_content)</th><th>ľudí</th><th>klik</th><th>kalendár</th><th>termín</th>
       </tr></thead><tbody>`;
     for (const k of d.podlaKreativy) {
-      html += `<tr><td>${k.kreativa}</td><td class="lievikC">${k.ludi}</td>
+      html += `<tr><td>${bezpecne(k.kreativa)}</td><td class="lievikC">${k.ludi}</td>
         <td class="lievikC">${k.klikli}</td><td class="lievikC">${k.kalendar}</td>
         <td class="lievikC">${k.termin}</td></tr>`;
     }
     html += "</tbody></table>";
   }
   c.innerHTML = html;
+  premenujVerzie(d);
+}
 
-  /* Názvy verzií prepíš tým, čo povedal server. Dátum v konzole je len
-     popis, pravda je vo workeri, a takto sa nemôžu rozísť. */
+/* Názvy verzií prepíš tým, čo povedal server. Dátum v konzole je len
+   popis, pravda je vo workeri, a takto sa nemôžu rozísť. */
+function premenujVerzie(d) {
   for (const v of d.verzie || []) {
     const o = $("#lievikDni").querySelector(`option[value="v:${v.id}"]`);
     if (o) o.textContent = v.nazov;
   }
+}
+
+/* ── lievik Plán od Miriam (/profil), 3. 11. 2026 ─────────
+   Kroky posiela web (assets/js/plan-meranie.js), zberač ich vracia pri cast=plan.
+   Posledné dva riadky sú ľudia, ktorí odoslali otázky a potom prišli na diagnostiku. */
+const PLAN_POPIS = {
+  "plan-pristal": "prišla na stránku plánu",
+  "plan-video-zvuk": "pustila si video so zvukom",
+  "plan-video-polovica": "pozrela video aspoň do polovice",
+  "plan-formular-videl": "uvidela otázky",
+  "plan-formular-zacal": "začala vypĺňať",
+  "plan-odoslal": "odoslala otázky",
+  "plan-rezervacia-pristal": "prišla na rezerváciu hovoru",
+  "plan-hovor-rezervovany": "rezervovala si hovor",
+  "plan-diagnostika-pristal": "prišla na stránku diagnostiky",
+  "plan-diagnostika-rezervovana": "rezervovala diagnostiku",
+};
+/* „Odpadlo“ len tam, kade musí prejsť každý. Na hovor idú len horúce, na diagnostiku len niektoré. */
+const PLAN_PRED = { "plan-formular-videl": "plan-pristal", "plan-formular-zacal": "plan-formular-videl",
+  "plan-odoslal": "plan-formular-zacal", "plan-hovor-rezervovany": "plan-rezervacia-pristal",
+  "plan-diagnostika-rezervovana": "plan-diagnostika-pristal" };
+const PLAN_ODDIEL = { "plan-pristal": "Stránka a otázky", "plan-rezervacia-pristal": "Horúce: hovor k plánu",
+  "plan-diagnostika-pristal": "Upsell: diagnostika" };
+const PLAN_SKUPINY = { horuci: "horúce", vlazny: "vlažné", ostatni: "ostatné" };
+
+function kresliPlan(d) {
+  const f = new Date(d.od).toLocaleString("sk-SK", { day: "numeric", month: "numeric",
+    hour: "2-digit", minute: "2-digit" });
+  let html = `<p class="podnadpis">Reklama, otázky na /profil, plán e-mailom alebo hovor, potom diagnostika.
+    Počíta sa od ${f} po teraz. Percentá sú z ľudí, ktorí prišli na stránku plánu.</p>`;
+  const m = {};
+  for (const k of d.lievik || []) m[k.krok] = k.ludi;
+  html += '<table class="lievikT"><tbody>';
+  for (const k of d.lievik || []) {
+    const popis = PLAN_POPIS[k.krok];
+    if (!popis) continue;
+    if (PLAN_ODDIEL[k.krok]) html += `<tr><th colspan="5">${PLAN_ODDIEL[k.krok]}</th></tr>`;
+    const pred = PLAN_PRED[k.krok];
+    const o = pred ? (m[pred] || 0) - k.ludi : 0;
+    html += `<tr><td>${popis}</td><td class="lievikC">${k.ludi}</td>
+      <td class="lievikP"><span style="width:${Math.max(0, Math.min(100, k.zPristatia || 0))}%"></span></td>
+      <td class="lievikC">${k.zPristatia === null ? "" : k.zPristatia + " %"}</td>
+      <td>${o > 0 ? `<span class="lievikStrata">odpadlo ${o}</span>` : ""}</td></tr>`;
+  }
+  html += "</tbody></table>";
+  const sk = (d.skupiny || []).filter((s) => s.ludi);
+  if (sk.length) {
+    html += `<p class="podnadpis">Odoslané otázky podľa skupiny: ${sk.map((s) =>
+      `${bezpecne(PLAN_SKUPINY[s.skupina] || s.skupina || "bez skupiny")} ${s.ludi}`).join(", ")}.</p>`;
+  }
+  if ((d.podlaZariadenia || []).length) {
+    html += "<h3>Podľa zariadenia</h3><table class='lievikT'><tbody>";
+    for (const z of d.podlaZariadenia) {
+      const p = z.ludi ? Math.round((z.odoslali / z.ludi) * 100) : 0;
+      html += `<tr><td>${bezpecne(z.zariadenie)}</td><td class="lievikC">${z.ludi} ľudí</td>
+               <td>odoslalo otázky ${z.odoslali} (${p} %)</td></tr>`;
+    }
+    html += "</tbody></table>";
+  }
+  if ((d.podlaKreativy || []).length) {
+    html += `<h3>Podľa reklamy</h3><table class='lievikT'><thead><tr>
+      <th>reklama (utm_content)</th><th>ľudí</th><th>otázky</th><th>hovor</th><th>diagnostika</th>
+      </tr></thead><tbody>`;
+    for (const k of d.podlaKreativy) {
+      html += `<tr><td>${bezpecne(k.kreativa)}</td><td class="lievikC">${k.ludi}</td>
+        <td class="lievikC">${k.odoslali}</td><td class="lievikC">${k.hovor}</td>
+        <td class="lievikC">${k.diagnostika}</td></tr>`;
+    }
+    html += "</tbody></table>";
+  }
+  if (!(d.lievik || []).some((k) => k.ludi)) {
+    html += `<p class="podnadpis">Zatiaľ tu nikto nie je. Čísla pribudnú, keď beží reklama.</p>`;
+  }
+  return html;
 }
 $("#lievikDni").addEventListener("change", nacitajLievik);
 </script>

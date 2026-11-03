@@ -27,7 +27,10 @@ export const B_PREDVOLENA = "https://miriam-diagnostika-b.pages.dev";
 /* 🔴 ZOZNAM JE UZAVRETÝ. Musí sedieť so zberačom (meranie/zberac/dist/_worker.js)
    a s LIEVIK_POPIS v konzole. Inak krok potichu chýba. */
 export const KROKY = ["pristal", "scroll-50", "scroll-90", "klik-cta",
-  "kalendar-videl", "termin-rezervovany", "odisiel"];
+  "kalendar-videl", "termin-rezervovany", "odisiel",
+  /* lievik „Plán od Miriam“ (assets/js/plan-meranie.js, 3. 11. 2026); to isté v zberači a v konzole */
+  "plan-pristal", "plan-video-zvuk", "plan-video-polovica", "plan-formular-videl", "plan-formular-zacal",
+  "plan-odoslal", "plan-rezervacia-pristal", "plan-hovor-rezervovany"];
 
 /* 🔴 Roboti dostanú vždy A a NEDOSTANÚ cookie (crawler Mety pri schvaľovaní reklamy). */
 const ROBOT = /facebookexternalhit|meta-externalagent|facebookcatalog|bingbot|googlebot|google-inspectiontool|yandex|applebot|slurp|duckduckbot|twitterbot|linkedinbot|whatsapp|telegrambot|discordbot|preview|headlesschrome|lighthouse|pingdom|uptimerobot|curl|wget|python-requests/i;
@@ -181,6 +184,8 @@ export function hlavicky(odpoved, r) {
 export async function krokZapis(b, env, req) {
   if (!env.DB) return json({ ok: false, error: "bez DB" });
   if (!KROKY.includes(b.krok)) return json({ ok: false, error: "neznámy krok" }, 400);
+  /* Roboti (náhľady odkazov, kontrola reklamy Metou, curl) sa do čísel nepočítajú (3. 11. 2026). */
+  if (ROBOT.test(req.headers.get("user-agent") || "")) return json({ ok: true, robot: true });
   const sid = String(b.sid || "").replace(/[^a-z0-9]/gi, "").slice(0, 32);
   if (!sid) return json({ ok: false, error: "bez sid" }, 400);
   const ua = String(req.headers.get("user-agent") || "").toLowerCase();

@@ -64,6 +64,14 @@
       b.hidden = true;
       v.controls = true;
       v.muted = false;
+      /* meranie (konzola, Lievik, Plán), len VSL 1 na /profil: pustila si video so zvukom
+         a dopozerala aspoň do polovice (3. 11. 2026) */
+      if (window.PLAN_KROK && !/rezervacia/.test(location.pathname)) {
+        window.PLAN_KROK("plan-video-zvuk", null, true);
+        v.addEventListener("timeupdate", function () {
+          if (v.duration && v.currentTime >= v.duration / 2) window.PLAN_KROK("plan-video-polovica", null, true);
+        });
+      }
       try { v.volume = 1; } catch (e) {}
       function pust() {
         var s = v.play();

@@ -161,6 +161,8 @@
           : web + "/diagnostika?plan=odoslany&utm_source=plan-od-miriam" + nahlad;
         /* Lead pre Meta, na ňu optimalizuje kampaň. Pixel beží len po súhlase s cookies (consent.js).
            Chvíľka čakania, aby udalosť odišla skôr, než stránka odíde. */
+        /* krok do merania (konzola, Lievik, Plán); sendBeacon prežije presmerovanie */
+        if (window.PLAN_KROK) window.PLAN_KROK("plan-odoslal", skupina, true);
         var lead = !x.test && window.fbq;
         if (lead) window.fbq("track", "Lead", { content_name: "Plan od Miriam", skupina: skupina });
         setTimeout(function () { location.href = ciel; }, lead ? 400 : 0);
