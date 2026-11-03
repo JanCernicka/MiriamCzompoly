@@ -16,7 +16,7 @@
  * TEST_REZIM=ghl-bez-sprav: zapíše sa všetko ako naostro, ale nič neodíde (ani SMS Miriam).
  */
 import { GHL, json, hlavicky, nastavene, volneSloty,
-         KALENDAR_PLAN_ID, MIRIAM_USER_ID, PIPELINE_ID, FAZA_HOVOR, MIRIAM_KONTAKT_ID } from "../_lib/ghl.js";
+         KALENDAR_PLAN_ID, MIRIAM_USER_ID, FAZA_HOVOR, FAZA_LEAD, MIRIAM_KONTAKT_ID, prilezitost } from "../_lib/ghl.js";
 import { platneOdpovede, polia, ZNACKA, poznamka, kedyText,
          emailPotvrdenie, smsPotvrdenie, smsMiriam, smsOk } from "../_lib/profil.js";
 
@@ -112,16 +112,8 @@ export async function onRequestPost({ request, env }) {
       return json({ ok: false, error: "ghl_appointment" }, 502);
     }
 
-    try {
-      const s = await fetch(`${GHL}/opportunities/search?location_id=${env.GHL_LOCATION_ID}&contact_id=${id}&status=open&limit=5`, { headers: H });
-      const sd = await s.json().catch(() => ({}));
-      if (s.ok && !(sd.opportunities || []).length) {
-        const op = await fetch(`${GHL}/opportunities/`, { method: "POST", headers: H,
-          body: JSON.stringify({ locationId: env.GHL_LOCATION_ID, pipelineId: PIPELINE_ID, pipelineStageId: FAZA_HOVOR,
-            contactId: id, name: `${meno} · ${tel}`, status: "open", source: "Plán od Miriam" }) });
-        if (!op.ok) console.error("rozhovor príležitosť", op.status);
-      }
-    } catch (e) { console.error("rozhovor príležitosť", String(e)); }
+    // nová karta, alebo posun karty z Lead (tú založil formulár /api/profil, 3. 11. 2026)
+    await prilezitost(env, id, { faza: FAZA_HOVOR, posunZ: [FAZA_LEAD], nazov: `${meno} · ${tel}`, zdroj: "Plán od Miriam" });
 
     const nt = await fetch(`${GHL}/contacts/${id}/notes`, { method: "POST", headers: H,
       body: JSON.stringify({ body: poznamka(o, base, `Hovor k plánu ${kedyText(startMs)}, Miriam volá na ${tel}.` +

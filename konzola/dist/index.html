@@ -896,6 +896,13 @@ function eur(n) {
   return new Intl.NumberFormat("sk-SK", { style: "currency", currency: "EUR",
     maximumFractionDigits: 0 }).format(n || 0);
 }
+/* Odkaz na plán z lievika /profil je klikateľný. Len naša adresa a len bezpečné znaky,
+   lebo bezpecne() neescapuje úvodzovky a hodnota ide do atribútu href. */
+function odkazNaPlan(h) {
+  const s = String(h || "");
+  if (!/^https:\/\/www\.miriamczompoly\.sk\/plan\?[\w=&%.-]+$/.test(s)) return "";
+  return `<a href="${s}" target="_blank" rel="noopener">otvoriť jej plán</a>`;
+}
 function bezpecne(s) {
   const d = document.createElement("div"); d.textContent = String(s == null ? "" : s);
   return d.innerHTML;
@@ -1434,7 +1441,7 @@ function riadok(s, predosla) {
     return `<div class="formular">
       <div class="hl">Vyplnený formulár${s.nazov ? " · " + bezpecne(s.nazov) : ""}</div>
       <dl>${(s.polia || []).map((x) =>
-        `<dt>${bezpecne(x.nazov)}</dt><dd>${bezpecne(x.hodnota)}</dd>`).join("")}</dl>
+        `<dt>${bezpecne(x.nazov)}</dt><dd>${odkazNaPlan(x.hodnota) || bezpecne(x.hodnota)}</dd>`).join("")}</dl>
       <div class="cas">${cas(s.kedy)}</div>
     </div>`;
   }

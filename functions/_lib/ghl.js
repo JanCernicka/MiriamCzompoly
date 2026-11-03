@@ -22,6 +22,8 @@ export const PIPELINE_ID = "Ue40eB5LDhvgIAOIcDqC";
 export const FAZA_REZERVOVANA = "3e4dff82-13e7-47c6-858a-67ba2a36d877";
 // fáza „Krátky hovor rezervovaný“ (hovor k plánu z /profil)
 export const FAZA_HOVOR = "af9825ca-fb11-4c7b-8efa-fe9e997a3ee7";
+// fáza „Lead“: každý, kto odošle otázky na /profil (3. 11. 2026, Jano: „v príležitostiach ich nevidím“)
+export const FAZA_LEAD = "e8f6e92b-860a-4014-a2db-332b16cc2ffc";
 // kontakt Miriam (+421 918 819 906): SMS o novom hovore k plánu idú sem, ako upozornenia z WF3
 export const MIRIAM_KONTAKT_ID = "UQbUlsXxUiimaBoVuMHQ";
 
@@ -49,4 +51,36 @@ export async function volneSloty(env, odMs, doMs, kalendar = KALENDAR_ID) {
   const out = {};
   for (const [k, v] of Object.entries(d)) if (v && Array.isArray(v.slots)) out[k] = v.slots;
   return out;
+}
+
+/* Príležitosť kontaktu v hlavnej pipeline (3. 11. 2026). Kontakt bez otvorenej príležitosti dostane
+   novú vo fáze `faza`. Otvorenú v tejto pipeline vo fáze zo zoznamu `posunZ` posunie do `faza`
+   (len dopredu: z Lead na hovor, z Lead alebo z hovoru na diagnostiku). Inú otvorenú nechá tak,
+   nech sa nikomu neprepíše karta, ktorú Miriam posunula ručne.
+   Chyba sa len zapíše do logu, formulár ani rezervácia kvôli nej nespadnú. */
+export async function prilezitost(env, contactId, { faza, posunZ = [], nazov, zdroj, hodnota }) {
+  const H = hlavicky(env);
+  try {
+    const s = await fetch(`${GHL}/opportunities/search?location_id=${env.GHL_LOCATION_ID}&contact_id=${contactId}&status=open&limit=5`, { headers: H });
+    const sd = await s.json().catch(() => ({}));
+    if (!s.ok) { console.error("príležitosť hľadanie", s.status); return null; }
+    const otvorene = sd.opportunities || [];
+    if (!otvorene.length) {
+      const telo = { locationId: env.GHL_LOCATION_ID, pipelineId: PIPELINE_ID, pipelineStageId: faza,
+                     contactId, name: nazov, status: "open" };
+      if (zdroj) telo.source = zdroj;
+      if (hodnota) telo.monetaryValue = hodnota;
+      const op = await fetch(`${GHL}/opportunities/`, { method: "POST", headers: H, body: JSON.stringify(telo) });
+      if (!op.ok) { console.error("príležitosť založenie", op.status); return null; }
+      return "zalozena";
+    }
+    const x = otvorene.find((o) => o.pipelineId === PIPELINE_ID && posunZ.includes(o.pipelineStageId));
+    if (!x) return "uz-ma";
+    // 🔴 PUT chce pipelineId aj pipelineStageId (rovnako ako presun v konzole)
+    const zmena = { pipelineId: PIPELINE_ID, pipelineStageId: faza };
+    if (hodnota && !Number(x.monetaryValue)) zmena.monetaryValue = hodnota;
+    const p = await fetch(`${GHL}/opportunities/${x.id}`, { method: "PUT", headers: H, body: JSON.stringify(zmena) });
+    if (!p.ok) { console.error("príležitosť posun", p.status); return null; }
+    return "posunuta";
+  } catch (e) { console.error("príležitosť", String(e)); return null; }
 }

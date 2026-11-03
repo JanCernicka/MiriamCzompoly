@@ -19,7 +19,7 @@
  */
 import { GHL, json, hlavicky, nastavene, volneSloty,
          KALENDAR_ID, KALENDAR_ONLINE_ID, CENA_OSOBNE, CENA_ONLINE,
-         MIRIAM_USER_ID, PIPELINE_ID, FAZA_REZERVOVANA } from "../_lib/ghl.js";
+         MIRIAM_USER_ID, FAZA_REZERVOVANA, FAZA_LEAD, FAZA_HOVOR, prilezitost } from "../_lib/ghl.js";
 
 const ZNACKA = "diagnostika-lp-b";
 const ZNACKA_A = "diagnostika-lp-a";
@@ -99,16 +99,8 @@ export async function onRequestPost({ request, env }) {
       return json({ ok: false, error: "ghl_appointment" }, 502);
     }
 
-    try {
-      const s = await fetch(`${GHL}/opportunities/search?location_id=${env.GHL_LOCATION_ID}&contact_id=${id}&status=open&limit=5`, { headers: H });
-      const sd = await s.json().catch(() => ({}));
-      if (s.ok && !(sd.opportunities || []).length) {
-        const o = await fetch(`${GHL}/opportunities/`, { method: "POST", headers: H,
-          body: JSON.stringify({ locationId: env.GHL_LOCATION_ID, pipelineId: PIPELINE_ID, pipelineStageId: FAZA_REZERVOVANA,
-            contactId: id, name: `${meno} · ${tel}`, status: "open", monetaryValue: cena }) });
-        if (!o.ok) console.error("príležitosť", o.status);
-      }
-    } catch (e) { console.error("príležitosť", String(e)); }
+    // nová karta, alebo posun z Lead či z hovoru k plánu (upsell z lievika plánu, 3. 11. 2026)
+    await prilezitost(env, id, { faza: FAZA_REZERVOVANA, posunZ: [FAZA_LEAD, FAZA_HOVOR], nazov: `${meno} · ${tel}`, hodnota: cena });
 
     return json({ ok: true, contactId: id, appointmentId: apd.id || (apd.appointment && apd.appointment.id) || null });
   } catch (e) {

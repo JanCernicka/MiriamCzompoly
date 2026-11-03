@@ -167,6 +167,19 @@ Prehľad správ aktualizovaný na tej istej adrese: https://claude.ai/artifact/R
   SMS 2 hodiny pred má odkaz na Meet (Jano: áno), 122 znakov plus meno, GSM-7, 1 SMS.
 - Obe WF3 po zápise: published, triggre aktívne, 10 krokov, nastavenia workflowu nezmenené. Šablóny prečítané späť, starý text preč.
 
+## Príležitosti a odpovede v konzole, 3. 11. 2026 (Jano: „dvaja odoslali otázky, v príležitostiach ich nevidím a v konverzáciách nevidím, čo vyplnili“)
+- **Príčina:** `/api/profil` kartu v pipeline nezakladal, len hovor (`/api/rozhovor`) a diagnostika (`/api/termin`).
+  Konzola v rozhovore ukazovala len formuláre GHL, otázky plánu sú v poznámke kontaktu.
+- **Oprava webu:** `prilezitost()` vo `functions/_lib/ghl.js`. Formulár založí kartu vo fáze Lead
+  (`e8f6e92b…`, meno „meno · e-mail“, zdroj „Plán od Miriam“). Hovor kartu z Lead posunie na Krátky hovor
+  rezervovaný, diagnostika z Lead alebo z hovoru na Diagnostika rezervovaná (aj so sumou, keď je 0).
+  Inú otvorenú kartu nechá tak. Overené falošným GHL (5 prípadov) a naostro priamym POST s
+  `team+konzola-3-11@shapelesai.com` (karta v Lead), potom kontakt aj karta zmazané (404). Bez zápisu do D1.
+- **Konzola:** v rozhovore blok „Otázky Plán od Miriam“ zo všetkých poznámok „Test na /profil“: skupina, 6 odpovedí,
+  reklama, klikateľný odkaz na plán. Na karte pole „Plán: horúca / vlažná / ostatná“ zo značky kontaktu.
+- **Doplnené:** karty v Lead pre 2 kontakty z dneška (…0ZOrc9 z B2-h9, …BLTNj5 z B2-h6), prečítané späť.
+- `meranie/kontrola_kampane.py` hlási kontakt z plánu bez otvorenej príležitosti ako chybu.
+
 ## Na spustenie treba (stav pred 28. 10.)
 1. Jano a Miriam prejdú náhľad a texty e-mailov (šablóny vyššie).
 2. Publikovať workflowy a urobiť jeden ostrý test na vlastnom čísle a e-maile.

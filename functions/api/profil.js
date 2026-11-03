@@ -11,10 +11,11 @@
  * TEST_REZIM=1: nič sa nezapíše, len sa overia údaje a vráti sa skupina.
  * TEST_REZIM=ghl-bez-sprav: zapíše sa všetko ako naostro, ale e-mail neodíde.
  */
-import { GHL, json, hlavicky, nastavene } from "../_lib/ghl.js";
+import { GHL, json, hlavicky, nastavene, prilezitost, FAZA_LEAD } from "../_lib/ghl.js";
 import { P, platneOdpovede, polia, ZNACKA, emailPlan, poznamka, POLIA } from "../_lib/profil.js";
 
 const ZDROJ = "Plán od Miriam (/profil)";
+const ZDROJ_KARTY = "Plán od Miriam";   // to isté ako pri hovore (/api/rozhovor)
 const cisty = (v, max) => String(v || "").replace(/\s+/g, " ").trim().slice(0, max);
 const isEmail = (v) => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v) && v.length < 255;
 
@@ -66,6 +67,9 @@ export async function onRequestPost({ request, env }) {
     const nt = await fetch(`${GHL}/contacts/${id}/notes`, { method: "POST", headers: H,
       body: JSON.stringify({ body: poznamka(o, base, `Test na /profil, skupina: ${skupina}. ${odkial(b.utm)}`) }) });
     if (!nt.ok) console.error("profil poznámka", nt.status);
+
+    // karta v pipeline vo fáze Lead, aby ju Miriam videla v Príležitostiach (3. 11. 2026)
+    await prilezitost(env, id, { faza: FAZA_LEAD, nazov: `${meno} · ${email}`, zdroj: ZDROJ_KARTY });
 
     if (skupina !== "horuci" && env.TEST_REZIM !== "ghl-bez-sprav") {
       const e = emailPlan(meno, o, base);

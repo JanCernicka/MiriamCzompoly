@@ -316,9 +316,10 @@ async function sprava(env, telo) {
   const konv = ((h.d || {}).conversations || [])[0];
   if (!konv) return json({ ok: true, meno: "", spravy: [] });
 
-  const [m, f] = await Promise.all([
+  const [m, f, pl] = await Promise.all([
     ghl(env, `/conversations/${konv.id}/messages?limit=${STROP}`, { version: "2021-04-15" }),
     formulare(env, cid),
+    planOtazky(env, cid).catch(() => []),
   ]);
   const zoznam = ((m.d || {}).messages || {}).messages || [];
 
@@ -345,6 +346,7 @@ async function sprava(env, telo) {
     }
   }
   for (const x of f) von.push(x);
+  for (const x of pl) von.push(x);
   von.sort((a, b) => String(a.kedy).localeCompare(String(b.kedy)));
 
   const c = k.d.contact || {};
@@ -405,6 +407,38 @@ async function formulare(env, contactId) {
         .map(([k, v]) => ({ nazov: nazovPola(k), hodnota: String(v) }));
       return { druh: "formular", nazov: s.name || "Formulár",
                kedy: s.createdAt || s.dateAdded || "", polia };
+    });
+}
+
+/* Otázky z lievika „Plán od Miriam“ (/profil, 3. 11. 2026). Nie sú to formuláre GHL: web ich
+   zapíše do poznámky kontaktu („Test na /profil, skupina: …“), preto ich formulare() nevidí a Jano
+   v rozhovore nevidel, čo človek vyplnil. Jedna poznámka = jedno odoslanie.
+   🔴 Poradie odpovedí v riadku „Odpovede:“ je poradie otázok v assets/js/profil-data.js (OTAZKY).
+   Keď sa tam otázka pridá alebo presunie, treba zmeniť aj PLAN_OTAZKY, inak sa ukáže jeden riadok. */
+const PLAN_OTAZKY = ["Miestnosť", "Čo jej prekáža najviac", "Čo chce ponechať", "Ako sa tam chce cítiť",
+  "Kedy chce začať", "Rozpočet"];
+const PLAN_SKUPINY = { horuci: "horúca, ponúknutý hovor k plánu", vlazny: "vlažná, plán išiel e-mailom",
+  ostatni: "ostatná, plán išiel e-mailom" };
+async function planOtazky(env, cid) {
+  const n = await ghl(env, `/contacts/${cid}/notes`);
+  if (!n.ok) return [];
+  return (((n.d || {}).notes) || [])
+    .filter((x) => /^Test na \/profil/.test(String(x.body || "")))
+    .map((x) => {
+      const t = String(x.body || "");
+      const riadok = (zac) => (t.split("\n").find((r) => r.startsWith(zac)) || "").slice(zac.length).trim();
+      const polia = [];
+      const sk = (t.match(/skupina: (\w+)/) || [])[1];
+      if (sk) polia.push({ nazov: "Skupina", hodnota: PLAN_SKUPINY[sk] || sk });
+      const odp = riadok("Odpovede:").split(" · ").filter(Boolean);
+      if (odp.length === PLAN_OTAZKY.length) odp.forEach((h, i) => polia.push({ nazov: PLAN_OTAZKY[i], hodnota: h }));
+      else if (odp.length) polia.push({ nazov: "Odpovede", hodnota: odp.join(" · ") });
+      const reklama = (t.match(/Reklama: ([^\s(]+)/) || [])[1];
+      const zdroj = ((t.match(/Zdroj: ([^\n]+)/) || [])[1] || "").replace(/\.$/, "");
+      polia.push({ nazov: "Odkiaľ prišla", hodnota: reklama ? `reklama ${reklama}` : zdroj || "nevedno" });
+      const plan = riadok("Plán:");
+      if (plan) polia.push({ nazov: "Plán", hodnota: plan });
+      return { druh: "formular", nazov: "Otázky Plán od Miriam", kedy: x.dateAdded || "", polia };
     });
 }
 
@@ -675,6 +709,10 @@ function poliaKarty(x, d) {
   if (d && d.termin) polia.push({ nazov: d.termin.nazov, hodnota: `${kratkyTermin(d.termin.ms)}, ${d.termin.co}` });
   if (d && d.adresa && !/^online$/i.test(d.adresa)) polia.push({ nazov: "Adresa", hodnota: d.adresa });
   if (x.source) polia.push({ nazov: "Zdroj", hodnota: x.source });
+  // skupina z lievika Plán od Miriam (značka kontaktu), 3. 11. 2026
+  const tagy = ((x.contact || {}).tags || []).map((t) => String(t).toLowerCase());
+  const plan = ["plan-horuci", "plan-vlazny", "plan-ostatni"].find((t) => tagy.includes(t));
+  if (plan) polia.push({ nazov: "Plán", hodnota: { "plan-horuci": "horúca", "plan-vlazny": "vlažná", "plan-ostatni": "ostatná" }[plan] });
   return polia;
 }
 

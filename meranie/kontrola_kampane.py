@@ -136,6 +136,9 @@ for c in kontakty:
     print(f"  …{cid[-6:]} {'nový' if novy else 'starší'} skupina={sk:8} reklama={zdroj[:40]:40} pole plan_odkaz={'áno' if hodnoty.get('plan_odkaz') else 'NIE'} "
           f"von: e-mail {mail}, SMS {sms}, prichádzajúce {sum(1 for m in ms if m.get('direction') == 'inbound')}")
     if not hodnoty.get("plan_odkaz"): zle(f"…{cid[-6:]}: chýba plan_odkaz (plán sa neuložil)")
+    # od 3. 11. každý lead z plánu dostane kartu v pipeline (Jano: „v príležitostiach ich nevidím“)
+    karty = requests.get(f"{API}/opportunities/search", headers=H, params={"location_id": LOC, "contact_id": cid, "status": "open", "limit": 5}, timeout=30).json().get("opportunities", [])
+    if not karty: zle(f"…{cid[-6:]}: nemá otvorenú príležitosť, v konzole v Príležitostiach chýba")
     if sk == "?": zle(f"…{cid[-6:]}: nemá značku skupiny, sekvencia sa nespustí")
     if sk in ("vlazny", "ostatni") and mail == 0 and (teraz - prisiel).total_seconds() > 900:
         zle(f"…{cid[-6:]}: {sk} a po 15 min žiadny e-mail s plánom")
