@@ -26,5 +26,5 @@
   pred.parentNode.parentNode.classList.toggle("vysoke", !!M.vysoke);
   // Jano 13. 10.: „Keď budeš chcieť ísť ďalej, toto je iba smer.“ (predtým nadpis a „Toto je smer.“)
   $("#most").innerHTML = "<b>Keď budeš chcieť ísť ďalej, toto je iba smer.</b> Čo " + esc(M.lok) +
-    " konkrétne zmeniť, čo nechať a v akom poradí, aby si neprepálila peniaze, robím na diagnostike.";
+    " konkrétne zmeniť, čo nechať a v akom poradí, aby si zbytočne nevyhodila peniaze, riešim na diagnostike.";
 })();

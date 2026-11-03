@@ -53,7 +53,7 @@ export function emailPlan(meno, o, base) {
 <p><b>${esc(D.nazov)}.</b> ${esc(D.uvod)}</p>
 ${tlacidlo(odkazy(base, o).plan, "Otvoriť môj plán")}
 <p>V pláne máš 3 kroky na tento víkend. Ak chceš začať ešte dnes, začni prvým: ${esc(D.kroky[0])}</p>
-<p>Plán ti ukáže smer. Čo ${esc(M.lok)} konkrétne zmeniť, čo nechať a v akom poradí, aby si neprepálila peniaze, robím na <a href="${esc(base)}/diagnostika" style="color:#7E6441">diagnostike</a>.</p>
+<p>Plán ti ukáže smer. Čo ${esc(M.lok)} konkrétne zmeniť, čo nechať a v akom poradí, aby si zbytočne nevyhodila peniaze, riešim na <a href="${esc(base)}/diagnostika" style="color:#7E6441">diagnostike</a>.</p>
 <p>Ak by ti niečo nebolo jasné, stačí odpísať na tento e-mail, čítam každú správu.</p>`),
   };
 }
@@ -86,7 +86,7 @@ export function emailPotvrdenie(meno, o, ms, tel) {
     predmet: `Hovor k tvojmu plánu ${kedyText(ms)}`,
     html: obal(`<p>Ahoj ${esc(meno)},</p>
 <p>ďakujem, hovor máme <b>${esc(kedyText(ms))}</b>. Zavolám ti na číslo ${esc(tel)}, potrvá 10 minút.</p>
-<p>Pred hovorom sa pozriem na tvoje odpovede a pripravím si, čo by som ${esc(M.lok)} riešila ako prvé. Ak chceš, odpíš mi na tento e-mail fotkou tej miestnosti, pripravím sa lepšie.</p>
+<p>Pred hovorom sa pozriem na tvoje odpovede a pripravím si, čo by som ${esc(M.lok)} riešila ako prvé. Aby sme hovor využili naplno, priprav si prosím: pôdorys bytu alebo domu, ak ho máš (stačí aj nákres na papieri).</p>
 <p>Ak ti čas nebude vyhovovať, odpíš mi a dohodneme iný.</p>`),
   };
 }

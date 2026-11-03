@@ -147,6 +147,26 @@ Správa pre Jana (artifact): https://claude.ai/artifact/XQx8Crpwa1Vs1ib4Zd8ewW .
   a každú nedoručenú správu v účte. Meta sa kontroluje cez MCP (doručovanie, chyby, zamietnuté reklamy).
   Plánovaná úloha v sedení 4× denne (11:41, 14:41, 19:41, 22:41). Prvý beh 10:24: 0 chýb, ešte bez návštev.
 
+## Miriamine opravy textov 3. 11. 2026 (WhatsApp so screenshotmi z prehľadu správ, cez Jana)
+Prehľad správ aktualizovaný na tej istej adrese: https://claude.ai/artifact/RKcFqGoTsNZNfpc62tscwM (verzia 2). Starý text → nový:
+- **Veta o diagnostike** (šablóna „Plán: sekvencia 3“ `6acce86e…`, e-mail s plánom v `functions/_lib/profil.js`, stránka `/plan`
+  v `plan.html` a `assets/js/plan.js`): „aby si neprepálila peniaze, robím na diagnostike“ → „aby si zbytočne nevyhodila peniaze,
+  riešim na diagnostike“. Miriam ju označila v 3. e-maile, zmenené všade, kde je tá istá veta.
+- **Horúci 1** (šablóna `6acce866…`): „tvoj plán je pripravený a rada by som ti ho prešla osobne. Stačí 10 minút po telefóne,
+  zavolám ti ja.“ → „tvoj plán je pripravený a rada by som ho s tebou prešla na krátkom hovore.“ (malé „t“ ako po každom „Ahoj …,“).
+- **Potvrdenie hovoru k plánu** (web `/api/rozhovor`, `emailPotvrdenie`): „Ak chceš, odpíš mi na tento e-mail fotkou tej miestnosti,
+  pripravím sa lepšie.“ → „Aby sme hovor využili naplno, priprav si prosím: pôdorys bytu alebo domu, ak ho máš (stačí aj nákres
+  na papieri).“ Kam veta patrí, rozhodol Jano (Miriam ju poslala pri screenshote diagnostiky doma).
+- **WF3 diagnostika doma** (`e8120656`, verzia 21 → 22): zmazaný bod „ak riešiš priestor s partnerom alebo rodinou, nech sú pri tom“
+  (Miriam: „To tam nikdy nebudem chcieť.“). Ostatné body bez zmeny.
+- **WF3 online** (`fc2d7ac6`, verzia 6 → 7): „Ako sa spojíme, ti napíšem pred termínom.“ → odkaz na Google Meet
+  `https://meet.google.com/meet/pxh-papk-ekh` (Miriam: „vždy bude jeden“; tvar bez `/meet/` presmeruje sem);
+  „Aby sme čas nestrácali obhliadkou, pošli mi prosím najneskôr deň vopred, stačí odpoveďou na tento e-mail:“ → „Aby sme na
+  hovore nestrácali čas, pošli mi prosím najneskôr deň vopred (stačí odpísať na tento e-mail):“; „(stačí fotka z papiera)“ →
+  „(stačí aj nákres na papieri)“. Fotky z viacerých uhlov ostali (Miriam ich nevynechala, len boli v označení medzi riadkami).
+  SMS 2 hodiny pred má odkaz na Meet (Jano: áno), 122 znakov plus meno, GSM-7, 1 SMS.
+- Obe WF3 po zápise: published, triggre aktívne, 10 krokov, nastavenia workflowu nezmenené. Šablóny prečítané späť, starý text preč.
+
 ## Na spustenie treba (stav pred 28. 10.)
 1. Jano a Miriam prejdú náhľad a texty e-mailov (šablóny vyššie).
 2. Publikovať workflowy a urobiť jeden ostrý test na vlastnom čísle a e-maile.
