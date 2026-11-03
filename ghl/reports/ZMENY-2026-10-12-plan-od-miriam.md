@@ -138,8 +138,14 @@ Správa pre Jana (artifact): https://claude.ai/artifact/XQx8Crpwa1Vs1ib4Zd8ewW .
   pozri 28. 10. a 2. 11. (potvrdenie, SMS zákazníkovi aj Miriam, pripomienka, plán e-mailom, E1, horúci 2 h).
 - **Kampaň `120250960912100477` ACTIVE** 3. 11. okolo 09:14 UTC, 15 €/deň, všetkých 18 reklám ACTIVE. Októbrová a
   septembrová kampaň ostávajú PAUSED. Meno kampane stále hovorí „9 kreatív“ (kozmetické, nemenené).
-- **Stále otvorené (Jano nerozhodol):** 4 reklamy so záhradou (B2-h10, AI1/2/3-h13), citát Hlavatých v B2-h9 a AI1/2/3-h12,
-  „Plány zadarmo robím do konca mesiaca“ v AI hlase (do 1. 12. obnoviť alebo vypnúť).
+- **UZAVRETÉ, NEOTVÁRAŤ (Jano 3. 11.: „všetko je to v poriadku a nerieš to vôbec“):** 4 reklamy so záhradou
+  (B2-h10, AI1/2/3-h13), citát Hlavatých v B2-h9 a AI1/2/3-h12, „Plány zadarmo robím do konca mesiaca“ v AI hlase.
+  Ostávajú tak, ako sú, a ďalšie sedenie ich už nenavrhuje meniť.
+- **Priebežná kontrola** (Jano 3. 11.: „priebežne monitoruj, či všetko funguje, či nie sú tam žiadne chyby“):
+  `meranie/kontrola_kampane.py` len číta: web a `/api/krok`, D1 od resetu (kroky, reklamy, zariadenia), konzolu,
+  nové kontakty s `plan-test` (skupina, reklama z poznámky, `plan_odkaz`, e-mail s plánom do 15 min, SMS po hovore)
+  a každú nedoručenú správu v účte. Meta sa kontroluje cez MCP (doručovanie, chyby, zamietnuté reklamy).
+  Plánovaná úloha v sedení 4× denne (11:41, 14:41, 19:41, 22:41). Prvý beh 10:24: 0 chýb, ešte bez návštev.
 
 ## Na spustenie treba (stav pred 28. 10.)
 1. Jano a Miriam prejdú náhľad a texty e-mailov (šablóny vyššie).
