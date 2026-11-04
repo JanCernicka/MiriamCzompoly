@@ -22,8 +22,11 @@ export const PIPELINE_ID = "Ue40eB5LDhvgIAOIcDqC";
 export const FAZA_REZERVOVANA = "3e4dff82-13e7-47c6-858a-67ba2a36d877";
 // fáza „Krátky hovor rezervovaný“ (hovor k plánu z /profil)
 export const FAZA_HOVOR = "af9825ca-fb11-4c7b-8efa-fe9e997a3ee7";
-// fáza „Lead“: každý, kto odošle otázky na /profil (3. 11. 2026, Jano: „v príležitostiach ich nevidím“)
+// fáza „Lead“ (prvá v pipeline). Karty z plánu tu boli len 3. 11., odvtedy idú do FAZA_LEAD_MAGNET.
 export const FAZA_LEAD = "e8f6e92b-860a-4014-a2db-332b16cc2ffc";
+// fáza „Zobral lead magnet (plán na víkend)“, hneď za Lead (4. 11. 2026, Jano): každý, kto odošle
+// otázky na /profil. Karta sa odtiaľ posunie sama pri rezervácii hovoru alebo diagnostiky.
+export const FAZA_LEAD_MAGNET = "51108ff3-4d4a-4ae3-80bf-c90fa36b278c";
 // kontakt Miriam (+421 918 819 906): SMS o novom hovore k plánu idú sem, ako upozornenia z WF3
 export const MIRIAM_KONTAKT_ID = "UQbUlsXxUiimaBoVuMHQ";
 

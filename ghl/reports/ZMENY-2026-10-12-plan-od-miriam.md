@@ -180,6 +180,25 @@ Prehľad správ aktualizovaný na tej istej adrese: https://claude.ai/artifact/R
 - **Doplnené:** karty v Lead pre 2 kontakty z dneška (…0ZOrc9 z B2-h9, …BLTNj5 z B2-h6), prečítané späť.
 - `meranie/kontrola_kampane.py` hlási kontakt z plánu bez otvorenej príležitosti ako chybu.
 
+## Štádium lead magnet, rozpočet v konzole a Miriamine opravy 2 (4. 11. 2026)
+- **Nové štádium** „Zobral lead magnet (plán na víkend)“ `51108ff3-4d4a-4ae3-80bf-c90fa36b278c`, hneď za Lead
+  (Jano). Všetkých 41 kariet a 12 starých štádií ostalo, 14 kariet z plánu presunutých z Lead sem. Formulár `/profil`
+  zakladá karty tu (`FAZA_LEAD_MAGNET`), hovor ich posunie z Lead aj odtiaľto, diagnostika z Lead, odtiaľto aj z hovoru.
+  Overené naostro priamym POST s `team+konzola-4-11@shapelesai.com`, potom kontakt aj karta zmazané.
+  🔴 PUT pipeline sa uložil, ale okamžité čítanie späť ho ešte neukázalo; druhý PUT GHL odmietol (422 `locationId`),
+  takže duplikát nevznikol. Pri pipeline čítať späť s pauzou, nie hneď opakovať zápis.
+- **Rozpočet v konzole** (Jano): na karte v Príležitostiach (pod Zdroj a Plán), v zozname konverzácií pod ukážkou
+  správy a v hlavičke otvoreného rozhovoru. Berie sa z poľa `plan_odpovede` (posledná zo 6 odpovedí).
+- **Miriamine opravy 2** (WhatsApp 3. 11. 16:22 až 16:34, so screenshotmi; nahrádzajú prvú dávku tam, kde sa líšia):
+  - potvrdenie hovoru (web): „Ak chceš, odpíš mi na tento e-mail a prilož fotku miestnosti, ktorú chceš riešiť, aby som sa
+    vedela lepšie pripraviť.“ Veta o pôdoryse z 3. 11. tu bola omylom, Miriam ju myslela k diagnostike.
+  - horúci 1: predmet „Tvoj plán je pripravený“ (workflow `3c140460`, verzia 6), telo doplnené o „Stačí 10 minút, zavolám ti ja.“
+  - WF3 doma (`e8120656`, verzia 23): „Aby sme hovor využili naplno, priprav si prosím:“ a „pôdorys bytu alebo domu, ak ho máš
+    (stačí aj nákres na papieri)“. Zoznam vecí, ktoré hnevajú, a rozpočet ostali (neboli v jej texte, len v označení).
+  - WF3 online (`fc2d7ac6`, verzia 8): ten istý úvod a ten istý pôdorys. Fotky z viacerých uhlov ostali z rovnakého dôvodu.
+    SMS po rezervácii stále hovorí „Fotky a podorys mi prosim posli vopred“, nemenené.
+  - Prehľad správ, verzia 3: https://claude.ai/artifact/RKcFqGoTsNZNfpc62tscwM
+
 ## Na spustenie treba (stav pred 28. 10.)
 1. Jano a Miriam prejdú náhľad a texty e-mailov (šablóny vyššie).
 2. Publikovať workflowy a urobiť jeden ostrý test na vlastnom čísle a e-maile.

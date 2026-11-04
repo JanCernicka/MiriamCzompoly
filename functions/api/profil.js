@@ -11,7 +11,7 @@
  * TEST_REZIM=1: nič sa nezapíše, len sa overia údaje a vráti sa skupina.
  * TEST_REZIM=ghl-bez-sprav: zapíše sa všetko ako naostro, ale e-mail neodíde.
  */
-import { GHL, json, hlavicky, nastavene, prilezitost, FAZA_LEAD } from "../_lib/ghl.js";
+import { GHL, json, hlavicky, nastavene, prilezitost, FAZA_LEAD_MAGNET } from "../_lib/ghl.js";
 import { P, platneOdpovede, polia, ZNACKA, emailPlan, poznamka, POLIA } from "../_lib/profil.js";
 
 const ZDROJ = "Plán od Miriam (/profil)";
@@ -68,8 +68,8 @@ export async function onRequestPost({ request, env }) {
       body: JSON.stringify({ body: poznamka(o, base, `Test na /profil, skupina: ${skupina}. ${odkial(b.utm)}`) }) });
     if (!nt.ok) console.error("profil poznámka", nt.status);
 
-    // karta v pipeline vo fáze Lead, aby ju Miriam videla v Príležitostiach (3. 11. 2026)
-    await prilezitost(env, id, { faza: FAZA_LEAD, nazov: `${meno} · ${email}`, zdroj: ZDROJ_KARTY });
+    // karta v pipeline vo fáze „Zobral lead magnet (plán na víkend)“, aby ju Miriam videla v Príležitostiach
+    await prilezitost(env, id, { faza: FAZA_LEAD_MAGNET, nazov: `${meno} · ${email}`, zdroj: ZDROJ_KARTY });
 
     if (skupina !== "horuci" && env.TEST_REZIM !== "ghl-bez-sprav") {
       const e = emailPlan(meno, o, base);

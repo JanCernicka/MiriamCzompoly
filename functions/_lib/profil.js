@@ -86,7 +86,7 @@ export function emailPotvrdenie(meno, o, ms, tel) {
     predmet: `Hovor k tvojmu plánu ${kedyText(ms)}`,
     html: obal(`<p>Ahoj ${esc(meno)},</p>
 <p>ďakujem, hovor máme <b>${esc(kedyText(ms))}</b>. Zavolám ti na číslo ${esc(tel)}, potrvá 10 minút.</p>
-<p>Pred hovorom sa pozriem na tvoje odpovede a pripravím si, čo by som ${esc(M.lok)} riešila ako prvé. Aby sme hovor využili naplno, priprav si prosím: pôdorys bytu alebo domu, ak ho máš (stačí aj nákres na papieri).</p>
+<p>Pred hovorom sa pozriem na tvoje odpovede a pripravím si, čo by som ${esc(M.lok)} riešila ako prvé. Ak chceš, odpíš mi na tento e-mail a prilož fotku miestnosti, ktorú chceš riešiť, aby som sa vedela lepšie pripraviť.</p>
 <p>Ak ti čas nebude vyhovovať, odpíš mi a dohodneme iný.</p>`),
   };
 }

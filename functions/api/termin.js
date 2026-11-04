@@ -19,7 +19,7 @@
  */
 import { GHL, json, hlavicky, nastavene, volneSloty,
          KALENDAR_ID, KALENDAR_ONLINE_ID, CENA_OSOBNE, CENA_ONLINE,
-         MIRIAM_USER_ID, FAZA_REZERVOVANA, FAZA_LEAD, FAZA_HOVOR, prilezitost } from "../_lib/ghl.js";
+         MIRIAM_USER_ID, FAZA_REZERVOVANA, FAZA_LEAD, FAZA_LEAD_MAGNET, FAZA_HOVOR, prilezitost } from "../_lib/ghl.js";
 
 const ZNACKA = "diagnostika-lp-b";
 const ZNACKA_A = "diagnostika-lp-a";
@@ -100,7 +100,7 @@ export async function onRequestPost({ request, env }) {
     }
 
     // nová karta, alebo posun z Lead či z hovoru k plánu (upsell z lievika plánu, 3. 11. 2026)
-    await prilezitost(env, id, { faza: FAZA_REZERVOVANA, posunZ: [FAZA_LEAD, FAZA_HOVOR], nazov: `${meno} · ${tel}`, hodnota: cena });
+    await prilezitost(env, id, { faza: FAZA_REZERVOVANA, posunZ: [FAZA_LEAD, FAZA_LEAD_MAGNET, FAZA_HOVOR], nazov: `${meno} · ${tel}`, hodnota: cena });
 
     return json({ ok: true, contactId: id, appointmentId: apd.id || (apd.appointment && apd.appointment.id) || null });
   } catch (e) {

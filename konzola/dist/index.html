@@ -118,6 +118,8 @@ h2{font-size:21px;margin:0 0 3px;font-weight:600;letter-spacing:-.02em}
   display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden}
 .polozka.nove .meno{font-weight:700}
 .polozka.nove .ukazka{color:var(--text);font-weight:500}
+/* rozpočet z lievika Plán od Miriam (4. 11. 2026) */
+.polozka .rozp{display:block;font-size:12px;font-weight:600;color:var(--text);margin-top:3px}
 .bodka{display:inline-block;width:7px;height:7px;border-radius:50%;
   background:var(--akcent);margin-left:6px;vertical-align:middle}
 
@@ -1304,6 +1306,7 @@ async function nacitajKonverzacie(ticho) {
           <span class="cas">${kratkyCas(k.kedy)}</span>
         </span>
         <span class="ukazka">${k.smer === "outbound" ? "Vy: " : ""}${bezpecne(k.posledna)}</span>
+        ${k.rozpocet ? `<span class="rozp">Rozpočet: ${bezpecne(k.rozpocet)}</span>` : ""}
       </span>
     </button>`).join("");
   $$(".polozka").forEach((p) => {
@@ -1386,7 +1389,7 @@ async function otvor(contactId) {
   if (!r.ok) { $("#tok").innerHTML =
     `<div class="stav chyba">${bezpecne(r.error || "nedostupné")}</div>`; return; }
   $("#ktoMeno").textContent = r.meno;
-  $("#ktoKontakt").textContent = [r.tel, r.email].filter(Boolean).join(" · ");
+  $("#ktoKontakt").textContent = [r.tel, r.email, r.rozpocet ? "Rozpočet: " + r.rozpocet : ""].filter(Boolean).join(" · ");
   $("#vybavene").hidden = !(r.neprecitane > 0);
   vykresliKanaly(r.kanaly || []);
   zrusOdpoved();

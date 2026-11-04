@@ -91,6 +91,16 @@ async function kontaktyNaraz(env, ids) {
   return out;
 }
 
+/* Rozpočet z lievika „Plán od Miriam“ (4. 11. 2026, Jano: „aby pri každom bol vidieť rozpočet“).
+   Pole plan_odpovede je súhrn 6 odpovedí oddelený „ · “, rozpočet je posledná (PLAN_OTAZKY).
+   Kto prišiel inou cestou, pole nemá a rozpočet sa neukáže. */
+const POLE_PLAN_ODPOVEDE = "9O2Gvt0FaNwkO8X1dolm";
+function rozpocetKontaktu(c) {
+  const v = String((((c || {}).customFields || []).find((f) => f.id === POLE_PLAN_ODPOVEDE) || {}).value || "");
+  const casti = v.split(" · ").map((x) => x.trim()).filter(Boolean);
+  return casti.length === PLAN_OTAZKY.length ? casti[casti.length - 1] : "";
+}
+
 /* ── zámok ────────────────────────────────────────────────────────────── */
 
 function heslomOk(env, telo) {
@@ -139,6 +149,9 @@ async function konverzacie(env, telo = {}) {
   if (!r.ok) return json({ ok: false, error: "GHL nedalo konverzácie", kod: r.kod }, 502);
 
   const moje = ((r.d || {}).conversations || []).filter((k) => maTag(k.tags, tag));
+  // rozpočet pri každom (jedno volanie na najviac 100 kontaktov); keď zlyhá, zoznam ide aj bez neho
+  let kontakty = {};
+  try { kontakty = await kontaktyNaraz(env, moje.map((k) => k.contactId)); } catch (e) { kontakty = {}; }
   // 🔴 Zoznam z konverzácií s tagom konzoly, nie `total` celého účtu (demo konzola by ho prezradila).
   //    Stránka z neho ráta počet na záložke a vynechá práve vybavené, kým ich GHL nedobehne.
   const nevybaveni = n.ok
@@ -162,6 +175,7 @@ async function konverzacie(env, telo = {}) {
         kedy: k.lastMessageDate || k.dateUpdated || "",
         smer: k.lastMessageDirection || "",
         neprecitane: k.unreadCount || 0,
+        rozpocet: rozpocetKontaktu(kontakty[k.contactId]),
       })).sort((a, b) => String(b.kedy).localeCompare(String(a.kedy))),
   });
 }
@@ -354,6 +368,7 @@ async function sprava(env, telo) {
     ok: true,
     meno: `${c.firstName || ""} ${c.lastName || ""}`.trim() || c.companyName || "Bez mena",
     tel: c.phone || "", email: c.email || "",
+    rozpocet: rozpocetKontaktu(c),
     kanaly: dostupneKanaly(c, konv, von),
     neprecitane: konv.unreadCount || 0,
     spravy: von,
@@ -695,7 +710,7 @@ async function detailKariet(env, karty) {
   const out = {};
   cids.forEach((cid) => {
     const c = kontakty[cid] || {};
-    out[cid] = { adresa: [c.address1, c.city].filter(Boolean).join(", ") };
+    out[cid] = { adresa: [c.address1, c.city].filter(Boolean).join(", "), rozpocet: rozpocetKontaktu(c) };
   });
   for (const [cid, t] of Object.entries(terminy)) {
     out[cid] = out[cid] || {};
@@ -713,6 +728,7 @@ function poliaKarty(x, d) {
   const tagy = ((x.contact || {}).tags || []).map((t) => String(t).toLowerCase());
   const plan = ["plan-horuci", "plan-vlazny", "plan-ostatni"].find((t) => tagy.includes(t));
   if (plan) polia.push({ nazov: "Plán", hodnota: { "plan-horuci": "horúca", "plan-vlazny": "vlažná", "plan-ostatni": "ostatná" }[plan] });
+  if (d && d.rozpocet) polia.push({ nazov: "Rozpočet", hodnota: d.rozpocet });
   return polia;
 }
 
