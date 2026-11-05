@@ -213,6 +213,15 @@ Prehľad správ aktualizovaný na tej istej adrese: https://claude.ai/artifact/R
 - Doterajšie: z 26 leadov majú kombináciu hneď + 600 až 3 000 € 3 (…wVfBON, …E7VHB4, …OTfoIP). Dostali plán e-mailom ako vlažné,
   nemenené. Telefón nemajú (formulár ho nepýta), dá sa im poslať len e-mail s pozvánkou, ak Jano povie.
 
+## Kontrola lead magnetu Miriam (5. 11. 2026, Jano)
+- Stránka https://claude.ai/artifact/BCmkSiTcswLhZbJb2CHNcQ („Kontrola Plánu od Miriam“): ukážka plánu s výberom
+  4 odpovedí, časti plánu (miestnosti, 6 problémov, nábytok, pocity, koniec), otázky a všetkých 21 e-mailov a SMS.
+  Pri každej z 33 šablón poznámky. Pri každej je napísané, kto text písal (Miriam alebo my).
+- Poznámky sú v databáze stránky, kolekcia `poznamky` {sablona, nazov, text, autor, kedy}. Číta ich ArtifactData `list`.
+  Zapisovať môže vlastník a človek pozvaný e-mailom ako Editor, ale len kým stránka nie je zdieľaná verejným odkazom.
+  Bez účtu sa poznámky uložia v prehliadači a pošlú sa tlačidlom Skopírovať všetky poznámky.
+- Stránku generuje skript mimo repa (texty plánu z `profil-data.js`, správy z generátora prehľadu správ). Po zmene textov ju treba pregenerovať a publikovať na tú istú adresu.
+
 ## Na spustenie treba (stav pred 28. 10.)
 1. Jano a Miriam prejdú náhľad a texty e-mailov (šablóny vyššie).
 2. Publikovať workflowy a urobiť jeden ostrý test na vlastnom čísle a e-maile.
