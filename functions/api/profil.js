@@ -15,7 +15,9 @@ import { GHL, json, hlavicky, nastavene, prilezitost, FAZA_LEAD_MAGNET } from ".
 import { P, platneOdpovede, polia, ZNACKA, emailPlan, poznamka, POLIA } from "../_lib/profil.js";
 
 const ZDROJ = "Plán od Miriam (/profil)";
-const ZDROJ_KARTY = "Plán od Miriam";   // to isté ako pri hovore (/api/rozhovor)
+const ZDROJ_KARTY = "Plán od Miriam";
+// názov skupiny v poznámke kontaktu (5. 11. 2026, Jano: „ostatná premenuj na studená“); kód a značka ostávajú
+const NAZOV_SKUPINY = { horuci: "horúca", vlazny: "vlažná", ostatni: "studená" };   // to isté ako pri hovore (/api/rozhovor)
 const cisty = (v, max) => String(v || "").replace(/\s+/g, " ").trim().slice(0, max);
 const isEmail = (v) => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v) && v.length < 255;
 
@@ -65,7 +67,7 @@ export async function onRequestPost({ request, env }) {
     if (!tg.ok) console.error("profil značka", tg.status);
 
     const nt = await fetch(`${GHL}/contacts/${id}/notes`, { method: "POST", headers: H,
-      body: JSON.stringify({ body: poznamka(o, base, `Test na /profil, skupina: ${skupina}. ${odkial(b.utm)}`) }) });
+      body: JSON.stringify({ body: poznamka(o, base, `Test na /profil, skupina: ${NAZOV_SKUPINY[skupina] || skupina}. ${odkial(b.utm)}`) }) });
     if (!nt.ok) console.error("profil poznámka", nt.status);
 
     // karta v pipeline vo fáze „Zobral lead magnet (plán na víkend)“, aby ju Miriam videla v Príležitostiach

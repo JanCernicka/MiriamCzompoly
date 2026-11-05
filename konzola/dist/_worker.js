@@ -91,14 +91,15 @@ async function kontaktyNaraz(env, ids) {
   return out;
 }
 
-/* Rozpočet z lievika „Plán od Miriam“ (4. 11. 2026, Jano: „aby pri každom bol vidieť rozpočet“).
-   Pole plan_odpovede je súhrn 6 odpovedí oddelený „ · “, rozpočet je posledná (PLAN_OTAZKY).
-   Kto prišiel inou cestou, pole nemá a rozpočet sa neukáže. */
+/* Kedy chce začať a rozpočet z lievika „Plán od Miriam“ (Jano 4. 11.: „aby pri každom bol vidieť
+   rozpočet“, 5. 11.: „okrem rozpočtu aj kedy chcú začať, v konverzáciách, príležitostiach aj v kalendári“).
+   Pole plan_odpovede je súhrn 6 odpovedí oddelený „ · “ v poradí PLAN_OTAZKY: kedy je 5., rozpočet 6.
+   Kto prišiel inou cestou, pole nemá a nič sa neukáže. */
 const POLE_PLAN_ODPOVEDE = "9O2Gvt0FaNwkO8X1dolm";
-function rozpocetKontaktu(c) {
+function planKontaktu(c) {
   const v = String((((c || {}).customFields || []).find((f) => f.id === POLE_PLAN_ODPOVEDE) || {}).value || "");
   const casti = v.split(" · ").map((x) => x.trim()).filter(Boolean);
-  return casti.length === PLAN_OTAZKY.length ? casti[casti.length - 1] : "";
+  return casti.length === PLAN_OTAZKY.length ? { kedy: casti[4], rozpocet: casti[5] } : { kedy: "", rozpocet: "" };
 }
 
 /* ── zámok ────────────────────────────────────────────────────────────── */
@@ -175,7 +176,7 @@ async function konverzacie(env, telo = {}) {
         kedy: k.lastMessageDate || k.dateUpdated || "",
         smer: k.lastMessageDirection || "",
         neprecitane: k.unreadCount || 0,
-        rozpocet: rozpocetKontaktu(kontakty[k.contactId]),
+        ...planKontaktu(kontakty[k.contactId]),
       })).sort((a, b) => String(b.kedy).localeCompare(String(a.kedy))),
   });
 }
@@ -368,7 +369,7 @@ async function sprava(env, telo) {
     ok: true,
     meno: `${c.firstName || ""} ${c.lastName || ""}`.trim() || c.companyName || "Bez mena",
     tel: c.phone || "", email: c.email || "",
-    rozpocet: rozpocetKontaktu(c),
+    ...planKontaktu(c),
     kanaly: dostupneKanaly(c, konv, von),
     neprecitane: konv.unreadCount || 0,
     spravy: von,
@@ -433,7 +434,9 @@ async function formulare(env, contactId) {
 const PLAN_OTAZKY = ["Miestnosť", "Čo jej prekáža najviac", "Čo chce ponechať", "Ako sa tam chce cítiť",
   "Kedy chce začať", "Rozpočet"];
 const PLAN_SKUPINY = { horuci: "horúca, ponúknutý hovor k plánu", vlazny: "vlažná, plán išiel e-mailom",
-  ostatni: "ostatná, plán išiel e-mailom" };
+  ostatni: "studená, plán išiel e-mailom",
+  // od 5. 11. píše /api/profil do poznámky slovný názov („skupina: studená“), staršie poznámky majú kód
+  "horúca": "horúca, ponúknutý hovor k plánu", "vlažná": "vlažná, plán išiel e-mailom", "studená": "studená, plán išiel e-mailom" };
 async function planOtazky(env, cid) {
   const n = await ghl(env, `/contacts/${cid}/notes`);
   if (!n.ok) return [];
@@ -443,7 +446,7 @@ async function planOtazky(env, cid) {
       const t = String(x.body || "");
       const riadok = (zac) => (t.split("\n").find((r) => r.startsWith(zac)) || "").slice(zac.length).trim();
       const polia = [];
-      const sk = (t.match(/skupina: (\w+)/) || [])[1];
+      const sk = ((t.match(/skupina: ([^.\n]+)/) || [])[1] || "").trim();
       if (sk) polia.push({ nazov: "Skupina", hodnota: PLAN_SKUPINY[sk] || sk });
       const odp = riadok("Odpovede:").split(" · ").filter(Boolean);
       if (odp.length === PLAN_OTAZKY.length) odp.forEach((h, i) => polia.push({ nazov: PLAN_OTAZKY[i], hodnota: h }));
@@ -710,7 +713,7 @@ async function detailKariet(env, karty) {
   const out = {};
   cids.forEach((cid) => {
     const c = kontakty[cid] || {};
-    out[cid] = { adresa: [c.address1, c.city].filter(Boolean).join(", "), rozpocet: rozpocetKontaktu(c) };
+    out[cid] = { adresa: [c.address1, c.city].filter(Boolean).join(", "), ...planKontaktu(c) };
   });
   for (const [cid, t] of Object.entries(terminy)) {
     out[cid] = out[cid] || {};
@@ -727,7 +730,9 @@ function poliaKarty(x, d) {
   // skupina z lievika Plán od Miriam (značka kontaktu), 3. 11. 2026
   const tagy = ((x.contact || {}).tags || []).map((t) => String(t).toLowerCase());
   const plan = ["plan-horuci", "plan-vlazny", "plan-ostatni"].find((t) => tagy.includes(t));
-  if (plan) polia.push({ nazov: "Plán", hodnota: { "plan-horuci": "horúca", "plan-vlazny": "vlažná", "plan-ostatni": "ostatná" }[plan] });
+  // 5. 11. 2026, Jano: „ostatná premenuj na studená“ (značka v GHL ostáva plan-ostatni, spúšťa sekvenciu)
+  if (plan) polia.push({ nazov: "Plán", hodnota: { "plan-horuci": "horúca", "plan-vlazny": "vlažná", "plan-ostatni": "studená" }[plan] });
+  if (d && d.kedy) polia.push({ nazov: "Začať", hodnota: d.kedy });
   if (d && d.rozpocet) polia.push({ nazov: "Rozpočet", hodnota: d.rozpocet });
   return polia;
 }
@@ -1010,8 +1015,12 @@ const NO_SHOW = "No-show";
 
 /* Kalendáre: prvý je hlavný (z neho sa číta zavretý čas), ďalšie sa ukazujú
    a blokujú s ním. KALENDAR_ID a KALENDARE_NAVIAC (čiarkami). */
+/* Kalendár „Hovor k plánu (10 min)“ z lievika Plán od Miriam (5. 11. 2026). V konzole chýbal, takže hovor,
+   ktorý si horúca rezervuje, by Miriam v Kalendári nevidela. Ide vždy posledný (vlastná farba k4) a do
+   otváracích hodín ani kroku mriežky sa nepočíta (má 10-minútové sloty, mriežka by bola 3× vyššia). */
+const KALENDAR_HOVOR_PLAN = "Mrfqa49pMQPuVyba2nqm";
 function kalendare(env) {
-  const vsetky = [env.KALENDAR_ID, ...String(env.KALENDARE_NAVIAC || "").split(",")]
+  const vsetky = [env.KALENDAR_ID, ...String(env.KALENDARE_NAVIAC || "").split(","), KALENDAR_HOVOR_PLAN]
     .map((x) => String(x || "").trim()).filter((x) => /^[A-Za-z0-9]{10,40}$/.test(x));
   return [...new Set(vsetky)];
 }
@@ -1080,7 +1089,8 @@ async function kalendar(env, telo) {
   /* Otváracie hodiny: zjednotenie všetkých kalendárov. GHL počíta 0 = nedeľa.
      🔴 `openHours` MUSÍ byť pole, GHL ho vie vrátiť ako `{}`. */
   const hodiny = {};
-  for (const x of kaly) {
+  const preMriezku = kaly.filter((x) => x.id !== KALENDAR_HOVOR_PLAN);
+  for (const x of (preMriezku.length ? preMriezku : kaly)) {
     for (const o of (Array.isArray(x.cal.openHours) ? x.cal.openHours : [])) {
       for (const den of (o.daysOfTheWeek || [])) {
         for (const h of (o.hours || [])) {
@@ -1092,7 +1102,7 @@ async function kalendar(env, telo) {
     }
   }
   const zdroj = Object.keys(hodiny).length ? hodiny : PRACOVNY_CAS;
-  const krok = Math.min(...kaly.map((x) => Number(x.cal.slotInterval) || Number(x.cal.slotDuration) || 30));
+  const krok = Math.min(...(preMriezku.length ? preMriezku : kaly).map((x) => Number(x.cal.slotInterval) || Number(x.cal.slotDuration) || 30));
 
   // termíny zo všetkých kalendárov, mená ľudí z kontaktov
   const terminy = kaly.flatMap((x) => (((x.u.d || {}).events) || [])
@@ -1146,6 +1156,7 @@ async function kalendar(env, telo) {
                  // adresa z termínu, staršie termíny ju nemajú, vtedy z kontaktu
                  adresa: smie ? (String(t.e.address || "").trim() || [c.address1, c.city].filter(Boolean).join(", ")) : "",
                  tel: smie ? (c.phone || "") : "",
+                 ...(smie ? planKontaktu(c) : { kedy: "", rozpocet: "" }),
                  karta,
                  // neprišiel = karta je v No-show a termín už bol
                  neprisiel: !!(karta && noShow && karta.stageId === noShow && zaciatokMs < teraz) };

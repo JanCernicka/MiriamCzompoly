@@ -234,6 +234,16 @@ Prehľad správ aktualizovaný na tej istej adrese: https://claude.ai/artifact/R
   Bez účtu sa poznámky uložia v prehliadači a pošlú sa tlačidlom Skopírovať všetky poznámky.
 - Stránku generuje skript mimo repa (texty plánu z `profil-data.js`, správy z generátora prehľadu správ). Po zmene textov ju treba pregenerovať a publikovať na tú istú adresu.
 
+## „Studená“ a „Kedy chce začať“ v konzole (5. 11. 2026, Jano)
+- Skupina „ostatná“ sa pri ľuďoch volá **studená**: karta v Príležitostiach, blok otázok v rozhovore, štatistika Lievik
+  a poznámka kontaktu v GHL (nové leady majú „skupina: studená“, staršie „ostatni“, konzola číta oboje).
+  🔴 Značka v GHL ostáva `plan-ostatni` a kód v D1 `ostatni`: spúšťa sekvenciu 72d7be00, premenovanie by ju zastavilo.
+- **Kedy chce začať** vedľa rozpočtu: v zozname konverzácií, v hlavičke rozhovoru, na karte v Príležitostiach
+  (Začať, Rozpočet) a v okienku termínu v Kalendári (Chce začať, Rozpočet). Z poľa `plan_odpovede` (5. a 6. odpoveď).
+- **Kalendár konzoly nemal kalendár „Hovor k plánu (10 min)“** (`Mrfqa49pMQPuVyba2nqm`), hovory horúcich by Miriam
+  nevidela. Doplnený napevno ako posledný (farba k4), do otváracích hodín a kroku mriežky sa nepočíta. Termín sa
+  ukáže v každej bunke, do ktorej zasahuje (10-minútový hovor v 15-minútovej mriežke). Overené na Janovom teste 29. 10.
+
 ## Na spustenie treba (stav pred 28. 10.)
 1. Jano a Miriam prejdú náhľad a texty e-mailov (šablóny vyššie).
 2. Publikovať workflowy a urobiť jeden ostrý test na vlastnom čísle a e-maile.

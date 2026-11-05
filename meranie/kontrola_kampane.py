@@ -122,6 +122,7 @@ teraz = dt.datetime.now(dt.timezone.utc)
 for c in kontakty:
     cid = c["id"]; tagy = c.get("tags") or []
     sk = next((t.replace("plan-", "") for t in SKUPINY if t in tagy), "?")
+    sk_text = {"ostatni": "studena"}.get(sk, sk)
     novy = str(c.get("dateAdded", "")) >= od_iso[:19]
     hodnoty = {polia.get(f.get("id")): f.get("value") for f in (c.get("customFields") or []) if f.get("id") in polia}
     notes = requests.get(f"{API}/contacts/{cid}/notes", headers=H, timeout=30).json().get("notes", [])
@@ -133,7 +134,7 @@ for c in kontakty:
     mail = sum(1 for m in von if "EMAIL" in str(m.get("messageType")))
     sms = sum(1 for m in von if "SMS" in str(m.get("messageType")))
     prisiel = dt.datetime.fromisoformat(str(c.get("dateAdded")).replace("Z", "+00:00"))
-    print(f"  …{cid[-6:]} {'nový' if novy else 'starší'} skupina={sk:8} reklama={zdroj[:40]:40} pole plan_odkaz={'áno' if hodnoty.get('plan_odkaz') else 'NIE'} "
+    print(f"  …{cid[-6:]} {'nový' if novy else 'starší'} skupina={sk_text:8} reklama={zdroj[:40]:40} pole plan_odkaz={'áno' if hodnoty.get('plan_odkaz') else 'NIE'} "
           f"von: e-mail {mail}, SMS {sms}, prichádzajúce {sum(1 for m in ms if m.get('direction') == 'inbound')}")
     if not hodnoty.get("plan_odkaz"): zle(f"…{cid[-6:]}: chýba plan_odkaz (plán sa neuložil)")
     # od 3. 11. každý lead z plánu dostane kartu v pipeline (Jano: „v príležitostiach ich nevidím“)

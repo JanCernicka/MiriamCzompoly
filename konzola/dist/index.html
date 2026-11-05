@@ -588,6 +588,7 @@ h2{font-size:21px;margin:0 0 3px;font-weight:600;letter-spacing:-.02em}
 .bunka.termin.k1{background:#5B7A8C}
 .bunka.termin.k2{background:#7A6B9C}
 .bunka.termin.k3{background:#5E8C6A}
+.bunka.termin.k4{background:#8C6239}   /* Hovor k plánu (10 min), 5. 11. 2026 */
 .bunka.termin.nepotvrdeny{background-image:repeating-linear-gradient(45deg,rgba(255,255,255,.18) 0 6px,transparent 6px 12px)}
 
 
@@ -1062,9 +1063,11 @@ function bunka(den, minuta, krok, znacka) {
   const otvorene = (den.otvorene || []).some(vnutri);
   if (!otvorene) return `<div class="bunka mimo${h}"></div>`;
 
-  const t = (den.terminy || []).find(vnutri);
+  // termín patrí do bunky, keď do nej aspoň čiastočne zasahuje (10-minútový hovor k plánu v 30-minútovej mriežke)
+  const zasahuje = (u) => minutyZ(u.od) < minuta + krok && minutyZ(u.do) > minuta;
+  const t = (den.terminy || []).find(zasahuje);
   if (t) {
-    const prvy = minuta === minutyZ(t.od);
+    const prvy = minutyZ(t.od) >= minuta && minutyZ(t.od) < minuta + krok;
     return `<div class="bunka termin k${Number(t.kal) || 0}${t.potvrdeny ? "" : " nepotvrdeny"}${t.neprisiel ? " neprisiel" : ""}${h}${prvy ? " zaciatokBloku" : ""}"
       data-termin="${bezpecne(t.id)}" data-kontakt="${bezpecne(t.contactId || "")}" title="${bezpecne(t.od + " " + t.meno + " · " + t.co + (t.neprisiel ? " (neprišiel)" : t.potvrdeny ? "" : " (nepotvrdený)"))}"
       >${prvy ? `<i>${bezpecne(t.od + " " + t.meno)}</i>` : ""}</div>`;
@@ -1189,6 +1192,8 @@ function otvorTermin(t) {
   const udaje = [];
   if (t.adresa) udaje.push(["Adresa", t.adresa]);
   if (t.tel) udaje.push(["Telefón", t.tel]);
+  if (t.kedy) udaje.push(["Chce začať", t.kedy]);
+  if (t.rozpocet) udaje.push(["Rozpočet", t.rozpocet]);
   if (t.karta && t.karta.stage) udaje.push(["Karta", t.karta.stage]);
   if (!t.potvrdeny) udaje.push(["Stav", "nepotvrdený"]);
   $("#terminUdaje").innerHTML = udaje.map(([a, b]) => `<dt>${bezpecne(a)}</dt><dd>${bezpecne(b)}</dd>`).join("");
@@ -1306,7 +1311,7 @@ async function nacitajKonverzacie(ticho) {
           <span class="cas">${kratkyCas(k.kedy)}</span>
         </span>
         <span class="ukazka">${k.smer === "outbound" ? "Vy: " : ""}${bezpecne(k.posledna)}</span>
-        ${k.rozpocet ? `<span class="rozp">Rozpočet: ${bezpecne(k.rozpocet)}</span>` : ""}
+        ${k.kedy || k.rozpocet ? `<span class="rozp">${[k.kedy ? "Začať: " + k.kedy : "", k.rozpocet ? "Rozpočet: " + k.rozpocet : ""].filter(Boolean).map(bezpecne).join(" · ")}</span>` : ""}
       </span>
     </button>`).join("");
   $$(".polozka").forEach((p) => {
@@ -1389,7 +1394,7 @@ async function otvor(contactId) {
   if (!r.ok) { $("#tok").innerHTML =
     `<div class="stav chyba">${bezpecne(r.error || "nedostupné")}</div>`; return; }
   $("#ktoMeno").textContent = r.meno;
-  $("#ktoKontakt").textContent = [r.tel, r.email, r.rozpocet ? "Rozpočet: " + r.rozpocet : ""].filter(Boolean).join(" · ");
+  $("#ktoKontakt").textContent = [r.tel, r.email, r.kedy ? "Začať: " + r.kedy : "", r.rozpocet ? "Rozpočet: " + r.rozpocet : ""].filter(Boolean).join(" · ");
   $("#vybavene").hidden = !(r.neprecitane > 0);
   vykresliKanaly(r.kanaly || []);
   zrusOdpoved();
@@ -2086,7 +2091,7 @@ const PLAN_PRED = { "plan-formular-videl": "plan-pristal", "plan-formular-zacal"
   "plan-diagnostika-rezervovana": "plan-diagnostika-pristal" };
 const PLAN_ODDIEL = { "plan-pristal": "Stránka a otázky", "plan-rezervacia-pristal": "Horúce: hovor k plánu",
   "plan-diagnostika-pristal": "Upsell: diagnostika" };
-const PLAN_SKUPINY = { horuci: "horúce", vlazny: "vlažné", ostatni: "ostatné" };
+const PLAN_SKUPINY = { horuci: "horúce", vlazny: "vlažné", ostatni: "studené" };   // 5. 11. 2026: „ostatné“ sú „studené“
 
 function kresliPlan(d) {
   const f = new Date(d.od).toLocaleString("sk-SK", { day: "numeric", month: "numeric",
