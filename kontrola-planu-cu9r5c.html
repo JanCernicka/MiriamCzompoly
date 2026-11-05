@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Kontrola plánu · Miriam Czompoly</title>
+  <!-- Kontrola častí lead magnetu „Plán od Miriam“ (5. 11. 2026, Jano). Nikde neodkazovaná, len pre Miriam.
+       Poznámky idú cez /api/kontrola ako poznámka na Miriamin kontakt v GHL. Generuje ju skript mimo repa
+       z assets/js/profil-data.js; keď sa texty plánu zmenia, treba ju pregenerovať. -->
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="theme-color" content="#262019" />
+  <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    /* Jeden stĺpec, časti plánu v poradí, v akom ich človek číta. Farby a písmo ako /plan (assets/css/profil.css). */
+    :root{
+      --akcent:#A9885E; --akcent-tmavy:#7E6441; --tma:#262019; --text:#3a332b; --sivy:#6F6557; --linka:#E4D9C6;
+      --pozadie:#fff; --karta:#F8F4EE; --zvyraznenie:#F2DFA7; --ok:#2f6b4f; --zle:#b3261e;
+      --sans:'Inter',system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+      --display:'Cormorant Garamond',Georgia,serif;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:var(--sans);color:var(--text);background:var(--pozadie);font-size:17px;line-height:1.55;
+      -webkit-font-smoothing:antialiased;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+    img{max-width:100%;display:block}
+    h1,h2,h3{color:var(--tma);font-family:var(--display);font-weight:600;line-height:1.15;margin:0;text-wrap:balance}
+    h1{font-size:clamp(32px,6vw,42px)} h2{font-size:30px} h3{font-size:23px}
+    p{margin:0} ol,ul{margin:0}
+    a{color:var(--akcent-tmavy)}
+    :focus-visible{outline:2px solid var(--akcent-tmavy);outline-offset:2px}
+    .obal{max-width:640px;margin:0 auto;padding-block:44px 72px;display:grid;gap:56px}
+    .hlava{display:grid;gap:14px}
+    .stitok{font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--akcent-tmavy)}
+    .uvod{color:var(--sivy)}
+    .poradie{background:var(--karta);border-radius:14px;padding:16px 18px;display:grid;gap:8px;font-size:15.5px}
+    .poradie ol{padding-left:22px;display:grid;gap:3px}
+    .sekcia{display:grid;gap:14px;scroll-margin-top:16px}
+    .sekcia > .cast + .cast{margin-top:6px}
+    .cast{border:1px solid var(--linka);border-radius:14px;padding:18px;display:grid;gap:10px;scroll-margin-top:16px}
+    .cast-hl{display:flex;flex-wrap:wrap;gap:6px 12px;align-items:baseline;justify-content:space-between}
+    .kto{font-size:12.5px;color:var(--sivy)}
+    .tl{font-size:12px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--sivy);margin-top:4px}
+    .veta{font-size:17px}
+    .verdikt{font-family:var(--display);font-weight:600;font-size:22px;color:var(--tma)}
+    .cast ol,.moznosti{padding-left:22px;display:grid;gap:4px}
+    .moznosti{list-style:disc}
+    .pole{background:var(--zvyraznenie);border-radius:4px;padding:0 3px}
+    .popis{font-size:14.5px;color:var(--sivy)}
+    .foto{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+    .foto figure{margin:0;display:grid;gap:4px}
+    .foto img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:8px;background:var(--karta)}
+    .foto.vysoke img{aspect-ratio:3/4}
+    .foto figcaption{font-size:12px;color:var(--sivy);text-transform:uppercase;letter-spacing:.07em;font-weight:600}
+    .pozn{display:grid;gap:6px;border-top:1px dashed var(--linka);padding-top:12px;margin-top:4px}
+    .pozn label{font-size:14px;font-weight:600;color:var(--tma)}
+    textarea{font:400 16px/1.5 var(--sans);color:var(--text);background:#fff;border:1px solid var(--linka);border-radius:10px;
+      padding:10px 12px;width:100%;resize:vertical;min-height:60px}
+    textarea:focus{border-color:var(--akcent)}
+    .pozn.vyplnena textarea{border-color:var(--akcent);background:#fffdf8}
+    .koniec{background:var(--karta);border-radius:16px;padding:22px 20px;display:grid;gap:16px}
+    .koniec .pozn{border-top:0;padding-top:0;margin:0}
+    .koniec .pozn label{font-size:16px}
+    .koniec textarea{min-height:90px}
+    .odoslat{font:700 17px/1 var(--sans);background:var(--tma);color:#fff;border:0;border-radius:12px;padding:16px 20px;cursor:pointer;width:100%}
+    .odoslat:disabled{opacity:.6;cursor:default}
+    .stav{font-size:15px;min-height:1.5em}
+    .stav.ok{color:var(--ok);font-weight:600}
+    .stav.zle{color:var(--zle);font-weight:600}
+    .pasca{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+    .pata{font-size:13.5px;color:var(--sivy);border-top:1px solid var(--linka);padding-top:16px}
+  </style>
+</head>
+<body>
+<div class="obal">
+  <header class="hlava">
+    <p class="stitok">Plán od Miriam · na kontrolu</p>
+    <h1>Časti, z ktorých sa skladá tvoj plán</h1>
+    <p>Ahoj Miriam, toto sú všetky časti plánu na víkend, ktorý ľudia dostanú po otázkach. Každá je tu raz, tak ako ju dnes naozaj dostanú.</p>
+    <p>Pod každou časťou je políčko. Napíš tam, čo by si zmenila, vyškrtla alebo doplnila. Kde je všetko v poriadku, políčko nechaj prázdne. Úplne dole sú ešte tri otázky a tlačidlo Odoslať.</p>
+    <div class="poradie">
+      <p><b>Takto sa plán skladá, zhora nadol:</b></p>
+      <ol>
+        <li>prvá veta podľa miestnosti</li>
+        <li>verdikt, úvod a 3 kroky podľa toho, čo prekáža</li>
+        <li>veta podľa toho, čo chce ponechať</li>
+        <li>odsek podľa pocitu</li>
+        <li>tvoja realizácia pred a po podľa miestnosti</li>
+        <li>záver o diagnostike</li>
+      </ol>
+    </div>
+    <p class="uvod">Rozpísané si môžeš nechať a vrátiť sa neskôr, kým to neodošleš, ostane to v tomto prehliadači.</p>
+  </header>
+
+<section class="sekcia" id="otazky" aria-labelledby="otazky-h"><p class="stitok">Pred plánom</p><h2 id="otazky-h">Šesť otázok</h2><p class=uvod>Toto človek vyplní. Podľa prvých štyroch odpovedí sa poskladá plán.</p><article class="cast" id="otazka-m"><div class="cast-hl"><h3>Ktorú miestnosť chceš riešiť?</h3></div><ul class="moznosti"><li>Obývačka</li><li>Spálňa</li><li>Kuchyňa a jedáleň</li><li>Detská</li><li>Predsieň</li><li>Pracovný kút</li><li>Kúpeľňa a WC</li></ul><div class="pozn" data-sablona="otazka-m" data-nazov="Ktorú miestnosť chceš riešiť?"><label for="pz-otazka-m">Čo by si tu zmenila?</label><textarea id="pz-otazka-m" rows="2" maxlength="4000"></textarea></div></article><article class="cast" id="otazka-d"><div class="cast-hl"><h3>Čo ti v nej prekáža najviac?</h3></div><ul class="moznosti"><li>Je tam tma</li><li>Neporiadok a málo úložného priestoru</li><li>Je to stiesnené</li><li>Nefunguje rozloženie</li><li>Je to nedokončené</li><li>Nesedí to k sebe</li></ul><div class="pozn" data-sablona="otazka-d" data-nazov="Čo ti v nej prekáža najviac?"><label for="pz-otazka-d">Čo by si tu zmenila?</label><textarea id="pz-otazka-d" rows="2" maxlength="4000"></textarea></div></article><article class="cast" id="otazka-n"><div class="cast-hl"><h3>Čo z vybavenia chceš určite ponechať?</h3></div><ul class="moznosti"><li>Všetko</li><li>Väčšinu</li><li>Len pár kúskov</li><li>Nič</li><li>Neviem</li></ul><div class="pozn" data-sablona="otazka-n" data-nazov="Čo z vybavenia chceš určite ponechať?"><label for="pz-otazka-n">Čo by si tu zmenila?</label><textarea id="pz-otazka-n" rows="2" maxlength="4000"></textarea></div></article><article class="cast" id="otazka-p"><div class="cast-hl"><h3>Ako sa tam chceš cítiť?</h3></div><ul class="moznosti"><li>Pokoj</li><li>Hrejivosť</li><li>Útulno</li><li>Veselosť</li><li>Poriadok</li><li>Luxus</li></ul><div class="pozn" data-sablona="otazka-p" data-nazov="Ako sa tam chceš cítiť?"><label for="pz-otazka-p">Čo by si tu zmenila?</label><textarea id="pz-otazka-p" rows="2" maxlength="4000"></textarea></div></article><article class="cast" id="otazka-k"><div class="cast-hl"><h3>Kedy chceš začať?</h3></div><ul class="moznosti"><li>Hneď</li><li>Do 3 mesiacov</li><li>Tento rok</li><li>Zatiaľ sa len inšpirujem</li></ul><div class="pozn" data-sablona="otazka-k" data-nazov="Kedy chceš začať?"><label for="pz-otazka-k">Čo by si tu zmenila?</label><textarea id="pz-otazka-k" rows="2" maxlength="4000"></textarea></div></article><article class="cast" id="otazka-r"><div class="cast-hl"><h3>Koľko si ochotná dať do zmeny?</h3></div><ul class="moznosti"><li>Do 600 €</li><li>600 až 3 000 €</li><li>3 000 až 8 000 €</li><li>Nad 8 000 €</li><li>Zatiaľ neviem</li></ul><div class="pozn" data-sablona="otazka-r" data-nazov="Koľko si ochotná dať do zmeny?"><label for="pz-otazka-r">Čo by si tu zmenila?</label><textarea id="pz-otazka-r" rows="2" maxlength="4000"></textarea></div></article></section><section class="sekcia" id="miestnosti" aria-labelledby="miestnosti-h"><p class="stitok">Časť 1 a 5</p><h2 id="miestnosti-h">Miestnosť</h2><p class=uvod>Podľa miestnosti je prvá veta plánu a tvoja realizácia pred a po pod plánom.</p><article class="cast" id="miestnost-obyvacka"><div class="cast-hl"><h3>Obývačka</h3><span class=kto>fotky a veta pod nimi: vybrali sme my</span></div><p class="tl">Prvá veta plánu</p><p class="veta">Tvoja obývačka: tu je, čo by som riešila ako prvé.</p><p class="tl">Tvoja realizácia v pláne</p><div class="foto"><figure><img src="/assets/img/realizacie/vidiecky-pred-2.jpg" alt="Pred: Jitkina obývačka v Trnave. Starý nábytok ostal a dostal okolo seba nový." loading="lazy"><figcaption>Pred</figcaption></figure><figure><img src="/assets/img/realizacie/vidiecky-4.jpg" alt="Po: Jitkina obývačka v Trnave. Starý nábytok ostal a dostal okolo seba nový." loading="lazy"><figcaption>Po</figcaption></figure></div><p class="popis">Jitkina obývačka v Trnave. Starý nábytok ostal a dostal okolo seba nový.</p><div class="pozn" data-sablona="miestnost-obyvacka" data-nazov="Obývačka"><label for="pz-miestnost-obyvacka">Čo by si tu zmenila?</label><textarea id="pz-miestnost-obyvacka" rows="2" maxlength="4000"></textarea></div></article><article class="cast" id="miestnost-spalna"><div class="cast-hl"><h3>Spálňa</h3><span class=kto>fotky a veta pod nimi: vybrali sme my</span></div><p class="tl">Prvá veta plánu</p><p class="veta">Tvoja spálňa: tu je, čo by som riešila ako prvé.</p><p class="tl">Tvoja realizácia v pláne</p><div class="foto"><figure><img src="/assets/img/realizacie/vidiecky-pred-3.jpg" alt="Pred: Jitkina spálňa v Trnave pred premenou a po nej." loading="lazy"><figcaption>Pred</figcaption></figure><figure><img src="/assets/img/realizacie/vidiecky-po-2.jpg" alt="Po: Jitkina spálňa v Trnave pred premenou a po nej." loading="lazy"><figcaption>Po</figcaption></figure></div><p class="popis">Jitkina spálňa v Trnave pred premenou a po nej.</p><div class="pozn" data-sablona="miestnost-spalna" data-nazov="Spálňa"><label for="pz-miestnost-spalna">Čo by si tu zmenila?</label><textarea id="pz-miestnost-spalna" rows="2" maxlength="4000"></textarea></div></article><article class="cast" id="miestnost-kuchyna"><div class="cast-hl"><h3>Kuchyňa a jedáleň</h3><span class=kto>fotky a veta pod nimi: vybrali sme my</span></div><p class="tl">Prvá veta plánu</p><p class="veta">Tvoja kuchyňa a jedáleň: tu je, čo by som riešila ako prvé.</p><p class="tl">Tvoja realizácia v pláne</p><div class="foto"><figure><img src="/assets/img/realizacie/starsia-pani-pred-3.jpg" alt="Pred: Kuchyňa v byte pre staršiu pani v Trnave pred premenou a po nej." loading="lazy"><figcaption>Pred</figcaption></figure><figure><img src="/assets/img/realizacie/starsia-pani-4.jpg" alt="Po: Kuchyňa v byte pre staršiu pani v Trnave pred premenou a po nej." loading="lazy"><figcaption>Po</figcaption></figure></div><p class="popis">Kuchyňa v byte pre staršiu pani v Trnave pred premenou a po nej.</p><div class="pozn" data-sablona="miestnost-kuchyna" data-nazov="Kuchyňa a jedáleň"><label for="pz-miestnost-kuchyna">Čo by si tu zmenila?</label><textarea id="pz-miestnost-kuchyna" rows="2" maxlength="4000"></textarea></div></article><article class="cast" id="miestnost-detska"><div class="cast-hl"><h3>Detská</h3><span class=kto>fotky a veta pod nimi: vybrali sme my</span></div><p class="tl">Prvá veta plánu</p><p class="veta">Tvoja detská izba: tu je, čo by som riešila ako prvé.</p><p class="tl">Tvoja realizácia v pláne</p><div class="foto vysoke"><figure><img src="/assets/img/realizacie/miriam-detska-pred.jpg" alt="Pred: Detská izba počas stavby a hotová, s posteľou na poschodí a úložným priestorom pod schodmi." loading="lazy"><figcaption>Pred</figcaption></figure><figure><img src="/assets/img/realizacie/miriam-detska-po.jpg" alt="Po: Detská izba počas stavby a hotová, s posteľou na poschodí a úložným priestorom pod schodmi." loading="lazy"><figcaption>Po</figcaption></figure></div><p class="popis">Detská izba počas stavby a hotová, s posteľou na poschodí a úložným priestorom pod schodmi.</p><div class="pozn" data-sablona="miestnost-detska" data-nazov="Detská"><label for="pz-miestnost-detska">Čo by si tu zmenila?</label><textarea id="pz-miestnost-detska" rows="2" maxlength="4000"></textarea></div></article><article class="cast" id="miestnost-predsien"><div class="cast-hl"><h3>Predsieň</h3><span class=kto>fotky a veta pod nimi: vybrali sme my</span></div><p class="tl">Prvá veta plánu</p><p class="veta">Tvoja predsieň: tu je, čo by som riešila ako prvé.</p><p class="tl">Tvoja realizácia v pláne</p><div class="foto vysoke"><figure><img src="/assets/img/realizacie/miriam-predsien-pred.jpg" alt="Pred: Predsieň pred premenou a po nej. Zrkadlo aj skrine ostali, pribudla tapeta a starý šijací stolík." loading="lazy"><figcaption>Pred</figcaption></figure><figure><img src="/assets/img/realizacie/miriam-predsien-po.jpg" alt="Po: Predsieň pred premenou a po nej. Zrkadlo aj skrine ostali, pribudla tapeta a starý šijací stolík." loading="lazy"><figcaption>Po</figcaption></figure></div><p class="popis">Predsieň pred premenou a po nej. Zrkadlo aj skrine ostali, pribudla tapeta a starý šijací stolík.</p><div class="pozn" data-sablona="miestnost-predsien" data-nazov="Predsieň"><label for="pz-miestnost-predsien">Čo by si tu zmenila?</label><textarea id="pz-miestnost-predsien" rows="2" maxlength="4000"></textarea></div></article><article class="cast" id="miestnost-kut"><div class="cast-hl"><h3>Pracovný kút</h3><span class=kto>fotky a veta pod nimi: vybrali sme my</span></div><p class="tl">Prvá veta plánu</p><p class="veta">Tvoj pracovný kút: tu je, čo by som riešila ako prvé.</p><p class="tl">Tvoja realizácia v pláne</p><div class="foto"><figure><img src="/assets/img/realizacie/starsia-pani-pred-2.jpg" alt="Pred: Byt pre staršiu pani v Trnave pred premenou a po nej." loading="lazy"><figcaption>Pred</figcaption></figure><figure><img src="/assets/img/realizacie/starsia-pani-2.jpg" alt="Po: Byt pre staršiu pani v Trnave pred premenou a po nej." loading="lazy"><figcaption>Po</figcaption></figure></div><p class="popis">Byt pre staršiu pani v Trnave pred premenou a po nej.</p><div class="pozn" data-sablona="miestnost-kut" data-nazov="Pracovný kút"><label for="pz-miestnost-kut">Čo by si tu zmenila?</label><textarea id="pz-miestnost-kut" rows="2" maxlength="4000"></textarea></div></article><article class="cast" id="miestnost-kupelna"><div class="cast-hl"><h3>Kúpeľňa a WC</h3><span class=kto>fotky a veta pod nimi: vybrali sme my</span></div><p class="tl">Prvá veta plánu</p><p class="veta">Tvoja kúpeľňa: tu je, čo by som riešila ako prvé.</p><p class="tl">Tvoja realizácia v pláne</p><div class="foto"><figure><img src="/assets/img/realizacie/starsia-pani-pred.jpg" alt="Pred: Kúpeľňa v byte pre staršiu pani v Trnave pred premenou a po nej." loading="lazy"><figcaption>Pred</figcaption></figure><figure><img src="/assets/img/realizacie/miriam-kupelna-po.jpg" alt="Po: Kúpeľňa v byte pre staršiu pani v Trnave pred premenou a po nej." loading="lazy"><figcaption>Po</figcaption></figure></div><p class="popis">Kúpeľňa v byte pre staršiu pani v Trnave pred premenou a po nej.</p><div class="pozn" data-sablona="miestnost-kupelna" data-nazov="Kúpeľňa a WC"><label for="pz-miestnost-kupelna">Čo by si tu zmenila?</label><textarea id="pz-miestnost-kupelna" rows="2" maxlength="4000"></textarea></div></article></section><section class="sekcia" id="problemy" aria-labelledby="problemy-h"><p class="stitok">Časť 2</p><h2 id="problemy-h">Čo prekáža najviac</h2><p class=uvod>Verdikt, úvod a 3 kroky na tento víkend. Toto je jadro plánu.</p><article class="cast" id="problem-tma"><div class="cast-hl"><h3>Keď prekáža: Je tam tma</h3></div><p class="verdikt">Najprv svetlo</p><p>Skôr než kúpiš čokoľvek nové, vyrieš svetlo. Tmavá miestnosť sa novým nábytkom nezjasní.</p><p class="tl">3 kroky na tento víkend</p><ol><li>Večer nesvieť len stropným svetlom, postav lampu do najtmavšieho rohu.</li><li>Vymeň studené žiarovky za teplé.</li><li>Zrkadlo vedľa okna alebo oproti nemu rozptýli denné svetlo.</li></ol><div class="pozn" data-sablona="problem-tma" data-nazov="Keď prekáža: Je tam tma"><label for="pz-problem-tma">Čo by si tu zmenila?</label><textarea id="pz-problem-tma" rows="2" maxlength="4000"></textarea></div></article><article class="cast" id="problem-neporiadok"><div class="cast-hl"><h3>Keď prekáža: Neporiadok a málo úložného priestoru</h3></div><p class="verdikt">Najprv zisti, čo treba uložiť</p><p>Skôr než kúpiš skrinky, zisti, čo v nich vôbec má byť.</p><p class="tl">3 kroky na tento víkend</p><ol><li>Vyber jednu plochu a nechaj na nej len tri veci.</li><li>Čo používaš denne, daj do jedného košíka tam, kde to používaš.</li><li>Čo si rok nepoužila, odlož do krabice mimo izby a o mesiac rozhodni.</li></ol><div class="pozn" data-sablona="problem-neporiadok" data-nazov="Keď prekáža: Neporiadok a málo úložného priestoru"><label for="pz-problem-neporiadok">Čo by si tu zmenila?</label><textarea id="pz-problem-neporiadok" rows="2" maxlength="4000"></textarea></div></article><article class="cast" id="problem-stiesnene"><div class="cast-hl"><h3>Keď prekáža: Je to stiesnené</h3></div><p class="verdikt">Najprv uvoľni priestor</p><p>Stiesnenosť sa často nerieši väčším priestorom, ale menším počtom vecí v ceste.</p><p class="tl">3 kroky na tento víkend</p><ol><li>Vynes jeden kus nábytku, ktorý len prekáža v ceste.</li><li>Zaves záclony čo najvyššie a nechaj ich siahať po zem.</li><li>Uvoľni podlahu, nech je na zemi čo najmenej vecí.</li></ol><div class="pozn" data-sablona="problem-stiesnene" data-nazov="Keď prekáža: Je to stiesnené"><label for="pz-problem-stiesnene">Čo by si tu zmenila?</label><textarea id="pz-problem-stiesnene" rows="2" maxlength="4000"></textarea></div></article><article class="cast" id="problem-rozlozenie"><div class="cast-hl"><h3>Keď prekáža: Nefunguje rozloženie</h3></div><p class="verdikt">Najprv rozloženie, nie nový nábytok</p><p>Nový nábytok zlé rozloženie nezachráni, len ho zdraží.</p><p class="tl">3 kroky na tento víkend</p><ol><li>Týždeň si všímaj, kde obchádzaš, kopeš alebo sa niečo nedá otvoriť.</li><li>Presuň jeden veľký kus nábytku tak, aby sa dalo prejsť bez obchádzania.</li><li>Nič nekupuj, kým nové rozloženie nevyskúšaš aspoň týždeň.</li></ol><div class="pozn" data-sablona="problem-rozlozenie" data-nazov="Keď prekáža: Nefunguje rozloženie"><label for="pz-problem-rozlozenie">Čo by si tu zmenila?</label><textarea id="pz-problem-rozlozenie" rows="2" maxlength="4000"></textarea></div></article><article class="cast" id="problem-nedokoncene"><div class="cast-hl"><h3>Keď prekáža: Je to nedokončené</h3></div><p class="verdikt">Dotiahni detaily, nekupuj veľké veci</p><p>Pocit nedokončenosti zvyčajne nespôsobuje chýbajúci nábytok, ale chýbajúce detaily.</p><p class="tl">3 kroky na tento víkend</p><ol><li>Odlož veci, ktoré tam nepatria, aby bolo vidieť, čo naozaj chýba.</li><li>Doplň textil, ktorý chýba (záclony, vankúše, koberec).</li><li>Na jednu stenu daj jednu vec vo výške očí (obraz, polica, zrkadlo).</li></ol><div class="pozn" data-sablona="problem-nedokoncene" data-nazov="Keď prekáža: Je to nedokončené"><label for="pz-problem-nedokoncene">Čo by si tu zmenila?</label><textarea id="pz-problem-nedokoncene" rows="2" maxlength="4000"></textarea></div></article><article class="cast" id="problem-nesedi"><div class="cast-hl"><h3>Keď prekáža: Nesedí to k sebe</h3></div><p class="verdikt">Najprv zjednoť farby a materiály</p><p>Keď to nesedí, väčšinou je v miestnosti príliš veľa farieb a materiálov, nie príliš málo.</p><p class="tl">3 kroky na tento víkend</p><ol><li>Vyber 2 až 3 farby, ktoré sa tam opakujú, a ostatné odlož.</li><li>Zjednoť kovové detaily (kľučky, lampy, rámy) do jednej farby.</li><li>Zjednoť drevo na jeden odtieň alebo ho vyvaž textilom.</li></ol><div class="pozn" data-sablona="problem-nesedi" data-nazov="Keď prekáža: Nesedí to k sebe"><label for="pz-problem-nesedi">Čo by si tu zmenila?</label><textarea id="pz-problem-nesedi" rows="2" maxlength="4000"></textarea></div></article></section><section class="sekcia" id="nabytok" aria-labelledby="nabytok-h"><p class="stitok">Časť 3</p><h2 id="nabytok-h">Čo chce ponechať</h2><p class=uvod>Jedna veta pod verdiktom.</p><article class="cast" id="nabytok-vsetko"><div class="cast-hl"><h3>Ponechať: Všetko</h3></div><p class="veta">S nábytkom, ktorý máš, sa dá veľa zmeniť. Nič nové nekupuj, kým nevyskúšaš kroky nižšie.</p><div class="pozn" data-sablona="nabytok-vsetko" data-nazov="Ponechať: Všetko"><label for="pz-nabytok-vsetko">Čo by si tu zmenila?</label><textarea id="pz-nabytok-vsetko" rows="2" maxlength="4000"></textarea></div></article><article class="cast" id="nabytok-vacsinu"><div class="cast-hl"><h3>Ponechať: Väčšinu</h3></div><p class="veta">Väčšinu nábytku si nechaj. Čo chceš vymeniť, rozhodni až po krokoch nižšie, vtedy uvidíš, čo naozaj chýba.</p><div class="pozn" data-sablona="nabytok-vacsinu" data-nazov="Ponechať: Väčšinu"><label for="pz-nabytok-vacsinu">Čo by si tu zmenila?</label><textarea id="pz-nabytok-vacsinu" rows="2" maxlength="4000"></textarea></div></article><article class="cast" id="nabytok-par"><div class="cast-hl"><h3>Ponechať: Len pár kúskov</h3></div><p class="veta">Nábytok, ktorý ostane, ťa nebude obmedzovať. Skôr než kúpiš nový, urob kroky nižšie, podľa nich vyberieš, čo a kam.</p><div class="pozn" data-sablona="nabytok-par" data-nazov="Ponechať: Len pár kúskov"><label for="pz-nabytok-par">Čo by si tu zmenila?</label><textarea id="pz-nabytok-par" rows="2" maxlength="4000"></textarea></div></article><article class="cast" id="nabytok-nic"><div class="cast-hl"><h3>Ponechať: Nič</h3></div><p class="veta">Pred nákupom nového nábytku urob kroky nižšie. Uvidíš z nich, aký nábytok potrebuješ a kam ho dať.</p><div class="pozn" data-sablona="nabytok-nic" data-nazov="Ponechať: Nič"><label for="pz-nabytok-nic">Čo by si tu zmenila?</label><textarea id="pz-nabytok-nic" rows="2" maxlength="4000"></textarea></div></article><article class="cast" id="nabytok-neviem"><div class="cast-hl"><h3>Ponechať: Neviem</h3></div><p class="veta">Zatiaľ nič nekupuj. Urob kroky nižšie a všimni si, čo v miestnosti používaš a čo nie, potom sa rozhodni, čo ostane.</p><div class="pozn" data-sablona="nabytok-neviem" data-nazov="Ponechať: Neviem"><label for="pz-nabytok-neviem">Čo by si tu zmenila?</label><textarea id="pz-nabytok-neviem" rows="2" maxlength="4000"></textarea></div></article></section><section class="sekcia" id="pocity" aria-labelledby="pocity-h"><p class="stitok">Časť 4</p><h2 id="pocity-h">Ako sa tam chce cítiť</h2><p class=uvod>Odsek pod krokmi.</p><article class="cast" id="pocit-pokoj"><div class="cast-hl"><h3>Pocit: Pokoj</h3></div><p class="veta">Chceš sa doma upokojiť. Drž sa mäkkého svetla, málo vecí na očiach a prírodných materiálov: ľan, svetlé drevo, vlna.</p><div class="pozn" data-sablona="pocit-pokoj" data-nazov="Pocit: Pokoj"><label for="pz-pocit-pokoj">Čo by si tu zmenila?</label><textarea id="pz-pocit-pokoj" rows="2" maxlength="4000"></textarea></div></article><article class="cast" id="pocit-hrejivost"><div class="cast-hl"><h3>Pocit: Hrejivosť</h3></div><p class="veta">Chceš sa zabaliť a zostať doma. Teplé tóny, viditeľné drevo a svetlo nízko, viac zdrojov svetla v priestore namiesto stropného.</p><div class="pozn" data-sablona="pocit-hrejivost" data-nazov="Pocit: Hrejivosť"><label for="pz-pocit-hrejivost">Čo by si tu zmenila?</label><textarea id="pz-pocit-hrejivost" rows="2" maxlength="4000"></textarea></div></article><article class="cast" id="pocit-utulno"><div class="cast-hl"><h3>Pocit: Útulno</h3></div><p class="veta">Chceš miesto, kde sa dá pohodlne zastaviť. Vrstvy textilu, mäkké tvary, kútik na sedenie a viac malých zdrojov svetla.</p><div class="pozn" data-sablona="pocit-utulno" data-nazov="Pocit: Útulno"><label for="pz-pocit-utulno">Čo by si tu zmenila?</label><textarea id="pz-pocit-utulno" rows="2" maxlength="4000"></textarea></div></article><article class="cast" id="pocit-veselost"><div class="cast-hl"><h3>Pocit: Veselosť</h3></div><p class="veta">Chceš doma energiu. Svetlý základ, jedna až dve výraznejšie farby, rastliny a čo najviac denného svetla.</p><div class="pozn" data-sablona="pocit-veselost" data-nazov="Pocit: Veselosť"><label for="pz-pocit-veselost">Čo by si tu zmenila?</label><textarea id="pz-pocit-veselost" rows="2" maxlength="4000"></textarea></div></article><article class="cast" id="pocit-poriadok"><div class="cast-hl"><h3>Pocit: Poriadok</h3></div><p class="veta">Potrebuješ, aby malo všetko svoje miesto. Zatvorené úložné priestory, jednotná paleta a málo druhov materiálov.</p><div class="pozn" data-sablona="pocit-poriadok" data-nazov="Pocit: Poriadok"><label for="pz-pocit-poriadok">Čo by si tu zmenila?</label><textarea id="pz-pocit-poriadok" rows="2" maxlength="4000"></textarea></div></article><article class="cast" id="pocit-luxus"><div class="cast-hl"><h3>Pocit: Luxus</h3></div><p class="veta">Chceš, aby domov pôsobil ako dobrý hotel. Hlboké tóny, menej kúskov, ale kvalitných, a detaily z kovu.</p><div class="pozn" data-sablona="pocit-luxus" data-nazov="Pocit: Luxus"><label for="pz-pocit-luxus">Čo by si tu zmenila?</label><textarea id="pz-pocit-luxus" rows="2" maxlength="4000"></textarea></div></article></section><section class="sekcia" id="zaver-s" aria-labelledby="zaver-s-h"><p class="stitok">Časť 6</p><h2 id="zaver-s-h">Záver</h2><p class=uvod>Na konci každého plánu, rovnaký pre všetkých.</p><article class="cast" id="zaver"><div class="cast-hl"><h3>Záver plánu</h3><span class=kto>napísali sme my, s tvojou opravou</span></div><p class="veta"><b>Keď budeš chcieť ísť ďalej, toto je iba smer.</b> Čo <span class="pole">v tvojej obývačke</span> konkrétne zmeniť, čo nechať a v akom poradí, aby si zbytočne nevyhodila peniaze, riešim na diagnostike.</p><p class="veta">Trvá 90 minút a stojí 250 € online alebo 290 € u teba doma. Ak potom pokračuješ projektom, cenu diagnostiky ti odpočítam.</p><p class="tl">Pod tým je tlačidlo „Pozrieť diagnostiku“ a odkaz „Chceš plán aj pre inú miestnosť?“</p><div class="pozn" data-sablona="zaver" data-nazov="Záver plánu"><label for="pz-zaver">Čo by si tu zmenila?</label><textarea id="pz-zaver" rows="2" maxlength="4000"></textarea></div></article></section>
+
+  <section class="sekcia" id="celkovo" aria-labelledby="celkovo-h">
+    <p class="stitok">Na záver</p>
+    <h2 id="celkovo-h">Celkovo</h2>
+    <form class="koniec" id="formular" novalidate>
+      <div class="pozn" data-sablona="celkovo-inak" data-nazov="Poňala by si plán úplne inak?">
+        <label for="pz-celkovo-inak">Poňala by si plán úplne inak? Ako?</label>
+        <textarea id="pz-celkovo-inak" rows="3" maxlength="4000"></textarea>
+      </div>
+      <div class="pozn" data-sablona="celkovo-nova-cast" data-nazov="Nová časť plánu">
+        <label for="pz-celkovo-nova-cast">Chýba ti v pláne nejaká časť, ktorú by si pridala?</label>
+        <textarea id="pz-celkovo-nova-cast" rows="3" maxlength="4000"></textarea>
+      </div>
+      <div class="pozn" data-sablona="celkovo-otazky" data-nazov="Nová alebo iná otázka">
+        <label for="pz-celkovo-otazky">Pridala by si alebo zmenila niektorú otázku?</label>
+        <textarea id="pz-celkovo-otazky" rows="3" maxlength="4000"></textarea>
+      </div>
+      <label class="pasca" aria-hidden="true">Nevypĺňať <input type="text" id="web" tabindex="-1" autocomplete="off" /></label>
+      <button type="submit" class="odoslat" id="odoslat">Odoslať poznámky</button>
+      <p class="stav" id="stav" role="status" aria-live="polite"></p>
+    </form>
+  </section>
+
+  <footer class="pata">Táto stránka je len pre teba, nie je nikde na webe odkazovaná. Poznámky po odoslaní uvidí Jano v systéme.</footer>
+</div>
+
+<script>
+(function () {
+  "use strict";
+  var KLUC = "m8sT3SJqC9YMOgfMqjCW0YEi", LS = "kontrola-planu-koncept-v1";
+  var boxy = [].slice.call(document.querySelectorAll(".pozn"));
+  function citaj() { try { return JSON.parse(localStorage.getItem(LS) || "{}") || {}; } catch (e) { return {}; } }
+  function zapis(o) { try { localStorage.setItem(LS, JSON.stringify(o)); } catch (e) { /* bez úložiska stránka funguje ďalej */ } }
+  var koncept = citaj(), stav = document.getElementById("stav"), btn = document.getElementById("odoslat");
+
+  function oznac(b) { b.classList.toggle("vyplnena", !!b.querySelector("textarea").value.trim()); }
+  function pocet() { return boxy.filter(function (b) { return b.querySelector("textarea").value.trim(); }).length; }
+  function popisTlacidla() {
+    var n = pocet();
+    btn.textContent = n ? "Odoslať poznámky (" + n + ")" : "Odoslať poznámky";
+  }
+  var ulozVsetko = [];
+  boxy.forEach(function (b) {
+    var t = b.querySelector("textarea"), id = b.dataset.sablona, tm;
+    if (typeof koncept[id] === "string") t.value = koncept[id];
+    oznac(b);
+    var uloz = function () { var k = citaj(); if (t.value.trim()) k[id] = t.value; else delete k[id]; zapis(k); };
+    t.addEventListener("input", function () { oznac(b); popisTlacidla(); clearTimeout(tm); tm = setTimeout(uloz, 400); });
+    t.addEventListener("blur", function () { clearTimeout(tm); uloz(); });
+    ulozVsetko.push(function () { clearTimeout(tm); uloz(); });
+  });
+  popisTlacidla();
+  // rozpísané sa uloží aj pri zatvorení alebo obnovení stránky
+  window.addEventListener("pagehide", function () { ulozVsetko.forEach(function (f) { f(); }); });
+
+  document.getElementById("formular").addEventListener("submit", function (ev) {
+    ev.preventDefault();
+    var poznamky = boxy.map(function (b) {
+      return { sablona: b.dataset.sablona, nazov: b.dataset.nazov, text: b.querySelector("textarea").value.trim() };
+    }).filter(function (x) { return x.text; });
+    if (!poznamky.length) { stav.className = "stav zle"; stav.textContent = "Zatiaľ si nenapísala žiadnu poznámku."; return; }
+    btn.disabled = true; stav.className = "stav"; stav.textContent = "Odosielam…";
+    fetch("/api/kontrola", { method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ kluc: KLUC, poznamky: poznamky, web: document.getElementById("web").value || "" }) })
+      .then(function (r) { return r.json().catch(function () { return {}; }); })
+      .then(function (x) {
+        if (!x || !x.ok) throw new Error((x && x.error) || "chyba");
+        boxy.forEach(function (b) { b.querySelector("textarea").value = ""; oznac(b); });
+        zapis({}); popisTlacidla();
+        stav.className = "stav ok";
+        stav.textContent = (x.test ? "Skúšobne odoslané, nič sa neuložilo. " : "Ďakujeme, odoslané. ") + x.poznamok +
+          (x.poznamok === 1 ? " poznámka." : x.poznamok < 5 ? " poznámky." : " poznámok.") + " Keď ti ešte niečo napadne, napíš a pošli znova.";
+      })
+      .catch(function () {
+        stav.className = "stav zle";
+        stav.textContent = "Nepodarilo sa odoslať. Nič sa nestratilo, skús to o chvíľu znova alebo zavolaj Janovi.";
+      })
+      .then(function () { btn.disabled = false; });
+  });
+})();
+</script>
+</body>
+</html>

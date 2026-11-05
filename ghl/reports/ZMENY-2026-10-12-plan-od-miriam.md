@@ -213,7 +213,19 @@ Prehľad správ aktualizovaný na tej istej adrese: https://claude.ai/artifact/R
 - Doterajšie: z 26 leadov majú kombináciu hneď + 600 až 3 000 € 3 (…wVfBON, …E7VHB4, …OTfoIP). Dostali plán e-mailom ako vlažné,
   nemenené. Telefón nemajú (formulár ho nepýta), dá sa im poslať len e-mail s pozvánkou, ak Jano povie.
 
-## Kontrola lead magnetu Miriam (5. 11. 2026, Jano)
+## Kontrola lead magnetu Miriam (5. 11. 2026, Jano): stránka na webe
+- **Platí táto:** https://www.miriamczompoly.sk/kontrola-planu-cu9r5c (noindex, nikde neodkazovaná). Miriam nemá
+  Claude, preto obyčajná stránka. Jano chcel len časti plánu, bez konfigurátora a bez e-mailov: 6 otázok, 7 miestností
+  (prvá veta, fotky pred a po, veta pod nimi), 6 problémov, 5 viet o nábytku, 6 pocitov, záver. Pri každej políčko,
+  na konci 3 otázky (inak poňať, nová časť, nová otázka) a Odoslať. Rozpísané ostane v prehliadači.
+- `functions/api/kontrola.js`: poznámky idú ako POZNÁMKA na Miriamin kontakt `UQbUlsXxUiimaBoVuMHQ` v GHL
+  („KONTROLA PLÁNU: poznámky od Miriam, dátum“, po častiach do 4 000 znakov), prečítané späť. Kľúč v stránke
+  (len proti spamu), bez neho 403. TEST_REZIM nič nezapíše.
+- Overené: náhľad (14 fotiek, koncept po obnovení, skúšobné odoslanie), naostro jedna poznámka v GHL, potom zmazaná.
+- Stránku generuje skript mimo repa z `assets/js/profil-data.js`. Keď sa texty plánu zmenia, treba ju pregenerovať.
+- Prvý pokus, artifact s poznámkami v claude.ai (nižšie), sa nepoužije: Miriam nemá účet.
+
+### Pôvodne: artifact s poznámkami (nepoužije sa)
 - Stránka https://claude.ai/artifact/BCmkSiTcswLhZbJb2CHNcQ („Kontrola Plánu od Miriam“): ukážka plánu s výberom
   4 odpovedí, časti plánu (miestnosti, 6 problémov, nábytok, pocity, koniec), otázky a všetkých 21 e-mailov a SMS.
   Pri každej z 33 šablón poznámky. Pri každej je napísané, kto text písal (Miriam alebo my).
