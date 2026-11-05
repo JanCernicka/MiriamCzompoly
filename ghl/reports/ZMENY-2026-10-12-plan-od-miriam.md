@@ -199,6 +199,16 @@ Prehľad správ aktualizovaný na tej istej adrese: https://claude.ai/artifact/R
     SMS po rezervácii stále hovorí „Fotky a podorys mi prosim posli vopred“, nemenené.
   - Prehľad správ, verzia 3: https://claude.ai/artifact/RKcFqGoTsNZNfpc62tscwM
 
+## Horúca aj „hneď + 600 až 3 000 €“ (5. 11. 2026, Jano, povolil nasadiť naostro)
+- `assets/js/profil-data.js` `skupina()`: horúca je po novom aj „Kedy: hneď“ a „Rozpočet: 600 až 3 000 €“ (len hneď,
+  nie do 3 mesiacov). Doteraz bola vlažná. Ostatné kombinácie bez zmeny (tabuľka overená v node).
+- Skupinu počíta server a stránka ide podľa odpovede, stará verzia súboru v prehliadači nevadí.
+- Overené: náhľad (TEST_REZIM) 4 kombinácie, hneď + 600 až 3 000 € ide na `/profil-rezervacia` s termínmi;
+  naostro priamy POST `team+skupina-5-11@shapelesai.com` → `horuci`, značky plan-test + plan-horuci, karta v lead
+  magnete, potom kontakt aj karta zmazané (2 h čakanie workflowu horúcich sa nestihlo spustiť).
+- Doterajšie: z 26 leadov majú túto kombináciu 3 (…wVfBON, …E7VHB4, …OTfoIP). Dostali plán e-mailom ako vlažné,
+  nemenené. Telefón nemajú (formulár ho nepýta), dá sa im poslať len e-mail s pozvánkou, ak Jano povie.
+
 ## Na spustenie treba (stav pred 28. 10.)
 1. Jano a Miriam prejdú náhľad a texty e-mailov (šablóny vyššie).
 2. Publikovať workflowy a urobiť jeden ostrý test na vlastnom čísle a e-maile.
