@@ -123,18 +123,19 @@
   // plán stojí len na prvých štyroch, termín a rozpočet rozhodujú, kam človek ide
   var PLAN_KLUCE = ["m", "d", "n", "p"];
 
-  /* Skupiny podľa Miriam (12. 10. 2026), doplnené 5. 11. 2026 (Jano):
-       horúci  = chce začať hneď alebo do 3 mesiacov A ZÁROVEŇ má od 3 000 €,
+  /* Skupiny podľa Miriam (12. 10. 2026), zmenené 5. 11. 2026 (Jano):
+       horúci  = má od 3 000 € (kedykoľvek chce začať: „pri takom rozpočte nezáleží, kedy chcú začať“),
                  ALEBO chce začať hneď a má 600 až 3 000 € (len „hneď“, nie „do 3 mesiacov“)
                  → 10-minútový hovor, na ktorom jej Miriam plán odovzdá osobne
-       vlažný  = platí len jedna z tých dvoch podmienok → plán e-mailom, ponuka diagnostiky, rýchlejšie e-maily
-       ostatní = ani jedna → plán e-mailom, ponuka diagnostiky, pomalšie e-maily
+       vlažný  = chce začať hneď alebo do 3 mesiacov, ale nie je horúci
+                 → plán e-mailom, ponuka diagnostiky, rýchlejšie e-maily
+       ostatní = ani jedno → plán e-mailom, ponuka diagnostiky, pomalšie e-maily
      🔴 Skupinu počíta server (functions/api/profil.js číta tento súbor) a stránka ide podľa odpovede,
         takže zmena platí hneď po nasadení aj pre prehliadač so starou verziou súboru. */
   function skupina(o) {
     var skoro = o.k === "hned" || o.k === "3m";
     var rozpocet = o.r === "3000-8000" || o.r === "8000plus";
-    if (skoro && rozpocet) return "horuci";
+    if (rozpocet) return "horuci";
     if (o.k === "hned" && o.r === "600-3000") return "horuci";
     if (skoro || rozpocet) return "vlazny";
     return "ostatni";

@@ -206,7 +206,11 @@ Prehľad správ aktualizovaný na tej istej adrese: https://claude.ai/artifact/R
 - Overené: náhľad (TEST_REZIM) 4 kombinácie, hneď + 600 až 3 000 € ide na `/profil-rezervacia` s termínmi;
   naostro priamy POST `team+skupina-5-11@shapelesai.com` → `horuci`, značky plan-test + plan-horuci, karta v lead
   magnete, potom kontakt aj karta zmazané (2 h čakanie workflowu horúcich sa nestihlo spustiť).
-- Doterajšie: z 26 leadov majú túto kombináciu 3 (…wVfBON, …E7VHB4, …OTfoIP). Dostali plán e-mailom ako vlažné,
+- **Doplnené v ten istý deň (Jano):** rozpočet od 3 000 € je horúci pri akejkoľvek odpovedi „Kedy“ („pri takom rozpočte
+  nezáleží, kedy chcú začať“). Vlažná je teraz len „hneď“ alebo „do 3 mesiacov“ bez horúcej kombinácie.
+  Overené náhľadom (5 kombinácií) a naostro (`team+skupina2-5-11@…`, „inšpirujem sa“ + 3 000 až 8 000 € → horuci), zmazané.
+  Doterajšie leady, ktoré by po novom boli horúce kvôli rozpočtu: 2 (…yxYCXg, …Upj2GJ), nemenené.
+- Doterajšie: z 26 leadov majú kombináciu hneď + 600 až 3 000 € 3 (…wVfBON, …E7VHB4, …OTfoIP). Dostali plán e-mailom ako vlažné,
   nemenené. Telefón nemajú (formulár ho nepýta), dá sa im poslať len e-mail s pozvánkou, ak Jano povie.
 
 ## Na spustenie treba (stav pred 28. 10.)
