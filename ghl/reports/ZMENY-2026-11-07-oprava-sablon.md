@@ -29,3 +29,17 @@ Fakty k 7. 11. 15:58: nikto z 37 neodpísal, nerezervoval ani sa neodhlásil.
 | horúci | 1 | horúci 1 | to isté |
 
 Postup po OK: 3 nové workflowy so značkovým spúšťačom, prvý krok `remove_from_workflow` z pôvodnej sekvencie (`4ec669dd`, `72d7be00`, `3c140460`); skúška na kontakte team@; doplniť ich do stop workflowu `d0e8c056` a znova zverejniť; zaradiť 37 značkou; overiť v Konverzáciách. Termín: pred 8. 11. 8:04, vtedy pôvodná sekvencia pošle 10 vlažným sériu 2. Zoznam ľudí: `zasiahnuti.json` a `stav.json` v scratchpade sedenia (mimo repa, osobné údaje).
+
+## Vykonané 7. 11. 2026, 16:05 až 16:12 (Jano: „môžeš spustiť“)
+
+| Workflow (zverejnený) | id | značka spúšťača |
+|---|---|---|
+| Plán OPRAVA 7. 11.: vlažní znova od série 1 | `9da70a19-e3bf-4041-a177-96f0687b2e83` | `plan-oprava-vlazna` |
+| Plán OPRAVA 7. 11.: studení znova od série 1 | `a6fafb53-64ff-4fa0-adaf-eb828fd472ba` | `plan-oprava-studena` |
+| Plán OPRAVA 7. 11.: horúci znova od e-mailu 1 | `26319ee7-7fe0-4065-a5ef-a825935f2209` | `plan-oprava-horuca` |
+
+Každý: krok 1 `remove_from_workflow` z `3c140460`, `4ec669dd`, `72d7be00`, potom kroky pôvodnej sekvencie bez prvého čakania (okná 08:00 až 20:00 ostali). Stop workflow `d0e8c056` vyraďuje aj z týchto troch, zverejnený, 5 spúšťačov ostalo.
+
+**Overené:** skúška na kontakte team@ (16:08): e-mail prišiel, vykreslený 16 px, kontrola HTML čistá, a team@ ostáva v opravnej sekvencii ako kontrolka ďalších krokov. Potom značka 37 ľuďom (pred tým každý znova prečítaný, nikto nemal hovor, diagnostiku ani DND). O 16:12 mal každý z 37 v konverzácii **presne jeden** nový e-mail, ten správny (25 + 7 séria 1, 5 horúci 1). Jeden skutočne odoslaný horúci 1 vykreslený: 16 px, tlačidlo „Vybrať čas hovoru“, žiadne CSS v tele.
+
+**Ďalej:** séria 2 vlažným 9. 11., horúci 2 horúcim 8. 11., séria 2 studeným 14. 11. Pri monitoringu v tie dni pozrieť, že odišli a že nikto nedostal e-mail z pôvodnej sekvencie navyše.
