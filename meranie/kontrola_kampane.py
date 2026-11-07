@@ -94,6 +94,13 @@ print("\n== GHL kontakty z plánu")
 H = {"Authorization": f"Bearer {os.environ['GHL_API_KEY']}", "Version": "2021-07-28", "Accept": "application/json"}
 H4 = {**H, "Version": "2021-04-15"}
 LOC = os.environ["GHL_LOCATION_ID"]
+# 7. 11. 2026: kľúč s 403 vracal prázdne zoznamy a sekcie 4 a 5 hlásili ✅ „nedoručených 0“, hoci nevideli nič
+try: kod = requests.get(f"{API}/locations/{LOC}", headers=H, timeout=30).status_code
+except Exception as e: kod = str(e)[:80]
+if kod != 200:
+    zle(f"GHL kľúč nemá prístup do účtu (HTTP {kod}), kontakty a nedoručené správy sa nedajú overiť. Over cez konzolu (/api/prilezitosti, /api/sprava).")
+    print(f"\nVÝSLEDOK: {len(chyby)} chýb, {len(varovania)} upozornení")
+    sys.exit(1)
 polia = {}
 try:
     for f in requests.get(f"{API}/locations/{LOC}/customFields", headers=H, timeout=30).json().get("customFields", []):
