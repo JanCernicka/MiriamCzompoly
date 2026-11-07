@@ -260,3 +260,16 @@ Na reklamné videá k lead magnetu Miriam žiadne zadanie nedostala. Výsledok k
 - Kúpeľňa: niektoré kroky sedia horšie (lampa do rohu, záclony po zem, presunúť veľký kus nábytku, vankúše). Jano sa pýtal prečo,
   vysvetlené 12. 10. v chate. Kým sa nerozhodne, ostávajú Miriamine texty bez zmeny.
 - E-mail s plánom dostanú vlažní a ostatní hneď; horúci až po hovore, alebo po dni, ak si hovor nerezervujú.
+
+## 7. 11. 2026: Miriamine poznámky z kontrolnej stránky (odoslané 6. 11. 15:07)
+
+Prišli ako poznámka na Miriamin kontakt v GHL. Jano: „áno zapracuj, zrkadlo nechaj“. Naostro 7. 11., overené v prehliadači (plán, formulár, e-mail s plánom).
+
+- **Miestnosti:** prvá veta „V tvojej … by som ako prvé riešila toto:“ a pod fotkami Miriamin popis realizácie (obývačka, kuchyňa, detská, predsieň, pracovňa, kúpeľňa).
+- **Pracovný kút je teraz Pracovňa** (kľúč `kut` v adrese ostáva kvôli odoslaným odkazom). Nové fotky: pred `vidiecky-pracovna-pred.jpg` (Vidiecky byt IMG_8485, regály a ružové závesy), po `vidiecky-po.jpg` (modrá sedačka).
+- **Veselosť je teraz Ľahkosť** (kľúč `veselost` ostáva). Odseky všetkých 6 pocitov prepísané podľa Miriam.
+- **Je tam tma:** kroky 1 a 2 podľa Miriam, krok 3 (zrkadlo) ostáva.
+
+Otvorené:
+- **Spálňa:** Miriam chce ako „pred“ fotku s ružovou spálňou. Nenašla sa (Drive Miriam aj náš, Gmail, médiá GHL, fotky z chatu). Kým nepríde, ostáva stará fotka aj stará veta, lebo jej nová veta hovorí o ružových stenách.
+- **Kuchyňa:** Miriam chce iný záber „pred“ (na čelnej stene polica, nie hodiny). Nenašiel sa. Jej nová veta pod fotkami už platí, fotka zatiaľ stará.

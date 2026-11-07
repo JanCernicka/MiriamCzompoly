@@ -4,7 +4,7 @@
    preto tu nesmie byť nič, čo pri načítaní siaha na window alebo document.
 
    🔴 Otázky, odpovede a všetky texty plánu napísala Miriam (12. 10. 2026). Nič v nich
-   nedopisovať bez nej. Naše sú len fotky realizácií pred a po a vety pod nimi (z popisov na webe).
+   nedopisovať bez nej. Vety pod fotkami realizácií napísala Miriam 6. 11. 2026 (stránka /kontrola-planu-cu9r5c).
 
    Odpovede sa nesú v adrese (?m=&d=&n=&p=&k=&r=) aj v sessionStorage („mc_profil“),
    aby stránky fungovali aj pri zablokovanom úložisku a plán sa dal poslať odkazom. */
@@ -16,39 +16,44 @@
   // n: na dlaždici, oslovenie: prvý riadok plánu, lok: „v tvojej …“
   // pred/po: Miriamina realizácia v pláne (13. 10. 2026, Jano: pred aj po). Dvojice sú z toho istého
   // bytu a podľa popisov na webe tá istá miestnosť. Detskú, predsieň a celú fotku kúpeľne poslala Miriam
-  // 16. 10. (miriam-*.jpg). Pracovný kút vlastnú dvojicu nemá, má byt pre staršiu pani a veta to nezamlčí.
+  // 16. 10. (miriam-*.jpg). 6. 11. Miriam: „nie pracovný kút ale pracovňa“, prvá veta „V tvojej … by som ako prvé
+  // riešila toto:“ a pod fotkami jej vlastný popis realizácie. Kľúč kut v adrese ostáva kvôli odoslaným odkazom.
+  // Pracovňa: pred = izba s regálmi a ružovými závesmi (Vidiecky byt IMG_8485), po = modrá sedačka (vidiecky-po).
+  // Kuchyňa: Miriam chce iný záber pred (polica na čelnej stene, nie hodiny), zatiaľ sa nenašiel.
   // vysoke: fotky sú na výšku, v pláne sa ukážu 3:4 namiesto 4:3, aby sa neorezali.
-  var STARSIA = { pred: FOTO + "starsia-pani-pred-2.jpg", po: FOTO + "starsia-pani-2.jpg",
-                  veta: "Byt pre staršiu pani v Trnave pred premenou a po nej." };
   var MIESTA = {
-    obyvacka: { n: "Obývačka", oslovenie: "Tvoja obývačka: tu je, čo by som riešila ako prvé.", lok: "v tvojej obývačke",
+    obyvacka: { n: "Obývačka", oslovenie: "V tvojej obývačke by som ako prvé riešila toto:", lok: "v tvojej obývačke",
                 pred: FOTO + "vidiecky-pred-2.jpg", po: FOTO + "vidiecky-4.jpg",
-                veta: "Jitkina obývačka v Trnave. Starý nábytok ostal a dostal okolo seba nový." },
-    spalna:   { n: "Spálňa", oslovenie: "Tvoja spálňa: tu je, čo by som riešila ako prvé.", lok: "v tvojej spálni",
+                veta: "Klientka sa prisťahovala z domu a chcela vidiecky štýl, do paneláku som ho preniesla len jemne, aby sedel k mestskému bytu." },
+    spalna:   { n: "Spálňa", oslovenie: "V tvojej spálni by som ako prvé riešila toto:", lok: "v tvojej spálni",
                 pred: FOTO + "vidiecky-pred-3.jpg", po: FOTO + "vidiecky-po-2.jpg",
+                // 🔴 Miriam 6. 11.: „pred má byť fotka s ružovou spálňou“ a k nej veta „Ružové steny s borovicovým nábytkom
+                // pôsobili ťažko a príliš teplo. Masívna posteľ aj nábytok ostali, zmenila sa farba stien, textil, záclony a svetlá.“
+                // Fotka sa nenašla (Drive, Gmail, GHL médiá), preto zatiaľ stará veta, nech nepíše o ružových stenách pod bielymi.
                 veta: "Jitkina spálňa v Trnave pred premenou a po nej." },
-    kuchyna:  { n: "Kuchyňa a jedáleň", oslovenie: "Tvoja kuchyňa a jedáleň: tu je, čo by som riešila ako prvé.", lok: "v tvojej kuchyni a jedálni",
+    kuchyna:  { n: "Kuchyňa a jedáleň", oslovenie: "V tvojej kuchyni a jedálni by som ako prvé riešila toto:", lok: "v tvojej kuchyni a jedálni",
                 pred: FOTO + "starsia-pani-pred-3.jpg", po: FOTO + "starsia-pani-4.jpg",
-                veta: "Kuchyňa v byte pre staršiu pani v Trnave pred premenou a po nej." },
-    detska:   { n: "Detská", oslovenie: "Tvoja detská izba: tu je, čo by som riešila ako prvé.", lok: "v tvojej detskej izbe",
+                veta: "Pôvodne pôsobila úzka a dlhá. Zrušila som zbytočnú murovanú špajzu a navrhla linku tak, aby vznikla moderná a praktická kuchyňa a ostalo miesto aj na malý stôl ako predtým." },
+    detska:   { n: "Detská", oslovenie: "V tvojej detskej izbe by som ako prvé riešila toto:", lok: "v tvojej detskej izbe",
                 pred: FOTO + "miriam-detska-pred.jpg", po: FOTO + "miriam-detska-po.jpg", vysoke: true,
-                veta: "Detská izba počas stavby a hotová, s posteľou na poschodí a úložným priestorom pod schodmi." },
-    predsien: { n: "Predsieň", oslovenie: "Tvoja predsieň: tu je, čo by som riešila ako prvé.", lok: "v tvojej predsieni",
+                veta: "Vysoký strop je skvelo využitý na trvalé spanie, čím sa dole uvoľnil priestor, kde by inak bola posteľ. Celý priestor pod schodiskom je využitý na úložné priestory." },
+    predsien: { n: "Predsieň", oslovenie: "V tvojej predsieni by som ako prvé riešila toto:", lok: "v tvojej predsieni",
                 pred: FOTO + "miriam-predsien-pred.jpg", po: FOTO + "miriam-predsien-po.jpg", vysoke: true,
-                veta: "Predsieň pred premenou a po nej. Zrkadlo aj skrine ostali, pribudla tapeta a starý šijací stolík." },
-    kut:      { n: "Pracovný kút", oslovenie: "Tvoj pracovný kút: tu je, čo by som riešila ako prvé.", lok: "v tvojom pracovnom kúte",
-                pred: STARSIA.pred, po: STARSIA.po, veta: STARSIA.veta },
-    kupelna:  { n: "Kúpeľňa a WC", oslovenie: "Tvoja kúpeľňa: tu je, čo by som riešila ako prvé.", lok: "v tvojej kúpeľni",
+                veta: "Pôvodne studená chodba dostala krásny dizajn. Použila som starý šijací stôl z pivnice, zrkadlo dostalo správnu výšku a bez krásneho koberca by to nebolo ono." },
+    kut:      { n: "Pracovňa", oslovenie: "V tvojej pracovni by som ako prvé riešila toto:", lok: "v tvojej pracovni",
+                pred: FOTO + "vidiecky-pracovna-pred.jpg", po: FOTO + "vidiecky-po.jpg",
+                veta: "Kto povedal, že pracovný stôl musí byť nalepený na okne?" },
+    kupelna:  { n: "Kúpeľňa a WC", oslovenie: "V tvojej kúpeľni by som ako prvé riešila toto:", lok: "v tvojej kúpeľni",
                 pred: FOTO + "starsia-pani-pred.jpg", po: FOTO + "miriam-kupelna-po.jpg",
-                veta: "Kúpeľňa v byte pre staršiu pani v Trnave pred premenou a po nej." }
+                veta: "Byt som robila v modernom retro štýle pre staršiu pani, aby mala spojenie s časmi minulými. Preto je tu aj namiesto sklenenej zásteny sprchový záves." }
   };
 
   // otázka 2: verdikt, úvod a 3 kroky na tento víkend
   var PROBLEMY = {
     tma:         { n: "Je tam tma", nazov: "Najprv svetlo",
                    uvod: "Skôr než kúpiš čokoľvek nové, vyrieš svetlo. Tmavá miestnosť sa novým nábytkom nezjasní.",
-                   kroky: ["Večer nesvieť len stropným svetlom, postav lampu do najtmavšieho rohu.",
-                           "Vymeň studené žiarovky za teplé.",
+                   kroky: ["Večer nesvieť len stropným svetlom, postav lampu do najtmavšieho rohu. Ak lampu nemáš, stačí aj lacné bezdrôtové LED svietidlo.",
+                           "Vymeň studené žiarovky za silnejšie neutrálne. Teplé by tmavú miestnosť stmavili, ak nie sú naozaj silné. Neutrálne ju rozjasnia a svetlo bude aj tak mäkšie ako zo studených.",
                            "Zrkadlo vedľa okna alebo oproti nemu rozptýli denné svetlo."] },
     neporiadok:  { n: "Neporiadok a málo úložného priestoru", nazov: "Najprv zisti, čo treba uložiť",
                    uvod: "Skôr než kúpiš skrinky, zisti, čo v nich vôbec má byť.",
@@ -86,14 +91,15 @@
     neviem:  { n: "Neviem", veta: "Zatiaľ nič nekupuj. Urob kroky nižšie a všimni si, čo v miestnosti používaš a čo nie, potom sa rozhodni, čo ostane." }
   };
 
-  // otázka 4: odsek o pocite
+  // otázka 4: odsek o pocite (odseky prepísala Miriam 6. 11. 2026; veselosť premenovala na ľahkosť,
+  // kľúč veselost v adrese ostáva, aby fungovali už odoslané odkazy na plán)
   var POCITY = {
-    pokoj:     { n: "Pokoj",     odsek: "Chceš sa doma upokojiť. Drž sa mäkkého svetla, málo vecí na očiach a prírodných materiálov: ľan, svetlé drevo, vlna." },
-    hrejivost: { n: "Hrejivosť", odsek: "Chceš sa zabaliť a zostať doma. Teplé tóny, viditeľné drevo a svetlo nízko, viac zdrojov svetla v priestore namiesto stropného." },
-    utulno:    { n: "Útulno",    odsek: "Chceš miesto, kde sa dá pohodlne zastaviť. Vrstvy textilu, mäkké tvary, kútik na sedenie a viac malých zdrojov svetla." },
-    veselost:  { n: "Veselosť",  odsek: "Chceš doma energiu. Svetlý základ, jedna až dve výraznejšie farby, rastliny a čo najviac denného svetla." },
-    poriadok:  { n: "Poriadok",  odsek: "Potrebuješ, aby malo všetko svoje miesto. Zatvorené úložné priestory, jednotná paleta a málo druhov materiálov." },
-    luxus:     { n: "Luxus",     odsek: "Chceš, aby domov pôsobil ako dobrý hotel. Hlboké tóny, menej kúskov, ale kvalitných, a detaily z kovu." }
+    pokoj:     { n: "Pokoj",     odsek: "Chceš sa doma upokojiť. Mäkké svetlo, málo vecí na očiach a prírodné materiály ako ľan, svetlé drevo a vlna. Teplé žiarovky, ale naozaj silné, a ak sa dá, stmievateľné." },
+    hrejivost: { n: "Hrejivosť", odsek: "Chceš, aby domov pôsobil hrejivo po celý rok. Teplé tóny ako béžová, karamelová alebo terakota, viditeľné drevo a ratan." },
+    utulno:    { n: "Útulno",    odsek: "Chceš domov, kde sa hneď uvoľníš. Vrstvy textilu, mäkké tvary, pohodlné miesto na sedenie, viac malých zdrojov teplého svetla a niekoľko osobných vecí na očiach, napríklad knihy alebo fotky." },
+    veselost:  { n: "Ľahkosť",   odsek: "Chceš, aby ťa doma nič neťažilo. Veľa denného svetla, svetlé farby, ľahké záclony a nábytok na nožičkách, aby bolo vidieť podlahu. K tomu pár farebných kúskov, pri ktorých sa usmeješ." },
+    poriadok:  { n: "Poriadok",  odsek: "Chceš, aby malo všetko svoje miesto a upratať ti trvalo pár minút. Viac zatvorených skriniek ako otvorených políc, jednotné farby a materiály a voľné plochy, na ktorých nič neleží." },
+    luxus:     { n: "Luxus",     odsek: "Chceš, aby domov pôsobil ako dobrý hotel. Menej kúskov, ale kvalitných, materiály príjemné na dotyk ako zamat, vlna alebo kameň, premyslené svetlo a nič, čo pôsobí lacno." }
   };
 
   var KEDY = {
