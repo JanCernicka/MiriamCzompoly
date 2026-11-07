@@ -1,5 +1,5 @@
 /**
- * /api/koncept: rozpísané poznámky a nové e-maily z /kontrola-emailov-q7m2xh uložené NA SERVERI (7. 11. 2026, Jano:
+ * /api/koncept: rozpísané poznámky z /kontrola-emailov-q7m2xh a /kontrola-planu-cu9r5c uložené NA SERVERI (7. 11. 2026, Jano:
  * „nech sa to ukladá na servery a nech hocikedy sa vráti na ten link, nech to tam má uložené“).
  *
  * GET  /api/koncept?kluc=…&stranka=emaily          → { ok, data, cas }
@@ -14,7 +14,8 @@
 import { json } from "../_lib/ghl.js";
 
 const KLUC = "m8sT3SJqC9YMOgfMqjCW0YEi";
-const STRANKY = new Set(["emaily"]);
+// emaily: /kontrola-emailov-q7m2xh; plan-N: /kontrola-planu-cu9r5c, N je kolo kontroly (nové kolo = prázdne políčka nad novou verziou)
+const platnaStranka = (s) => s === "emaily" || /^plan-\d{1,3}$/.test(s);
 const MAX_POLI = 80, MAX_TEXT = 4000, MAX_NOVYCH = 20, MAX_DATA = 200000;
 const cisty = (v, max) => String(v == null ? "" : v).replace(/\r\n?/g, "\n").slice(0, max);
 const idPola = (s) => /^[a-z0-9-]{1,60}$/.test(s);
@@ -33,7 +34,7 @@ async function nacitaj(env, stranka) {
 
 function overStranku(stranka, k) {
   if (k !== KLUC) return json({ ok: false, error: "forbidden" }, 403);
-  if (!STRANKY.has(stranka)) return json({ ok: false, error: "stranka" }, 400);
+  if (!platnaStranka(stranka)) return json({ ok: false, error: "stranka" }, 400);
   return null;
 }
 
