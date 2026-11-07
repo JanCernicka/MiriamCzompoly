@@ -3,6 +3,7 @@
  * „ona Claude AI nemá … stránka, kde budú políčka, ona ich odošle a my to uvidíme v Go High Leveli“).
  *
  * Stránka /kontrola-planu-cu9r5c (nikde neodkazovaná, noindex) pošle {kluc, poznamky:[{sablona, nazov, text}]}.
+ * 7. 11. 2026 pribudla /kontrola-emailov-q7m2xh (e-maily po pláne a nové e-maily do série), posiela aj typ: "emaily".
  * Poznámky idú ako POZNÁMKA na Miriamin kontakt v GHL (MIRIAM_KONTAKT_ID), po častiach do 4 000 znakov.
  * Nič neodchádza e-mailom ani SMS. Kľúč len bráni náhodnému spamu, nie je to tajomstvo (je v stránke).
  * TEST_REZIM=1 (náhľady): nič sa nezapíše, len sa overí obsah.
@@ -35,7 +36,8 @@ export async function onRequestPost({ request, env }) {
     if (posledna && posledna.length + blok.length + 2 <= MAX_CAST) casti[casti.length - 1] = posledna + "\n\n" + blok;
     else casti.push(blok);
   }
-  const hlavicka = (i) => `KONTROLA PLÁNU: poznámky od Miriam, ${kedy}` + (casti.length > 1 ? ` (časť ${i + 1} z ${casti.length})` : "") + "\n\n";
+  const nadpis = b.typ === "emaily" ? "KONTROLA E-MAILOV" : "KONTROLA PLÁNU";
+  const hlavicka = (i) => `${nadpis}: poznámky od Miriam, ${kedy}` + (casti.length > 1 ? ` (časť ${i + 1} z ${casti.length})` : "") + "\n\n";
 
   if (env.TEST_REZIM === "1") {
     console.log("TEST_REZIM: kontrola neuložená", pz.length, "poznámok,", casti.length, "častí");

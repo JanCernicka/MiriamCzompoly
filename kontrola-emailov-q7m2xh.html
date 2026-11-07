@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Kontrola e-mailov · Miriam Czompoly</title>
+  <!-- Kontrola e-mailov po pláne (7. 11. 2026, Jano). Nikde neodkazovaná, len pre Miriam, ako /kontrola-planu-cu9r5c.
+       Poznámky aj nové e-maily idú cez /api/kontrola (typ: "emaily") ako poznámka na Miriamin kontakt v GHL.
+       Generuje ju skript mimo repa z aktuálnych šablón GHL; keď sa texty e-mailov zmenia, treba ju pregenerovať. -->
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="theme-color" content="#262019" />
+  <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    /* Jeden stĺpec: e-maily v poradí, ako chodia, pod každým políčko, dole nové e-maily a Odoslať. Farby ako /plan. */
+    :root{
+      --akcent:#A9885E; --akcent-tmavy:#7E6441; --tma:#262019; --text:#3a332b; --sivy:#6F6557; --linka:#E4D9C6;
+      --pozadie:#fff; --karta:#F8F4EE; --zvyraznenie:#F2DFA7; --ok:#2f6b4f; --zle:#b3261e;
+      --sans:'Inter',system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+      --display:'Cormorant Garamond',Georgia,serif;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:var(--sans);color:var(--text);background:var(--pozadie);font-size:17px;line-height:1.55;
+      -webkit-font-smoothing:antialiased;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+    h1,h2{color:var(--tma);font-family:var(--display);font-weight:600;line-height:1.15;margin:0;text-wrap:balance}
+    h1{font-size:clamp(32px,7vw,42px)} h2{font-size:28px}
+    p{margin:0}
+    :focus-visible{outline:2px solid var(--akcent-tmavy);outline-offset:2px}
+    .obal{max-width:640px;margin:0 auto;padding-block:40px 72px;display:grid;gap:48px}
+    .hlava{display:grid;gap:12px}
+    .stitok{font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--akcent-tmavy)}
+    .uvod{color:var(--sivy)}
+    .pole{background:var(--zvyraznenie);border-radius:4px;padding:0 3px}
+    .sekcia{display:grid;gap:16px}
+    .mail{display:grid;gap:10px}
+    .mail + .mail{margin-top:18px;padding-top:24px;border-top:1px solid var(--linka)}
+    .meta{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+    .cis{width:28px;height:28px;border-radius:50%;background:var(--tma);color:#fff;font-weight:700;font-size:14px;
+      display:grid;place-items:center;flex:none;font-variant-numeric:tabular-nums}
+    .cip{font-size:13.5px;padding:4px 10px;border-radius:999px;background:var(--karta);line-height:1.35}
+    .cip b{font-weight:700;color:var(--akcent-tmavy);margin-right:4px}
+    .list{border:1px solid var(--linka);border-radius:14px;padding:16px 18px;background:#fff;box-shadow:0 8px 24px -20px rgba(38,32,25,.45)}
+    .predmet{font-weight:700;color:var(--tma);padding-bottom:10px;margin-bottom:12px;border-bottom:1px solid var(--linka);font-size:16.5px}
+    .telo{font-family:Arial,Helvetica,sans-serif;font-size:16px;line-height:1.55;color:#262019;display:grid;gap:12px}
+    .telo ul{margin:0;padding-left:22px;display:grid;gap:3px}
+    .btn{display:inline-block;background:#262019;color:#fff;padding:10px 18px;border-radius:10px;font-weight:700;font-size:15px}
+    .pozn{display:grid;gap:6px}
+    .pozn label,.novy label{font-size:14px;font-weight:600;color:var(--tma)}
+    textarea,input,select{font:400 16px/1.5 var(--sans);color:var(--text);background:#fff;border:1px solid var(--linka);border-radius:10px;
+      padding:10px 12px;width:100%}
+    textarea{resize:vertical;min-height:60px}
+    textarea:focus,input:focus,select:focus{border-color:var(--akcent);outline:none}
+    .pozn.vyplnena textarea{border-color:var(--akcent);background:#fffdf8}
+    .nove{background:var(--karta);border-radius:16px;padding:20px 18px;display:grid;gap:16px}
+    .nove .uvod{color:var(--text)}
+    .novy{background:#fff;border:1px solid var(--linka);border-radius:14px;padding:16px;display:grid;gap:12px}
+    .novy-hl{display:flex;justify-content:space-between;align-items:center;gap:10px}
+    .novy-hl b{color:var(--tma)}
+    .novy label{display:grid;gap:5px}
+    .novy .dva{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    @media (max-width:480px){.novy .dva{grid-template-columns:1fr}}
+    .novy textarea{min-height:170px}
+    .zmaz{font:600 14px var(--sans);color:var(--zle);background:none;border:0;cursor:pointer;padding:6px 0}
+    .pridaj{font:700 16px var(--sans);color:var(--akcent-tmavy);background:#fff;border:1px dashed var(--akcent);border-radius:12px;
+      padding:14px;cursor:pointer;width:100%}
+    .koniec{display:grid;gap:14px}
+    .odoslat{font:700 17px/1 var(--sans);background:var(--tma);color:#fff;border:0;border-radius:12px;padding:17px 20px;cursor:pointer;width:100%}
+    .odoslat:disabled{opacity:.6;cursor:default}
+    .stav{font-size:15px;min-height:1.5em}
+    .stav.ok{color:var(--ok);font-weight:600}
+    .stav.zle{color:var(--zle);font-weight:600}
+    .pasca{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+    .pata{font-size:13.5px;color:var(--sivy);border-top:1px solid var(--linka);padding-top:16px}
+  </style>
+</head>
+<body>
+<div class="obal">
+  <header class="hlava">
+    <p class="stitok">E-maily po pláne · na kontrolu</p>
+    <h1>Tvoje e-maily po pláne</h1>
+    <p>Ahoj Miriam, tu je všetkých 10 e-mailov, ktoré ľudia dostanú po pláne. Pri každom je, komu a kedy príde.</p>
+    <p>Čo chceš zmeniť, napíš do políčka pod e-mailom. Kde je všetko v poriadku, nechaj ho prázdne. <span class="pole">Žlté</span> sa mení podľa človeka.</p>
+  </header>
+
+<section class="sekcia" aria-labelledby="s-hned"><h2 id="s-hned">Hneď po otázkach</h2><article class="mail" id="plan"><div class="meta"><span class="cis">1</span><span class="cip komu"><b>Komu</b> vlažná a studená</span><span class="cip kedy"><b>Kedy</b> hneď po otázkach</span></div><div class="list"><p class="predmet">Tvoj plán od Miriam: <span class="pole">Najprv svetlo</span></p><div class="telo"><p>Ahoj <span class="pole">Lucia</span>,</p><p><span class="pole">V tvojej obývačke by som ako prvé riešila toto:</span></p><p><b><span class="pole">Najprv svetlo.</span></b> <span class="pole">Skôr než kúpiš čokoľvek nové, vyrieš svetlo. Tmavá miestnosť sa novým nábytkom nezjasní.</span></p><p><span class="btn">Otvoriť môj plán</span></p><p>V pláne máš 3 kroky na tento víkend. Ak chceš začať ešte dnes, začni prvým: <span class="pole">Večer nesvieť len stropným svetlom, postav lampu do najtmavšieho rohu. Ak lampu nemáš, stačí aj lacné bezdrôtové LED svietidlo.</span></p><p>Plán ti ukáže smer. Čo <span class="pole">v tvojej obývačke</span> konkrétne zmeniť, čo nechať a v akom poradí, aby si zbytočne nevyhodila peniaze, riešim na <u>diagnostike</u>.</p><p>Ak by ti niečo nebolo jasné, stačí odpísať na tento e-mail, čítam každú správu.</p><p>Miriam</p></div></div><div class="pozn" data-sablona="email-plan" data-nazov="E-mail 1: Tvoj plán od Miriam: Najprv svetlo"><label for="pz-plan">Čo by si tu zmenila?</label><textarea id="pz-plan" rows="2" maxlength="4000"></textarea></div></article><article class="mail" id="horuca-1"><div class="meta"><span class="cis">2</span><span class="cip komu"><b>Komu</b> horúca</span><span class="cip kedy"><b>Kedy</b> 2 hodiny po otázkach</span></div><div class="list"><p class="predmet">Tvoj plán je pripravený</p><div class="telo"><p>Ahoj <span class="pole">Lucia</span>,</p><p>tvoj plán je pripravený a rada by som ho s tebou prešla na krátkom hovore. Stačí 10 minút, zavolám ti ja.</p><p>Na hovore ti poviem, čo by som <span class="pole">v tvojej obývačke</span> riešila ako prvé a prečo, a môžeš sa pýtať na všetko, čo ťa trápi.</p><p><span class="btn">Vybrať čas hovoru</span></p><p>Miriam</p></div></div><div class="pozn" data-sablona="email-horuca-1" data-nazov="E-mail 2: Tvoj plán je pripravený"><label for="pz-horuca-1">Čo by si tu zmenila?</label><textarea id="pz-horuca-1" rows="2" maxlength="4000"></textarea></div></article></section><section class="sekcia" aria-labelledby="s-hovor"><h2 id="s-hovor">Horúca a hovor</h2><article class="mail" id="horuca-2"><div class="meta"><span class="cis">3</span><span class="cip komu"><b>Komu</b> horúca, keď si nerezervuje hovor</span><span class="cip kedy"><b>Kedy</b> o deň neskôr</span></div><div class="list"><p class="predmet">Posielam ti plán aj písomne</p><div class="telo"><p>Ahoj <span class="pole">Lucia</span>,</p><p>aby si nečakala, tu je tvoj plán aj písomne. Prvá vec, ktorú by som riešila: <b><span class="pole">Najprv svetlo</span></b>.</p><p><span class="btn">Otvoriť môj plán</span></p><p>Ak ho chceš prejsť so mnou, 10 minút si vyberieš tu: <u>vybrať čas hovoru</u>.</p><p>Miriam</p></div></div><div class="pozn" data-sablona="email-horuca-2" data-nazov="E-mail 3: Posielam ti plán aj písomne"><label for="pz-horuca-2">Čo by si tu zmenila?</label><textarea id="pz-horuca-2" rows="2" maxlength="4000"></textarea></div></article><article class="mail" id="hovor"><div class="meta"><span class="cis">4</span><span class="cip komu"><b>Komu</b> horúca, keď si rezervuje hovor</span><span class="cip kedy"><b>Kedy</b> hneď po rezervácii</span></div><div class="list"><p class="predmet">Hovor k tvojmu plánu <span class="pole">vo štvrtok 12. 11. o 10:30</span></p><div class="telo"><p>Ahoj <span class="pole">Lucia</span>,</p><p>ďakujem, hovor máme <b><span class="pole">vo štvrtok 12. 11. o 10:30</span></b>. Zavolám ti na číslo <span class="pole">0907 777 555</span>, potrvá 10 minút.</p><p>Pred hovorom sa pozriem na tvoje odpovede a pripravím si, čo by som <span class="pole">v tvojej obývačke</span> riešila ako prvé. Ak chceš, odpíš mi na tento e-mail a prilož fotku miestnosti, ktorú chceš riešiť, aby som sa vedela lepšie pripraviť.</p><p>Ak ti čas nebude vyhovovať, odpíš mi a dohodneme iný.</p><p>Miriam</p></div></div><div class="pozn" data-sablona="email-hovor" data-nazov="E-mail 4: Hovor k tvojmu plánu vo štvrtok 12. 11. o 10:30"><label for="pz-hovor">Čo by si tu zmenila?</label><textarea id="pz-hovor" rows="2" maxlength="4000"></textarea></div></article><article class="mail" id="po-hovore"><div class="meta"><span class="cis">5</span><span class="cip komu"><b>Komu</b> horúca po hovore</span><span class="cip kedy"><b>Kedy</b> 30 minút po začiatku hovoru</span></div><div class="list"><p class="predmet">Tvoj plán, aby si ho mala po ruke</p><div class="telo"><p>Ahoj <span class="pole">Lucia</span>,</p><p>posielam ti plán, aby si ho mala po ruke, keď sa pustíš do prvých krokov.</p><p><span class="btn">Otvoriť môj plán</span></p><p>Ak ti napadne otázka, odpíš mi na tento e-mail, čítam každú správu. A ak sme sa pri hovore nestihli spojiť, napíš mi a nájdeme iný čas.</p><p>Miriam</p></div></div><div class="pozn" data-sablona="email-po-hovore" data-nazov="E-mail 5: Tvoj plán, aby si ho mala po ruke"><label for="pz-po-hovore">Čo by si tu zmenila?</label><textarea id="pz-po-hovore" rows="2" maxlength="4000"></textarea></div></article></section><section class="sekcia" aria-labelledby="s-seria"><h2 id="s-seria">Séria troch e-mailov</h2><article class="mail" id="seria-1"><div class="meta"><span class="cis">6</span><span class="cip komu"><b>Komu</b> všetky</span><span class="cip kedy"><b>Kedy</b> vlažná o 1 deň · studená o 3 dni · horúca 3 dni po hovore</span></div><div class="list"><p class="predmet">Ako ti ide prvý krok?</p><div class="telo"><p>Ahoj <span class="pole">Lucia</span>,</p><p>v pláne som ti ako prvý krok napísala toto:</p><p><i><span class="pole">Večer nesvieť len stropným svetlom, postav lampu do najtmavšieho rohu. Ak lampu nemáš, stačí aj lacné bezdrôtové LED svietidlo.</span></i></p><p>Skúsila si to? Ak áno, odpíš mi, ako to vyzerá, rada si to prečítam. Ak ešte nie, nevadí, plán ti nikam neutečie.</p><p><span class="btn">Otvoriť môj plán</span></p><p>Miriam</p></div></div><div class="pozn" data-sablona="email-seria-1" data-nazov="E-mail 6: Ako ti ide prvý krok?"><label for="pz-seria-1">Čo by si tu zmenila?</label><textarea id="pz-seria-1" rows="2" maxlength="4000"></textarea></div></article><article class="mail" id="seria-2"><div class="meta"><span class="cis">7</span><span class="cip komu"><b>Komu</b> všetky</span><span class="cip kedy"><b>Kedy</b> vlažná o 3 dni · studená o 10 dní · horúca 5 dní po hovore</span></div><div class="list"><p class="predmet">Skôr než pôjdeš nakupovať</p><div class="telo"><p>Ahoj <span class="pole">Lucia</span>,</p><p>jedna vec skôr, než pôjdeš nakupovať: nový nábytok väčšinou nevyrieši to, čo v miestnosti prekáža. Preto som ti v pláne ako prvé napísala: <b><span class="pole">Najprv svetlo</span></b>. Kupovať má zmysel až potom.</p><p>Takto sme to robili aj u Jitky v Trnave. Starý nábytok ostal a dostal okolo seba nový. Jitka potom napísala:</p><p><i>„Perfektne zladila starý nábytok s novým. Napriek tomu, že sme sa presťahovali z domu do paneláku, cítime sa v ňom oveľa lepšie.“</i></p><p><span class="btn">Otvoriť môj plán</span></p><p>Miriam</p></div></div><div class="pozn" data-sablona="email-seria-2" data-nazov="E-mail 7: Skôr než pôjdeš nakupovať"><label for="pz-seria-2">Čo by si tu zmenila?</label><textarea id="pz-seria-2" rows="2" maxlength="4000"></textarea></div></article><article class="mail" id="seria-3"><div class="meta"><span class="cis">8</span><span class="cip komu"><b>Komu</b> všetky</span><span class="cip kedy"><b>Kedy</b> vlažná o 6 dní · studená o 21 dní · horúca 8 dní po hovore</span></div><div class="list"><p class="predmet">Keď budeš chcieť ísť ďalej</p><div class="telo"><p>Ahoj <span class="pole">Lucia</span>,</p><p>plán ti ukáže smer. Čo <span class="pole">v tvojej obývačke</span> konkrétne zmeniť, čo nechať a v akom poradí, aby si zbytočne nevyhodila peniaze, riešim na diagnostike.</p><p>Trvá 90 minút a stojí 250 € online alebo 290 € u teba doma. Ak potom pokračuješ projektom, cenu diagnostiky ti odpočítam.</p><p><span class="btn">Pozrieť diagnostiku</span></p><p>Ak máš otázku, odpíš mi, čítam každú správu.</p><p>Miriam</p></div></div><div class="pozn" data-sablona="email-seria-3" data-nazov="E-mail 8: Keď budeš chcieť ísť ďalej"><label for="pz-seria-3">Čo by si tu zmenila?</label><textarea id="pz-seria-3" rows="2" maxlength="4000"></textarea></div></article></section><section class="sekcia" aria-labelledby="s-diag"><h2 id="s-diag">Rezervovala si diagnostiku</h2><article class="mail" id="diag-doma"><div class="meta"><span class="cis">9</span><span class="cip komu"><b>Komu</b> kto si rezervuje diagnostiku doma</span><span class="cip kedy"><b>Kedy</b> hneď po rezervácii</span></div><div class="list"><p class="predmet">Potvrdené: diagnostika u teba doma 🏡</p><div class="telo"><p>Ahoj <span class="pole">Lucia</span>,</p><p>máš to potvrdené, teším sa na <b>Interiérovú diagnostiku</b> u teba doma.</p><p><b>Kedy:</b> <span class="pole">vo štvrtok 12. 11. o 16:30</span><br><b>Kde:</b> <span class="pole">Hlavná 5, Trnava</span><br><b>Trvanie:</b> 90 minút</p><p><b>Aby sme hovor využili naplno, priprav si prosím:</b></p><p>• pôdorys bytu alebo domu, ak ho máš (stačí aj nákres na papieri)<br>• zoznam vecí, ktoré ťa v priestore najviac hnevajú<br>• predstavu rozpočtu, aj keď je len orientačná</p><p>Nemusíš nič upratovať. Naopak, chcem vidieť, ako to u teba reálne žije.</p><p>Ak by ti termín nevyšiel, stačí odpísať na tento e-mail a nájdeme iný.</p><p>Miriam</p></div></div><div class="pozn" data-sablona="email-diag-doma" data-nazov="E-mail 9: Potvrdené: diagnostika u teba doma 🏡"><label for="pz-diag-doma">Čo by si tu zmenila?</label><textarea id="pz-diag-doma" rows="2" maxlength="4000"></textarea></div></article><article class="mail" id="diag-online"><div class="meta"><span class="cis">10</span><span class="cip komu"><b>Komu</b> kto si rezervuje online diagnostiku</span><span class="cip kedy"><b>Kedy</b> hneď po rezervácii</span></div><div class="list"><p class="predmet">Potvrdené: online diagnostika</p><div class="telo"><p>Ahoj <span class="pole">Lucia</span>,</p><p>máš to potvrdené, teším sa na <b>Interiérovú diagnostiku online</b>.</p><p><b>Kedy:</b> <span class="pole">vo štvrtok 12. 11. o 16:30</span><br><b>Trvanie:</b> 90 minút</p><p>Spojíme sa cez Google Meet, v čase termínu stačí kliknúť na odkaz: <u>https://meet.google.com/meet/pxh-papk-ekh</u></p><p><b>Aby sme hovor využili naplno, priprav si prosím:</b></p><ul><li>fotky priestoru, ktorý chceš riešiť, z viacerých uhlov</li><li>pôdorys bytu alebo domu, ak ho máš (stačí aj nákres na papieri)</li><li>zoznam vecí, ktoré ťa v priestore najviac hnevajú</li><li>predstavu rozpočtu, aj keď je len orientačná</li></ul><p>Do troch dní po diagnostike ti pošlem písomné zhrnutie.</p><p>Miriam</p></div></div><div class="pozn" data-sablona="email-diag-online" data-nazov="E-mail 10: Potvrdené: online diagnostika"><label for="pz-diag-online">Čo by si tu zmenila?</label><textarea id="pz-diag-online" rows="2" maxlength="4000"></textarea></div></article></section>
+
+  <section class="sekcia" aria-labelledby="nove-h">
+    <h2 id="nove-h">Nový e-mail do série</h2>
+    <div class="nove">
+      <p class="uvod">Napadol ti ďalší e-mail? Napíš ho sem. Nemusíš ho dizajnovať, stačí obyčajný text. Do tvojho dizajnu ho dáme my.</p>
+      <div id="nove-zoznam" class="sekcia"></div>
+      <button type="button" class="pridaj" id="pridaj">+ Pridať ďalší e-mail</button>
+    </div>
+  </section>
+
+  <form class="koniec" id="formular" novalidate>
+    <div class="pozn" data-sablona="celkovo" data-nazov="Celkovo">
+      <label for="pz-celkovo">Niečo iné? Napríklad poradie alebo kedy e-maily chodia.</label>
+      <textarea id="pz-celkovo" rows="2" maxlength="4000"></textarea>
+    </div>
+    <label class="pasca" aria-hidden="true">Nevypĺňať <input type="text" id="web" tabindex="-1" autocomplete="off" /></label>
+    <button type="submit" class="odoslat" id="odoslat">Odoslať</button>
+    <p class="stav" id="stav" role="status" aria-live="polite"></p>
+  </form>
+
+  <footer class="pata">Táto stránka je len pre teba, nie je nikde na webe odkazovaná. Po odoslaní to uvidí Jano v systéme.</footer>
+</div>
+
+<template id="vzor-novy">
+  <div class="novy">
+    <div class="novy-hl"><b class="nadpis">Nový e-mail</b><button type="button" class="zmaz">Odstrániť</button></div>
+    <div class="dva">
+      <label>Komu
+        <select class="komu">
+          <option>Všetkým</option><option>Horúcim</option><option>Vlažným</option><option>Studeným</option>
+          <option>Po hovore</option><option>Po diagnostike</option>
+        </select></label>
+      <label>Kedy<input type="text" class="kedy" maxlength="120" placeholder="napríklad 2 dni po pláne" /></label>
+    </div>
+    <label>Predmet<input type="text" class="predmet" maxlength="200" /></label>
+    <label>Text e-mailu<textarea class="text" rows="7" maxlength="3500" placeholder="Ahoj…"></textarea></label>
+  </div>
+</template>
+
+<script>
+(function () {
+  "use strict";
+  var KLUC = "m8sT3SJqC9YMOgfMqjCW0YEi", LS = "kontrola-emailov-koncept-v1";
+  function citaj() { try { return JSON.parse(localStorage.getItem(LS) || "{}") || {}; } catch (e) { return {}; } }
+  function zapis(o) { try { localStorage.setItem(LS, JSON.stringify(o)); } catch (e) { /* bez úložiska stránka funguje ďalej */ } }
+  var koncept = citaj(), stav = document.getElementById("stav"), btn = document.getElementById("odoslat");
+  var boxy = [].slice.call(document.querySelectorAll(".pozn"));
+  var zoznam = document.getElementById("nove-zoznam"), vzor = document.getElementById("vzor-novy");
+
+  /* ── poznámky pod e-mailmi ── */
+  function oznac(b) { b.classList.toggle("vyplnena", !!b.querySelector("textarea").value.trim()); }
+  boxy.forEach(function (b) {
+    var t = b.querySelector("textarea"), id = b.dataset.sablona;
+    if (koncept.p && typeof koncept.p[id] === "string") t.value = koncept.p[id];
+    oznac(b);
+    t.addEventListener("input", function () { oznac(b); popis(); uloz(); });
+    t.addEventListener("blur", ulozHned);
+  });
+
+  /* ── nové e-maily ── */
+  function nove() { return [].slice.call(zoznam.querySelectorAll(".novy")); }
+  function hodnoty(n) {
+    return { komu: n.querySelector(".komu").value, kedy: n.querySelector(".kedy").value,
+             predmet: n.querySelector(".predmet").value, text: n.querySelector(".text").value };
+  }
+  function vyplneny(h) { return !!(h.predmet.trim() || h.text.trim()); }
+  function precisluj() {
+    nove().forEach(function (n, i, vsetky) {
+      n.querySelector(".nadpis").textContent = "Nový e-mail " + (i + 1);
+      n.querySelector(".zmaz").hidden = vsetky.length === 1;
+    });
+  }
+  function pridaj(h) {
+    var n = vzor.content.firstElementChild.cloneNode(true);
+    if (h) { n.querySelector(".komu").value = h.komu || "Všetkým"; n.querySelector(".kedy").value = h.kedy || "";
+             n.querySelector(".predmet").value = h.predmet || ""; n.querySelector(".text").value = h.text || ""; }
+    n.addEventListener("input", function () { popis(); uloz(); });
+    n.addEventListener("change", uloz);
+    n.querySelector(".zmaz").addEventListener("click", function () { n.remove(); precisluj(); popis(); ulozHned(); });
+    zoznam.appendChild(n); precisluj();
+    return n;
+  }
+  (koncept.n && koncept.n.length ? koncept.n : [null]).forEach(pridaj);
+  document.getElementById("pridaj").addEventListener("click", function () {
+    var n = pridaj(null); n.querySelector(".predmet").focus(); ulozHned();
+  });
+
+  /* ── koncept: rozpísané ostane v tomto prehliadači, aj po zatvorení ── */
+  var tm;
+  function ulozHned() {
+    clearTimeout(tm);
+    var p = {};
+    boxy.forEach(function (b) { var v = b.querySelector("textarea").value; if (v.trim()) p[b.dataset.sablona] = v; });
+    zapis({ p: p, n: nove().map(hodnoty) });
+  }
+  function uloz() { clearTimeout(tm); tm = setTimeout(ulozHned, 400); }
+  window.addEventListener("pagehide", ulozHned);
+
+  function popis() {
+    var n = boxy.filter(function (b) { return b.querySelector("textarea").value.trim(); }).length
+          + nove().map(hodnoty).filter(vyplneny).length;
+    btn.textContent = n ? "Odoslať (" + n + ")" : "Odoslať";
+  }
+  popis();
+
+  document.getElementById("formular").addEventListener("submit", function (ev) {
+    ev.preventDefault();
+    var poznamky = boxy.map(function (b) {
+      return { sablona: b.dataset.sablona, nazov: b.dataset.nazov, text: b.querySelector("textarea").value.trim() };
+    }).filter(function (x) { return x.text; });
+    nove().map(hodnoty).filter(vyplneny).forEach(function (h, i) {
+      poznamky.push({ sablona: "novy-" + (i + 1), nazov: "NOVÝ E-MAIL " + (i + 1),
+        text: "Komu: " + h.komu + "\nKedy: " + (h.kedy.trim() || "neuvedené") + "\nPredmet: " + (h.predmet.trim() || "bez predmetu") +
+              "\n\n" + h.text.trim() });
+    });
+    if (!poznamky.length) { stav.className = "stav zle"; stav.textContent = "Zatiaľ si nič nenapísala."; return; }
+    btn.disabled = true; stav.className = "stav"; stav.textContent = "Odosielam…";
+    fetch("/api/kontrola", { method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ kluc: KLUC, typ: "emaily", poznamky: poznamky, web: document.getElementById("web").value || "" }) })
+      .then(function (r) { return r.json().catch(function () { return {}; }); })
+      .then(function (x) {
+        if (!x || !x.ok) throw new Error((x && x.error) || "chyba");
+        boxy.forEach(function (b) { b.querySelector("textarea").value = ""; oznac(b); });
+        nove().forEach(function (n) { n.remove(); }); pridaj(null);
+        zapis({}); popis();
+        stav.className = "stav ok";
+        stav.textContent = (x.test ? "Skúšobne odoslané, nič sa neuložilo. " : "Ďakujeme, odoslané. ") +
+          "Keď ti ešte niečo napadne, napíš a pošli znova.";
+      })
+      .catch(function () {
+        stav.className = "stav zle";
+        stav.textContent = "Nepodarilo sa odoslať. Nič sa nestratilo, skús to o chvíľu znova alebo zavolaj Janovi.";
+      })
+      .then(function () { btn.disabled = false; });
+  });
+})();
+</script>
+</body>
+</html>
