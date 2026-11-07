@@ -6,7 +6,8 @@
   <title>Kontrola e-mailov · Miriam Czompoly</title>
   <!-- Kontrola e-mailov po pláne (7. 11. 2026, Jano). Nikde neodkazovaná, len pre Miriam, ako /kontrola-planu-cu9r5c.
        Rozdelená podľa sekvencií: každá s tým, komu ide, a e-mailmi v poradí. Spoločný e-mail je celý len raz, inde odkaz naň.
-       Poznámky aj nové e-maily (sekvencia + miesto) idú cez /api/kontrola (typ: "emaily") ako poznámka na Miriamin kontakt v GHL.
+       Rozpísané sa samo ukladá na server (/api/koncept, D1) a načíta sa pri každom otvorení.
+       Odoslať pošle poznámky aj nové e-maily (sekvencia + miesto) cez /api/kontrola (typ: "emaily") ako poznámka na Miriamin kontakt v GHL.
        Generuje ju skript mimo repa z aktuálnych šablón GHL; keď sa texty alebo poradie e-mailov zmenia, treba ju pregenerovať. -->
   <meta name="robots" content="noindex, nofollow" />
   <meta name="theme-color" content="#262019" />
@@ -104,6 +105,12 @@
     .odoslat{font:700 17px/1 var(--sans);background:var(--tma);color:#fff;border:0;border-radius:12px;padding:17px 20px;cursor:pointer;width:100%}
     .odoslat:disabled{opacity:.6;cursor:default}
     .stav{font-size:15px;min-height:1.5em}
+    .ulozenie-info{background:var(--karta);border-radius:12px;padding:12px 14px;font-size:15.5px}
+    .ulozenie-info b{color:var(--tma)}
+    .ulozenie{font-size:14px;color:var(--sivy);min-height:1.4em}
+    .ulozenie.ok{color:var(--ok)}
+    .ulozenie.zle{color:var(--zle)}
+    .odoslane{font-size:14px;color:var(--sivy)}
     .stav.ok{color:var(--ok);font-weight:600}
     .stav.zle{color:var(--zle);font-weight:600}
     .pasca{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
@@ -118,6 +125,8 @@
     <p>Ahoj Miriam, e-maily sú rozdelené do sekvencií. Sekvencia je rad e-mailov, ktoré dostane jeden typ ľudí, jeden po druhom. Pri každej je napísané, komu ide, a pri každom e-maile, kedy príde.</p>
     <p>Čo chceš zmeniť, napíš do políčka pod e-mailom. Kde je všetko v poriadku, nechaj ho prázdne. <span class="pole">Žlté</span> sa mení podľa človeka.</p>
     <p>Niektoré e-maily idú vo viacerých sekvenciách. Celé sú len raz, inde je odkaz na ne, takže poznámku píšeš len na jedno miesto.</p>
+    <p class="ulozenie-info"><b>Všetko sa samo ukladá.</b> Môžeš kedykoľvek odísť a vrátiť sa na tento odkaz, aj z iného telefónu alebo počítača, a nájdeš tu všetko, čo si napísala. Keď chceš, aby to Jano videl, stlač dole Odoslať Janovi.</p>
+    <p class="ulozenie" role="status" aria-live="polite">Načítavam, čo si už napísala…</p>
   </header>
 
   <nav aria-label="Sekvencie">
@@ -180,8 +189,10 @@
       <textarea id="pz-celkovo" rows="2" maxlength="4000"></textarea>
     </div>
     <label class="pasca" aria-hidden="true">Nevypĺňať <input type="text" id="web" tabindex="-1" autocomplete="off" /></label>
-    <button type="submit" class="odoslat" id="odoslat">Odoslať</button>
+    <p class="ulozenie" aria-hidden="true"></p>
+    <button type="submit" class="odoslat" id="odoslat">Odoslať Janovi</button>
     <p class="stav" id="stav" role="status" aria-live="polite"></p>
+    <p class="odoslane" id="odoslane"></p>
   </form>
 
   <footer class="pata">Táto stránka je len pre teba, nie je nikde na webe odkazovaná. Po odoslaní to uvidí Jano v systéme.</footer>
@@ -204,26 +215,48 @@
 <script>
 (function () {
   "use strict";
-  var KLUC = "m8sT3SJqC9YMOgfMqjCW0YEi", LS = "kontrola-emailov-koncept-v1";
+  /* Ukladanie (7. 11. 2026, Jano): všetko sa samo ukladá na server (/api/koncept, D1) a pri každom otvorení
+     sa odtiaľ načíta, aj na inom zariadení. Na server ide len to, čo sa tu zmenilo („špinavé“ polia), čas dáva
+     server, takže stará karta neprepíše novší text. localStorage je len záloha, keď nejde internet.
+     Odoslať pošle Janovi do GHL celý aktuálny stav a nič nezmaže. */
+  var KLUC = "m8sT3SJqC9YMOgfMqjCW0YEi", LS = "kontrola-emailov-koncept-v1", STRANKA = "emaily";
   /* sekvencie v poradí ako na stránke: kod, nazov, e-maily (predmet) */
   var SEKV = [{"kod": "vlazna", "nazov": "Vlažní", "emaily": ["Tvoj plán od Miriam: Najprv svetlo", "Ako ti ide prvý krok?", "Skôr než pôjdeš nakupovať", "Keď budeš chcieť ísť ďalej"]}, {"kod": "studena", "nazov": "Studení", "emaily": ["Tvoj plán od Miriam: Najprv svetlo", "Ako ti ide prvý krok?", "Skôr než pôjdeš nakupovať", "Keď budeš chcieť ísť ďalej"]}, {"kod": "horuca", "nazov": "Horúci", "emaily": ["Tvoj plán je pripravený", "Posielam ti plán aj písomne", "Ako ti ide prvý krok?", "Skôr než pôjdeš nakupovať", "Keď budeš chcieť ísť ďalej"]}, {"kod": "hovor", "nazov": "Rezervovala si hovor", "emaily": ["Hovor k tvojmu plánu vo štvrtok 12. 11. o 10:30", "Tvoj plán, aby si ho mala po ruke", "Ako ti ide prvý krok?", "Skôr než pôjdeš nakupovať", "Keď budeš chcieť ísť ďalej"]}, {"kod": "diag-doma", "nazov": "Diagnostika u nej doma", "emaily": ["Potvrdené: diagnostika u teba doma 🏡"]}, {"kod": "diag-online", "nazov": "Online diagnostika", "emaily": ["Potvrdené: online diagnostika"]}];
   var STARE_KOMU = { "Horúcim": "horuca", "Vlažným": "vlazna", "Studeným": "studena", "Po hovore": "hovor", "Po diagnostike": "diag-doma" };
-  function citaj() { try { return JSON.parse(localStorage.getItem(LS) || "{}") || {}; } catch (e) { return {}; } }
-  function zapis(o) { try { localStorage.setItem(LS, JSON.stringify(o)); } catch (e) { /* bez úložiska stránka funguje ďalej */ } }
-  var koncept = citaj(), stav = document.getElementById("stav"), btn = document.getElementById("odoslat");
+  var stav = document.getElementById("stav"), btn = document.getElementById("odoslat");
+  var ulozenie = [].slice.call(document.querySelectorAll(".ulozenie")), odoslaneEl = document.getElementById("odoslane");
   var boxy = [].slice.call(document.querySelectorAll(".pozn"));
   var zoznam = document.getElementById("nove-zoznam"), vzor = document.getElementById("vzor-novy");
   function sekv(kod) { for (var i = 0; i < SEKV.length; i++) if (SEKV[i].kod === kod) return SEKV[i]; return SEKV[0]; }
   function uvodz(t) { return "„" + t + "“"; }
+  function hhmm(iso) {
+    try { return new Intl.DateTimeFormat("sk-SK", { timeZone: "Europe/Bratislava", day: "numeric", month: "numeric", hour: "2-digit", minute: "2-digit" }).format(new Date(iso)); }
+    catch (e) { return ""; }
+  }
+  function ukazUlozenie(text, trieda) { ulozenie.forEach(function (u) { u.textContent = text; u.className = "ulozenie " + (trieda || ""); }); }
+
+  /* ── stav: čo je v prehliadači a čo ešte nie je na serveri ── */
+  function citajLS() { try { return JSON.parse(localStorage.getItem(LS) || "{}") || {}; } catch (e) { return {}; } }
+  function zapisLS(o) { try { localStorage.setItem(LS, JSON.stringify(o)); } catch (e) { /* bez úložiska ide všetko cez server */ } }
+  var spinave = { p: {}, n: false };
+  var stary = citajLS();
+  if (stary.spinave) { (stary.spinave.p || []).forEach(function (id) { spinave.p[id] = true; }); spinave.n = !!stary.spinave.n; }
+  else {   // starý formát (len v prehliadači): všetko vyplnené sa raz pošle na server
+    Object.keys(stary.p || {}).forEach(function (id) { if (String(stary.p[id] || "").trim()) spinave.p[id] = true; });
+    spinave.n = (stary.n || []).some(function (h) { return h && ((h.predmet || "").trim() || (h.text || "").trim()); });
+  }
+  function ulozLS() {
+    var p = {}; boxy.forEach(function (b) { p[b.dataset.sablona] = b.querySelector("textarea").value; });
+    zapisLS({ p: p, n: nove().map(hodnoty), spinave: { p: Object.keys(spinave.p), n: spinave.n } });
+  }
 
   /* ── poznámky pod e-mailmi ── */
   function oznac(b) { b.classList.toggle("vyplnena", !!b.querySelector("textarea").value.trim()); }
   boxy.forEach(function (b) {
     var t = b.querySelector("textarea"), id = b.dataset.sablona;
-    if (koncept.p && typeof koncept.p[id] === "string") t.value = koncept.p[id];
+    if (stary.p && typeof stary.p[id] === "string") t.value = stary.p[id];
     oznac(b);
-    t.addEventListener("input", function () { oznac(b); popis(); uloz(); });
-    t.addEventListener("blur", ulozHned);
+    t.addEventListener("input", function () { spinave.p[id] = true; oznac(b); popis(); zmena(); });
   });
 
   /* ── nové e-maily: sekvencia, miesto a náhľad poradia ── */
@@ -264,6 +297,7 @@
       n.querySelector(".zmaz").hidden = vsetky.length === 1;
     });
   }
+  function zmenaNovych() { spinave.n = true; popis(); zmena(); }
   function pridaj(h) {
     var n = vzor.content.firstElementChild.cloneNode(true), s = n.querySelector(".sekvencia");
     SEKV.forEach(function (x, i) { var o = document.createElement("option"); o.value = x.kod; o.textContent = (i + 1) + ". " + x.nazov; s.appendChild(o); });
@@ -272,36 +306,97 @@
     naplnMiesta(n, h && h.miesto);
     if (h) { n.querySelector(".kedy").value = h.kedy || ""; n.querySelector(".predmet").value = h.predmet || ""; n.querySelector(".text").value = h.text || ""; }
     nahlad(n);
-    s.addEventListener("change", function () { naplnMiesta(n, null); nahlad(n); uloz(); });
-    n.querySelector(".miesto").addEventListener("change", function () { nahlad(n); uloz(); });
+    s.addEventListener("change", function () { naplnMiesta(n, null); nahlad(n); zmenaNovych(); });
+    n.querySelector(".miesto").addEventListener("change", function () { nahlad(n); zmenaNovych(); });
     n.querySelector(".predmet").addEventListener("input", function () { nahlad(n); });
-    n.addEventListener("input", function () { popis(); uloz(); });
-    n.querySelector(".zmaz").addEventListener("click", function () { n.remove(); precisluj(); popis(); ulozHned(); });
+    [".kedy", ".predmet", ".text"].forEach(function (q) { n.querySelector(q).addEventListener("input", zmenaNovych); });
+    n.querySelector(".zmaz").addEventListener("click", function () { n.remove(); precisluj(); zmenaNovych(); });
     zoznam.appendChild(n); precisluj();
     return n;
   }
-  (koncept.n && koncept.n.length ? koncept.n : [null]).forEach(pridaj);
-  document.getElementById("pridaj").addEventListener("click", function () {
-    var n = pridaj(null); n.querySelector(".sekvencia").focus(); ulozHned();
-  });
-
-  /* ── koncept: rozpísané ostane v tomto prehliadači, aj po zatvorení ── */
-  var tm;
-  function ulozHned() {
-    clearTimeout(tm);
-    var p = {};
-    boxy.forEach(function (b) { var v = b.querySelector("textarea").value; if (v.trim()) p[b.dataset.sablona] = v; });
-    zapis({ p: p, n: nove().map(hodnoty) });
+  function nakresliNove(zoz) {
+    nove().forEach(function (n) { n.remove(); });
+    (zoz && zoz.length ? zoz : [null]).forEach(pridaj);
   }
-  function uloz() { clearTimeout(tm); tm = setTimeout(ulozHned, 400); }
-  window.addEventListener("pagehide", ulozHned);
+  nakresliNove(stary.n);
+  document.getElementById("pridaj").addEventListener("click", function () {
+    var n = pridaj(null); n.querySelector(".sekvencia").focus(); zmenaNovych();
+  });
 
   function popis() {
     var n = boxy.filter(function (b) { return b.querySelector("textarea").value.trim(); }).length
           + nove().map(hodnoty).filter(vyplneny).length;
-    btn.textContent = n ? "Odoslať (" + n + ")" : "Odoslať";
+    btn.textContent = n ? "Odoslať Janovi (" + n + ")" : "Odoslať Janovi";
   }
+  function ukazOdoslane(iso) { if (odoslaneEl) odoslaneEl.textContent = iso ? "Naposledy si poslala Janovi " + hhmm(iso) + "." : ""; }
+
+  /* ── server: načítať a uložiť ── */
+  function prevezmi(data) {   // čo je na serveri, okrem toho, čo sa tu ešte neuložilo
+    if (!data) return;
+    var p = data.p || {};
+    boxy.forEach(function (b) {
+      var id = b.dataset.sablona, t = b.querySelector("textarea");
+      if (p[id] && !spinave.p[id] && t.value !== p[id].t) { t.value = p[id].t; oznac(b); }
+    });
+    if (data.n && !spinave.n && JSON.stringify(nove().map(hodnoty)) !== JSON.stringify(data.n.zoznam || [])) nakresliNove(data.n.zoznam);
+    ukazOdoslane(data.odoslane);
+    popis(); ulozLS();
+  }
+  function nacitaj() {
+    return fetch("/api/koncept?stranka=" + STRANKA + "&kluc=" + KLUC, { cache: "no-store" })
+      .then(function (r) { return r.json(); })
+      .then(function (x) {
+        if (!x || !x.ok) throw new Error("nacitanie");
+        prevezmi(x.data);
+        if (Object.keys(spinave.p).length || spinave.n) uloz(0);
+        else ukazUlozenie(x.cas ? "Všetko je uložené, naposledy " + hhmm(x.cas) + "." : "Všetko, čo napíšeš, sa samo uloží.", "ok");
+      })
+      .catch(function () { ukazUlozenie("Nepodarilo sa načítať uložené. Píš pokojne, uloží sa, keď bude internet.", "zle"); });
+  }
+
+  var tm = null, bezi = null, znova = false, opakuj = null;
+  function zmena() { ulozLS(); ukazUlozenie("Ukladám…", ""); uloz(800); }
+  function uloz(ms) {
+    clearTimeout(tm); clearTimeout(opakuj);
+    tm = setTimeout(function () { posli(); }, ms || 0);
+  }
+  function posli() {
+    if (bezi) { znova = true; return bezi; }
+    var zmeny = { p: {} }, poslane = {}, poslaneN = null;
+    boxy.forEach(function (b) { var id = b.dataset.sablona; if (spinave.p[id]) { zmeny.p[id] = poslane[id] = b.querySelector("textarea").value; } });
+    if (spinave.n) { zmeny.n = nove().map(hodnoty); poslaneN = JSON.stringify(zmeny.n); }
+    if (!Object.keys(zmeny.p).length && !zmeny.n) return Promise.resolve(true);
+    bezi = fetch("/api/koncept", { method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ kluc: KLUC, stranka: STRANKA, zmeny: zmeny }) })
+      .then(function (r) { return r.json(); })
+      .then(function (x) {
+        if (!x || !x.ok) throw new Error("ulozenie");
+        boxy.forEach(function (b) { var id = b.dataset.sablona;
+          if (id in poslane && b.querySelector("textarea").value === poslane[id]) delete spinave.p[id]; });
+        if (poslaneN !== null && JSON.stringify(nove().map(hodnoty)) === poslaneN) spinave.n = false;
+        ulozLS(); ukazOdoslane(x.data && x.data.odoslane);
+        ukazUlozenie("Uložené " + hhmm(x.cas) + ". Keď sa sem vrátiš, nájdeš to tu.", "ok");
+        return true;
+      })
+      .catch(function () {
+        ukazUlozenie("Zatiaľ uložené len v tomto zariadení, skúšam znova…", "zle");
+        opakuj = setTimeout(function () { posli(); }, 10000);
+        return false;
+      })
+      .then(function (v) { bezi = null; if (znova) { znova = false; return posli(); } return v; });
+    return bezi;
+  }
+  window.addEventListener("pagehide", function () {
+    ulozLS();
+    if (!Object.keys(spinave.p).length && !spinave.n) return;
+    var zmeny = { p: {} };
+    boxy.forEach(function (b) { var id = b.dataset.sablona; if (spinave.p[id]) zmeny.p[id] = b.querySelector("textarea").value; });
+    if (spinave.n) zmeny.n = nove().map(hodnoty);
+    try { navigator.sendBeacon("/api/koncept", new Blob([JSON.stringify({ kluc: KLUC, stranka: STRANKA, zmeny: zmeny })], { type: "application/json" })); } catch (e) { /* uloží sa nabudúce */ }
+  });
+  document.addEventListener("visibilitychange", function () { if (document.visibilityState === "visible") nacitaj(); });
   popis();
+  nacitaj();
 
   function opisMiesta(h) {
     var s = sekv(h.sekv), m = parseInt(h.miesto, 10) || s.emaily.length + 1;
@@ -322,21 +417,23 @@
     });
     if (!poznamky.length) { stav.className = "stav zle"; stav.textContent = "Zatiaľ si nič nenapísala."; return; }
     btn.disabled = true; stav.className = "stav"; stav.textContent = "Odosielam…";
+    uloz(0);
     fetch("/api/kontrola", { method: "POST", headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ kluc: KLUC, typ: "emaily", poznamky: poznamky, web: document.getElementById("web").value || "" }) })
       .then(function (r) { return r.json().catch(function () { return {}; }); })
       .then(function (x) {
         if (!x || !x.ok) throw new Error((x && x.error) || "chyba");
-        boxy.forEach(function (b) { b.querySelector("textarea").value = ""; oznac(b); });
-        nove().forEach(function (n) { n.remove(); }); pridaj(null);
-        zapis({}); popis();
         stav.className = "stav ok";
-        stav.textContent = (x.test ? "Skúšobne odoslané, nič sa neuložilo. " : "Ďakujeme, odoslané. ") +
-          "Keď ti ešte niečo napadne, napíš a pošli znova.";
+        stav.textContent = (x.test ? "Skúšobne odoslané, Janovi nič neodišlo. " : "Odoslané, Jano to vidí. ") +
+          "Všetko tu ostáva uložené. Môžeš ďalej upravovať a poslať znova.";
+        return fetch("/api/koncept", { method: "POST", headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ kluc: KLUC, stranka: STRANKA, zmeny: { odoslane: true } }) })
+          .then(function (r) { return r.json(); }).then(function (y) { if (y && y.ok) ukazOdoslane(y.data && y.data.odoslane); })
+          .catch(function () { /* odoslanie Janovi prešlo, len čas sa neuložil */ });
       })
       .catch(function () {
         stav.className = "stav zle";
-        stav.textContent = "Nepodarilo sa odoslať. Nič sa nestratilo, skús to o chvíľu znova alebo zavolaj Janovi.";
+        stav.textContent = "Janovi sa to nepodarilo poslať. Nič sa nestratilo, je to uložené. Skús to o chvíľu znova alebo zavolaj Janovi.";
       })
       .then(function () { btn.disabled = false; });
   });
