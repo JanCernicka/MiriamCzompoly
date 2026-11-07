@@ -172,6 +172,7 @@ h2{font-size:21px;margin:0 0 3px;font-weight:600;letter-spacing:-.02em}
 .bub.od-nas .znacka{opacity:.78}
 .bub .meta{font-size:11px;opacity:.62;margin-top:4px;font-weight:500}
 .bub .predmet{font-weight:700;margin-bottom:4px}
+.bub .odpoved-na{font-size:12.5px;opacity:.68;margin-bottom:4px}
 .bub .odpovedz{font-size:11.5px;font-weight:600;text-decoration:underline;
   text-underline-offset:2px;margin-top:7px;display:inline-block;opacity:.78;
   transition:opacity var(--rychlo);color:inherit}
@@ -1575,9 +1576,11 @@ function riadok(s, predosla) {
   const casti = [
     inaSeria ? `<span class="znacka">${bezpecne(NAZVY[s.kanal] || s.kanal)}</span>` : "",
     s.predmet ? `<div class="predmet">${bezpecne(s.predmet)}</div>` : "",
+    // Odpoveď na e-mail: len jedna veta, na čo odpovedá, nie celý citovaný e-mail (Jano 7. 11.).
+    s.odpovedNa ? `<div class="odpoved-na">Odpoveď na e-mail „${bezpecne(s.odpovedNa)}“</div>` : "",
     `<span class="t">${bezpecne(s.text)}</span>`,
     `<div class="meta">${cas(s.kedy)}${s.stav ? " · " + s.stav : ""}</div>`,
-    daSaOdpovedat ? `<button class="odpovedz" data-email="${bezpecne(s.emailId)}" data-predmet="${bezpecne(s.predmet || "")}">Odpovedať na tento e-mail</button>` : "",
+    daSaOdpovedat ? `<button class="odpovedz" data-email="${bezpecne(s.emailId)}" data-predmet="${bezpecne(s.predmet || s.odpovedNa || "")}">Odpovedať na tento e-mail</button>` : "",
   ];
   return `<div class="bub k-${bezpecne(s.kanal)} ${s.smer === "inbound" ? "od-nich" : "od-nas"}${inaSeria ? " medzera" : ""}">${casti.join("")}</div>`;
 }

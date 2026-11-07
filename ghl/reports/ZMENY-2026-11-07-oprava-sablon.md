@@ -43,3 +43,9 @@ Každý: krok 1 `remove_from_workflow` z `3c140460`, `4ec669dd`, `72d7be00`, pot
 **Overené:** skúška na kontakte team@ (16:08): e-mail prišiel, vykreslený 16 px, kontrola HTML čistá, a team@ ostáva v opravnej sekvencii ako kontrolka ďalších krokov. Potom značka 37 ľuďom (pred tým každý znova prečítaný, nikto nemal hovor, diagnostiku ani DND). O 16:12 mal každý z 37 v konverzácii **presne jeden** nový e-mail, ten správny (25 + 7 séria 1, 5 horúci 1). Jeden skutočne odoslaný horúci 1 vykreslený: 16 px, tlačidlo „Vybrať čas hovoru“, žiadne CSS v tele.
 
 **Ďalej:** séria 2 vlažným 9. 11., horúci 2 horúcim 8. 11., séria 2 studeným 14. 11. Pri monitoringu v tie dni pozrieť, že odišli a že nikto nedostal e-mail z pôvodnej sekvencie navyše.
+
+## 7. 11. večer: prvá odpoveď a oprava konzoly
+
+Gabriela (horúca, v opravnej sekvencii) o 16:34 odpísala na starý pokazený horúci 2. Konzola ukázala namiesto jej textu náš e-mail aj s CSS. **Príčina:** GHL drží e-mailové vlákno ako jeden záznam konverzácie, `body` je z prvého e-mailu vlákna (nášho), `direction` sa prepne na inbound a odpoveď je len ďalšie id v `meta.email.messageIds`. **Oprava** v `konzola/dist/_worker.js`: vlákna s odpoveďou sa čítajú po e-mailoch (`/conversations/messages/email/{id}`, najviac 16 na otvorenie rozhovoru), z odpovede ostane len text bez citácie (Gmail, Outlook, Apple, „Dňa … napísal(a):“), v bubline riadok „Odpoveď na e-mail …“; zo starých pokazených e-mailov sa CSS v texte nezobrazuje; náhľad v zozname bez citácie. Overené naostro cez `/api/sprava`: jej odpoveď „Ďakujem, perfektne!“, náš e-mail zvlášť, v zozname 0 náhľadov s CSS.
+
+**Overiť 8. 11. po 16:15:** Gabriela nesmie dostať horúci 2 z opravnej sekvencie (jej odpoveď mala spustiť stop workflow `d0e8c056`, spúšťač `customer_replied`). GHL nemá čítanie aktívnych workflowov kontaktu, dá sa to overiť len podľa toho, či e-mail odíde.

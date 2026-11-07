@@ -172,7 +172,8 @@ async function konverzacie(env, telo = {}) {
         firma: k.companyName || "",
         tel: k.phone || "",
         email: k.email || "",
-        posledna: k.lastMessageBody || "",
+        // Náhľad bez citácie predošlého e-mailu a bez CSS zo starých pokazených e-mailov.
+        posledna: bezCss(String(k.lastMessageBody || "").replace(HLAVICKA_CITACIE, "").replace(HLAVICKA_NAHLAD, "")),
         kedy: k.lastMessageDate || k.dateUpdated || "",
         smer: k.lastMessageDirection || "",
         neprecitane: k.unreadCount || 0,
@@ -287,6 +288,54 @@ function ocistiEmail(text) {
   return t.trim();
 }
 
+/* 🔴 E-MAILOVÉ VLÁKNO JE V GHL JEDEN ZÁZNAM (Gabriela, 7. 11. 2026).
+   Keď človek odpíše na náš e-mail, GHL nepridá novú správu. Pridá id odpovede
+   do `meta.email.messageIds` existujúceho záznamu, `direction` prepne na
+   inbound, ale `body` nechá z PRVÉHO e-mailu vlákna, teda z nášho. Konzola tak
+   ukázala náš starý e-mail ako jej odpoveď a jej text („Ďakujem, perfektne!“)
+   nebol nikde, len v náhľade v zozname. Preto sa každý e-mail vlákna číta
+   zvlášť cez /conversations/messages/email/{id} a z odpovede ostane len to,
+   čo napísala, bez citácie nášho e-mailu. */
+const STROP_EMAILOV = 16;   // koľko e-mailov z vlákien najviac dočítať (limit volaní workera)
+
+function htmlNaText(h) {
+  return String(h || "")
+    .replace(/<(head|style|script|title)[\s\S]*?<\/\1>/gi, "")
+    .replace(/<br\s*\/?>/gi, "\n")
+    .replace(/<\/(p|div|li|tr|h[1-6])>/gi, "\n")
+    .replace(/<li[^>]*>/gi, "• ")
+    .replace(/<[^>]+>/g, "")
+    .replace(/&nbsp;/g, " ").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&quot;/g, '"')
+    .replace(/&#39;|&apos;/g, "'").replace(/&#(\d+);/g, (_, n) => String.fromCharCode(Number(n)))
+    .replace(/&amp;/g, "&")
+    .replace(/[ \t ]+\n/g, "\n").replace(/\n{3,}/g, "\n\n").trim();
+}
+
+/* Citácia predošlého e-mailu: Gmail (gmail_quote), Apple Mail a Outlook
+   (blockquote, divRplyFwdMsg), a pre istotu aj textová hlavička „Dňa … napísal(a):“. */
+const HLAVICKA_CITACIE = /(^|\n)[ \t>]*(Dňa|Dne|On|Am|Le|El|W dniu)\s[^\n]{3,250}?(napísal|napísala|napsal|napsala|wrote|schrieb|a écrit|escribió|napisał)[\s\S]*$/i;
+// Náhľad v zozname je skrátený, „napísal(a):“ v ňom často už nie je. Stačí riadok „Dňa … 2026“.
+const HLAVICKA_NAHLAD = /(^|\n)[ \t>]*(Dňa|Dne|On|Am|Le|El)\s[^\n]{0,40}\d{4}[\s\S]*$/i;
+function bezCitacie(html) {
+  let h = String(html || "");
+  const znacky = [/<div[^>]*class="[^"]*gmail_quote/i, /<blockquote/i, /<div[^>]*id="(divRplyFwdMsg|appendonsend)"/i,
+                  /<hr[^>]*id="stopSpelling"/i, /-{2,}\s*(Original Message|Pôvodná správa|Pôvodní zpráva)/i];
+  for (const r of znacky) { const i = h.search(r); if (i >= 0) h = h.slice(0, i); }
+  let t = htmlNaText(h).replace(HLAVICKA_CITACIE, "");
+  t = t.replace(/(\n>[^\n]*)+\s*$/, "");   // riadky citácie s „>“ na konci
+  return t.trim();
+}
+
+/* Starý pokazený e-mail (pred 7. 11. 2026) má na začiatku textu blok CSS. Pri
+   čítaní rozhovoru je to len šum, preto sa odsekom, ktoré sú CSS, nedá miesto. */
+function bezCss(text) {
+  const odseky = String(text || "").split(/\n\s*\n/);
+  while (odseky.length > 1 && /[{}]/.test(odseky[0]) && /;|!important/.test(odseky[0])) odseky.shift();
+  return odseky.join("\n\n").trim();
+}
+
+function bezRe(p) { return String(p || "").replace(/^\s*((re|odp|aw|fw|fwd|vs)\s*:\s*)+/i, "").trim(); }
+
 function prelozStav(m) {
   // 🔴 Naplánovaná správa má `scheduled` aj potom, čo ju brána odošle.
   //    Overené 21.08.2026: odišla o 08:00 a o 45 minút mala stále scheduled.
@@ -338,12 +387,46 @@ async function sprava(env, telo) {
   ]);
   const zoznam = ((m.d || {}).messages || {}).messages || [];
 
+  // Vlákna s odpoveďou: e-maily sa dočítajú zvlášť, od najnovších, najviac STROP_EMAILOV.
+  const naDocitanie = [];
+  for (const s of zoznam) {
+    const ids = (((s.meta || {}).email || {}).messageIds || []);
+    if (KANALY[s.messageType] === "email" && (ids.length > 1 || s.direction === "inbound")) {
+      if (naDocitanie.length + ids.length > STROP_EMAILOV) break;
+      naDocitanie.push(...ids);
+    }
+  }
+  const emaily = {};
+  await Promise.all(naDocitanie.map(async (id) => {
+    const r = await ghl(env, `/conversations/messages/email/${id}`, { version: "2021-04-15" });
+    const e = r.ok ? ((r.d || {}).emailMessage || r.d) : null;
+    if (e && e.id) emaily[id] = e;
+  }));
+
   const von = [];
   for (const s of zoznam.slice().reverse()) {
     const kanal = KANALY[s.messageType];
+    const ids = (((s.meta || {}).email || {}).messageIds || []);
+    if (kanal === "email" && ids.length && ids.every((id) => emaily[id])) {
+      const predmetVlakna = bezRe(((s.meta || {}).email || {}).subject || "");
+      ids.forEach((id, i) => {
+        const e = emaily[id], prichadza = e.direction === "inbound";
+        const text = prichadza ? bezCitacie(e.body)
+          : ocistiEmail(bezCss(i === 0 ? s.body : htmlNaText(e.body)));
+        if (!text) return;
+        von.push({
+          druh: "sprava", kanal, smer: e.direction || s.direction, text,
+          // Pri odpovedi nie celý predmet, len jedna veta, na čo odpovedá (Jano 7. 11.).
+          predmet: prichadza ? "" : (bezRe(e.subject) || predmetVlakna),
+          odpovedNa: prichadza && (i > 0 || /^\s*(re|odp|aw)\s*:/i.test(e.subject || "")) ? predmetVlakna : "",
+          emailId: id, kedy: e.dateAdded || s.dateAdded, stav: prichadza ? "" : prelozStav(e.status ? e : s),
+        });
+      });
+      continue;
+    }
     if (kanal) {
       const text = kanal === "email"
-        ? ocistiEmail(s.body)
+        ? ocistiEmail(bezCss(s.body))
         : String(s.body || "").trim();
       const predmet = ((s.meta || {}).email || {}).subject || "";
       if (!text && !predmet) continue;
