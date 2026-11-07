@@ -11,3 +11,21 @@
 **Dopad pred opravou:** 50 pokazených e-mailov 37 ľuďom: horúca 1 (5), horúca 2 (4), séria 1 (32), séria 2 (9). Séria 3 a „po hovore“ ešte nikomu neodišli. Plán e-mailom dostali všetci v poriadku. Všetkých 5 horúcich s pokazenou ponukou hovoru si hovor nerezervovalo.
 
 **Otvorené:** či poslať opravené e-maily znova zasiahnutým (rozhodne Jano). Oprava nástroja v GHLtool navrhnutá ako samostatná úloha (GHLtool sa v tomto sedení nemení).
+
+## Doplnené 7. 11. večer
+
+**GHLtool opravený** s Janovým jednorazovým povolením, commit `26d4e96` na `main`: `email_builder.py` zapisuje jednotky a po uložení kontroluje uložené HTML (`EmailBuilder.skontroluj`), `oprav_dnd` opraví staré šablóny; kontrolný zoznam `lievik/05_KONTROLA.md` časť F (body 44 a 45, každý e-mail poslať sebe a otvoriť), cookbook, mapa API, pravidlo v CLAUDE.md.
+
+**Plán znovuzaradenia** (čaká na Janovo OK, nič sa nespustilo): https://claude.ai/artifact/DRS1x6U3XZkXQhg5Kkqb3m
+
+Fakty k 7. 11. 15:58: nikto z 37 neodpísal, nerezervoval ani sa neodhlásil.
+
+| Skupina | Ľudí | Pokazené | Opravná sekvencia (deň 0 = zaradenie) |
+|---|---|---|---|
+| vlažní | 16 | séria 1 | séria 1, +2 dni séria 2, +3 dni séria 3 |
+| vlažní | 9 | séria 1 a 2 | to isté |
+| studení | 7 | séria 1 | séria 1, +7 dní séria 2, +11 dní séria 3 |
+| horúci | 4 | horúci 1 a 2 | horúci 1, +1 deň horúci 2, +2 dni značka `plan-vlazny` |
+| horúci | 1 | horúci 1 | to isté |
+
+Postup po OK: 3 nové workflowy so značkovým spúšťačom, prvý krok `remove_from_workflow` z pôvodnej sekvencie (`4ec669dd`, `72d7be00`, `3c140460`); skúška na kontakte team@; doplniť ich do stop workflowu `d0e8c056` a znova zverejniť; zaradiť 37 značkou; overiť v Konverzáciách. Termín: pred 8. 11. 8:04, vtedy pôvodná sekvencia pošle 10 vlažným sériu 2. Zoznam ľudí: `zasiahnuti.json` a `stav.json` v scratchpade sedenia (mimo repa, osobné údaje).
