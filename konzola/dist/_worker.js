@@ -440,8 +440,12 @@ const PLAN_SKUPINY = { horuci: "horúca, ponúknutý hovor k plánu", vlazny: "v
 async function planOtazky(env, cid) {
   const n = await ghl(env, `/contacts/${cid}/notes`);
   if (!n.ok) return [];
-  return (((n.d || {}).notes) || [])
-    .filter((x) => /^Test na \/profil/.test(String(x.body || "")))
+  return planZPoznamok(((n.d || {}).notes) || []);
+}
+const JE_PLAN = (x) => /^Test na \/profil/.test(String((x || {}).body || ""));
+function planZPoznamok(poznamky) {
+  return poznamky
+    .filter(JE_PLAN)
     .map((x) => {
       const t = String(x.body || "");
       const riadok = (zac) => (t.split("\n").find((r) => r.startsWith(zac)) || "").slice(zac.length).trim();
@@ -458,6 +462,61 @@ async function planOtazky(env, cid) {
       if (plan) polia.push({ nazov: "Plán", hodnota: plan });
       return { druh: "formular", nazov: "Otázky Plán od Miriam", kedy: x.dateAdded || "", polia };
     });
+}
+
+/* Detail karty v Príležitostiach (7. 11. 2026, Jano: „hocikde na kartičku kliknem, tak sa otvorí,
+   a tam budú detaily všetky, všetko, čo o ňom viem“). Jedno volanie na všetko o kontakte:
+   údaje, čo vyplnil (otázky plánu aj formuláre GHL), termíny a poznámky.
+   🔴 Tag sa overuje ZNOVA, contactId chodí z prehliadača (rovnako ako /api/sprava). */
+async function karta(env, telo) {
+  const tag = demoTag(env);
+  const cid = String(telo.contactId || "");
+  if (!cid) return json({ ok: false, error: "chýba kontakt" }, 400);
+  const k = await ghl(env, `/contacts/${cid}`);
+  if (!k.ok) return json({ ok: false, error: "kontakt sa nenašiel" }, 404);
+  const c = k.d.contact || {};
+  if (!maTag(c.tags, tag)) return json({ ok: false, error: "táto karta sem nepatrí" }, 403);
+
+  const [f, n, a, kal] = await Promise.all([
+    formulare(env, cid).catch(() => []),
+    ghl(env, `/contacts/${cid}/notes`),
+    ghl(env, `/contacts/${cid}/appointments`),
+    ghl(env, `/calendars/?locationId=${env.GHL_LOCATION_ID}`, { version: "2021-04-15" }),
+  ]);
+  const poznamky = ((n.d || {}).notes) || [];
+  const vyplnene = [...planZPoznamok(poznamky), ...f]
+    .sort((x, y) => String(y.kedy).localeCompare(String(x.kedy)));
+
+  const nazvyKal = {};
+  for (const x of (((kal.d || {}).calendars) || [])) nazvyKal[x.id] = x.name || "";
+  const teraz = Date.now();
+  const terminy = (((a.d || {}).events) || [])
+    .map((e) => {
+      const ms = msZo(e.startTime);
+      const stav = String(e.appointmentStatus || e.appoinmentStatus || e.status || "").toLowerCase();
+      return Number.isFinite(ms) ? { ms, kedy: kratkyTermin(ms), co: nazvyKal[e.calendarId] || e.title || "Termín",
+        zruseny: stav === "cancelled", neprisiel: stav === "noshow", minuly: ms < teraz - 3 * 3600e3 } : null;
+    })
+    .filter(Boolean)
+    .sort((x, y) => (x.minuly - y.minuly) || (x.minuly ? y.ms - x.ms : x.ms - y.ms));
+
+  // Ostatné poznámky bez riadkov s odpoveďami a odkazom, tie sú už vyššie v odpovediach.
+  const ine = poznamky.filter((x) => !JE_PLAN(x))
+    .map((x) => ({ kedy: x.dateAdded || "", text: String(x.body || "").split("\n")
+      .filter((r) => !/^(Odpovede|Plán):/.test(r.trim())).join("\n").trim().slice(0, 700) }))
+    .filter((x) => x.text)
+    .sort((x, y) => String(y.kedy).localeCompare(String(x.kedy)))
+    .slice(0, 8);
+
+  return json({
+    ok: true,
+    meno: `${c.firstName || ""} ${c.lastName || ""}`.trim() || c.companyName || "Bez mena",
+    email: c.email || "", tel: c.phone || "",
+    adresa: [c.address1, [c.postalCode, c.city].filter(Boolean).join(" ")].filter(Boolean).join(", "),
+    vytvoreny: c.dateAdded || "", zdroj: c.source || "",
+    ...planKontaktu(c),
+    vyplnene, terminy, poznamky: ine,
+  });
 }
 
 /* 🔴 `others` nesie okrem vyplnených polí aj technickú omáčku: submissionId,
@@ -1227,6 +1286,7 @@ const CESTY = {
   "/api/konverzacie": (env, b) => konverzacie(env, b),
   "/api/vybavene": (env, b) => vybavene(env, b),
   "/api/sprava": (env, b) => sprava(env, b),
+  "/api/karta": (env, b) => karta(env, b),
   "/api/odpovedz": (env, b) => odpovedz(env, b),
   "/api/prilezitosti": (env) => prilezitosti(env),
   "/api/presun": (env, b) => presun(env, b),

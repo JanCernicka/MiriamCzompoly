@@ -622,13 +622,107 @@ h2{font-size:21px;margin:0 0 3px;font-weight:600;letter-spacing:-.02em}
 .karta .kval{margin:7px 0 0;padding:7px 0 0;border-top:1px solid var(--linka2);font-size:12px;line-height:1.45}
 .karta .kval b{display:inline;font-size:12px;font-weight:500;color:var(--slabo);margin-right:5px;padding:0}
 .karta .kval div{overflow-wrap:anywhere}
-.karta .tlacidlaKarty{display:flex;gap:14px;flex-wrap:wrap}
-.karta .presunut,.karta .doRozhovoru{margin-top:7px;font-size:12px;font-weight:600;color:var(--akcent-tmavy)}
-.karta .presunut:hover,.karta .doRozhovoru:hover{text-decoration:underline}
 .karta .stavKarty{display:inline-block;margin-left:8px;padding:1px 8px;border-radius:999px;
   font-size:11px;font-weight:600;vertical-align:1px}
 .karta .stavKarty.vyhra{background:color-mix(in srgb,var(--dobre) 14%,var(--biela));color:var(--dobre)}
 .karta .stavKarty.prehra{background:#FDECEA;color:var(--zle)}
+
+/* ── detail karty (7. 11. 2026, Jano: „hocikde na kartičku kliknem, tak sa otvorí … dole presunúť
+   a zobraziť chat, hore vpravo krížik … hlavne na telefón“). Celá karta je tlačidlo. ── */
+#p-prilezitosti > .podnadpis.tukni{font-size:14px;color:var(--sivy)}
+.pas .karta{cursor:pointer;-webkit-tap-highlight-color:transparent;padding-right:30px}
+.pas .karta::after{display:block;content:"›";right:12px;top:50%;transform:translateY(-50%);
+  font-size:22px;opacity:.45;color:var(--slabo)}
+.pas .karta:hover::after{opacity:1;color:var(--akcent-tmavy)}
+.pas .karta:active{transform:scale(.985);border-color:var(--akcent)}
+.kartaOkno{border:none;padding:0;width:min(560px,calc(100vw - 32px));max-height:min(88vh,900px);
+  border-radius:20px;background:var(--biela);color:var(--text);box-shadow:var(--tien2);overflow:hidden}
+.kartaOkno[open]{display:flex;flex-direction:column}
+.kartaOkno::backdrop{background:rgba(18,18,28,.45)}
+body:has(.kartaOkno[open]){overflow:hidden}
+.kartaHlava{position:relative;display:flex;gap:12px;align-items:flex-start;padding:20px 18px 14px;
+  border-bottom:1px solid var(--linka2)}
+.kartaHlava .uchyt{display:none}
+.kartaHlava > div{flex:1;min-width:0}
+.kartaStadium{display:inline-block;margin:0 0 6px;padding:2px 10px;border-radius:999px;font-size:12px;
+  font-weight:600;background:color-mix(in srgb,var(--akcent) 16%,var(--biela));color:var(--akcent-tmavy)}
+.kartaStadium:empty{display:none}
+.kartaHlava h3{margin:0;font-size:21px;line-height:1.25;font-weight:700;overflow-wrap:anywhere}
+.kartaCena{margin:4px 0 0;font-size:15px;font-weight:700;color:var(--akcent-tmavy)}
+.kartaCena[hidden]{display:none}
+.kartaZavri{flex:none;width:42px;height:42px;margin:-4px -4px 0 0;border-radius:50%;background:var(--papier);
+  display:grid;place-items:center;color:var(--sivy)}
+.kartaZavri:hover{background:var(--linka2);color:var(--text)}
+.kartaZavri svg{width:20px;height:20px}
+.kartaTelo{flex:1;min-height:120px;overflow-y:auto;padding:4px 18px 20px;overscroll-behavior:contain;
+  -webkit-overflow-scrolling:touch}
+.kBlok{margin-top:18px}
+.kBlok > h4{margin:0 0 8px;font-size:11.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--slabo)}
+.kKontakt{display:flex;flex-direction:column;gap:8px}
+.kRiadok{display:flex;align-items:center;gap:12px;padding:10px 12px;min-height:50px;border:1px solid var(--linka);
+  border-radius:12px;color:inherit;text-decoration:none;font-size:15px}
+a.kRiadok:hover{border-color:var(--akcent)}
+a.kRiadok:active{background:var(--papier)}
+.kRiadok svg{flex:none;width:20px;height:20px;color:var(--akcent-tmavy)}
+.kRiadok span{min-width:0;flex:1;overflow-wrap:anywhere}
+.kRiadok small{display:block;color:var(--slabo);font-size:12px;line-height:1.3}
+.kRiadok.text span{user-select:all}
+.kOdpovede{border:1px solid var(--linka);border-radius:14px;overflow:hidden;background:var(--papier)}
+.kOdpovede + .kOdpovede{margin-top:10px}
+.kOdpovede .hl{display:flex;flex-wrap:wrap;justify-content:space-between;gap:4px 10px;align-items:center;
+  padding:11px 13px;background:var(--biela);border-bottom:1px solid var(--linka2)}
+.kOdpovede .hl b{font-size:14px}
+.kOdpovede .hl small{color:var(--slabo);font-size:12.5px}
+.kOdpovede .skupina{padding:10px 13px 0}
+.kOdpovede dl{margin:0;padding:2px 13px 12px}
+.kOdpovede dt{font-size:12.5px;color:var(--slabo);margin-top:10px;line-height:1.3}
+.kOdpovede dd{margin:2px 0 0;font-size:15.5px;font-weight:600;line-height:1.4;overflow-wrap:anywhere}
+.kOdpovede dd a{color:var(--akcent-tmavy)}
+.kOdpovede .naPlan{display:flex;align-items:center;justify-content:center;gap:8px;margin:0 13px 13px;
+  min-height:46px;border-radius:11px;background:var(--biela);border:1px solid var(--akcent);
+  color:var(--akcent-tmavy);font-weight:600;text-decoration:none}
+.kOdpovede .naPlan:hover{background:color-mix(in srgb,var(--akcent) 10%,var(--biela))}
+.cipSk{display:inline-block;padding:3px 11px;border-radius:999px;font-size:13px;font-weight:600;
+  background:var(--linka2);color:var(--sivy)}
+.cipSk.horuca{background:#FDE6E1;color:#A3311F}
+.cipSk.vlazna{background:#FCF0D6;color:#86560A}
+.cipSk.studena{background:#E3ECF6;color:#2C5885}
+.kTermin{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:11px 13px;
+  border:1px solid var(--linka);border-radius:12px;font-size:14.5px}
+.kTermin + .kTermin{margin-top:6px}
+.kTermin b{font-weight:600}
+.kTermin em{font-style:normal;font-size:12.5px;color:var(--slabo);text-align:right}
+.kTermin.minuly{background:var(--papier);color:var(--sivy)}
+.kTermin.zruseny b{text-decoration:line-through}
+.kUdaje{display:grid;grid-template-columns:auto 1fr;gap:7px 16px;margin:0;font-size:14.5px}
+.kUdaje dt{color:var(--slabo)}
+.kUdaje dd{margin:0;overflow-wrap:anywhere}
+.kPozn{padding:10px 12px;border-left:3px solid var(--akcent);background:var(--papier);
+  border-radius:0 10px 10px 0;font-size:14px;line-height:1.5;white-space:pre-line;overflow-wrap:anywhere}
+.kPozn + .kPozn{margin-top:8px}
+.kPozn small{display:block;color:var(--slabo);font-size:12px;margin-bottom:2px}
+.kChyba{margin-top:16px;padding:12px;border-radius:12px;background:#FDECEA;color:var(--zle);font-size:14px}
+.kartaPata{display:flex;gap:10px;padding:12px 18px calc(12px + env(safe-area-inset-bottom));
+  border-top:1px solid var(--linka2);background:var(--biela)}
+.kartaPata button{flex:1;display:flex;align-items:center;justify-content:center;gap:8px;min-height:50px;
+  border-radius:13px;border:1px solid var(--linka);background:var(--biela);font-weight:600;font-size:15.5px}
+.kartaPata button:hover{border-color:var(--akcent)}
+.kartaPata button svg{width:19px;height:19px}
+.kartaPata .hlavne{background:var(--akcent);border-color:var(--akcent);color:var(--na-akcente)}
+.kartaPata .hlavne:hover{filter:brightness(.96)}
+.kartaPata button[hidden]{display:none}
+@media(max-width:760px){
+  /* Na telefóne vyjde zdola cez celú šírku, palec dočiahne na obe tlačidlá aj na krížik. */
+  .kartaOkno{width:100%;max-width:100%;max-height:94dvh;margin:auto 0 0;border-radius:22px 22px 0 0;
+    animation:kartaVysun .24s cubic-bezier(.2,.8,.2,1)}
+  .kartaHlava{padding-top:24px}
+  .kartaHlava .uchyt{display:block;position:absolute;top:8px;left:50%;width:40px;height:5px;margin-left:-20px;
+    border-radius:99px;background:var(--linka)}
+  .kartaTelo{padding:2px 16px 22px}
+  .kartaPata{padding-left:16px;padding-right:16px}
+}
+@keyframes kartaVysun{from{transform:translateY(100%)}to{transform:none}}
+@media(prefers-reduced-motion:reduce){.kartaOkno{animation:none}}
 
 /* ── kalendár: termín, na ktorý neprišiel (karta v No-show) ── */
 .bunka.termin.neprisiel{background:repeating-linear-gradient(135deg,#8B90A0 0 6px,#9DA2B1 6px 12px)}
@@ -788,9 +882,7 @@ h2{font-size:21px;margin:0 0 3px;font-weight:600;letter-spacing:-.02em}
 
   <section class="panel" id="p-prilezitosti">
     <h2>Príležitosti</h2>
-    <p class="podnadpis">Štádiá idú zhora nadol, zákazníci v štádiu zľava doprava. Kartu presuniete
-      tlačidlom Presunúť na karte. Pri zaplatenej diagnostike a pri projekte sa pýta suma,
-      pri prehranom projekte dôvod. Presun karty zákazníkovi nič nepošle.</p>
+    <p class="podnadpis tukni">Ťukni na kartičku, aby si ju otvorila.</p>
     <div id="stadia"><div class="kostra karta-panel"><i></i><i></i><i></i><i></i></div></div>
   </section>
 
@@ -847,6 +939,28 @@ h2{font-size:21px;margin:0 0 3px;font-weight:600;letter-spacing:-.02em}
   <div class="tlacidla">
     <button type="button" class="hlavne" id="presunPotvrd" disabled>Presunúť</button>
     <button type="button" id="presunZrus">Zrušiť</button>
+  </div>
+</dialog>
+
+<!-- Detail karty v Príležitostiach (7. 11. 2026). Na telefóne vyjde zdola. -->
+<dialog class="kartaOkno" id="kartaOkno" aria-labelledby="kartaMeno">
+  <div class="kartaHlava">
+    <span class="uchyt" aria-hidden="true"></span>
+    <div>
+      <p class="kartaStadium" id="kartaStadium"></p>
+      <h3 id="kartaMeno"></h3>
+      <p class="kartaCena" id="kartaCena" hidden></p>
+    </div>
+    <button type="button" class="kartaZavri" id="kartaZavri" aria-label="Zavrieť">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+  </div>
+  <div class="kartaTelo" id="kartaTelo"></div>
+  <div class="kartaPata">
+    <button type="button" id="kartaPresun">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h12l-3-3M17 17H5l3 3"/></svg>Presunúť</button>
+    <button type="button" class="hlavne" id="kartaChat">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg>Zobraziť chat</button>
   </div>
 </dialog>
 
@@ -1575,11 +1689,14 @@ const POPIS_STADIA = {
 };
 
 let STADIA = [];
+let KARTY = {};   // id karty -> údaje z /api/prilezitosti, pre okno detailu
 
 function kartaHtml(k) {
   const stav = k.stav === "won" ? '<span class="stavKarty vyhra">vyhraná</span>'
     : k.stav === "lost" ? '<span class="stavKarty prehra">prehraná</span>' : "";
-  return `<div class="karta" data-id="${bezpecne(k.id)}" data-stage="${bezpecne(k.stageId)}"
+  return `<div class="karta" role="button" tabindex="0" aria-haspopup="dialog"
+      aria-label="Otvoriť kartu ${bezpecne(k.nazov)}"
+      data-id="${bezpecne(k.id)}" data-stage="${bezpecne(k.stageId)}"
       data-hodnota="${Number(k.hodnota) || 0}"
       data-kontakt="${bezpecne(k.contactId || "")}" data-meno="${bezpecne(k.nazov)}">
     <b>${bezpecne(k.nazov)}</b>
@@ -1588,10 +1705,6 @@ function kartaHtml(k) {
     ${k.hodnota || stav ? `<div class="cena">${k.hodnota ? eur(k.hodnota) : ""}${stav}</div>` : ""}
     ${(k.polia || []).length ? `<div class="kval">${k.polia.map((x) =>
         `<div><b>${bezpecne(x.nazov)}</b>${bezpecne(x.hodnota)}</div>`).join("")}</div>` : ""}
-    <div class="tlacidlaKarty">
-      <button class="presunut" title="Presunúť do iného štádia">Presunúť</button>
-      ${k.contactId ? '<button class="doRozhovoru">Rozhovor</button>' : ""}
-    </div>
   </div>`;
 }
 
@@ -1600,6 +1713,7 @@ async function nacitajPrilezitosti() {
   if (!r.ok) { $("#stadia").innerHTML =
     `<div class="stav chyba">${bezpecne(r.error || "nedostupné")}</div>`; return; }
   dosadPresuny(r.karty);
+  KARTY = Object.fromEntries(r.karty.map((k) => [k.id, k]));
   STADIA = r.stage || [];
   /* Kto bol v páse posunutý doprava, ostane tam aj po presune karty. */
   const posun = {};
@@ -1638,19 +1752,15 @@ function oznacPretekajuce() {
 }
 window.addEventListener("resize", oznacPretekajuce);
 
+/* Celá karta otvára detail (7. 11. 2026). Presunúť a chat sú až v detaili, dole.
+   Ťuknutie, nie potiahnutie: pri vodorovnom posúvaní pásu prehliadač klik nepošle. */
 function pripojTlacidla() {
-  $$(".karta .presunut").forEach((b) => b.addEventListener("click", (e) => {
-    e.stopPropagation();
-    otvorPresun(b.closest(".karta"));
-  }));
-  // Z karty do rozhovoru na jeden klik.
-  $$(".karta .doRozhovoru").forEach((b) => b.addEventListener("click", async (e) => {
-    e.stopPropagation();
-    const id = b.closest(".karta").dataset.kontakt;
-    if (!id) return;
-    prepniTab("chat");
-    await otvor(id);
-  }));
+  $$(".pas .karta").forEach((el) => {
+    el.addEventListener("click", () => otvorKartu(el));
+    el.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); otvorKartu(el); }
+    });
+  });
 }
 
 /* ── okienko Presunúť ── */
@@ -1772,6 +1882,125 @@ $("#presunZrus").addEventListener("click", () => $("#presunOkno").close());
 // 🔴 Len klik na samotný `dialog` (podklad). Klik na štítok pošle prepínaču umelý
 //    klik so súradnicami 0, 0 a ten by okienko zavrel pri výbere.
 $("#presunOkno").addEventListener("click", (e) => {
+  if (e.target !== e.currentTarget) return;
+  const o = e.currentTarget.getBoundingClientRect();
+  if (e.clientX < o.left || e.clientX > o.right || e.clientY < o.top || e.clientY > o.bottom) {
+    e.currentTarget.close();
+  }
+});
+
+/* ── detail karty (7. 11. 2026) ──────────────────────────
+   Hlavička sa ukáže hneď z toho, čo už máme v Príležitostiach, zvyšok dotiahne /api/karta. */
+let KARTA_OTVORENA = null;   // element karty, ktorej detail je práve otvorený
+const IKONY_KARTY = {
+  tel: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg>',
+  email: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>',
+  adresa: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg>',
+};
+function datumCas(x) {
+  const d = new Date(x);
+  if (!x || isNaN(d)) return "";
+  const rok = d.getFullYear() !== new Date().getFullYear();
+  return d.toLocaleString("sk-SK", { day: "numeric", month: "numeric", ...(rok ? { year: "numeric" } : {}),
+    hour: "2-digit", minute: "2-digit" });
+}
+function triedaSkupiny(h) {
+  const s = String(h || "").toLowerCase();
+  return s.startsWith("horúc") ? "horuca" : s.startsWith("vlažn") ? "vlazna" : s.startsWith("studen") ? "studena" : "";
+}
+/* Odpovede z jedného formulára: skupina ako farebný štítok, otázky pod sebou, plán ako tlačidlo. */
+function blokOdpovedi(f) {
+  const polia = f.polia || [];
+  const sk = polia.find((x) => x.nazov === "Skupina");
+  const plan = polia.find((x) => x.nazov === "Plán");
+  const odkaz = plan && /^https:\/\/www\.miriamczompoly\.sk\/plan\?[\w=&%.-]+$/.test(plan.hodnota) ? plan.hodnota : "";
+  const ostatne = polia.filter((x) => x !== sk && !(x === plan && odkaz));
+  return `<div class="kOdpovede">
+    <div class="hl"><b>${bezpecne(f.nazov || "Formulár")}</b><small>${bezpecne(datumCas(f.kedy))}</small></div>
+    ${sk ? `<div class="skupina"><span class="cipSk ${triedaSkupiny(sk.hodnota)}">${bezpecne(sk.hodnota)}</span></div>` : ""}
+    <dl>${ostatne.map((x) => `<dt>${bezpecne(x.nazov)}</dt><dd>${bezpecne(x.hodnota)}</dd>`).join("")}</dl>
+    ${odkaz ? `<a class="naPlan" href="${odkaz}" target="_blank" rel="noopener">Otvoriť jej plán ↗</a>` : ""}
+  </div>`;
+}
+function vykresliKartu(k, d) {
+  const casti = [];
+  const tel = (d && d.tel) || (k && k.tel) || "";
+  const kontakt = [];
+  if (tel) kontakt.push(`<a class="kRiadok" href="tel:${String(tel).replace(/[^\d+]/g, "")}">${IKONY_KARTY.tel}
+      <span>${bezpecne(tel)}<small>Zavolať</small></span></a>`);
+  if (d && d.email) kontakt.push(`<div class="kRiadok text">${IKONY_KARTY.email}<span>${bezpecne(d.email)}</span></div>`);
+  if (d && d.adresa) kontakt.push(`<a class="kRiadok" target="_blank" rel="noopener"
+      href="https://www.google.com/maps/search/?api=1&amp;query=${encodeURIComponent(d.adresa)}">${IKONY_KARTY.adresa}
+      <span>${bezpecne(d.adresa)}<small>Otvoriť v mapách</small></span></a>`);
+  if (kontakt.length) casti.push(`<section class="kBlok"><h4>Kontakt</h4><div class="kKontakt">${kontakt.join("")}</div></section>`);
+
+  if (d && (d.vyplnene || []).length) {
+    casti.push(`<section class="kBlok"><h4>Čo vyplnila</h4>${d.vyplnene.map(blokOdpovedi).join("")}</section>`);
+  }
+  if (d && (d.terminy || []).length) {
+    casti.push(`<section class="kBlok"><h4>Termíny</h4>${d.terminy.map((t) => `<div class="kTermin${t.minuly ? " minuly" : ""}${t.zruseny ? " zruseny" : ""}">
+      <b>${bezpecne(t.kedy)}</b><em>${bezpecne(t.co)}${t.zruseny ? ", zrušený" : t.neprisiel ? ", neprišiel" : t.minuly ? ", bol" : ""}</em></div>`).join("")}</section>`);
+  }
+  const udaje = [];   // štádium je hore v hlavičke, tu sa neopakuje
+  if (k && k.hodnota) udaje.push(["Hodnota", eur(k.hodnota)]);
+  if (k && k.stav === "won") udaje.push(["Stav", "vyhraná"]);
+  if (k && k.stav === "lost") udaje.push(["Stav", "prehraná"]);
+  if (k && k.zdroj) udaje.push(["Zdroj", k.zdroj]);
+  if (k && k.zmena) udaje.push(["Naposledy presunutá", datumCas(k.zmena)]);
+  if (d && d.vytvoreny) udaje.push(["Kontakt od", datumCas(d.vytvoreny)]);
+  // Polia z karty, ktoré inde v detaile nie sú. Keď sa detail nenačítal, ukážu sa všetky.
+  const uz = new Set(["Termín", "Bol termín", "Adresa", "Zdroj", "Plán", "Začať", "Rozpočet"]);
+  for (const x of ((k && k.polia) || [])) {
+    if (d && d.ok && uz.has(x.nazov)) continue;
+    if (!udaje.some((u) => u[0] === x.nazov)) udaje.push([x.nazov, x.hodnota]);
+  }
+  if (udaje.length) casti.push(`<section class="kBlok"><h4>Karta</h4><dl class="kUdaje">${udaje.map(([a, b]) =>
+    `<dt>${bezpecne(a)}</dt><dd>${bezpecne(b)}</dd>`).join("")}</dl></section>`);
+  if (d && (d.poznamky || []).length) {
+    casti.push(`<section class="kBlok"><h4>Poznámky</h4>${d.poznamky.map((p) =>
+      `<div class="kPozn"><small>${bezpecne(datumCas(p.kedy))}</small>${bezpecne(p.text)}</div>`).join("")}</section>`);
+  }
+  if (d && !d.ok) casti.unshift(`<div class="kChyba">Detail sa nenačítal (${bezpecne(d.error || "chyba")}). Ukazujem, čo je na karte.</div>`);
+  $("#kartaTelo").innerHTML = casti.join("") || '<p class="kChyba">O tejto karte zatiaľ nič nevieme.</p>';
+}
+async function otvorKartu(el) {
+  if (!el) return;
+  KARTA_OTVORENA = el;
+  const k = KARTY[el.dataset.id] || null;
+  const s = STADIA.find((x) => x.id === el.dataset.stage);
+  $("#kartaStadium").textContent = s ? s.nazov : "";
+  $("#kartaMeno").textContent = el.dataset.meno || "Karta";
+  const h = Number(el.dataset.hodnota) || 0;
+  $("#kartaCena").textContent = h ? eur(h) : "";
+  $("#kartaCena").hidden = !h;
+  $("#kartaChat").hidden = !el.dataset.kontakt;
+  $("#kartaTelo").innerHTML = '<div class="kostra"><i></i><i></i><i></i><i></i></div>';
+  $("#kartaTelo").scrollTop = 0;
+  if (!$("#kartaOkno").open) $("#kartaOkno").showModal();
+  if (!el.dataset.kontakt) { vykresliKartu(k, null); return; }
+  const d = await api("/api/karta", { contactId: el.dataset.kontakt });
+  // 🔴 Medzitým zavrela okno alebo otvorila inú kartu. Pomalšia odpoveď neprekreslí cudziu kartu.
+  if (KARTA_OTVORENA !== el || !$("#kartaOkno").open) return;
+  // Názov karty býva „Meno · e-mail“. Hore stačí meno, e-mail je hneď pod ním v Kontakte.
+  if (d && d.ok && d.meno && d.meno !== "Bez mena") $("#kartaMeno").textContent = d.meno;
+  vykresliKartu(k, d);
+}
+$("#kartaZavri").addEventListener("click", () => $("#kartaOkno").close());
+$("#kartaOkno").addEventListener("close", () => { KARTA_OTVORENA = null; });
+$("#kartaPresun").addEventListener("click", () => {
+  const el = KARTA_OTVORENA;
+  $("#kartaOkno").close();
+  otvorPresun(el);
+});
+$("#kartaChat").addEventListener("click", async () => {
+  const id = KARTA_OTVORENA && KARTA_OTVORENA.dataset.kontakt;
+  $("#kartaOkno").close();
+  if (!id) return;
+  prepniTab("chat");
+  await otvor(id);
+});
+// Ťuknutie na podklad mimo okna ho zavrie (rovnako ako pri okne Presunúť).
+$("#kartaOkno").addEventListener("click", (e) => {
   if (e.target !== e.currentTarget) return;
   const o = e.currentTarget.getBoundingClientRect();
   if (e.clientX < o.left || e.clientX > o.right || e.clientY < o.top || e.clientY > o.bottom) {

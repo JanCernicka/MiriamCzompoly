@@ -273,3 +273,8 @@ Prišli ako poznámka na Miriamin kontakt v GHL. Jano: „áno zapracuj, zrkadlo
 Otvorené:
 - **Spálňa:** Miriam chce ako „pred“ fotku s ružovou spálňou. Nenašla sa (Drive Miriam aj náš, Gmail, médiá GHL, fotky z chatu). Kým nepríde, ostáva stará fotka aj stará veta, lebo jej nová veta hovorí o ružových stenách.
 - **Kuchyňa:** Miriam chce iný záber „pred“ (na čelnej stene polica, nie hodiny). Nenašiel sa. Jej nová veta pod fotkami už platí, fotka zatiaľ stará.
+
+## 7. 11. 2026: konzola, rozklikávacie karty a testovacie e-maily
+
+- **Príležitosti:** celá karta je tlačidlo a otvorí detail (na telefóne zdola cez celú šírku). V detaile je kontakt (telefón na ťuknutie, e-mail, adresa s mapou), čo vyplnila (skupina ako farebný štítok, odpovede pod sebou, tlačidlo na jej plán), termíny, údaje karty a poznámky. Dole Presunúť a Zobraziť chat, hore vpravo krížik. Hore namiesto popisu „Ťukni na kartičku, aby si ju otvorila.“ Nové volanie `/api/karta` vo workeri konzoly (tag sa overuje znova ako pri `/api/sprava`). Overené naostro na 1280 px aj na iPhone 13.
+- **E-maily lead magnetu:** všetkých 10 (plán, horúca 1 a 2, potvrdenie hovoru, po hovore, sekvencia 1 až 3, potvrdenie diagnostiky doma a online) odišlo Janovi na kontrolu cez GHL na jeho kontakt `z297q1TbLHIBHZ31S0Il`, s ukážkovými údajmi (Lucia, obývačka, tma) a predmetom „TEST n/10: …“. Všetky bez chyby doručenia.
