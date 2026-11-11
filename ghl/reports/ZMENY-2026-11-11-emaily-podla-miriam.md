@@ -36,7 +36,7 @@ Vlažní: plán, séria 1 (1), séria 2 (3), Nanútim (4), séria 3 (6), Koľko 
 
 ## Ľudia zo starej sekvencie: len nové e-maily
 
-Snímka 11. 11. 09:20 UTC: 106 kontaktov so značkou `plan-vlazny` alebo `plan-ostatni` (potom sa zverejnili nové workflowy). Každý dostane značku `plan-doplnenie` až po poslednom e-maile starej sekvencie („Keď budeš chcieť ísť ďalej“) aspoň pred 20 hodinami, aby nedostal dva e-maily v jeden deň. Vynechaní: kto odpísal (5), diagnostika (1), DND, Janov testovací kontakt, kto už Nanútim dostal. 11. 11. nedokončil starú sekvenciu nikto (prví opravení vlažní 12. 11., studení najneskôr 1. 12.).
+Snímka 11. 11. 09:20 UTC: 106 kontaktov so značkou `plan-vlazny` alebo `plan-ostatni` (potom sa zverejnili nové workflowy). Každý dostane značku `plan-doplnenie` až po poslednom e-maile starej sekvencie („Keď budeš chcieť ísť ďalej“) aspoň pred 20 hodinami, aby nedostal dva e-maily v jeden deň. Vynechaní: kto odpísal (5), kto má značku diagnostiky, DND, Janove testovacie kontakty, kto už Nanútim dostal. Značku diagnostiky má k 11. 11. len testovací kontakt team@ (76Luqq…), skutočná rezervácia diagnostiky z plánu zatiaľ nie je žiadna. 11. 11. nedokončil starú sekvenciu nikto (prví opravení vlažní 12. 11., studení najneskôr 1. 12.).
 Kontroluje to naplánovaná úloha „Doplnenie nových e-mailov Miriam“ (`trig_01Ft1xJ4DaEtWck7VgXFeNgh`, denne 9:17), skript `emaily-v2/doplnenie.py` v scratchpade sedenia; keď nikto nečaká, úlohu vypne. Kontrolka: team@ dostal značku hneď a „Nanútim“ z workflowu mu prišiel 11. 11. 09:23 UTC.
 
 ## Stránka na kontrolu e-mailov, kolo 2
