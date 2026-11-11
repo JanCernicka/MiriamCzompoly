@@ -14,8 +14,8 @@
 import { json } from "../_lib/ghl.js";
 
 const KLUC = "m8sT3SJqC9YMOgfMqjCW0YEi";
-// emaily: /kontrola-emailov-q7m2xh; plan-N: /kontrola-planu-cu9r5c, N je kolo kontroly (nové kolo = prázdne políčka nad novou verziou)
-const platnaStranka = (s) => s === "emaily" || /^plan-\d{1,3}$/.test(s);
+// emaily, emaily-N: /kontrola-emailov-q7m2xh; plan-N: /kontrola-planu-cu9r5c, N je kolo kontroly (nové kolo = prázdne políčka nad novou verziou)
+const platnaStranka = (s) => s === "emaily" || /^(plan|emaily)-\d{1,3}$/.test(s);
 const MAX_POLI = 80, MAX_TEXT = 4000, MAX_NOVYCH = 20, MAX_DATA = 200000;
 const cisty = (v, max) => String(v == null ? "" : v).replace(/\r\n?/g, "\n").slice(0, max);
 const idPola = (s) => /^[a-z0-9-]{1,60}$/.test(s);
