@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Hotovo · Miriam Czompoly, Trnava</title>
+  <!-- NÁVRH B „Pred veľkou zmenou“: stránka po otázkach pre vlažných a studených, 3 varianty (?varianta=1|2|3).
+       Jano 12. 11.: menej textu, žiadny tvrdý predaj hneď, ponuka za 400 € ako „mám pre teba riešenie“ s postupom,
+       presviedčať e-mailami. Celé poradie krokov je na /pred-zmenou-poradie (aj odkaz z e-mailu). Len náhľad. -->
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="theme-color" content="#262019" />
+  <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/css/profil.css" />
+  <style>
+    .prepinac{background:#2f6b4f;color:#fff;font-size:13.5px;padding:8px 16px;display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:6px 10px}
+    .prepinac a{color:#fff;text-decoration:none;border:1px solid rgba(255,255,255,.5);border-radius:999px;padding:3px 12px;font-weight:600}
+    .prepinac a.on{background:#fff;color:#2f6b4f;border-color:#fff}
+    .prepinac span{opacity:.9}
+    main section{border-top:0}
+    .hotovo{padding:34px 0 8px;text-align:center}
+    .fajka{width:54px;height:54px;border-radius:50%;background:#e7f3ec;color:#2f6b4f;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;font-size:26px;font-weight:800}
+    .hotovo h1{font-size:30px;line-height:1.1;margin:0 0 8px;text-wrap:balance}
+    .hotovo .mail{font-size:15px;color:var(--sivy);margin:0}
+    .teaser{margin:26px 0 0;padding:22px 20px;border-radius:18px;background:var(--karta);text-align:center}
+    .teaser .stitok{display:block;font-size:12px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--akcent-tmavy);margin-bottom:6px}
+    .teaser .hlavna{font-family:var(--display);font-size:30px;line-height:1.1;color:var(--tma);margin:0 0 10px;text-wrap:balance}
+    .teaser .viac{font-size:14.5px;color:var(--sivy);margin:0}
+    .teaser a{font-weight:700}
+    .skratky{list-style:none;margin:14px 0 4px;padding:0;display:grid;gap:6px;text-align:left;counter-reset:k}
+    .skratky li{counter-increment:k;display:flex;align-items:center;gap:10px;font-size:15px;color:var(--tma);background:#fff;border-radius:11px;padding:8px 12px}
+    .skratky li::before{content:counter(k);flex:0 0 24px;height:24px;border-radius:50%;background:var(--tma);color:#fff;font-size:12.5px;font-weight:800;display:flex;align-items:center;justify-content:center}
+    .skratky li.hot{color:var(--sivy)} .skratky li.hot::before{content:"✓";background:var(--zlata);color:var(--tma)}
+    .pp{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:16px 0 6px}
+    .pp figure{margin:0;position:relative}
+    .pp img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:12px;display:block;background:#eee}
+    .pp b{position:absolute;left:8px;top:8px;font-size:11px;letter-spacing:.06em;text-transform:uppercase;background:rgba(255,255,255,.92);color:var(--tma);padding:2px 8px;border-radius:999px}
+    .pp figure + figure b{background:var(--tma);color:#fff}
+    .pp-popis{font-size:13.5px;color:var(--sivy);margin:0}
+    .riesenie{padding:34px 0 44px}
+    .riesenie .kopa{margin:6px 0 22px}
+    .riesenie .pp{margin-top:0}
+    .pp-velke .pp img{aspect-ratio:3/4}
+    .pp-nadpis{font-family:var(--display);font-size:24px;color:var(--tma);text-align:center;margin:22px 0 4px}
+    .medzi{height:1px;background:var(--linka);margin:26px 0}
+    .riesenie .stitok{display:block;text-align:center;font-size:12px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--akcent-tmavy);margin-bottom:6px}
+    .riesenie h2{text-align:center;font-size:34px;margin:0 0 8px}
+    .riesenie .uvod-r{text-align:center;font-size:16px;color:var(--text);margin:0 auto 22px;max-width:30em}
+    .postup{list-style:none;padding:0;margin:0 0 20px;display:grid;gap:0;counter-reset:p}
+    .postup li{counter-increment:p;display:grid;grid-template-columns:40px 1fr;gap:4px 12px;position:relative;padding-bottom:18px}
+    .postup li::before{content:counter(p);grid-row:span 2;width:36px;height:36px;border-radius:50%;border:1.5px solid var(--tma);color:var(--tma);font-weight:800;display:flex;align-items:center;justify-content:center;background:#fff;z-index:1}
+    .postup li:not(:last-child)::after{content:"";position:absolute;left:17px;top:36px;bottom:0;width:1.5px;background:var(--linka)}
+    .postup b{font-size:16.5px;color:var(--tma);padding-top:6px}
+    .postup span{font-size:14.5px;color:var(--sivy)}
+    .cena{display:flex;align-items:baseline;justify-content:center;gap:8px;margin:0 0 16px}
+    .cena .suma{font-family:var(--display);font-size:42px;font-weight:600;color:var(--tma);line-height:1}
+    .cena .k{font-size:14.5px;color:var(--sivy)}
+    .bez{text-align:center;font-size:13.5px;color:var(--sivy);margin:10px 0 0}
+    .odpoved{display:none;background:#eef6f1;border:1px solid #cfe5d8;border-radius:14px;padding:14px 16px;color:var(--tma);font-size:15.5px;margin-top:12px}
+    .odpoved.vidno{display:block}
+    .odpoved b{display:block;margin-bottom:2px}
+    .mini[hidden],.kalv[hidden]{display:none}
+    .mini{margin-top:14px}
+    .dvoj{display:grid;grid-template-columns:1fr 1fr;gap:0 10px} .dvoj > *{min-width:0}
+    @media (max-width:380px){.dvoj{grid-template-columns:1fr}}
+    .over{background:#fbefd9;color:#6b4a10;border-radius:4px;padding:0 4px;font-size:.85em;font-weight:600}
+    .nahlad-pozn{font-size:12.5px;color:var(--sivy);margin:8px 0 0}
+  </style>
+</head>
+<body>
+  <div class="prepinac" role="navigation" aria-label="Varianty návrhu">
+    <span>Náhľad, vyber variantu:</span>
+    <a href="?varianta=1" data-v="1">1 Jemná</a><a href="?varianta=2" data-v="2">2 Poradie v skratke</a><a href="?varianta=3" data-v="3">3 Premena na začiatku</a>
+  </div>
+
+  <main>
+    <section class="hotovo"><div class="obal" id="hore"></div></section>
+    <section class="riesenie" id="riesenie"><div class="obal" id="dole"></div></section>
+  </main>
+
+  <footer class="paticka">
+    <div class="obal">
+      <div><b>Miriam Czompoly</b>, interiérový dizajn · Trnava</div>
+      <nav><a href="/gdpr" target="_blank" rel="noopener">Ochrana osobných údajov</a></nav>
+    </div>
+  </footer>
+
+  <script src="/assets/js/profil-data.js"></script>
+  <script src="/assets/js/pred-zmenou-data.js"></script>
+  <script>
+  (function () {
+    "use strict";
+    var $ = function (s) { return document.querySelector(s); }, P = window.PZ, esc = P.esc;
+    var varianta = (new URLSearchParams(location.search).get("varianta") || "1").replace(/[^123]/g, "") || "1";
+    document.querySelectorAll(".prepinac a").forEach(function (a) { a.classList.toggle("on", a.dataset.v === varianta); });
+    var u = P.ulozene() || { o: { situacia: "b", kedy: "m36", hotove: "nic", rozpocet: "do5", kde: "Trnava" }, meno: "Lucia", email: "" };
+    var v = P.VERZIE[u.o.situacia], hotove = v.hotove[u.o.hotove] || [];
+    var meno = u.meno ? esc(u.meno) + ", p" : "P";
+    var B = {
+      hotovo: '<div class="fajka" aria-hidden="true">&#10003;</div><h1>' + meno + 'oradie krokov ti práve odišlo do e-mailu</h1>' +
+        '<p class="mail">' + (u.email ? "Na " + esc(u.email) + ". " : "") + 'Ak ho do pár minút nevidíš, pozri aj do spamu.</p>',
+      teaser: function (skratky) { return '<div class="teaser"><span class="stitok">Ako prvé</span><p class="hlavna">' + esc(v.hlavna) + '</p>' +
+        (skratky ? '<ol class="skratky">' + v.skratky.map(function (t, i) { return '<li' + (hotove.indexOf(i) >= 0 ? ' class="hot"' : "") + ">" + esc(t) + "</li>"; }).join("") + "</ol>" : "") +
+        '<p class="viac">' + (skratky ? "Podrobne aj s tromi najdrahšími chybami ho máš v e-maile." : "V e-maile nájdeš päť krokov v poradí a tri najdrahšie chyby v tvojej situácii.") +
+        ' <a href="/pred-zmenou-poradie">Pozrieť celé poradie</a></p></div>'; },
+      pp: function (velke) { var pr = v.pribeh; return (velke ? '<p class="pp-nadpis">Takto to vyzeralo u klientky v podobnej situácii</p>' : "") +
+        '<div class="' + (velke ? "pp-velke" : "") + '"><div class="pp"><figure><b>Pred</b><img src="' + pr.pred[0] + '" alt="' + esc(pr.pred[1]) + '"></figure><figure><b>Po</b><img src="' + pr.po[0] + '" alt="' + esc(pr.po[1]) + '"></figure></div></div>' +
+        '<p class="pp-popis">' + esc(pr.nadpis) + ": " + esc(pr.text) + "</p>"; },
+      uvod: '<span class="stitok">Mám pre teba riešenie</span><h2>Izba podľa teba</h2>' +
+        '<p class="uvod-r">Poradie krokov ti povie, v akom poradí rozhodovať. Ak budeš chcieť vedieť, čo konkrétne urobiť u teba, ukážem ti to na mieste.</p>',
+      postup: '<ol class="postup"><li><b>Prídem k tebe domov</b><span>Prejdeme priestor spolu a povieš mi, ako v ňom chceš žiť.</span></li>' +
+        '<li><b>Navrhnem dva až tri varianty</b><span>Ako rozložiť izbu, ktorú riešiš ako prvú. Pri každom ti poviem, prečo funguje.</span></li>' +
+        '<li><b>Vyberieš si ty</b><span>A dostaneš nakreslený návrh, s ktorým môžeš ísť za majstrami. Do <span class="over">koľkých</span> dní.</span></li></ol>',
+      recenzie: '<div class="kopa" id="kopa"></div>',
+      cena: '<div class="cena"><span class="suma">400 €</span><span class="k">za návštevu aj návrh</span></div><div id="akcia"></div>',
+      medzi: '<div class="medzi" aria-hidden="true"></div>'
+    };
+    if (varianta === "1") { $("#hore").innerHTML = B.hotovo + B.teaser(false); $("#dole").innerHTML = B.uvod + B.pp(false) + B.medzi + B.postup + B.recenzie + B.cena; }
+    if (varianta === "2") { $("#hore").innerHTML = B.hotovo + B.teaser(true); $("#dole").innerHTML = B.uvod + B.postup + B.pp(false) + B.medzi + B.cena + B.medzi + B.recenzie; }
+    if (varianta === "3") { $("#hore").innerHTML = B.hotovo + B.pp(true); $("#dole").innerHTML = '<div class="teaser" style="margin-top:0"><span class="stitok">Ako prvé</span><p class="hlavna">' + esc(v.hlavna) +
+        '</p><p class="viac">Celé poradie krokov máš v e-maile. <a href="/pred-zmenou-poradie">Pozrieť ho</a></p></div>' + B.medzi + B.uvod + B.postup + B.recenzie + B.cena; }
+    try { PROFIL.recenzie("#kopa", 3); } catch (e) { /* stránka beží aj bez recenzií */ }
+
+    /* Výzva podľa varianty: 1 len záujem (zvyšok spravia e-maily), 2 záujem a telefón, 3 rovno termín. */
+    var akcia = $("#akcia");
+    if (varianta === "1") {
+      akcia.innerHTML = '<button class="btn btn--obrys" type="button" id="zaujem">Chcem vedieť viac</button><p class="bez">Žiadny tlak. Podrobnosti a voľné termíny ti pošlem e-mailom a rozhodneš sa, keď budeš chcieť.</p>' +
+        '<div class="odpoved" id="odpoved"><b>&#10003; Pošlem ti všetko e-mailom</b>Nájdeš tam, ako návšteva prebieha, ukážky návrhov a voľné termíny.<p class="nahlad-pozn">Náhľad: naostro sa kontaktu pridá značka záujmu a odíde e-mail s ponukou.</p></div>';
+      $("#zaujem").addEventListener("click", function () { this.hidden = true; $(".bez").hidden = true; $("#odpoved").classList.add("vidno"); });
+    }
+    if (varianta === "2") {
+      akcia.innerHTML = '<button class="btn btn--obrys" type="button" id="zaujem">Mám záujem</button><p class="bez">Žiadny tlak. Ozvem sa ti a dohodneme sa, či a kedy to má zmysel.</p>' +
+        '<form class="mini" id="mini" novalidate hidden><div class="pole"><label for="telefon">Telefón</label><input id="telefon" type="tel" inputmode="tel" autocomplete="tel" placeholder="0907 777 555"></div>' +
+        '<p class="chyba" id="chyba" role="alert"></p><button class="btn" type="submit">Ozvi sa mi</button></form>' +
+        '<div class="odpoved" id="odpoved"><b>&#10003; Ďakujem, ozvem sa ti</b>Do <span class="over">dvoch</span> pracovných dní ti zavolám a dohodneme termín návštevy.<p class="nahlad-pozn">Náhľad: nič sa neuložilo. Naostro dostane Miriam úlohu zavolať a SMS.</p></div>';
+      $("#zaujem").addEventListener("click", function () { this.hidden = true; $(".bez").hidden = true; $("#mini").hidden = false; $("#telefon").focus(); });
+      $("#mini").addEventListener("submit", function (e) { e.preventDefault();
+        if (!/^(\+421|0)\d{9}$/.test($("#telefon").value.replace(/\s+/g, ""))) { $("#chyba").textContent = "Skontroluj prosím telefón, napríklad 0907 777 555."; $("#chyba").classList.add("vidno"); return; }
+        this.hidden = true; $("#odpoved").classList.add("vidno"); });
+    }
+    if (varianta === "3") {
+      akcia.innerHTML = '<button class="btn btn--obrys" type="button" id="zaujem">Pozrieť voľné termíny</button><p class="bez">Žiadny tlak. Poradie krokov je tvoje tak či tak.</p>' +
+        '<div class="kal kalv" id="kalv" hidden><div class="dni" id="dni" role="tablist" aria-label="Deň"></div><div class="sloty" id="sloty"></div><p class="kal-stav" id="kalStav">Načítavam voľné termíny…</p>' +
+        '<form class="mini" id="mini" novalidate hidden><div class="dvoj"><div class="pole"><label for="telefon">Telefón</label><input id="telefon" type="tel" inputmode="tel" autocomplete="tel" placeholder="0907 777 555"></div>' +
+        '<div class="pole"><label for="ulica">Ulica a číslo</label><input id="ulica" type="text" autocomplete="address-line1"></div></div>' +
+        '<p class="ako" id="ako"></p><p class="chyba" id="chyba" role="alert"></p><button class="btn" type="submit">Rezervovať návštevu</button></form></div>' +
+        '<div class="odpoved" id="odpoved"></div>';
+      var DNI = ["NE", "PO", "UT", "ST", "ŠT", "PI", "SO"], DLHE = ["v nedeľu", "v pondelok", "v utorok", "v stredu", "vo štvrtok", "v piatok", "v sobotu"], dni = [], vybrany = null;
+      var casti = function (iso) { var m = iso.match(/^(\d{4})-(\d\d)-(\d\d)T(\d\d):(\d\d)/); return { d: +m[3], m: +m[2], wd: new Date(Date.UTC(+m[1], +m[2] - 1, +m[3])).getUTCDay(), cas: m[4].replace(/^0/, "") + ":" + m[5] }; };
+      var den = function (i) {
+        vybrany = null; $("#mini").hidden = true;
+        document.querySelectorAll(".denP").forEach(function (b, j) { b.classList.toggle("on", j === i); });
+        $("#sloty").innerHTML = dni[i].slots.map(function (iso) { return '<button type="button" class="termin" data-iso="' + iso + '">' + casti(iso).cas + "</button>"; }).join("");
+        document.querySelectorAll(".termin").forEach(function (b) { b.addEventListener("click", function () { vybrany = b.dataset.iso;
+          document.querySelectorAll(".termin").forEach(function (x) { x.classList.toggle("vybrany", x === b); });
+          var c = casti(vybrany); $("#ako").textContent = "Prídem " + DLHE[c.wd] + " " + c.d + ". " + c.m + ". o " + c.cas + (u.o.kde ? ", " + u.o.kde : "") + "."; $("#mini").hidden = false; }); });
+      };
+      $("#zaujem").addEventListener("click", function () { this.hidden = true; $(".bez").hidden = true; $("#kalv").hidden = false;
+        fetch("/api/sloty").then(function (r) { return r.json(); }).then(function (x) {
+          dni = ((x && x.days) || []).filter(function (d) { return d.slots && d.slots.length; }).slice(0, 5).map(function (d) { return { slots: d.slots.slice(0, 6) }; });
+          if (!dni.length) { $("#kalStav").textContent = "Na najbližšie dni je obsadené."; return; }
+          $("#kalStav").hidden = true;
+          $("#dni").innerHTML = dni.map(function (d, i) { var c = casti(d.slots[0]); return '<button type="button" class="denP" data-i="' + i + '"><span class="d1">' + DNI[c.wd] + '</span><span class="d2">' + c.d + ". " + c.m + ".</span></button>"; }).join("");
+          document.querySelectorAll(".denP").forEach(function (b) { b.addEventListener("click", function () { den(+b.dataset.i); }); });
+          den(0);
+        }).catch(function () { $("#kalStav").textContent = "Termíny sa nepodarilo načítať."; });
+      });
+      document.addEventListener("submit", function (e) { if (e.target.id !== "mini") return; e.preventDefault();
+        if (!/^(\+421|0)\d{9}$/.test($("#telefon").value.replace(/\s+/g, "")) || !$("#ulica").value.trim()) { $("#chyba").textContent = "Doplň prosím telefón a adresu, kam mám prísť."; $("#chyba").classList.add("vidno"); return; }
+        var c = casti(vybrany); $("#kalv").hidden = true;
+        $("#odpoved").innerHTML = "<b>&#10003; Návšteva je rezervovaná</b>Prídem " + DLHE[c.wd] + " " + c.d + ". " + c.m + ". o " + c.cas + ". Potvrdenie ti príde SMS aj e-mailom." + '<p class="nahlad-pozn">Náhľad: nič sa neuložilo.</p>';
+        $("#odpoved").classList.add("vidno"); });
+    }
+  })();
+  </script>
+</body>
+</html>

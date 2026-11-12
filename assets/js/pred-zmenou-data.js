@@ -20,6 +20,7 @@
   /* Obsah verzií z jej PDF. Kroky, ktoré podľa otázky 3 už má za sebou: NÁVRH (Jano/Miriam potvrdia). */
   var VERZIE = {
     a: { nazov: "Novostavba", hlavna: "Elektrika skôr než nábytok.",
+      skratky: ["Ako budeš miestnosti používať", "Zásuvky, vypínače a svetlá", "Kuchyňa", "Podlahy, dvere, obklady", "Nábytok"],
       kroky: ["Ujasni si, ako budeš každú miestnosť používať: kde sa pracuje, kde je televízor, kde sa spí.",
         "Podľa toho rozhodni o zásuvkách, vypínačoch a svetlách. Klientske zmeny majú u developera termín.",
         "Kuchyňa: rozmery, spotrebiče, prívody vody a elektriky.",
@@ -31,6 +32,7 @@
         pred: ["/assets/img/realizacie/stajnerka-pred-2.jpg", "Obytná miestnosť v hrubej stavbe"],
         po: ["/assets/img/realizacie/stajnerka-po.jpg", "Obývacia a jedálenská časť po premene"] } },
     b: { nazov: "Prerobenie staršieho bytu alebo domu", hlavna: "Rozloženie miestností skôr než obklady.",
+      skratky: ["Čo ti v byte prekáža", "Búrať alebo presúvať", "Elektrika, voda, kúrenie", "Kuchyňa a kúpeľňa", "Povrchy a nábytok"],
       kroky: ["Spíš si, čo ti v byte dnes prekáža.",
         "Rozhodni, či sa búra alebo presúva, ešte pred oslovením majstrov.",
         "Elektrika, voda a kúrenie podľa nového rozloženia.",
@@ -42,6 +44,7 @@
         pred: ["/assets/img/realizacie/starsia-pani-pred-3.jpg", "Pôvodná kuchyňa pred premenou"],
         po: ["/assets/img/realizacie/starsia-pani-3.jpg", "Kuchyňa a pohľad do obývacej izby"] } },
     c: { nazov: "Sťahovanie", hlavna: "Najprv zmerať, potom sťahovať.",
+      skratky: ["Zoznam vecí, ktoré beriete", "Zmerať a zakresliť", "Čo nechať alebo predať", "Svetlá a garníže", "Dokúpiť až potom"],
       kroky: ["Spíš si zoznam vecí, ktoré chceš zobrať.",
         "Zmeraj ich a zakresli do pôdorysu nového bytu.",
         "Rozhodni, čo necháš alebo predáš, ešte pred sťahovaním.",
@@ -53,6 +56,7 @@
         pred: ["/assets/img/realizacie/vidiecky-pred.jpg", "Obývacia izba pred premenou"],
         po: ["/assets/img/realizacie/vidiecky-po.jpg", "Tá istá obývacia izba po premene"] } },
     d: { nazov: "Investičný byt", hlavna: "Zariaďuješ pre nájomníka, nie pre seba.",
+      skratky: ["Komu budeš prenajímať", "Rozloženie a úložný priestor", "Odolné materiály", "Rozpočet na zariadenie", "Fotky do inzerátu"],
       kroky: ["Urči, komu budeš prenajímať a za koľko.",
         "Rozloženie a úložný priestor podľa toho.",
         "Odolné materiály, ktoré vydržia striedanie nájomníkov.",

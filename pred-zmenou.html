@@ -176,8 +176,8 @@
       chyba.classList.remove("vidno");
       try { sessionStorage.setItem("pz", JSON.stringify({ o: o, meno: meno, email: email })); } catch (e) {}
       /* Horúci (podľa rozpočtu a termínu) idú hneď na podstránku s 10-minútovým hovorom, poradie krokov im odíde e-mailom. */
-      /* Ostatní (vlažní a studení) idú na podstránku s poradím krokov a ponukou služby za 400 €. */
-      location.href = teplota(o) === "horuca" ? "/pred-zmenou-hovor" : "/pred-zmenou-poradie";
+      /* Ostatní (vlažní a studení) idú na ďakovnú stránku: poradie v skratke a jemná ponuka služby za 400 €. */
+      location.href = teplota(o) === "horuca" ? "/pred-zmenou-hovor" : "/pred-zmenou-dakujem";
     });
 
     try { PROFIL.recenzie("#kopa", 4); } catch (e) { /* stránka beží aj bez recenzií */ }

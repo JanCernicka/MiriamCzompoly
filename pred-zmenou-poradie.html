@@ -4,9 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Tvoje poradie krokov · Miriam Czompoly, Trnava</title>
-  <!-- NÁVRH B „Pred veľkou zmenou“, podstránka pre vlažných a studených (12. 11. 2026, Jano: „čo dostane ten studený
-       lead, ako bude vyzerať tá podstránka“). Poradie krokov a ponuka služby za 400 € (pracovný názov „Izba podľa teba“).
-       Len náhľad: časy sú testové, rezervácia sa neodosiela. -->
+  <!-- NÁVRH B „Pred veľkou zmenou“, celé poradie krokov (odkaz z e-mailu a z ďakovnej stránky).
+       Bez predaja: Jano 12. 11. nechcel hneď po otázkach predajný proces. Ponuka je na /pred-zmenou-dakujem a v e-mailoch. -->
   <meta name="robots" content="noindex, nofollow" />
   <meta name="theme-color" content="#262019" />
   <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml" />
@@ -59,7 +58,7 @@
   </style>
 </head>
 <body>
-  <div class="nahlad-pruh"><b>Náhľad návrhu.</b> Takto to uvidí vlažný alebo studený človek hneď po otázkach. Časy sú ukážkové, rezervácia sa neuloží.</div>
+  <div class="nahlad-pruh"><b>Náhľad návrhu.</b> Celé poradie krokov, na ktoré vedie odkaz z e-mailu.</div>
 
   <div class="pruh">
     <div class="obal">
@@ -75,54 +74,6 @@
         <p class="odislo" id="odislo">&#10003; Poradie krokov ti odišlo aj <span id="kam">do e-mailu</span>, aby si ho mala po ruke.</p>
         <div id="poradie"></div>
         <p class="dalej-pozn" id="dalejPozn"></p>
-      </div>
-    </section>
-
-    <!-- Ponuka pre vlažných a studených. Horúcim (keby sem prišli z e-mailu) sa namiesto nej ukáže hovor. -->
-    <section id="ponuka" class="formular-sekcia">
-      <div class="obal">
-        <span class="ponuka-stitok">Keď budeš chcieť ísť ďalej</span>
-        <h2>Izba podľa teba</h2>
-        <p class="ponuka-pod">Návrh rozloženia jednej izby u teba doma.</p>
-        <p>Poradie krokov ti povie, v akom poradí rozhodovať. Nepovie, čo konkrétne urobiť u teba. To ti ukážem na mieste.</p>
-        <ul class="body">
-          <li><b>Prídem k tebe domov</b><span>Prejdeme priestor spolu a povieš mi, ako v ňom chceš žiť.</span></li>
-          <li><b>Dva až tri varianty rozloženia</b><span>Pre izbu, ktorú riešiš ako prvú. Od jednoduchších po odvážnejšie, aspoň jeden bez búrania. <span class="over">overiť</span></span></li>
-          <li><b>Pri každom vysvetlenie</b><span>Prečo funguje. Vyberáš ty, štýl ti nenanútim.</span></li>
-          <li><b>Varianty dostaneš do <span class="over">koľkých</span> dní</b><span>Nakreslené, aby si ich mohla ukázať majstrom.</span></li>
-        </ul>
-        <div class="cena-karta"><span class="suma">400 €</span><span class="k-cene">za návštevu aj varianty. <span class="over">Ak potom pokračuješ projektom, sumu ti odpočítam.</span></span></div>
-        <ol class="kroky3"><li>Vyber termín návštevy</li><li>Nechaj mi adresu a telefón</li><li>Prídem k tebe a potom ti pošlem varianty</li></ol>
-
-        <div class="kal">
-          <div class="dni" id="dni" role="tablist" aria-label="Deň"></div>
-          <div class="sloty" id="sloty"></div>
-          <p class="kal-stav" id="kalStav">Načítavam voľné termíny…</p>
-          <form class="formular" id="formular" novalidate hidden>
-            <div class="dvojica-pole">
-              <div class="pole"><label for="meno">Meno</label><input id="meno" type="text" autocomplete="name" required></div>
-              <div class="pole"><label for="telefon">Telefón</label><input id="telefon" type="tel" inputmode="tel" autocomplete="tel" placeholder="0907 777 555" required></div>
-            </div>
-            <div class="pole"><label for="email">E-mail</label><input id="email" type="email" inputmode="email" autocomplete="email" required></div>
-            <div class="dvojica-pole">
-              <div class="pole"><label for="ulica">Ulica a číslo</label><input id="ulica" type="text" autocomplete="address-line1" required></div>
-              <div class="pole"><label for="mesto">Mesto alebo obec</label><input id="mesto" type="text" autocomplete="address-level2" required></div>
-            </div>
-            <p class="ako" id="ako"></p>
-            <p class="chyba" id="chyba" role="alert"></p>
-            <button class="btn" type="submit">Rezervovať návštevu</button>
-            <p class="drobne">Potvrdenie a pripomienku ti pošlem SMS a e-mailom. Viac o <a href="/gdpr" target="_blank" rel="noopener">ochrane údajov</a>.</p>
-          </form>
-          <div class="potvrdene" id="potvrdene" role="status"></div>
-        </div>
-      </div>
-    </section>
-
-    <section id="hovorPonuka" hidden>
-      <div class="obal">
-        <h2>Prejdime to spolu</h2>
-        <p>Podľa tvojich odpovedí ťa čaká veľká zmena a ešte je čas veľa ušetriť. Daj mi 10 minút do telefónu. Pozrieme sa, čo riešiš, a poviem ti, kde by som začala. Bez záväzku.</p>
-        <a class="btn" href="/pred-zmenou-hovor">Vybrať čas hovoru</a>
       </div>
     </section>
 
@@ -153,49 +104,12 @@
     if (!u) u = { o: { situacia: "b", kedy: "m36", hotove: "nic", rozpocet: "do5", kde: "Trnava" }, meno: "Lucia", email: "" };
     var tep = P.teplota(u.o);
     $("#poradie").innerHTML = P.poradieHTML(u.o, u.meno);
-    if (u.email) { $("#kam").textContent = "na " + u.email; $("#email").value = u.email; }
-    $("#meno").value = u.meno || ""; $("#mesto").value = u.o.kde || "";
+    if (u.email) $("#kam").textContent = "na " + u.email;
     $("#dalejPozn").innerHTML = "<b>Čo bude ďalej:</b> <span>" + (tep === "vlazna" ? "Zajtra" : "O tri dni") +
-      " sa ti ozvem e-mailom, ako ti ide prvý krok. Keď budeš chcieť ísť ďalej, nižšie je, ako ti viem pomôcť.</span>";
-    if (tep === "horuca") { $("#ponuka").hidden = true; $("#hovorPonuka").hidden = false;
-      $("#dalejPozn").innerHTML = "<b>Čo bude ďalej:</b> <span>Rada ti zavolám na 10 minút, vyber si čas nižšie.</span>"; }
+      " sa ti ozvem e-mailom, ako ti ide prvý krok. </span>";
+    if (tep === "horuca") $("#dalejPozn").innerHTML = '<b>Čo bude ďalej:</b> <span>Rada ti zavolám na 10 minút. <a href="/pred-zmenou-hovor">Vybrať čas hovoru</a></span>';
     if (ukazka) $("#odislo").innerHTML = "Ukážka: stránka otvorená bez vyplnenia otázok, zobrazená verzia prerábanie pre studenú skupinu.";
 
-    var DNI = ["NE", "PO", "UT", "ST", "ŠT", "PI", "SO"], DLHE = ["v nedeľu", "v pondelok", "v utorok", "v stredu", "vo štvrtok", "v piatok", "v sobotu"];
-    function casti(iso) { var m = iso.match(/^(\d{4})-(\d\d)-(\d\d)T(\d\d):(\d\d)/); var wd = new Date(Date.UTC(+m[1], +m[2] - 1, +m[3])).getUTCDay();
-      return { d: +m[3], m: +m[2], wd: wd, cas: m[4].replace(/^0/, "") + ":" + m[5] }; }
-    var dni = [], vybrany = null, stav = $("#kalStav"), form = $("#formular");
-    /* Naostro: kalendár služby (dnes „Diagnostika + dispozícia“ v GHL). Na náhľade testové termíny. */
-    fetch("/api/sloty").then(function (r) { return r.json(); }).then(function (x) {
-      dni = ((x && x.days) || []).filter(function (d) { return d.slots && d.slots.length; }).slice(0, 5).map(function (d) { return { slots: d.slots.slice(0, 6) }; });
-      if (!dni.length) { stav.textContent = "Na najbližšie dni je obsadené."; return; }
-      stav.hidden = true;
-      $("#dni").innerHTML = dni.map(function (d, i) { var c = casti(d.slots[0]), n = d.slots.length;
-        return '<button type="button" role="tab" class="denP" data-i="' + i + '"><span class="d1">' + DNI[c.wd] + '</span><span class="d2">' + c.d + ". " + c.m + '.</span><span class="d3">' + n + (n === 1 ? " termín" : n < 5 ? " termíny" : " termínov") + "</span></button>"; }).join("");
-      document.querySelectorAll(".denP").forEach(function (b) { b.addEventListener("click", function () { den(+b.dataset.i); }); });
-      den(0);
-    }).catch(function () { stav.textContent = "Termíny sa nepodarilo načítať."; });
-    function den(i) {
-      vybrany = null; form.hidden = true;
-      document.querySelectorAll(".denP").forEach(function (b, j) { b.classList.toggle("on", j === i); b.setAttribute("aria-selected", j === i ? "true" : "false"); });
-      $("#sloty").innerHTML = dni[i].slots.map(function (iso) { return '<button type="button" class="termin" data-iso="' + iso + '">' + casti(iso).cas + "</button>"; }).join("");
-      document.querySelectorAll(".termin").forEach(function (b) { b.addEventListener("click", function () {
-        vybrany = b.dataset.iso; document.querySelectorAll(".termin").forEach(function (x) { x.classList.toggle("vybrany", x === b); });
-        var c = casti(vybrany); $("#ako").textContent = "Prídem " + DLHE[c.wd] + " " + c.d + ". " + c.m + ". o " + c.cas + ".";
-        form.hidden = false; }); });
-    }
-    form.addEventListener("submit", function (e) {
-      e.preventDefault();
-      var chyba = $("#chyba"), tel = $("#telefon").value.replace(/\s+/g, "");
-      var zle = !$("#meno").value.trim() ? "Doplň prosím meno." : !/^(\+421|0)\d{9}$/.test(tel) ? "Skontroluj prosím telefón, napríklad 0907 777 555." :
-        !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test($("#email").value.trim()) ? "Skontroluj prosím e-mail." : !$("#ulica").value.trim() || !$("#mesto").value.trim() ? "Doplň prosím adresu, kam mám prísť." : "";
-      if (zle) { chyba.textContent = zle; chyba.classList.add("vidno"); return; }
-      chyba.classList.remove("vidno"); form.hidden = true;
-      var c = casti(vybrany);
-      $("#potvrdene").innerHTML = "<b>&#10003; Návšteva je rezervovaná</b>Prídem " + DLHE[c.wd] + " " + c.d + ". " + c.m + ". o " + c.cas + ". Potvrdenie ti príde SMS aj e-mailom." +
-        '<p class="nahlad-pozn">Náhľad: rezervácia sa neuložila, nič neodišlo. Naostro sa zapíše do kalendára služby a Miriam dostane SMS.</p>';
-      $("#potvrdene").classList.add("vidno");
-    });
     try { PROFIL.recenzie("#kopa", 4); } catch (e) { /* stránka beží aj bez recenzií */ }
   })();
   </script>
