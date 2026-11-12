@@ -24,6 +24,17 @@ Nasadené `./nasad-web.sh` na www.miriamczompoly.sk, vetva `claude/lievik-checkl
 - `/diagnostika` (A aj B), `/dakujem`, `lievik-checklist/`, lievik plánu: biele pozadie (pravidlo z 23. 9.)
   a bežiaci A/B test. Nenačítajú `tmava.css`, nemajú ani Blog v menu.
 
+## 12. 11. 2026: Diagnostika z menu webu tmavá
+Jano: úvod a služby sú tmavé, Diagnostika A aj B biele. Rozhodol: „z menu tmavá, z reklám biela“.
+- Nová stránka `/interierova-diagnostika` (`interierova-diagnostika.html`): kópia `diagnostika.html` (varianta A) s `tmava.css`,
+  zlatým logom a Blogom v menu, canonical na seba, v sitemap. Nemá A/B test ani meranie lievika (tie vstrekuje len `functions/diagnostika.js`).
+- Všetky odkazy na diagnostiku z webu (úvod, služby, blog, články, GDPR, 5-chyb) vedú na ňu.
+- Reklamy, e-maily, lievik plánu a `/dakujem` ostávajú na bielej `/diagnostika` s A/B testom.
+- `tmava.css`: tmavý kalendár (`html .kalA`) a lišta „Nevieš, ako začať?“ (`html .navod`). `html` pred triedou je nutné,
+  lebo `kalendar.css` a `navod.css` sa načítajú až po `tmava.css`.
+- 🔴 Pri zmene textu na `/diagnostika` zmeniť aj `interierova-diagnostika.html`, sú to dve kópie.
+- Overené naostro: obe tmavé adresy 200, telo aj kalendár tmavé, `/diagnostika` A aj B biele, menu úvodu vedie na tmavú.
+
 ## Čaká na Miriam
 1. ~~Hlavná fotka~~ hotové 27. 10.: `assets/img/hero-medene-svietidla.jpg` (853x1280, poslal Jano).
 2. Tri fotky detailov do Môj podpis a ku každej nadpis a jedna veta. Miesto je pripravené ako komentár v `index.html`,

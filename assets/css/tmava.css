@@ -206,3 +206,34 @@ html { scroll-padding-top: 170px; }
 .podpis-fotka h3 { color: var(--brass); font-size: 1.35rem; margin-top: 1.1rem; }
 .podpis-fotka p { color: var(--muted); font-size: 1rem; margin: 0.4rem auto 0; max-width: 30ch; }
 @media (max-width: 760px) { .podpis-fotky { grid-template-columns: minmax(0, 1fr); max-width: 22rem; margin-inline: auto; } }
+
+/* ---------- Kalendár diagnostiky na tmavej stránke (12. 11. 2026) ----------
+   /interierova-diagnostika je tmavá kópia /diagnostika pre menu webu. kalendar.css má bielu kartu
+   a biele políčka napevno (#fff), preto sa tu prepisujú aj farby, nielen tokeny.
+   🔴 kalendar.css sa načíta až po tmava.css, preto `html .kalA` (vyššia váha), inak by vyhrala biela karta.
+   🔴 Vybraný čas a tlačidlo odoslať sú zlaté s tmavým textom: --k-tma je tu svetlá, biely text by na nej zmizol. */
+html .kalA {
+  --k-tma: #ECEAE7; --k-text: #ECEAE7; --k-sivy: #B5AEA5; --k-linka: #4A4038;
+  --k-akcent: #DDC16A; --k-akcent-tmavy: #DDC16A; --k-zlata: #1E1B1A; --k-zle: #F0A79B;
+  background: #241F1E; border: 1px solid #6E5F43;
+}
+html .kalA .denP, html .kalA .termin, html .kalA .typ, html .kalA .pole input { background: #1E1B1A; }
+html .kalA .denP.on, html .kalA .typ.on { border-color: #DDC16A; box-shadow: 0 0 0 1.5px #DDC16A; }
+html .kalA .termin.vybrany { background: #DDC16A; border-color: #DDC16A; color: #1E1B1A; box-shadow: none; }
+html .kalA .termin.vybrany::before { color: #1E1B1A; }
+html .kalA .odoslat { background: #DDC16A; color: #1E1B1A; box-shadow: none; }
+html .kalA .suhlas input { accent-color: #DDC16A; }
+html .kalA .pole input:focus { box-shadow: 0 0 0 3px rgba(221, 193, 106, .25); }
+
+/* Lišta „Nevieš, ako začať?“ (navod.css) na tmavej stránke. navod.css sa načíta po tmava.css, preto `html .navod…`. */
+html .navod { background: #241F1E; color: #C9C4BD; border: 1px solid #6E5F43; box-shadow: 0 -10px 30px rgba(0, 0, 0, .45); }
+html .navod-x, html .navod-pozn { color: #B5AEA5; }
+html .navod-hlava b, html .navod-pribeh q, html .navod-stretnut { color: #ECEAE7; }
+html .navod-hlava p, html .navod-pribeh p { color: #C9C4BD; }
+html .navod-riadok input { background: #1E1B1A; border-color: #4A4038; color: #ECEAE7; }
+html .navod-riadok input:focus { border-color: #DDC16A; box-shadow: 0 0 0 3px rgba(221, 193, 106, .25); }
+html .navod-btn { background: #DDC16A; color: #1E1B1A; }
+html .navod-pozn a, html .navod-pribeh-tl, html .navod-pribeh cite { color: #DDC16A; }
+html .navod-hotovo { background: #1E1B1A; }
+html .navod .chyba { color: #F0A79B; }
+html .navod-znova { background: #241F1E; border-color: #6E5F43; color: #ECEAE7; }
