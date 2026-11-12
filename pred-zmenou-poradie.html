@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Tvoje poradie krokov · Miriam Czompoly, Trnava</title>
+  <!-- NÁVRH B „Pred veľkou zmenou“, podstránka pre vlažných a studených (12. 11. 2026, Jano: „čo dostane ten studený
+       lead, ako bude vyzerať tá podstránka“). Poradie krokov a ponuka služby za 400 € (pracovný názov „Izba podľa teba“).
+       Len náhľad: časy sú testové, rezervácia sa neodosiela. -->
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="theme-color" content="#262019" />
+  <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/css/profil.css" />
+  <style>
+    .nahlad-pruh{background:#2f6b4f;color:#fff;text-align:center;font-size:13.5px;line-height:1.4;padding:8px 16px}
+    .odislo{background:#eef6f1;border:1px solid #cfe5d8;border-radius:12px;padding:10px 14px;font-size:15px;color:var(--tma);margin:0 0 18px}
+    .poradie-sekcia{padding:22px 0 30px}
+    .vys-stitok{display:inline-block;font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--akcent-tmavy);margin-bottom:6px}
+    .vys-hlavna{font-family:var(--display);font-size:34px;line-height:1.06;color:var(--tma);margin:0 0 10px;text-wrap:balance}
+    .vys-cas{background:var(--zvyraznenie);border-radius:12px;padding:10px 14px;color:var(--tma);font-size:15.5px;margin:0 0 18px}
+    .vys-kroky{list-style:none;padding:0;margin:0 0 22px;display:grid;gap:8px;counter-reset:k}
+    .vys-kroky li{counter-increment:k;position:relative;padding:12px 14px 12px 50px;border:1px solid var(--linka);border-radius:14px;font-size:15.5px;line-height:1.45}
+    .vys-kroky li::before{content:counter(k);position:absolute;left:13px;top:11px;width:26px;height:26px;border-radius:50%;background:var(--tma);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13.5px}
+    .vys-kroky li.hotovo{color:var(--sivy);background:var(--karta)}
+    .vys-kroky li.hotovo::before{content:"✓";background:var(--zlata);color:var(--tma)}
+    .vys-kroky li.hotovo small{display:block;font-size:13px}
+    .vys-chyby{margin:0 0 22px;padding:14px 16px;border-left:3px solid var(--cervena);background:#fbf3f1;border-radius:0 12px 12px 0}
+    .vys-chyby h3{font-size:22px;margin:0 0 6px}
+    .vys-chyby ul{margin:0;padding-left:1.1em;display:grid;gap:4px}
+    .vys-pribeh{margin:0}
+    .vys-pribeh h3{font-size:22px;margin:0 0 4px}
+    .vys-pribeh p{font-size:15px;color:var(--sivy);margin:0 0 10px}
+    .vys-pribeh .pred-po{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+    .vys-pribeh figure{margin:0}
+    .vys-pribeh figcaption{font-size:12.5px;color:var(--sivy);margin-top:4px}
+    .dalej-pozn{display:flex;gap:10px;align-items:flex-start;background:var(--karta);border-radius:14px;padding:12px 14px;font-size:15px;color:var(--tma);margin-top:22px}
+    .dalej-pozn b{white-space:nowrap}
+    .ponuka-stitok{display:block;font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--akcent-tmavy);margin-bottom:4px}
+    .ponuka-pod{font-size:16px;color:var(--tma);margin:-4px 0 12px}
+    .cena-karta{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;border:1.5px solid var(--tma);border-radius:14px;padding:12px 16px;margin:16px 0}
+    .cena-karta .suma{font-family:var(--display);font-size:38px;font-weight:600;color:var(--tma);line-height:1}
+    .cena-karta .k-cene{font-size:14.5px;color:var(--sivy)}
+    .kroky3{list-style:none;padding:0;margin:0 0 14px;display:grid;gap:6px;counter-reset:s}
+    .kroky3 li{counter-increment:s;display:flex;gap:10px;align-items:baseline;font-size:15px}
+    .kroky3 li::before{content:counter(s);flex:0 0 24px;height:24px;border-radius:50%;background:var(--zlata);color:var(--tma);font-weight:800;font-size:13px;display:flex;align-items:center;justify-content:center}
+    .dvojica-pole{display:grid;grid-template-columns:1fr 1fr;gap:0 10px}
+    .dvojica-pole > *{min-width:0}
+    @media (max-width:380px){.dvojica-pole{grid-template-columns:1fr}}
+    .formular[hidden]{display:none}
+    .potvrdene{display:none;background:#eef6f1;border:1px solid #cfe5d8;border-radius:14px;padding:16px;margin-top:14px;color:var(--tma);font-size:15.5px}
+    .potvrdene.vidno{display:block}
+    .potvrdene b{display:block;font-size:17px;margin-bottom:4px}
+    .body span.over{display:inline;margin:0;font-size:.85em}
+    .over{background:#fbefd9;color:#6b4a10;border-radius:4px;padding:0 4px;font-size:.88em;font-weight:600}
+    .nahlad-pozn{font-size:12.5px;color:var(--sivy);margin:8px 0 0}
+  </style>
+</head>
+<body>
+  <div class="nahlad-pruh"><b>Náhľad návrhu.</b> Takto to uvidí vlažný alebo studený človek hneď po otázkach. Časy sú ukážkové, rezervácia sa neuloží.</div>
+
+  <div class="pruh">
+    <div class="obal">
+      <span class="zive"><i></i>Hotovo</span>
+      <span class="co">Tvoje poradie krokov</span>
+      <span class="cas">aj v e-maile</span>
+    </div>
+  </div>
+
+  <main>
+    <section class="poradie-sekcia">
+      <div class="obal">
+        <p class="odislo" id="odislo">&#10003; Poradie krokov ti odišlo aj <span id="kam">do e-mailu</span>, aby si ho mala po ruke.</p>
+        <div id="poradie"></div>
+        <p class="dalej-pozn" id="dalejPozn"></p>
+      </div>
+    </section>
+
+    <!-- Ponuka pre vlažných a studených. Horúcim (keby sem prišli z e-mailu) sa namiesto nej ukáže hovor. -->
+    <section id="ponuka" class="formular-sekcia">
+      <div class="obal">
+        <span class="ponuka-stitok">Keď budeš chcieť ísť ďalej</span>
+        <h2>Izba podľa teba</h2>
+        <p class="ponuka-pod">Návrh rozloženia jednej izby u teba doma.</p>
+        <p>Poradie krokov ti povie, v akom poradí rozhodovať. Nepovie, čo konkrétne urobiť u teba. To ti ukážem na mieste.</p>
+        <ul class="body">
+          <li><b>Prídem k tebe domov</b><span>Prejdeme priestor spolu a povieš mi, ako v ňom chceš žiť.</span></li>
+          <li><b>Dva až tri varianty rozloženia</b><span>Pre izbu, ktorú riešiš ako prvú. Od jednoduchších po odvážnejšie, aspoň jeden bez búrania. <span class="over">overiť</span></span></li>
+          <li><b>Pri každom vysvetlenie</b><span>Prečo funguje. Vyberáš ty, štýl ti nenanútim.</span></li>
+          <li><b>Varianty dostaneš do <span class="over">koľkých</span> dní</b><span>Nakreslené, aby si ich mohla ukázať majstrom.</span></li>
+        </ul>
+        <div class="cena-karta"><span class="suma">400 €</span><span class="k-cene">za návštevu aj varianty. <span class="over">Ak potom pokračuješ projektom, sumu ti odpočítam.</span></span></div>
+        <ol class="kroky3"><li>Vyber termín návštevy</li><li>Nechaj mi adresu a telefón</li><li>Prídem k tebe a potom ti pošlem varianty</li></ol>
+
+        <div class="kal">
+          <div class="dni" id="dni" role="tablist" aria-label="Deň"></div>
+          <div class="sloty" id="sloty"></div>
+          <p class="kal-stav" id="kalStav">Načítavam voľné termíny…</p>
+          <form class="formular" id="formular" novalidate hidden>
+            <div class="dvojica-pole">
+              <div class="pole"><label for="meno">Meno</label><input id="meno" type="text" autocomplete="name" required></div>
+              <div class="pole"><label for="telefon">Telefón</label><input id="telefon" type="tel" inputmode="tel" autocomplete="tel" placeholder="0907 777 555" required></div>
+            </div>
+            <div class="pole"><label for="email">E-mail</label><input id="email" type="email" inputmode="email" autocomplete="email" required></div>
+            <div class="dvojica-pole">
+              <div class="pole"><label for="ulica">Ulica a číslo</label><input id="ulica" type="text" autocomplete="address-line1" required></div>
+              <div class="pole"><label for="mesto">Mesto alebo obec</label><input id="mesto" type="text" autocomplete="address-level2" required></div>
+            </div>
+            <p class="ako" id="ako"></p>
+            <p class="chyba" id="chyba" role="alert"></p>
+            <button class="btn" type="submit">Rezervovať návštevu</button>
+            <p class="drobne">Potvrdenie a pripomienku ti pošlem SMS a e-mailom. Viac o <a href="/gdpr" target="_blank" rel="noopener">ochrane údajov</a>.</p>
+          </form>
+          <div class="potvrdene" id="potvrdene" role="status"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="hovorPonuka" hidden>
+      <div class="obal">
+        <h2>Prejdime to spolu</h2>
+        <p>Podľa tvojich odpovedí ťa čaká veľká zmena a ešte je čas veľa ušetriť. Daj mi 10 minút do telefónu. Pozrieme sa, čo riešiš, a poviem ti, kde by som začala. Bez záväzku.</p>
+        <a class="btn" href="/pred-zmenou-hovor">Vybrať čas hovoru</a>
+      </div>
+    </section>
+
+    <section>
+      <div class="obal">
+        <h2>Čo hovoria klienti</h2>
+        <div class="kopa" id="kopa"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="paticka">
+    <div class="obal">
+      <div><b>Miriam Czompoly</b>, interiérový dizajn</div>
+      <div>J. Hlubíka 42, 917 01 Trnava · IČO 45714088</div>
+      <nav><a href="/gdpr" target="_blank" rel="noopener">Ochrana osobných údajov</a></nav>
+    </div>
+  </footer>
+
+  <script src="/assets/js/profil-data.js"></script>
+  <script src="/assets/js/pred-zmenou-data.js"></script>
+  <script>
+  (function () {
+    "use strict";
+    var $ = function (s) { return document.querySelector(s); }, P = window.PZ;
+    /* Bez vyplnených otázok (priamy odkaz na náhľad) ukáže ukážku: prerábanie, studená. */
+    var u = P.ulozene(), ukazka = !u;
+    if (!u) u = { o: { situacia: "b", kedy: "m36", hotove: "nic", rozpocet: "do5", kde: "Trnava" }, meno: "Lucia", email: "" };
+    var tep = P.teplota(u.o);
+    $("#poradie").innerHTML = P.poradieHTML(u.o, u.meno);
+    if (u.email) { $("#kam").textContent = "na " + u.email; $("#email").value = u.email; }
+    $("#meno").value = u.meno || ""; $("#mesto").value = u.o.kde || "";
+    $("#dalejPozn").innerHTML = "<b>Čo bude ďalej:</b> <span>" + (tep === "vlazna" ? "Zajtra" : "O tri dni") +
+      " sa ti ozvem e-mailom, ako ti ide prvý krok. Keď budeš chcieť ísť ďalej, nižšie je, ako ti viem pomôcť.</span>";
+    if (tep === "horuca") { $("#ponuka").hidden = true; $("#hovorPonuka").hidden = false;
+      $("#dalejPozn").innerHTML = "<b>Čo bude ďalej:</b> <span>Rada ti zavolám na 10 minút, vyber si čas nižšie.</span>"; }
+    if (ukazka) $("#odislo").innerHTML = "Ukážka: stránka otvorená bez vyplnenia otázok, zobrazená verzia prerábanie pre studenú skupinu.";
+
+    var DNI = ["NE", "PO", "UT", "ST", "ŠT", "PI", "SO"], DLHE = ["v nedeľu", "v pondelok", "v utorok", "v stredu", "vo štvrtok", "v piatok", "v sobotu"];
+    function casti(iso) { var m = iso.match(/^(\d{4})-(\d\d)-(\d\d)T(\d\d):(\d\d)/); var wd = new Date(Date.UTC(+m[1], +m[2] - 1, +m[3])).getUTCDay();
+      return { d: +m[3], m: +m[2], wd: wd, cas: m[4].replace(/^0/, "") + ":" + m[5] }; }
+    var dni = [], vybrany = null, stav = $("#kalStav"), form = $("#formular");
+    /* Naostro: kalendár služby (dnes „Diagnostika + dispozícia“ v GHL). Na náhľade testové termíny. */
+    fetch("/api/sloty").then(function (r) { return r.json(); }).then(function (x) {
+      dni = ((x && x.days) || []).filter(function (d) { return d.slots && d.slots.length; }).slice(0, 5).map(function (d) { return { slots: d.slots.slice(0, 6) }; });
+      if (!dni.length) { stav.textContent = "Na najbližšie dni je obsadené."; return; }
+      stav.hidden = true;
+      $("#dni").innerHTML = dni.map(function (d, i) { var c = casti(d.slots[0]), n = d.slots.length;
+        return '<button type="button" role="tab" class="denP" data-i="' + i + '"><span class="d1">' + DNI[c.wd] + '</span><span class="d2">' + c.d + ". " + c.m + '.</span><span class="d3">' + n + (n === 1 ? " termín" : n < 5 ? " termíny" : " termínov") + "</span></button>"; }).join("");
+      document.querySelectorAll(".denP").forEach(function (b) { b.addEventListener("click", function () { den(+b.dataset.i); }); });
+      den(0);
+    }).catch(function () { stav.textContent = "Termíny sa nepodarilo načítať."; });
+    function den(i) {
+      vybrany = null; form.hidden = true;
+      document.querySelectorAll(".denP").forEach(function (b, j) { b.classList.toggle("on", j === i); b.setAttribute("aria-selected", j === i ? "true" : "false"); });
+      $("#sloty").innerHTML = dni[i].slots.map(function (iso) { return '<button type="button" class="termin" data-iso="' + iso + '">' + casti(iso).cas + "</button>"; }).join("");
+      document.querySelectorAll(".termin").forEach(function (b) { b.addEventListener("click", function () {
+        vybrany = b.dataset.iso; document.querySelectorAll(".termin").forEach(function (x) { x.classList.toggle("vybrany", x === b); });
+        var c = casti(vybrany); $("#ako").textContent = "Prídem " + DLHE[c.wd] + " " + c.d + ". " + c.m + ". o " + c.cas + ".";
+        form.hidden = false; }); });
+    }
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var chyba = $("#chyba"), tel = $("#telefon").value.replace(/\s+/g, "");
+      var zle = !$("#meno").value.trim() ? "Doplň prosím meno." : !/^(\+421|0)\d{9}$/.test(tel) ? "Skontroluj prosím telefón, napríklad 0907 777 555." :
+        !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test($("#email").value.trim()) ? "Skontroluj prosím e-mail." : !$("#ulica").value.trim() || !$("#mesto").value.trim() ? "Doplň prosím adresu, kam mám prísť." : "";
+      if (zle) { chyba.textContent = zle; chyba.classList.add("vidno"); return; }
+      chyba.classList.remove("vidno"); form.hidden = true;
+      var c = casti(vybrany);
+      $("#potvrdene").innerHTML = "<b>&#10003; Návšteva je rezervovaná</b>Prídem " + DLHE[c.wd] + " " + c.d + ". " + c.m + ". o " + c.cas + ". Potvrdenie ti príde SMS aj e-mailom." +
+        '<p class="nahlad-pozn">Náhľad: rezervácia sa neuložila, nič neodišlo. Naostro sa zapíše do kalendára služby a Miriam dostane SMS.</p>';
+      $("#potvrdene").classList.add("vidno");
+    });
+    try { PROFIL.recenzie("#kopa", 4); } catch (e) { /* stránka beží aj bez recenzií */ }
+  })();
+  </script>
+</body>
+</html>
