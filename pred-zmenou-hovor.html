@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Prejdime tvoje poradie krokov spolu · Miriam Czompoly, Trnava</title>
+  <!-- NÁVRH B „Pred veľkou zmenou“, podstránka pre horúcich (12. 11. 2026, Jano: „keď vyplní, že má budget,
+       hneď ponúknuť podstránku, že si môžeme na 10 minút zavolať, číslo, e-mail, rezervácia“).
+       Len náhľad: časy sú skutočné z /api/sloty (na náhľade testové), rezervácia sa neodosiela. -->
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="theme-color" content="#262019" />
+  <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/css/profil.css" />
+  <style>
+    .nahlad-pruh{background:#2f6b4f;color:#fff;text-align:center;font-size:13.5px;line-height:1.4;padding:8px 16px}
+    .odislo{background:#eef6f1;border:1px solid #cfe5d8;border-radius:12px;padding:10px 14px;font-size:15px;color:var(--tma);margin:0 0 16px;text-align:left}
+    .odislo a{font-weight:600}
+    .formular[hidden]{display:none}
+    .kontakt-ja{margin-top:18px;border-top:1px solid var(--linka);padding-top:14px;text-align:center;font-size:15px;color:var(--sivy)}
+    .kontakt-ja b{display:block;color:var(--tma);font-size:16px;margin-bottom:2px}
+    .kontakt-ja .riadok{display:flex;flex-wrap:wrap;justify-content:center;gap:4px 14px;margin-top:4px}
+    .kontakt-ja a{font-weight:700;color:var(--tma);text-decoration:none;border-bottom:1.5px solid var(--zlata)}
+    .potvrdene{display:none;background:#eef6f1;border:1px solid #cfe5d8;border-radius:14px;padding:16px;margin-top:14px;color:var(--tma);font-size:15.5px}
+    .potvrdene.vidno{display:block}
+    .potvrdene b{display:block;font-size:17px;margin-bottom:4px}
+    .nahlad-pozn{font-size:12.5px;color:var(--sivy);margin:8px 0 0}
+  </style>
+</head>
+<body>
+  <div class="nahlad-pruh"><b>Náhľad návrhu.</b> Takto to uvidí horúci človek hneď po otázkach. Časy sú ukážkové, rezervácia sa neuloží.</div>
+
+  <div class="pruh">
+    <div class="obal">
+      <span class="zive"><i></i>Voľné</span>
+      <span class="co">Najbližší voľný čas</span>
+      <span class="cas" id="najblizsi">tento týždeň</span>
+    </div>
+  </div>
+
+  <main>
+    <section class="hero">
+      <div class="obal">
+        <p class="odislo" id="odislo">&#10003; Tvoje poradie krokov ti odišlo <span id="kam">do e-mailu</span>. <a href="/pred-zmenou#vysledok">Pozrieť ho teraz</a></p>
+        <h1>Tvoje poradie krokov <em>prejdeme spolu</em></h1>
+        <p class="sub" id="sub">Podľa tvojich odpovedí ťa čaká veľká zmena a ešte je čas veľa ušetriť. Daj mi 10 minút do telefónu. Pozrieme sa, čo riešiš, a poviem ti, kde by som začala. <strong>Zadarmo a bez záväzku. Zavolám ti ja.</strong></p>
+        <figure class="video">
+          <div class="video-miesto"><span class="video-play" aria-hidden="true"></span><span>Sem príde krátke video od Miriam k hovoru</span></div>
+        </figure>
+        <a class="btn" href="#kalendar">Vybrať čas hovoru</a>
+      </div>
+    </section>
+
+    <section id="kalendar" class="formular-sekcia">
+      <div class="obal">
+        <h2>Vyber si čas hovoru</h2>
+        <p class="uvod">10 minút, pracovné dni. Vyber čas a nechaj mi číslo, zavolám ti.</p>
+        <div class="kal">
+          <div class="dni" id="dni" role="tablist" aria-label="Deň"></div>
+          <div class="sloty" id="sloty"></div>
+          <p class="kal-stav" id="kalStav">Načítavam voľné časy…</p>
+          <form class="formular" id="formular" novalidate hidden>
+            <div class="pole"><label for="telefon">Telefón, na ktorý ti zavolám</label>
+              <input id="telefon" type="tel" inputmode="tel" autocomplete="tel" placeholder="0907 777 555" required></div>
+            <div class="pole"><label for="email">E-mail na potvrdenie</label>
+              <input id="email" type="email" inputmode="email" autocomplete="email" required></div>
+            <p class="ako" id="ako"></p>
+            <p class="chyba" id="chyba" role="alert"></p>
+            <button class="btn" type="submit">Rezervovať hovor</button>
+            <p class="drobne">Potvrdenie a pripomienku ti pošlem SMS a e-mailom. Viac o <a href="/gdpr" target="_blank" rel="noopener">ochrane údajov</a>.</p>
+          </form>
+          <div class="potvrdene" id="potvrdene" role="status"></div>
+          <div class="kontakt-ja">
+            <b>Radšej hneď?</b>
+            Zavolaj alebo napíš mi priamo:
+            <div class="riadok"><a href="tel:+421918819906">+421 918 819 906</a><a href="mailto:dizajn@miriamczompoly.sk">dizajn@miriamczompoly.sk</a></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="obal">
+        <h2>Čo na hovore dostaneš</h2>
+        <ul class="body">
+          <li><b>Čo rozhodnúť ako prvé</b><span>V tvojej situácii a s tvojím termínom, nie všeobecné rady.</span></li>
+          <li><b>Kde sa najviac prepláca</b><span>Čo sa pri tvojom rozpočte oplatí riešiť hneď a čo môže počkať.</span></li>
+          <li><b>Či stačí poradie krokov</b><span>Alebo ti viem pomôcť viac, a ako by to vyzeralo.</span></li>
+          <li><b>Odpovede na tvoje otázky</b><span>Čokoľvek, čo ťa pri veľkej zmene trápi.</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <section>
+      <div class="obal">
+        <h2>Čo hovoria klienti</h2>
+        <div class="kopa" id="kopa"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="paticka">
+    <div class="obal">
+      <div><b>Miriam Czompoly</b>, interiérový dizajn</div>
+      <div>J. Hlubíka 42, 917 01 Trnava · IČO 45714088</div>
+      <nav><a href="/gdpr" target="_blank" rel="noopener">Ochrana osobných údajov</a></nav>
+    </div>
+  </footer>
+
+  <script src="/assets/js/profil-data.js"></script>
+  <script>
+  (function () {
+    "use strict";
+    var $ = function (s) { return document.querySelector(s); };
+    var DNI = ["NE", "PO", "UT", "ST", "ŠT", "PI", "SO"], DLHE = ["v nedeľu", "v pondelok", "v utorok", "v stredu", "vo štvrtok", "v piatok", "v sobotu"];
+    var kontakt = {}; try { kontakt = JSON.parse(sessionStorage.getItem("pz") || "null") || {}; } catch (e) {}
+    if (kontakt.email) { $("#kam").textContent = "na " + kontakt.email; $("#email").value = kontakt.email; }
+    if (kontakt.meno) $("#sub").innerHTML = kontakt.meno.replace(/[<>&"]/g, "") + ", podľa tvojich odpovedí ťa čaká veľká zmena a ešte je čas veľa ušetriť. Daj mi 10 minút do telefónu. Pozrieme sa, čo riešiš, a poviem ti, kde by som začala. <strong>Zadarmo a bez záväzku. Zavolám ti ja.</strong>";
+
+    function casti(iso) { var m = iso.match(/^(\d{4})-(\d\d)-(\d\d)T(\d\d):(\d\d)/); var wd = new Date(Date.UTC(+m[1], +m[2] - 1, +m[3])).getUTCDay();
+      return { d: +m[3], m: +m[2], wd: wd, cas: m[4].replace(/^0/, "") + ":" + m[5] }; }
+    var dni = [], vybrany = null, stav = $("#kalStav"), form = $("#formular");
+
+    fetch("/api/sloty?typ=rozhovor").then(function (r) { return r.json(); }).then(function (x) {
+      dni = ((x && x.days) || []).filter(function (d) { return d.slots && d.slots.length; }).slice(0, 5)
+        .map(function (d) { return { slots: d.slots.slice(0, 9) }; });
+      if (!dni.length) { stav.textContent = "Na najbližšie dni je obsadené. Zavolaj mi prosím priamo."; return; }
+      stav.hidden = true;
+      var c = casti(dni[0].slots[0]); $("#najblizsi").textContent = DNI[c.wd] + " " + c.d + ". " + c.m + ". o " + c.cas;
+      $("#dni").innerHTML = dni.map(function (d, i) { var c = casti(d.slots[0]), n = d.slots.length;
+        return '<button type="button" role="tab" class="denP" data-i="' + i + '"><span class="d1">' + DNI[c.wd] + '</span><span class="d2">' + c.d + ". " + c.m + '.</span><span class="d3">' + n + (n === 1 ? " čas" : n < 5 ? " časy" : " časov") + "</span></button>"; }).join("");
+      document.querySelectorAll(".denP").forEach(function (b) { b.addEventListener("click", function () { den(+b.dataset.i); }); });
+      den(0);
+    }).catch(function () { stav.textContent = "Časy sa nepodarilo načítať. Zavolaj mi prosím priamo."; });
+
+    function den(i) {
+      vybrany = null; form.hidden = true;
+      document.querySelectorAll(".denP").forEach(function (b, j) { b.classList.toggle("on", j === i); b.setAttribute("aria-selected", j === i ? "true" : "false"); });
+      $("#sloty").innerHTML = dni[i].slots.map(function (iso) { return '<button type="button" class="termin" data-iso="' + iso + '">' + casti(iso).cas + "</button>"; }).join("");
+      document.querySelectorAll(".termin").forEach(function (b) { b.addEventListener("click", function () {
+        vybrany = b.dataset.iso; document.querySelectorAll(".termin").forEach(function (x) { x.classList.toggle("vybrany", x === b); });
+        var c = casti(vybrany); $("#ako").textContent = "Zavolám ti " + DLHE[c.wd] + " " + c.d + ". " + c.m + ". o " + c.cas + ".";
+        form.hidden = false; }); });
+    }
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var tel = $("#telefon").value.replace(/\s+/g, ""), email = $("#email").value.trim(), chyba = $("#chyba");
+      if (!/^(\+421|0)\d{9}$/.test(tel)) { chyba.textContent = "Skontroluj prosím telefón, napríklad 0907 777 555."; chyba.classList.add("vidno"); return; }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { chyba.textContent = "Skontroluj prosím e-mail."; chyba.classList.add("vidno"); return; }
+      chyba.classList.remove("vidno");
+      var c = casti(vybrany);
+      form.hidden = true;
+      $("#potvrdene").innerHTML = "<b>&#10003; Hovor je rezervovaný</b>Zavolám ti " + DLHE[c.wd] + " " + c.d + ". " + c.m + ". o " + c.cas + ". Potvrdenie ti príde SMS aj e-mailom." +
+        '<p class="nahlad-pozn">Náhľad: rezervácia sa neuložila, nič neodišlo. Naostro sa zapíše do kalendára hovorov a Miriam dostane SMS.</p>';
+      $("#potvrdene").classList.add("vidno");
+    });
+
+    try { PROFIL.recenzie("#kopa", 4); } catch (e) { /* stránka beží aj bez recenzií */ }
+  })();
+  </script>
+</body>
+</html>

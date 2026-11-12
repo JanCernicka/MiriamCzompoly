@@ -20,7 +20,6 @@
     .situacie{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;margin:0 0 14px}
     .situacie span{font-size:13px;font-weight:600;color:var(--tma);background:var(--karta);border:1px solid var(--linka);border-radius:999px;padding:4px 11px}
     .pole-pozn{font-size:13px;color:var(--sivy);margin:4px 0 0}
-    #telefonPole[hidden]{display:none}
     .jedna-miestnost{display:none;background:var(--karta);border:1px solid var(--linka);border-radius:14px;padding:12px 14px;font-size:15px;margin:-4px 0 14px}
     .jedna-miestnost.vidno{display:block}
     /* výsledok */
@@ -52,7 +51,7 @@
   </style>
 </head>
 <body>
-  <div class="nahlad-pruh"><b>Náhľad návrhu</b> pre Jana a Miriam. Nič sa neodosiela, po vyplnení sa hneď ukáže poradie krokov.</div>
+  <div class="nahlad-pruh"><b>Náhľad návrhu</b> pre Jana a Miriam. Nič sa neodosiela. Horúcich pošle na podstránku s hovorom, ostatným hneď ukáže poradie krokov.</div>
 
   <div class="pruh">
     <div class="obal">
@@ -88,8 +87,6 @@
             <div class="kontakt-polia">
               <div class="pole"><label for="meno">Krstné meno</label><input id="meno" type="text" autocomplete="given-name" required></div>
               <div class="pole"><label for="email">E-mail</label><input id="email" type="email" inputmode="email" autocomplete="email" required></div>
-              <div class="pole" id="telefonPole" hidden><label for="telefon">Telefón</label><input id="telefon" type="tel" inputmode="tel" autocomplete="tel">
-                <p class="pole-pozn">Podľa odpovedí to s veľkou zmenou myslíš vážne. Rada ti zavolám na 10 minút.</p></div>
             </div>
           </fieldset>
           <p class="chyba" id="chyba" role="alert"></p>
@@ -241,8 +238,6 @@
     function obnov() {
       var o = odpovede();
       document.getElementById("jednaMiestnost").classList.toggle("vidno", o.situacia === "jedna");
-      var hor = o.rozpocet && teplota(o) === "horuca";
-      document.getElementById("telefonPole").hidden = !hor;
       form.querySelectorAll("fieldset[data-k]").forEach(function (f) { if (form.querySelector('input[name="' + f.dataset.k + '"]:checked')) f.classList.add("hotova"); });
     }
     form.addEventListener("change", obnov); obnov();
@@ -258,6 +253,9 @@
       if (o.situacia === "jedna") { location.href = "/profil"; return; }
       if (!meno || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { chyba.textContent = "Doplň krstné meno a e-mail, nech viem, komu poradie krokov poslať."; chyba.classList.add("vidno"); return; }
       chyba.classList.remove("vidno");
+      try { sessionStorage.setItem("pz", JSON.stringify({ o: o, meno: meno, email: email })); } catch (e) {}
+      /* Horúci (podľa rozpočtu a termínu) idú hneď na podstránku s 10-minútovým hovorom, poradie krokov im odíde e-mailom. */
+      if (teplota(o) === "horuca") { location.href = "/pred-zmenou-hovor"; return; }
       ukaz(o, meno);
     });
 
@@ -267,7 +265,7 @@
         return hotove.indexOf(i) >= 0 ? '<li class="hotovo">' + esc(t) + "<small>Toto už máš za sebou.</small></li>" : "<li>" + esc(t) + "</li>";
       }).join("");
       var dalej = tep === "horuca"
-        ? '<div class="vys-dalej"><h3>Prejdime to spolu</h3><p>Podľa tvojich odpovedí ťa čaká veľká zmena a ešte je čas veľa ušetriť. Daj mi 10 minút do telefónu. Pozrieme sa, čo riešiš, a poviem ti, kde by som začala. Bez záväzku.</p><a class="btn" href="#" onclick="return false">Vybrať čas hovoru</a><p class="nahlad-pozn">V náhľade tlačidlo nikam nevedie. Naostro otvorí kalendár 10-minútového hovoru.</p></div>'
+        ? '<div class="vys-dalej"><h3>Prejdime to spolu</h3><p>Podľa tvojich odpovedí ťa čaká veľká zmena a ešte je čas veľa ušetriť. Daj mi 10 minút do telefónu. Pozrieme sa, čo riešiš, a poviem ti, kde by som začala. Bez záväzku.</p><a class="btn" href="/pred-zmenou-hovor">Vybrať čas hovoru</a></div>'
         : '<div class="vys-dalej"><h3>Ďalší krok: návrh rozloženia izby</h3><p>Poradie krokov ti povie, v akom poradí rozhodovať. Nepovie, čo konkrétne urobiť u teba. To ti ukážem na mieste: prídem k tebe a pre miestnosť, ktorú riešiš ako prvú, navrhnem dva až tri varianty rozloženia a pri každom ti vysvetlím, prečo funguje. <span class="cena">400 €.</span></p><a class="btn" href="https://dispozicia.miriam-web-staging.pages.dev/dispozicia-2" target="_blank" rel="noopener">Pozrieť návrh rozloženia izby</a><p class="nahlad-pozn">Vedie na cvičnú stránku služby, ešte bez nového názvu.</p></div>';
       document.getElementById("vysledokObal").innerHTML =
         '<span class="vys-stitok">' + esc(meno) + ", tvoje poradie krokov · " + esc(v.nazov) + "</span>" +
@@ -283,6 +281,8 @@
       var s = document.getElementById("vysledok"); s.hidden = false; s.scrollIntoView({ behavior: "smooth", block: "start" });
     }
 
+    /* Návrat z podstránky hovoru na #vysledok: poradie krokov sa ukáže z uložených odpovedí. */
+    if (location.hash === "#vysledok") { try { var u = JSON.parse(sessionStorage.getItem("pz") || "null"); if (u && u.o && VERZIE[u.o.situacia]) ukaz(u.o, u.meno); } catch (e) {} }
     try { PROFIL.recenzie("#kopa", 4); } catch (e) { /* stránka beží aj bez recenzií */ }
   })();
   </script>
