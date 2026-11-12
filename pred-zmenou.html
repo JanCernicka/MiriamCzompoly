@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Čo rozhodnúť skôr, než to bude drahé · Miriam Czompoly, Trnava</title>
+  <meta name="description" content="Kupuješ byt, prerábaš alebo sa sťahuješ? 5 krátkych otázok a interiérová dizajnérka Miriam Czompoly ti pošle tvoje poradie krokov: čo rozhodnúť ako prvé a tri najdrahšie chyby v tvojej situácii. Zadarmo." />
+  <!-- NÁVRH B „Pred veľkou zmenou“ (12. 11. 2026, Jano: „išiel by som tým Bčkom“). Podľa Miriaminho PDF z 8. 11.
+       Len náhľad: nič sa neodosiela, nemeria, nezapisuje do GHL. Do reklamy ani do Googlu nepatrí. -->
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="theme-color" content="#262019" />
+  <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/css/profil.css" />
+  <style>
+    .nahlad-pruh{background:#2f6b4f;color:#fff;text-align:center;font-size:13.5px;line-height:1.4;padding:8px 16px}
+    .nahlad-pruh b{color:#fff}
+    .situacie{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;margin:0 0 14px}
+    .situacie span{font-size:13px;font-weight:600;color:var(--tma);background:var(--karta);border:1px solid var(--linka);border-radius:999px;padding:4px 11px}
+    .pole-pozn{font-size:13px;color:var(--sivy);margin:4px 0 0}
+    #telefonPole[hidden]{display:none}
+    .jedna-miestnost{display:none;background:var(--karta);border:1px solid var(--linka);border-radius:14px;padding:12px 14px;font-size:15px;margin:-4px 0 14px}
+    .jedna-miestnost.vidno{display:block}
+    /* výsledok */
+    .vysledok{padding:30px 0 36px}
+    .vysledok[hidden]{display:none}
+    .vys-stitok{display:inline-block;font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--akcent-tmavy);margin-bottom:6px}
+    .vys-hlavna{font-family:var(--display);font-size:32px;line-height:1.08;color:var(--tma);margin:0 0 10px;text-wrap:balance}
+    .vys-cas{background:var(--zvyraznenie);border-radius:12px;padding:10px 14px;color:var(--tma);font-size:15.5px;margin:0 0 18px}
+    .vys-kroky{list-style:none;padding:0;margin:0 0 22px;display:grid;gap:8px;counter-reset:k}
+    .vys-kroky li{counter-increment:k;position:relative;padding:12px 14px 12px 50px;border:1px solid var(--linka);border-radius:14px;font-size:15.5px;line-height:1.45}
+    .vys-kroky li::before{content:counter(k);position:absolute;left:13px;top:11px;width:26px;height:26px;border-radius:50%;background:var(--tma);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13.5px}
+    .vys-kroky li.hotovo{color:var(--sivy);background:var(--karta)}
+    .vys-kroky li.hotovo::before{content:"✓";background:var(--zlata);color:var(--tma)}
+    .vys-kroky li.hotovo small{display:block;font-size:13px}
+    .vys-chyby{margin:0 0 22px;padding:14px 16px;border-left:3px solid var(--cervena);background:#fbf3f1;border-radius:0 12px 12px 0}
+    .vys-chyby h3{font-size:22px;margin:0 0 6px}
+    .vys-chyby ul{margin:0;padding-left:1.1em;display:grid;gap:4px}
+    .vys-pribeh{margin:0 0 22px}
+    .vys-pribeh h3{font-size:22px;margin:0 0 4px}
+    .vys-pribeh p{font-size:15px;color:var(--sivy);margin:0 0 10px}
+    .vys-pribeh .pred-po{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+    .vys-pribeh figure{margin:0}
+    .vys-pribeh figcaption{font-size:12.5px;color:var(--sivy);margin-top:4px}
+    .vys-dalej{border:1.5px solid var(--tma);border-radius:16px;padding:18px 16px}
+    .vys-dalej h3{font-size:24px;margin:0 0 6px}
+    .vys-dalej p{font-size:15.5px;margin:0 0 12px}
+    .vys-dalej .cena{font-weight:800;color:var(--tma)}
+    .nahlad-pozn{font-size:12.5px;color:var(--sivy);margin:8px 0 0;text-align:center}
+  </style>
+</head>
+<body>
+  <div class="nahlad-pruh"><b>Náhľad návrhu</b> pre Jana a Miriam. Nič sa neodosiela, po vyplnení sa hneď ukáže poradie krokov.</div>
+
+  <div class="pruh">
+    <div class="obal">
+      <span class="zive"><i></i>Zadarmo</span>
+      <span class="co">Tvoje poradie krokov</span>
+      <span class="cas">5 otázok</span>
+    </div>
+  </div>
+
+  <main>
+    <section class="hero">
+      <div class="obal">
+        <div class="situacie" aria-label="Pre koho to je"><span>Novostavba</span><span>Prerábanie</span><span>Sťahovanie</span><span>Byt na prenájom</span></div>
+        <h1>Čo rozhodnúť ako prvé, <em>kým to nie je drahé</em></h1>
+        <p class="sub">Kupuješ byt, prerábaš alebo sa sťahuješ? Odpovedz na 5 krátkych otázok a dostaneš svoje poradie krokov: čo vyriešiť ako prvé, v akom poradí ísť ďalej a tri najdrahšie chyby v tvojej situácii. <strong>Zadarmo.</strong></p>
+        <figure class="video">
+          <div class="video-miesto"><span class="video-play" aria-hidden="true"></span><span>Sem príde video od Miriam (scenár je v návrhu videa)</span></div>
+        </figure>
+        <a class="btn" href="#formular">Chcem svoje poradie krokov</a>
+        <div class="kopa" id="kopa"></div>
+      </div>
+    </section>
+
+    <section id="formular" class="formular-sekcia">
+      <div class="obal">
+        <h2>Tvoje poradie krokov za minútu</h2>
+        <p class="uvod">Päť otázok, každá na jedno kliknutie. Na konci meno a e-mail.</p>
+        <form id="zmenaForm" novalidate>
+          <div id="otazky"></div>
+          <p class="jedna-miestnost" id="jednaMiestnost">Pre jednu miestnosť mám kratší plán na víkend: <a href="/profil">plán pre jednu miestnosť</a>.</p>
+          <fieldset class="otazka kontakt-karta">
+            <legend><span class="poradie">Posledný krok</span><span class="text">Komu mám poradie krokov poslať?</span></legend>
+            <div class="kontakt-polia">
+              <div class="pole"><label for="meno">Krstné meno</label><input id="meno" type="text" autocomplete="given-name" required></div>
+              <div class="pole"><label for="email">E-mail</label><input id="email" type="email" inputmode="email" autocomplete="email" required></div>
+              <div class="pole" id="telefonPole" hidden><label for="telefon">Telefón</label><input id="telefon" type="tel" inputmode="tel" autocomplete="tel">
+                <p class="pole-pozn">Podľa odpovedí to s veľkou zmenou myslíš vážne. Rada ti zavolám na 10 minút.</p></div>
+            </div>
+          </fieldset>
+          <p class="chyba" id="chyba" role="alert"></p>
+          <button class="btn" type="submit">Získať moje poradie krokov</button>
+          <p class="drobne">E-mail použijem na tvoje poradie krokov a občas na tip k bývaniu. Odhlásiť sa môžeš jedným klikom. Viac o <a href="/gdpr" target="_blank" rel="noopener">ochrane údajov</a>.</p>
+        </form>
+      </div>
+    </section>
+
+    <section class="vysledok" id="vysledok" hidden aria-live="polite">
+      <div class="obal" id="vysledokObal"></div>
+    </section>
+
+    <section>
+      <div class="obal">
+        <h2>Čo v poradí krokov nájdeš</h2>
+        <ul class="body">
+          <li><b>Jednu vec, ktorú treba vyriešiť ako prvú</b><span>Podľa toho, čo ťa čaká: novostavba, prerábanie, sťahovanie alebo byt na prenájom.</span></li>
+          <li><b>Päť rozhodnutí v správnom poradí</b><span>Bez krokov, ktoré už máš za sebou, a s tým, čo stihneš do svojho termínu.</span></li>
+          <li><b>Tri najdrahšie chyby v tvojej situácii</b><span>Tie, ktoré vidím najčastejšie a ktoré sa po stavbe už nedajú lacno opraviť.</span></li>
+          <li><b>Ako to riešila klientka v podobnej situácii</b><span>Skutočný byt pred a po, nie obrázok z internetu.</span></li>
+        </ul>
+        <a class="btn" href="#formular">Chcem svoje poradie krokov</a>
+      </div>
+    </section>
+
+    <section>
+      <div class="obal">
+        <div class="o-mne">
+          <img src="https://assets.cdn.filesafe.space/o86atLjsdR9IoUTWgYna/media/69e7d02403c24196d247704c.png" alt="Miriam Czompoly, interiérová dizajnérka" width="84" height="84" loading="lazy" />
+          <h2>Som Miriam, interiérová dizajnérka z&nbsp;Trnavy</h2>
+        </div>
+        <p>Od roku 2010 navrhujem interiéry tak, aby odrážali teba a to, ako reálne žiješ. Najviac viem ušetriť tým, ktorí ma zavolajú skôr, než sú rozvody hotové a kuchyňa objednaná. Potom sa toho už veľa nezmení.</p>
+        <a class="btn" href="#formular">Chcem svoje poradie krokov</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="paticka">
+    <div class="obal">
+      <div><b>Miriam Czompoly</b>, interiérový dizajn</div>
+      <div>J. Hlubíka 42, 917 01 Trnava · IČO 45714088</div>
+      <nav><a href="/gdpr" target="_blank" rel="noopener">Ochrana osobných údajov</a></nav>
+    </div>
+  </footer>
+
+  <script src="/assets/js/profil-data.js"></script>
+  <script>
+  (function () {
+    "use strict";
+    var esc = function (s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); };
+
+    /* Otázky doslova z Miriaminho PDF „Lead magnet: pred veľkou zmenou“ (8. 11. 2026). */
+    var OTAZKY = [
+      { k: "situacia", t: "Čo práve riešiš?", z: {
+        a: "Kupujem alebo preberám nový byt či dom (novostavba)",
+        b: "Kúpila som starší byt alebo dom a idem ho prerobiť",
+        c: "Sťahujem sa a veľa vecí si beriem so sebou",
+        d: "Zariaďujem byt na prenájom",
+        jedna: "Chcem zmeniť len jednu miestnosť" } },
+      { k: "kedy", t: "Kedy to potrebuješ mať hotové?", z: { do3: "Do 3 mesiacov", m36: "O 3 až 6 mesiacov", neskor: "Neskôr alebo zatiaľ neviem" } },
+      { k: "hotove", t: "Čo už máš rozhodnuté?", z: { nic: "Zatiaľ nič", rozvody: "Rozloženie miestností, elektriku a rozvody", kuchyna: "Aj kuchyňu a kúpeľňu", nabytok: "Zostáva už len nábytok a doplnky" } },
+      { k: "rozpocet", t: "Koľko chceš do toho investovať? (bez ceny bytu)", z: { do5: "Do 5 000 €", r5_15: "5 000 až 15 000 €", r15_40: "15 000 až 40 000 €", nad40: "Nad 40 000 €", neviem: "Zatiaľ neviem" } },
+      { k: "kde", t: "Kde sa byt alebo dom nachádza?", text: "mesto alebo obec" }
+    ];
+
+    /* Obsah verzií z jej PDF. Kroky, ktoré podľa otázky 3 už má za sebou: NÁVRH (Jano/Miriam potvrdia). */
+    var VERZIE = {
+      a: { nazov: "Novostavba", hlavna: "Elektrika skôr než nábytok.",
+        kroky: ["Ujasni si, ako budeš každú miestnosť používať: kde sa pracuje, kde je televízor, kde sa spí.",
+          "Podľa toho rozhodni o zásuvkách, vypínačoch a svetlách. Klientske zmeny majú u developera termín.",
+          "Kuchyňa: rozmery, spotrebiče, prívody vody a elektriky.",
+          "Podlahy, dvere, obklady.",
+          "Nábytok až nakoniec."],
+        chyby: ["Zásuvky podľa štandardu developera.", "Kuchyňa navrhnutá bez ohľadu na zvyšok bytu.", "Nábytok kúpený pred zameraním."],
+        hotove: { rozvody: [0, 1], kuchyna: [0, 1, 2], nabytok: [0, 1, 2, 3] },
+        pribeh: { nadpis: "Byt Štajnerka, Trnava", text: "Z hrubej stavby až po hotový byt.",
+          pred: ["/assets/img/realizacie/stajnerka-pred-2.jpg", "Obytná miestnosť v hrubej stavbe"],
+          po: ["/assets/img/realizacie/stajnerka-po.jpg", "Obývacia a jedálenská časť po premene"] } },
+      b: { nazov: "Prerobenie staršieho bytu alebo domu", hlavna: "Rozloženie miestností skôr než obklady.",
+        kroky: ["Spíš si, čo ti v byte dnes prekáža.",
+          "Rozhodni, či sa búra alebo presúva, ešte pred oslovením majstrov.",
+          "Elektrika, voda a kúrenie podľa nového rozloženia.",
+          "Kuchyňa a kúpeľňa, majú najdlhšie dodacie lehoty.",
+          "Povrchy a nábytok."],
+        chyby: ["Majster robí bez plánu podľa seba.", "Obklady vybrané v predajni bez celku.", "Rozpočet bez rezervy."],
+        hotove: { rozvody: [1, 2], kuchyna: [1, 2, 3], nabytok: [0, 1, 2, 3] },
+        pribeh: { nadpis: "Byt pre staršiu pani, Trnava", text: "Pôvodná kuchyňa a kuchyňa po prerobení.",
+          pred: ["/assets/img/realizacie/starsia-pani-pred-3.jpg", "Pôvodná kuchyňa pred premenou"],
+          po: ["/assets/img/realizacie/starsia-pani-3.jpg", "Kuchyňa a pohľad do obývacej izby"] } },
+      c: { nazov: "Sťahovanie", hlavna: "Najprv zmerať, potom sťahovať.",
+        kroky: ["Spíš si zoznam vecí, ktoré chceš zobrať.",
+          "Zmeraj ich a zakresli do pôdorysu nového bytu.",
+          "Rozhodni, čo necháš alebo predáš, ešte pred sťahovaním.",
+          "Svetlá a garníže pred nasťahovaním.",
+          "Dokúpiť až po nasťahovaní."],
+        chyby: ["Sťahovať všetko a vyhadzovať až potom.", "Kupovať nové pred zmeraním.", "Nechávať staré veci „zatiaľ“."],
+        hotove: {},
+        pribeh: { nadpis: "Vidiecky byt, Trnava", text: "Starý nábytok zostal a dostal okolo seba nový.",
+          pred: ["/assets/img/realizacie/vidiecky-pred.jpg", "Obývacia izba pred premenou"],
+          po: ["/assets/img/realizacie/vidiecky-po.jpg", "Tá istá obývacia izba po premene"] } },
+      d: { nazov: "Investičný byt", hlavna: "Zariaďuješ pre nájomníka, nie pre seba.",
+        kroky: ["Urči, komu budeš prenajímať a za koľko.",
+          "Rozloženie a úložný priestor podľa toho.",
+          "Odolné materiály, ktoré vydržia striedanie nájomníkov.",
+          "Zariadenie s rozpočtom podľa toho, koľko má byt zarábať.",
+          "Priprav byt tak, aby dobre vyzeral na fotkách do inzerátu."],
+        chyby: ["Zariaďovať podľa svojho vkusu.", "Lacné veci, ktoré sa o rok menia.", "Málo úložného priestoru."],
+        hotove: { rozvody: [1], kuchyna: [1, 2], nabytok: [1, 2] },
+        /* 🔴 overiť s Miriam, či garsónka v Hlohovci bola byt na prenájom; inak vymeniť */
+        pribeh: { nadpis: "Garsónka, Hlohovec", text: "Jeden priestor, v ktorom je spanie, kuchyňa aj pracovné miesto.",
+          pred: ["/assets/img/realizacie/garsonka-po.jpg", "Spanie a kuchynská linka v jednom priestore"],
+          po: ["/assets/img/realizacie/garsonka-5.jpg", "Pracovné miesto pri okne"] } }
+    };
+
+    /* Veta podľa otázky 2. Prvá je z PDF, ďalšie dve sú NÁVRH. */
+    var CAS = { do3: "Do 3 mesiacov stihneš kroky 1 až 3. Na tie sa sústreď teraz.",
+      m36: "Máš čas na všetkých päť krokov. Prvé dva rozhodni ešte tento mesiac.",
+      neskor: "Kým nemáš termín, urob aspoň prvý krok. Ten ti nikto nevezme." };
+
+    /* Teplota podľa PDF: horúci, horúci aj tak, vlažní, studení. */
+    function teplota(o) {
+      var r = o.rozpocet, nad15 = r === "r15_40" || r === "nad40";
+      if (r === "nad40" || (r === "r15_40" && o.kedy === "do3")) return "horuca";
+      if (nad15 && o.hotove === "nic") return "horuca";
+      if (r === "r5_15" || nad15) return "vlazna";
+      return "studena";
+    }
+
+    var form = document.getElementById("zmenaForm"), otazky = document.getElementById("otazky");
+    otazky.innerHTML = OTAZKY.map(function (q, i) {
+      var hlava = '<legend><span class="poradie">Otázka ' + (i + 1) + ' z 5</span><span class="text">' + esc(q.t) + "</span></legend>";
+      if (q.text) return '<fieldset class="otazka" data-k="' + q.k + '">' + hlava +
+        '<div class="pole"><label for="kde">Mesto alebo obec</label><input id="kde" type="text" autocomplete="address-level2" placeholder="napríklad Trnava"></div></fieldset>';
+      return '<fieldset class="otazka typ-zoznam" data-k="' + q.k + '">' + hlava + '<p class="otazka-chyba">Vyber jednu možnosť.</p><div class="moznosti">' +
+        Object.keys(q.z).map(function (k) {
+          return '<label class="moznost"><input type="radio" name="' + q.k + '" value="' + k + '"><span class="vol vol-zoznam"><span class="kruzok" aria-hidden="true"></span><span class="nazov">' + esc(q.z[k]) + "</span></span></label>";
+        }).join("") + "</div></fieldset>";
+    }).join("");
+
+    /* Reklama na konkrétnu situáciu môže predvyplniť otázku 1: ?verzia=a až d */
+    var pred = new URLSearchParams(location.search).get("verzia");
+    if (pred && VERZIE[pred]) { var r0 = form.querySelector('input[name="situacia"][value="' + pred + '"]'); if (r0) r0.checked = true; }
+
+    function odpovede() {
+      var o = {}; OTAZKY.forEach(function (q) { var x = form.querySelector('input[name="' + q.k + '"]:checked'); if (x) o[q.k] = x.value; });
+      o.kde = (document.getElementById("kde").value || "").trim(); return o;
+    }
+    function obnov() {
+      var o = odpovede();
+      document.getElementById("jednaMiestnost").classList.toggle("vidno", o.situacia === "jedna");
+      var hor = o.rozpocet && teplota(o) === "horuca";
+      document.getElementById("telefonPole").hidden = !hor;
+      form.querySelectorAll("fieldset[data-k]").forEach(function (f) { if (form.querySelector('input[name="' + f.dataset.k + '"]:checked')) f.classList.add("hotova"); });
+    }
+    form.addEventListener("change", obnov); obnov();
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var o = odpovede(), chyba = document.getElementById("chyba"), chyba1 = null;
+      ["situacia", "kedy", "hotove", "rozpocet"].forEach(function (k) {
+        var f = form.querySelector('fieldset[data-k="' + k + '"]'); var ok = !!o[k]; f.classList.toggle("chybna", !ok);
+        f.querySelector(".otazka-chyba").style.display = ok ? "none" : "block"; if (!ok && !chyba1) chyba1 = f; });
+      var meno = document.getElementById("meno").value.trim(), email = document.getElementById("email").value.trim();
+      if (chyba1) { chyba1.scrollIntoView({ behavior: "smooth", block: "center" }); return; }
+      if (o.situacia === "jedna") { location.href = "/profil"; return; }
+      if (!meno || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { chyba.textContent = "Doplň krstné meno a e-mail, nech viem, komu poradie krokov poslať."; chyba.classList.add("vidno"); return; }
+      chyba.classList.remove("vidno");
+      ukaz(o, meno);
+    });
+
+    function ukaz(o, meno) {
+      var v = VERZIE[o.situacia], tep = teplota(o), hotove = v.hotove[o.hotove] || [];
+      var kroky = v.kroky.map(function (t, i) {
+        return hotove.indexOf(i) >= 0 ? '<li class="hotovo">' + esc(t) + "<small>Toto už máš za sebou.</small></li>" : "<li>" + esc(t) + "</li>";
+      }).join("");
+      var dalej = tep === "horuca"
+        ? '<div class="vys-dalej"><h3>Prejdime to spolu</h3><p>Podľa tvojich odpovedí ťa čaká veľká zmena a ešte je čas veľa ušetriť. Daj mi 10 minút do telefónu. Pozrieme sa, čo riešiš, a poviem ti, kde by som začala. Bez záväzku.</p><a class="btn" href="#" onclick="return false">Vybrať čas hovoru</a><p class="nahlad-pozn">V náhľade tlačidlo nikam nevedie. Naostro otvorí kalendár 10-minútového hovoru.</p></div>'
+        : '<div class="vys-dalej"><h3>Ďalší krok: nové rozloženie izby</h3><p>Poradie krokov ti povie, v akom poradí rozhodovať. Nepovie, čo konkrétne urobiť u teba. To ti ukážem na mieste: prídem k tebe a pre miestnosť, ktorú riešiš ako prvú, navrhnem dva až tri varianty rozloženia a pri každom ti vysvetlím, prečo funguje. <span class="cena">400 €.</span></p><a class="btn" href="https://dispozicia.miriam-web-staging.pages.dev/dispozicia-2" target="_blank" rel="noopener">Pozrieť nové rozloženie izby</a><p class="nahlad-pozn">Vedie na cvičnú stránku služby, ešte bez nového názvu.</p></div>';
+      document.getElementById("vysledokObal").innerHTML =
+        '<span class="vys-stitok">' + esc(meno) + ", tvoje poradie krokov · " + esc(v.nazov) + "</span>" +
+        '<h2 class="vys-hlavna">' + esc(v.hlavna) + "</h2>" +
+        '<p class="vys-cas">' + esc(CAS[o.kedy]) + "</p>" +
+        '<ol class="vys-kroky">' + kroky + "</ol>" +
+        '<div class="vys-chyby"><h3>Tri najdrahšie chyby</h3><ul>' + v.chyby.map(function (c) { return "<li>" + esc(c) + "</li>"; }).join("") + "</ul></div>" +
+        '<div class="vys-pribeh"><h3>Ako to riešila klientka v podobnej situácii</h3><p><b>' + esc(v.pribeh.nadpis) + "</b>. " + esc(v.pribeh.text) + "</p>" +
+        '<div class="pred-po"><figure><img src="' + v.pribeh.pred[0] + '" alt="' + esc(v.pribeh.pred[1]) + '" loading="lazy"><figcaption>' + esc(v.pribeh.pred[1]) + '</figcaption></figure>' +
+        '<figure><img src="' + v.pribeh.po[0] + '" alt="' + esc(v.pribeh.po[1]) + '" loading="lazy"><figcaption>' + esc(v.pribeh.po[1]) + "</figcaption></figure></div></div>" +
+        dalej +
+        '<p class="nahlad-pozn">Náhľad: skupina <b>' + ({ horuca: "horúca", vlazna: "vlažná", studena: "studená" })[tep] + "</b>" + (o.kde ? ", miesto " + esc(o.kde) : "") + ". Naostro by poradie krokov odišlo aj e-mailom.</p>";
+      var s = document.getElementById("vysledok"); s.hidden = false; s.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    try { PROFIL.recenzie("#kopa", 4); } catch (e) { /* stránka beží aj bez recenzií */ }
+  })();
+  </script>
+</body>
+</html>
