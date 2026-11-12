@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<!-- Návrh e-mailov pre kampaň Pred veľkou zmenou (12. 11. 2026), na kontrolu pre Miriam. Do Googlu nepatrí. -->
+<meta name="robots" content="noindex, nofollow" />
+<title>E-maily Pred veľkou zmenou · návrh pre Miriam</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: čítací stĺpec, scenár ako bloky so štítkom vľavo, dlhé zoznamy v tabuľkách s vlastným posúvaním */
+:root{
+  --bg:#ffffff; --fg:#1f1c19; --muted:#655d53; --line:#e6e0d7; --soft:#f6f3ef;
+  --accent:#7a5c34; --accent-fill:#efe6d8; --data:#2b5868; --data-fill:#e3eef2;
+  --warn-fg:#6b4a10; --warn-fill:#fbefd9; --ok-fg:#2f5328; --ok-fill:#e6f0e3; --bad-fg:#7c2d22; --bad-fill:#f7e3df;
+  --display:"Fraunces",Georgia,"Times New Roman",serif;
+  --ui:"Public Sans",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#161411; --fg:#eee8df; --muted:#a69d91; --line:#37312a; --soft:#201d19; --accent:#d6b787; --accent-fill:#3a2f20;
+  --data:#8ec3d6; --data-fill:#1b2c33; --warn-fg:#f0d39a; --warn-fill:#3b2e14; --ok-fg:#b9dcae; --ok-fill:#1f3020; --bad-fg:#f0b4a8; --bad-fill:#3a1f1a; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#161411; --fg:#eee8df; --muted:#a69d91; --line:#37312a; --soft:#201d19; --accent:#d6b787; --accent-fill:#3a2f20;
+  --data:#8ec3d6; --data-fill:#1b2c33; --warn-fg:#f0d39a; --warn-fill:#3b2e14; --ok-fg:#b9dcae; --ok-fill:#1f3020; --bad-fg:#f0b4a8; --bad-fill:#3a1f1a; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--ui);font-size:16px;line-height:1.55;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.wrap{max-width:920px;margin:0 auto;padding-block:36px 72px;display:flex;flex-direction:column;gap:48px}
+h1,h2,h3{font-family:var(--display);font-weight:600;line-height:1.15;margin:0;text-wrap:balance}
+h1{font-size:clamp(1.9rem,4.4vw,2.5rem)} h2{font-size:clamp(1.35rem,3vw,1.7rem)} h3{font-size:1.15rem}
+p{margin:0} a{color:var(--accent)} a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.eyebrow{font-size:.76rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--accent)}
+.muted{color:var(--muted)}
+header{display:flex;flex-direction:column;gap:14px}
+.lede{font-size:1.06rem;color:var(--muted);max-width:68ch}
+nav.obsah{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:.9rem}
+section{display:flex;flex-direction:column;gap:16px}
+.sec-head{display:flex;flex-direction:column;gap:8px}
+.sec-head p{max-width:70ch;color:var(--muted)}
+.num{font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:.9em}
+.fakty{display:flex;flex-wrap:wrap;gap:8px}
+.fakt{border:1px solid var(--line);border-radius:8px;padding:6px 12px;font-size:.88rem}
+.fakt b{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:10px}
+table{border-collapse:collapse;width:100%;font-size:.92rem}
+.tbl.siroka table{min-width:860px} .tbl.stredna table{min-width:620px}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:.72rem;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);font-weight:700;background:var(--soft);position:sticky;top:0}
+tr:last-child td{border-bottom:0}
+td.kod{font-family:var(--mono);color:var(--accent);white-space:nowrap;font-weight:500}
+.rec{font-family:var(--display);font-size:1.03rem;line-height:1.42}
+.chip{display:inline-block;font-size:.73rem;font-weight:600;border-radius:999px;padding:1px 9px;white-space:nowrap}
+.chip.ok{background:var(--ok-fill);color:var(--ok-fg)} .chip.zle{background:var(--bad-fill);color:var(--bad-fg)}
+.chip.nove{background:var(--accent-fill);color:var(--accent)} .chip.data{background:var(--data-fill);color:var(--data)}
+mark.over{background:var(--warn-fill);color:var(--warn-fg);border-radius:3px;padding:0 4px;font-family:var(--ui);font-size:.84em;font-weight:600;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+.core{border:1.5px solid var(--fg);border-radius:12px;overflow:hidden}
+.blok{display:grid;grid-template-columns:130px minmax(0,1fr);gap:4px 18px;padding:12px 16px;border-top:1px solid var(--line)}
+.blok:first-child{border-top:0}
+.blok .tag{font-size:.74rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);padding-top:4px}
+.blok .tag small{display:block;font-weight:400;letter-spacing:0;text-transform:none;color:var(--muted);font-family:var(--mono);font-size:.78rem}
+.blok .rec{font-size:1.1rem;line-height:1.45}
+.blok .pozn{grid-column:2;font-size:.86rem;color:var(--muted)}
+@media (max-width:560px){.blok{grid-template-columns:1fr}.blok .pozn{grid-column:1}}
+.core-pata{display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px;padding:10px 16px;background:var(--soft);font-size:.86rem;color:var(--muted)}
+.dvojica{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+@media (max-width:680px){.dvojica{grid-template-columns:1fr}}
+.box{border:1px solid var(--line);border-radius:10px;padding:14px 16px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.box h3{font-size:1.05rem}
+.box ul,.zoznam{margin:0;padding-left:1.15em;display:flex;flex-direction:column;gap:6px}
+.citanie{border:1px solid var(--line);border-radius:12px;padding:18px 20px;background:var(--soft);max-width:72ch}
+.citanie p{font-family:var(--display);font-size:1.08rem;line-height:1.55}
+.copy p + p{margin-top:.7em}
+.mail{border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.mail-hlava{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 14px;padding:12px 16px;background:var(--soft);border-bottom:1px solid var(--line)}
+.mail-hlava .kod{font-family:var(--mono);color:var(--accent);font-weight:500}
+.mail-hlava .komu{font-size:.86rem;color:var(--muted)}
+.mail-telo{padding:16px 18px;display:flex;flex-direction:column;gap:10px;max-width:68ch}
+.mail-telo .predmet{font-weight:700}
+.mail-telo p{font-family:var(--display);font-size:1.06rem;line-height:1.55}
+.tlacidlo{display:inline-block;align-self:flex-start;background:var(--fg);color:var(--bg);border-radius:10px;padding:8px 16px;font-family:var(--ui);font-weight:600;font-size:.92rem}
+.mail-pozn{padding:10px 18px 14px;font-size:.86rem;color:var(--muted);border-top:1px dashed var(--line)}
+.dalsi{background:var(--soft);border-radius:12px;padding:18px 20px;display:flex;flex-direction:column;gap:8px}
+</style>
+
+</head>
+<body>
+<div class="wrap">
+<header>
+  <span class="eyebrow">Miriam Czompoly · návrh B · 12. 11. 2026</span>
+  <h1>E-maily: Pred veľkou zmenou</h1>
+  <p class="lede">Sekvencia po magnete „Tvoje poradie krokov“. Kostra je Miriamina z PDF: päť e-mailov pre všetkých, dva navyše pre horúcich. Texty sú náš návrh v jej tóne, Miriam ich prepíše po svojom. Na konci je vždy návrh rozloženia izby za 400 €, ktorý nahrádza diagnostiku.</p>
+  <div class="fakty"><span class="fakt"><b>5</b> e-mailov pre všetkých</span><span class="fakt"><b>2</b> navyše pre horúcich</span><span class="fakt"><b>2</b> verzie tretieho e-mailu</span></div>
+</header>
+
+<section>
+  <div class="sec-head"><span class="eyebrow">Kto čo dostane a kedy</span><h2>Časový plán</h2>
+  <p>Miriam v PDF dni neurčila. Návrh drží rytmus plánu na víkend: vlažní rýchlejšie, studení pomalšie, horúci najprv hovor.</p></div>
+  <div class="tbl stredna"><table>
+    <thead><tr><th>E-mail</th><th>Horúci</th><th>Vlažní</th><th>Studení</th></tr></thead>
+    <tbody>
+      <tr><td><b>E1</b> Tvoje poradie krokov</td><td>hneď</td><td>hneď</td><td>hneď</td></tr>
+      <tr><td><b>H1</b> Prejdime to spolu</td><td>o 2 hodiny, len 8:00 až 20:00</td><td>-</td><td>-</td></tr>
+      <tr><td><b>H2</b> Teraz sa dá ušetriť najviac</td><td>o 1 deň</td><td>-</td><td>-</td></tr>
+      <tr><td><b>E2</b> Ako ti ide prvý krok?</td><td rowspan="4">od 3. dňa ako vlažní, ak si hovor nerezervuje</td><td>1. deň</td><td>3. deň</td></tr>
+      <tr><td><b>E3</b> E-book alebo príbeh klientky</td><td>3. deň</td><td>7. deň</td></tr>
+      <tr><td><b>E4</b> Koľko stojí jeden zlý nákup</td><td>5. deň</td><td>14. deň</td></tr>
+      <tr><td><b>E5</b> Čo konkrétne urobiť u teba</td><td>7. deň</td><td>21. deň</td></tr>
+    </tbody></table></div>
+  <p class="muted">Kto si rezervuje hovor alebo návrh rozloženia izby, alebo odpíše, zo sekvencie vypadne. Pri pláne na víkend vyraďovanie po odpovedi nefungovalo spoľahlivo, tu ho treba otestovať pred spustením.</p>
+</section>
+
+<section>
+  <div class="sec-head"><span class="eyebrow">Pre všetkých</span><h2>E1: Tvoje poradie krokov</h2></div>
+  <div class="mail"><div class="mail-hlava"><span class="kod">E1</span><span class="komu">všetci, hneď po otázkach</span></div>
+    <div class="mail-telo"><p class="predmet">Predmet: Tvoje poradie krokov: {{hlavná veta}}</p>
+      <p>Ahoj {{meno}},</p>
+      <p>posielam ti tvoje poradie krokov, aby si ho mala po ruke.</p>
+      <p>Ako prvé: <b>{{hlavná veta}}</b></p>
+      <p>Nájdeš v ňom päť rozhodnutí v poradí, v akom majú prísť, tri najdrahšie chyby v tvojej situácii a byt klientky, ktorá bola tam, kde si teraz ty.</p>
+      <span class="tlacidlo">Otvoriť moje poradie krokov</span>
+      <p>Čím skôr začneš, tým viac ušetríš. Keď sú rozvody hotové a kuchyňa objednaná, už sa toho veľa nezmení.</p>
+      <p>Miriam</p></div>
+    <div class="mail-pozn">Hlavná veta podľa verzie, napríklad „Elektrika skôr než nábytok.“ Posledná veta je doslova z Miriaminho PDF.</div></div>
+</section>
+
+<section>
+  <div class="sec-head"><span class="eyebrow">Len horúci</span><h2>H1 a H2: ponuka 10-minútového hovoru</h2><p>Horúci podľa jej pravidiel: rozpočet nad 40 000 €, alebo 15 000 až 40 000 € a hotovo do 3 mesiacov, alebo nad 15 000 € a zatiaľ nič rozhodnuté.</p></div>
+  <div class="mail"><div class="mail-hlava"><span class="kod">H1</span><span class="komu">horúci, o 2 hodiny</span></div>
+    <div class="mail-telo"><p class="predmet">Predmet: Prejdime tvoje poradie krokov spolu</p>
+      <p>Ahoj {{meno}},</p>
+      <p>tvoje poradie krokov je pripravené a rada by som ho s tebou prešla na krátkom hovore. Stačí 10 minút, zavolám ti ja.</p>
+      <p>Pozrieme sa, čo riešiš, a poviem ti, kde by som začala. Bez záväzku.</p>
+      <span class="tlacidlo">Vybrať čas hovoru</span>
+      <p>Miriam</p></div>
+    <div class="mail-pozn">Druhý odsek sú jej slová zo správy ľuďom s rozpočtom 3 000 až 8 000 €.</div></div>
+  <div class="mail"><div class="mail-hlava"><span class="kod">H2</span><span class="komu">horúci, o 1 deň, ak si hovor nevybrali</span></div>
+    <div class="mail-telo"><p class="predmet">Predmet: Teraz sa dá ušetriť najviac</p>
+      <p>Ahoj {{meno}},</p>
+      <p>podľa tvojich odpovedí ťa čaká veľká zmena. Teraz je fáza, keď sa dá ešte najviac ušetriť, lebo zatiaľ nie je všetko kúpené.</p>
+      <p>Ak chceš, daj mi 10 minút do telefónu a povieme si, čo rozhodnúť ako prvé.</p>
+      <span class="tlacidlo">Vybrať čas hovoru</span>
+      <p>Ak sa ti to teraz nehodí, nevadí. Poradie krokov máš v e-maile.</p>
+      <p>Miriam</p></div></div>
+</section>
+
+<section>
+  <div class="sec-head"><span class="eyebrow">Vlažní a studení</span><h2>E2: Ako ti ide prvý krok?</h2></div>
+  <div class="mail"><div class="mail-hlava"><span class="kod">E2</span><span class="komu">vlažní 1. deň, studení 3. deň</span></div>
+    <div class="mail-telo"><p class="predmet">Predmet: Ako ti ide prvý krok?</p>
+      <p>Ahoj {{meno}},</p>
+      <p>v poradí krokov som ti ako prvé napísala toto:</p>
+      <p><b>{{prvý krok, ktorý ešte nemá za sebou}}</b></p>
+      <p>Je to krok, ktorý sa najľahšie odkladá, lebo zatiaľ nič nestojí. A práve preto je najlacnejší.</p>
+      <p>Skúsila si to? Ak áno, odpíš mi, ako to ide, rada si to prečítam.</p>
+      <span class="tlacidlo">Otvoriť moje poradie krokov</span>
+      <p>Miriam</p></div>
+    <div class="mail-pozn">Stavba ako e-mail „Ako ti ide prvý krok?“ pri pláne na víkend, ktorý Miriam schválila. Krok sa vyberá bez tých, ktoré podľa tretej otázky už má za sebou.</div></div>
+</section>
+
+<section>
+  <div class="sec-head"><span class="eyebrow">Dve verzie</span><h2>E3: e-book alebo príbeh klientky</h2><p>Podľa PDF: verzie A a D dostanú e-book za 19 €, B a C príbeh klientky v podobnej situácii.</p></div>
+  <div class="mail"><div class="mail-hlava"><span class="kod">E3a</span><span class="komu">novostavba a prenájom, len kto byt ešte nepreberal</span></div>
+    <div class="mail-telo"><p class="predmet">Predmet: Kým podpíšeš preberací protokol</p>
+      <p>Ahoj {{meno}},</p>
+      <p>pri preberaní bytu sa podpisuje rýchlo. Čo vtedy prehliadneš, sa potom rieši oveľa ťažšie.</p>
+      <p>Preto som spísala postup, ako byt prebrať bod po bode: e-book Kým podpíšeš preberací protokol. Stojí 19 €.</p>
+      <p>A ak sa potom rozhodneš pre návrh rozloženia izby, kód EBOOK19 ti tých 19 € odpočíta. E-book tak máš v podstate zadarmo.</p>
+      <span class="tlacidlo">Chcem e-book</span>
+      <p>Miriam</p></div>
+    <div class="mail-pozn">E-book od Miriam už máme. Formulár sa nepýta, či byt už prebrali, treba doplniť pravidlo. V PDF platil kód EBOOK19 na diagnostiku, tu na návrh rozloženia izby. Platbu 19 € treba vyriešiť.</div></div>
+  <div class="mail"><div class="mail-hlava"><span class="kod">E3b</span><span class="komu">prerábanie a sťahovanie</span></div>
+    <div class="mail-telo"><p class="predmet">Predmet: Ako to riešila klientka v tvojej situácii</p>
+      <p>Ahoj {{meno}},</p>
+      <p>chcem ti ukázať byt, ktorý bol v podobnej situácii ako ty.</p>
+      <p><i>Prerábanie:</i> Byt pre staršiu pani v Trnave. <mark class="over">čo v byte prekážalo a čo sme presunuli</mark> Jej rodina mi potom napísala: <mark class="over">veta z recenzie</mark></p>
+      <p><i>Sťahovanie:</i> Vidiecky byt v Trnave. Rodina sa sťahovala z domu do paneláku a veľa nábytku si brala so sebou. Starý nábytok zostal a dostal okolo seba nový. <mark class="over">čo sme pred sťahovaním merali a riešili</mark></p>
+      <span class="tlacidlo">Pozrieť celú premenu</span>
+      <p>Ak riešiš niečo podobné, odpíš mi, rada si to prečítam.</p>
+      <p>Miriam</p></div>
+    <div class="mail-pozn">Fakty sú z jej webu. Žlté doplní Miriam vlastnými slovami, nič nevymýšľame. Tlačidlo vedie na premenu na jej webe.</div></div>
+</section>
+
+<section>
+  <div class="sec-head"><span class="eyebrow">Jej text</span><h2>E4: Koľko stojí jeden zlý nákup</h2></div>
+  <div class="mail"><div class="mail-hlava"><span class="kod">E4</span><span class="komu">vlažní 5. deň, studení 14. deň</span></div>
+    <div class="mail-telo"><p class="predmet">Predmet: Koľko stojí jeden zlý nákup</p>
+      <p>Ahoj {{meno}},</p>
+      <p>vec, ktorá doma nesedí, zaplatíš dvakrát. Raz, keď ju kúpiš, a druhýkrát, keď ju meníš za inú.</p>
+      <p>Najčastejšie sa to stáva, keď sa kupuje skôr, než je jasné, čo do priestoru patrí. Preto to pri návrhu rozloženia robíme naopak: najprv si ujasníme, kde čo bude stáť, a až potom kupuješ.</p>
+      <span class="tlacidlo">Pozrieť návrh rozloženia izby</span>
+      <p>Miriam</p></div>
+    <div class="mail-pozn">Miriamin text z 8. 11. Zmenené je len „na diagnostike“ na „pri návrhu rozloženia“, „čo zmeniť a čo nechať“ na „kde čo bude stáť“ a tlačidlo.</div></div>
+</section>
+
+<section>
+  <div class="sec-head"><span class="eyebrow">Ponuka</span><h2>E5: Čo konkrétne urobiť u teba</h2></div>
+  <div class="mail"><div class="mail-hlava"><span class="kod">E5</span><span class="komu">vlažní 7. deň, studení 21. deň</span></div>
+    <div class="mail-telo"><p class="predmet">Predmet: Čo konkrétne urobiť u teba</p>
+      <p>Ahoj {{meno}},</p>
+      <p>poradie krokov ti povie, v akom poradí rozhodovať. Nepovie, čo konkrétne urobiť u teba. To riešim na mieste.</p>
+      <p>Prídem k tebe a pre miestnosť, ktorú riešiš ako prvú, navrhnem dva až tri varianty rozloženia. Pri každom ti vysvetlím, prečo funguje, a vyberieš si ty. Varianty dostaneš do <mark class="over">koľkých</mark> dní.</p>
+      <p>Návrh rozloženia izby stojí 400 €. <mark class="over">Ak potom pokračuješ projektom, sumu ti odpočítam.</mark></p>
+      <span class="tlacidlo">Rezervovať návrh rozloženia izby</span>
+      <p>Ak nevieš, či to má pre teba zmysel, zavolám ti na 10 minút zadarmo.</p>
+      <span class="tlacidlo">Vybrať čas hovoru</span>
+      <p>Miriam</p></div>
+    <div class="mail-pozn">Prvá veta je jej z PDF: „Magnet povie, v akom poradí sa rozhoduje. Nepovie, čo konkrétne urobiť v jej byte.“ Pri adrese nad 100 km od Trnavy ponúknuť online variant, ak ho Miriam robí.</div></div>
+</section>
+
+<section>
+  <div class="sec-head"><span class="eyebrow">Pred spustením</span><h2>Čo treba od Miriam a čo postavíme my</h2></div>
+  <div class="dvojica">
+    <div class="box"><h3>Od Miriam</h3><ul>
+      <li>Prepísať texty po svojom, najmä E3b, kde chýbajú jej vety o klientkach.</li>
+      <li>Do koľkých dní pošle varianty a či sa 400 € odpočíta z projektu.</li>
+    </ul></div>
+    <div class="box"><h3>Postavíme my</h3><ul>
+      <li>Polia na kontakte: hlavná veta, prvý krok, odkaz na poradie, verzia.</li>
+      <li>Workflowy pre horúcich, vlažných a studených ako pri pláne, vlastné značky.</li>
+      <li>Vyradenie po rezervácii a po odpovedi, s testom pred spustením.</li>
+      <li>Každý e-mail najprv do schránky team@ a až potom naostro.</li>
+    </ul></div>
+  </div>
+</section>
+</div>
+
+</body>
+</html>
