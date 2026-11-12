@@ -19,6 +19,17 @@ Texty žijú v artifactoch, sem ich nekopírovať.
 - „Len jedna miestnosť“ posiela na plán na víkend (`/profil`).
 - Draft je zámerne mimo `plan-naostro`, aby ho `./nasad-web.sh` nevyniesol na www.
 
+## Cesta po otázkach (Jano 12. 11. vybral jemnú variantu 1)
+| Kto | Kam | Súbor na vetve `claude/navrh-pred-zmenou` |
+|---|---|---|
+| horúci | výber času 10-minútového hovoru, telefón, e-mail predvyplnený, priamy kontakt na Miriam | `pred-zmenou-hovor.html` |
+| vlažní a studení | ďakovná stránka: hlavná veta, Izba podľa teba za 400 € (premena, postup, recenzie), tlačidlo „Chcem vedieť viac“ = značka záujmu a e-mail Z1 | `pred-zmenou-dakujem.html` (varianty 2 a 3 cez `?varianta=`) |
+| všetci, odkaz z e-mailu | celé poradie krokov bez predaja | `pred-zmenou-poradie.html` |
+| Miriam na kontrolu | e-maily E1 až E5, H1, H2, Z1 | `pred-zmenou-emaily.html`, https://pred-zmenou.miriam-web-staging.pages.dev/pred-zmenou-emaily |
+
+Spoločné dáta (otázky, verzie A až D, krátke kroky, pravidlá teploty, výstup poradia): `assets/js/pred-zmenou-data.js`.
+Názov služby „Izba podľa teba“ je pracovný, Miriam vyberá.
+
 ## Otvorené
 - Miriam: potvrdiť texty e-mailov (E3b doplní vlastné vety), dni dodania variantov, odpočet 400 € z projektu, e-book 19 €.
 - Video: overiť faktá pri P2 až P8, N1 (90 cm), M3.
