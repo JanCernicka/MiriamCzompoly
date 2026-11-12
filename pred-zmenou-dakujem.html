@@ -15,6 +15,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/assets/css/profil.css" />
   <style>
+    .nahlad-pruh{background:#2f6b4f;color:#fff;text-align:center;font-size:13.5px;line-height:1.4;padding:8px 16px}
+    .prepinac[hidden]{display:none}
     .prepinac{background:#2f6b4f;color:#fff;font-size:13.5px;padding:8px 16px;display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:6px 10px}
     .prepinac a{color:#fff;text-decoration:none;border:1px solid rgba(255,255,255,.5);border-radius:999px;padding:3px 12px;font-weight:600}
     .prepinac a.on{background:#fff;color:#2f6b4f;border-color:#fff}
@@ -70,7 +72,9 @@
   </style>
 </head>
 <body>
-  <div class="prepinac" role="navigation" aria-label="Varianty návrhu">
+  <div class="nahlad-pruh" id="nahladPruh"><b>Náhľad.</b> Takto to uvidí vlažný alebo studený človek hneď po otázkach. Nič sa neukladá.</div>
+  <!-- Prepínač variantov len pri ?varianta= (Jano 12. 11. vybral variantu 1, jemnú). -->
+  <div class="prepinac" role="navigation" aria-label="Varianty návrhu" hidden>
     <span>Náhľad, vyber variantu:</span>
     <a href="?varianta=1" data-v="1">1 Jemná</a><a href="?varianta=2" data-v="2">2 Poradie v skratke</a><a href="?varianta=3" data-v="3">3 Premena na začiatku</a>
   </div>
@@ -94,6 +98,7 @@
     "use strict";
     var $ = function (s) { return document.querySelector(s); }, P = window.PZ, esc = P.esc;
     var varianta = (new URLSearchParams(location.search).get("varianta") || "1").replace(/[^123]/g, "") || "1";
+    if (new URLSearchParams(location.search).has("varianta")) { $(".prepinac").hidden = false; $("#nahladPruh").hidden = true; }
     document.querySelectorAll(".prepinac a").forEach(function (a) { a.classList.toggle("on", a.dataset.v === varianta); });
     var u = P.ulozene() || { o: { situacia: "b", kedy: "m36", hotove: "nic", rozpocet: "do5", kde: "Trnava" }, meno: "Lucia", email: "" };
     var v = P.VERZIE[u.o.situacia], hotove = v.hotove[u.o.hotove] || [];
@@ -127,7 +132,7 @@
     var akcia = $("#akcia");
     if (varianta === "1") {
       akcia.innerHTML = '<button class="btn btn--obrys" type="button" id="zaujem">Chcem vedieť viac</button><p class="bez">Žiadny tlak. Podrobnosti a voľné termíny ti pošlem e-mailom a rozhodneš sa, keď budeš chcieť.</p>' +
-        '<div class="odpoved" id="odpoved"><b>&#10003; Pošlem ti všetko e-mailom</b>Nájdeš tam, ako návšteva prebieha, ukážky návrhov a voľné termíny.<p class="nahlad-pozn">Náhľad: naostro sa kontaktu pridá značka záujmu a odíde e-mail s ponukou.</p></div>';
+        '<div class="odpoved" id="odpoved"><b>&#10003; Pošlem ti všetko e-mailom</b>Nájdeš tam, ako návšteva prebieha, a odkaz na voľné termíny.<p class="nahlad-pozn">Náhľad: naostro sa kontaktu pridá značka záujmu a hneď odíde e-mail Z1 „Izba podľa teba: ako to prebieha“.</p></div>';
       $("#zaujem").addEventListener("click", function () { this.hidden = true; $(".bez").hidden = true; $("#odpoved").classList.add("vidno"); });
     }
     if (varianta === "2") {
