@@ -6,12 +6,12 @@ Texty žijú v artifactoch, sem ich nekopírovať.
 | Čo | Kde |
 |---|---|
 | Stránka (náhľad, nič neodosiela) | https://pred-zmenou.miriam-web-staging.pages.dev/pred-zmenou , súbor `pred-zmenou.html` na vetve `claude/navrh-pred-zmenou` |
-| Video: 2 telá, 30 úvodov, prvá dávka 14, video na stránku, text reklamy | https://claude.ai/artifact/8XwuPSqa92KVJTmexGGbur |
+| Video: čo nahrať (14 videí prvej dávky s textom a obrazom), 2 telá, 30 úvodov, video na stránku a k úvodnému hovoru, text reklamy | https://claude.ai/artifact/8XwuPSqa92KVJTmexGGbur |
 | E-maily: E1 až E5 pre všetkých, H1 a H2 pre horúcich, časový plán | https://claude.ai/artifact/57se9wwQWbfZkKezEVFX9Y |
 | Predošlý návrh s tromi cestami | https://claude.ai/artifact/E66UautZsMQ9vjWmWDkkUK |
 
 ## Stránka
-- 5 otázok doslova z PDF, verzia A až D podľa prvej otázky, `?verzia=a..d` ju predvyplní (reklama podľa situácie).
+- 5 otázok doslova z PDF, verzia A až D podľa prvej otázky. `?verzia=a..d` existuje, ale reklamy ho nepoužijú: všetky idú na tú istú stránku bez predvyplnenia (Jano 12. 11.), v adrese len `utm_content=PZ-<kód úvodu>`.
 - Horúci/vlažní/studení podľa pravidiel z PDF. Telefón sa ukáže len horúcim.
 - Kroky, ktoré podľa tretej otázky už má za sebou, sú označené ako hotové: pravidlá sú NÁVRH, potvrdiť s Miriam.
 - Vety o čase pre „3 až 6 mesiacov“ a „neskôr“ sú náš návrh, prvá je z PDF.
@@ -36,10 +36,12 @@ Názov služby „Izba podľa teba“ je pracovný, Miriam vyberá.
 - **Bezplatný hovor = „úvodný hovor“**, nie konzultácia, a nie je to poradenstvo: len či a ako vie pomôcť. Texty stránky s hovorom, H1 a H2 sú jej.
 - E3a e-book len pri novostavbe, ostatní príbeh klientky (vety doplní sama). E4 jej pôvodný text. E5 a Z1 jej text.
 - Rozpočet: väčšinu do „pred zmenou“, víkendovú kampaň nechať s menším rozpočtom. Rozhoduje Jano, v Mete nič nezmenené.
+- Video (13. 11.): Scarcity v oboch telách a PS v texte reklamy prepísané na úvodný hovor (predtým „prejdem ho osobne cez telefón“). Odkazy bez predvyplnenia. Pribudla sekcia Čo nahrať a návrh videa k úvodnému hovoru.
 - Zapracované 13. 11. na vetve `claude/navrh-pred-zmenou`. Navyše sme upravili predmet a prvý odsek H1 a nadpis stránky s hovorom („Povedzme si, či ti viem pomôcť“), lebo v nich ostalo prejdenie poradia, čo je podľa nej už poradenstvo. Na posúdenie.
 
 ## Otvorené
 - Miriam: vety o klientkach v E3b, video k úvodnému hovoru, potvrdiť úpravy H1 a nadpisu stránky s hovorom.
 - My: kalendár diagnostiky na tlačidlá, kód EBOOK19 a platba 19 €.
-- Video: overiť faktá pri P2 až P8, N1 (90 cm), M3.
+- Video: overiť faktá pri P2 až P8, N1 (90 cm), M3. Vyrobiť AI premenu Štajnerky (P3).
+- Stránka /diagnostika na webe nemá presne podnadpis „90-minútová konzultácia u teba doma alebo online“ (H1: „Interiérová diagnostika na mieste: za 90 minút vieš, čo s tvojím priestorom.“). Nemenené, beží na nej A/B test.
 - Po výbere: správa pre Miriam do WhatsAppu na odsúhlasenie.
