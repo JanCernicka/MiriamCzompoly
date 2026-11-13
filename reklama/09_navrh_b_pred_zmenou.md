@@ -22,15 +22,24 @@ Texty žijú v artifactoch, sem ich nekopírovať.
 ## Cesta po otázkach (Jano 12. 11. vybral jemnú variantu 1)
 | Kto | Kam | Súbor na vetve `claude/navrh-pred-zmenou` |
 |---|---|---|
-| horúci | výber času 10-minútového hovoru, telefón, e-mail predvyplnený, priamy kontakt na Miriam | `pred-zmenou-hovor.html` |
-| vlažní a studení | ďakovná stránka: hlavná veta, Izba podľa teba za 400 € (premena, postup, recenzie), tlačidlo „Chcem vedieť viac“ = značka záujmu a e-mail Z1 | `pred-zmenou-dakujem.html` (varianty 2 a 3 cez `?varianta=`) |
+| horúci | výber času úvodného hovoru (10 minút), telefón, e-mail predvyplnený, priamy kontakt na Miriam | `pred-zmenou-hovor.html` |
+| vlažní a studení | ďakovná stránka: hlavná veta, interiérová diagnostika (premena, postup, recenzie, 290/250 €), tlačidlo „Chcem vedieť viac“ = značka záujmu a e-mail Z1 | `pred-zmenou-dakujem.html` (varianty 2 a 3 zrušené 13. 11.) |
 | všetci, odkaz z e-mailu | celé poradie krokov bez predaja | `pred-zmenou-poradie.html` |
 | Miriam na kontrolu | e-maily E1 až E5, H1, H2, Z1 | `pred-zmenou-emaily.html`, https://pred-zmenou.miriam-web-staging.pages.dev/pred-zmenou-emaily |
 
 Spoločné dáta (otázky, verzie A až D, krátke kroky, pravidlá teploty, výstup poradia): `assets/js/pred-zmenou-data.js`.
 Názov služby „Izba podľa teba“ je pracovný, Miriam vyberá.
 
+## Miriam 13. 11. (PDF „Kampaň pred zmenou: môj názor“)
+- **Služba za 400 € zrušená.** Dispozícia jednej izby je v jej balíku „Miestnosť, ktorá konečne funguje“ od 1 090 €, a kto robí novostavbu alebo celú prerábku, nikdy nerieši jednu izbu.
+- **Diagnostika ostáva** vstupom do oboch kampaní: 90 minút doma alebo online, písomné zhrnutie do 3 dní, 290 € doma, 250 € online, do 25 km od Trnavy cesta v cene, pri projekte sa odpočíta. Všade podnadpis „90-minútová konzultácia u teba doma alebo online“.
+- **Bezplatný hovor = „úvodný hovor“**, nie konzultácia, a nie je to poradenstvo: len či a ako vie pomôcť. Texty stránky s hovorom, H1 a H2 sú jej.
+- E3a e-book len pri novostavbe, ostatní príbeh klientky (vety doplní sama). E4 jej pôvodný text. E5 a Z1 jej text.
+- Rozpočet: väčšinu do „pred zmenou“, víkendovú kampaň nechať s menším rozpočtom. Rozhoduje Jano, v Mete nič nezmenené.
+- Zapracované 13. 11. na vetve `claude/navrh-pred-zmenou`. Navyše sme upravili predmet a prvý odsek H1 a nadpis stránky s hovorom („Povedzme si, či ti viem pomôcť“), lebo v nich ostalo prejdenie poradia, čo je podľa nej už poradenstvo. Na posúdenie.
+
 ## Otvorené
-- Miriam: potvrdiť texty e-mailov (E3b doplní vlastné vety), dni dodania variantov, odpočet 400 € z projektu, e-book 19 €.
+- Miriam: vety o klientkach v E3b, video k úvodnému hovoru, potvrdiť úpravy H1 a nadpisu stránky s hovorom.
+- My: kalendár diagnostiky na tlačidlá, kód EBOOK19 a platba 19 €.
 - Video: overiť faktá pri P2 až P8, N1 (90 cm), M3.
 - Po výbere: správa pre Miriam do WhatsAppu na odsúhlasenie.
