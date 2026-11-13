@@ -107,7 +107,7 @@
     if (u.email) $("#kam").textContent = "na " + u.email;
     $("#dalejPozn").innerHTML = "<b>Čo bude ďalej:</b> <span>" + (tep === "vlazna" ? "Zajtra" : "O tri dni") +
       " sa ti ozvem e-mailom, ako ti ide prvý krok. </span>";
-    if (tep === "horuca") $("#dalejPozn").innerHTML = '<b>Čo bude ďalej:</b> <span>Ak chceš, daj mi 10 minút do telefónu a povieme si, či ti viem pomôcť. <a href="/pred-zmenou-hovor">Vybrať čas hovoru</a></span>';
+    if (tep === "horuca") $("#dalejPozn").innerHTML = '<b>Čo bude ďalej:</b> <span>Ak chceš, zavolám ti na 10 minút a povieme si, či ti viem pomôcť. <a href="/pred-zmenou-hovor">Vybrať čas hovoru</a></span>';
     if (ukazka) $("#odislo").innerHTML = "Ukážka: stránka otvorená bez vyplnenia otázok, zobrazená verzia prerábanie pre studenú skupinu.";
 
     try { PROFIL.recenzie("#kopa", 4); } catch (e) { /* stránka beží aj bez recenzií */ }
