@@ -3,6 +3,10 @@
 """
 Generuje lead magnet PDF „5 najdrahších chýb, ktoré ľudia robia pri zariaďovaní domova".
 
+🔴 NESPÚŠŤAŤ. 13. 11. 2026 ho nahradil e-book od Miriam „Prečo tvoj byt nefunguje“
+(5-chyb-preco-tvoj-byt-nefunguje.pdf v tomto priečinku). Tento skript by prepísal
+5-najdrahsich-chyb.pdf starou verziou. Ostáva len ako história.
+
 Tón a štruktúra sú odvodené z jej vlastných e-bookov (Tajomstvá ideálnej spálne,
 Sprievodca teóriou farieb, 6 tipov ako oživiť svoj interiér): tykanie, prvá osoba,
 konkrétne čísla, priamo k veci, na konci mäkké CTA.

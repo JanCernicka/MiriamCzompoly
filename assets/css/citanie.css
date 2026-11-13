@@ -1,6 +1,8 @@
 /* =========================================================
-   Svetlé stránky na čítanie: blog, e-booky, ochrana osobných údajov
+   Rozloženie stránok na čítanie: blog, e-book, ochrana osobných údajov
    (Miriam, 27. 10. 2026). Načítava sa po style.css.
+   13. 11. 2026 (Jano): blog a e-book sú tmavé, za týmto súborom načítajú tmava.css,
+   ktorá prepíše farby. Svetlá ostala len GDPR.
    Na svetlom podklade je zlatá #856A44, nikdy #DDC16A.
    ========================================================= */
 :root {

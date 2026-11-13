@@ -35,6 +35,19 @@ Jano: úvod a služby sú tmavé, Diagnostika A aj B biele. Rozhodol: „z menu 
 - 🔴 Pri zmene textu na `/diagnostika` zmeniť aj `interierova-diagnostika.html`, sú to dve kópie.
 - Overené naostro: obe tmavé adresy 200, telo aj kalendár tmavé, `/diagnostika` A aj B biele, menu úvodu vedie na tmavú.
 
+## 13. 11. 2026: Blog a e-book 5 chýb tmavé, nový e-book
+Jano: stránka 5 chýb a blog nie sú prerobené do tmavej, a vymeniť knižku za tú, ktorú poslala Miriam.
+- `blog.html`, `post/*.html`, `5-chyb.html`: za `citanie.css` načítajú `tmava.css` (farby) a zlaté logo. Svetlá ostala len GDPR.
+- `5-chyb.html`: texty podľa nového e-booku (názov „Prečo tvoj byt nefunguje“, 5 kapitol a bonusový test).
+  Formulár je z GHL (iframe) s bielym pozadím napevno, preto je karta okolo neho biela (`.optin-card--ghl`).
+- Úvod: odkazy na e-book s novým názvom. Päta všetkých tmavých stránok: „E-book 5 chýb“ (na `/diagnostika` a `/dakujem` nemenené).
+- Nový e-book: `ghl/ebook/5-chyb-preco-tvoj-byt-nefunguje.pdf` (Miriamin PDF, 11 strán). Ten istý súbor aj na starých adresách
+  `ghl/ebook/5-najdrahsich-chyb.pdf` a `lievik-sutaz/assets/5-najdrahsich-chyb.pdf`, aby staré odkazy dávali novú knihu.
+- GHL: workflow „E-book 5 chýb: doručenie hneď (Claude)“ `99f4f6d0` (spúšťa formulár `geA4rea6TYWIKcskupXQ`) mal odkaz na starý PDF
+  v médiách GHL (`d68c8922…pdf`). Zmenený len odkaz na nový PDF a názov knihy v texte, overené čítaním späť, ostáva published.
+  Predmet „Tu je tvojich 5 najdrahších chýb“ nemenený. Záloha pred zmenou v scratchpade sedenia (`zaloha/wf-99f4f6d0.json`).
+- Custom value „Link ebook PDF“ ostala na starom PDF (zápis cez API neprešiel). Používa ju len WF1 `71f69ec4`, ktorý je draft.
+
 ## Čaká na Miriam
 1. ~~Hlavná fotka~~ hotové 27. 10.: `assets/img/hero-medene-svietidla.jpg` (853x1280, poslal Jano).
 2. Tri fotky detailov do Môj podpis a ku každej nadpis a jedna veta. Miesto je pripravené ako komentár v `index.html`,

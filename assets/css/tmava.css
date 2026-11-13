@@ -1,9 +1,10 @@
 /* =========================================================
    Tmavá téma webu (Miriam, návrh z 27. 10. 2026)
-   Načítava sa LEN na tmavých stránkach (úvod, služby), vždy po style.css.
+   Načítava sa LEN na tmavých stránkach (úvod, služby, diagnostika z menu, blog a e-book 5 chýb), vždy po style.css.
+   Blog a 5 chýb (13. 11. 2026, Jano) načítajú najprv citanie.css (rozloženie článkov) a až potom túto, aby farby boli tmavé.
    Lievikové stránky (diagnostika, dakujem, profil) ju nenačítajú: majú biele
    pozadie (pravidlo z 23. 9. 2026) a beží na nich A/B test. Stránky na čítanie
-   (blog, e-book, GDPR) sú svetlé, tie majú citanie.css.
+   Svetlá ostala len GDPR (citanie.css bez tmava.css).
 
    Farby sú len tieto. Žiadne ďalšie:
      #1E1B1A pozadie, #262221 odlíšené sekcie, #302B29 plochy, #241F1E karty,
