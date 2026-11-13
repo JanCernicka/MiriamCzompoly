@@ -3,9 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Prejdime tvoje poradie krokov spolu · Miriam Czompoly, Trnava</title>
+  <title>Úvodný hovor · Miriam Czompoly, Trnava</title>
   <!-- NÁVRH B „Pred veľkou zmenou“, podstránka pre horúcich (12. 11. 2026, Jano: „keď vyplní, že má budget,
        hneď ponúknuť podstránku, že si môžeme na 10 minút zavolať, číslo, e-mail, rezervácia“).
+       Miriam 13. 11.: volá sa „úvodný hovor“ a nesmie byť poradenstvo, na hovore len zistí, či a ako vie pomôcť.
+       Úvodný text a body „Čo na hovore dostaneš“ sú jej, doslova.
        Len náhľad: časy sú skutočné z /api/sloty (na náhľade testové), rezervácia sa neodosiela. -->
   <meta name="robots" content="noindex, nofollow" />
   <meta name="theme-color" content="#262019" />
@@ -44,10 +46,10 @@
     <section class="hero">
       <div class="obal">
         <p class="odislo" id="odislo">&#10003; Tvoje poradie krokov ti odišlo <span id="kam">do e-mailu</span>. <a href="/pred-zmenou-poradie">Pozrieť ho teraz</a></p>
-        <h1>Tvoje poradie krokov <em>prejdeme spolu</em></h1>
-        <p class="sub" id="sub">Podľa tvojich odpovedí ťa čaká veľká zmena a ešte je čas veľa ušetriť. Daj mi 10 minút do telefónu. Pozrieme sa, čo riešiš, a poviem ti, kde by som začala. <strong>Zadarmo a bez záväzku. Zavolám ti ja.</strong></p>
+        <h1>Povedzme si,<br><em>či ti viem pomôcť</em></h1>
+        <p class="sub" id="sub">Daj mi 10 minút do telefónu. Povieš mi, čo riešiš, a ja ti poviem, či a ako ti viem pomôcť. <strong>Zadarmo a bez záväzku. Zavolám ti ja.</strong></p>
         <figure class="video">
-          <div class="video-miesto"><span class="video-play" aria-hidden="true"></span><span>Sem príde krátke video od Miriam k hovoru</span></div>
+          <div class="video-miesto"><span class="video-play" aria-hidden="true"></span><span>Sem príde krátke video od Miriam k úvodnému hovoru</span></div>
         </figure>
         <a class="btn" href="#kalendar">Vybrať čas hovoru</a>
       </div>
@@ -55,7 +57,7 @@
 
     <section id="kalendar" class="formular-sekcia">
       <div class="obal">
-        <h2>Vyber si čas hovoru</h2>
+        <h2>Vyber si čas úvodného hovoru</h2>
         <p class="uvod">10 minút, pracovné dni. Vyber čas a nechaj mi číslo, zavolám ti.</p>
         <div class="kal">
           <div class="dni" id="dni" role="tablist" aria-label="Deň"></div>
@@ -85,10 +87,9 @@
       <div class="obal">
         <h2>Čo na hovore dostaneš</h2>
         <ul class="body">
-          <li><b>Čo rozhodnúť ako prvé</b><span>V tvojej situácii a s tvojím termínom, nie všeobecné rady.</span></li>
-          <li><b>Kde sa najviac prepláca</b><span>Čo sa pri tvojom rozpočte oplatí riešiť hneď a čo môže počkať.</span></li>
-          <li><b>Či stačí poradie krokov</b><span>Alebo ti viem pomôcť viac, a ako by to vyzeralo.</span></li>
-          <li><b>Odpovede na tvoje otázky</b><span>Čokoľvek, čo ťa pri veľkej zmene trápi.</span></li>
+          <li><b>Doplníš mi, čo sa do otázok nezmestilo.</b><span>Tvoje odpovede už mám pred sebou.</span></li>
+          <li><b>Poviem ti, či ti viem pomôcť.</b><span>A ak áno, ako by to vyzeralo.</span></li>
+          <li><b>Dozvieš sa, ako prebieha diagnostika.</b><span>Čo na nej dostaneš a koľko stojí.</span></li>
         </ul>
       </div>
     </section>
@@ -117,7 +118,7 @@
     var DNI = ["NE", "PO", "UT", "ST", "ŠT", "PI", "SO"], DLHE = ["v nedeľu", "v pondelok", "v utorok", "v stredu", "vo štvrtok", "v piatok", "v sobotu"];
     var kontakt = {}; try { kontakt = JSON.parse(sessionStorage.getItem("pz") || "null") || {}; } catch (e) {}
     if (kontakt.email) { $("#kam").textContent = "na " + kontakt.email; $("#email").value = kontakt.email; }
-    if (kontakt.meno) $("#sub").innerHTML = kontakt.meno.replace(/[<>&"]/g, "") + ", podľa tvojich odpovedí ťa čaká veľká zmena a ešte je čas veľa ušetriť. Daj mi 10 minút do telefónu. Pozrieme sa, čo riešiš, a poviem ti, kde by som začala. <strong>Zadarmo a bez záväzku. Zavolám ti ja.</strong>";
+    if (kontakt.meno) $("#sub").innerHTML = kontakt.meno.replace(/[<>&"]/g, "") + ", daj mi 10 minút do telefónu. Povieš mi, čo riešiš, a ja ti poviem, či a ako ti viem pomôcť. <strong>Zadarmo a bez záväzku. Zavolám ti ja.</strong>";
 
     function casti(iso) { var m = iso.match(/^(\d{4})-(\d\d)-(\d\d)T(\d\d):(\d\d)/); var wd = new Date(Date.UTC(+m[1], +m[2] - 1, +m[3])).getUTCDay();
       return { d: +m[3], m: +m[2], wd: wd, cas: m[4].replace(/^0/, "") + ":" + m[5] }; }
@@ -153,7 +154,7 @@
       chyba.classList.remove("vidno");
       var c = casti(vybrany);
       form.hidden = true;
-      $("#potvrdene").innerHTML = "<b>&#10003; Hovor je rezervovaný</b>Zavolám ti " + DLHE[c.wd] + " " + c.d + ". " + c.m + ". o " + c.cas + ". Potvrdenie ti príde SMS aj e-mailom." +
+      $("#potvrdene").innerHTML = "<b>&#10003; Úvodný hovor je rezervovaný</b>Zavolám ti " + DLHE[c.wd] + " " + c.d + ". " + c.m + ". o " + c.cas + ". Potvrdenie ti príde SMS aj e-mailom." +
         '<p class="nahlad-pozn">Náhľad: rezervácia sa neuložila, nič neodišlo. Naostro sa zapíše do kalendára hovorov a Miriam dostane SMS.</p>';
       $("#potvrdene").classList.add("vidno");
     });
