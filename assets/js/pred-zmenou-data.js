@@ -12,7 +12,7 @@
       d: "Zariaďujem byt na prenájom",
       jedna: "Chcem zmeniť len jednu miestnosť" } },
     { k: "kedy", t: "Kedy to potrebuješ mať hotové?", z: { do3: "Do 3 mesiacov", m36: "O 3 až 6 mesiacov", neskor: "Neskôr alebo zatiaľ neviem" } },
-    { k: "hotove", t: "Čo už máš rozhodnuté?", z: { nic: "Zatiaľ nič", rozvody: "Rozloženie miestností, elektriku a rozvody", kuchyna: "Aj kuchyňu a kúpeľňu", nabytok: "Zostáva už len nábytok a doplnky" } },
+    { k: "hotove", t: "Čo už máš rozhodnuté?", z: { nic: "Zatiaľ nič", rozvody: "Rozloženie miestností, elektriku a rozvody", kuchyna: "Kuchyňu a kúpeľňu", nabytok: "Zostáva už len nábytok a doplnky" } },
     { k: "rozpocet", t: "Koľko chceš do toho investovať? (bez ceny bytu)", z: { do5: "Do 5 000 €", r5_15: "5 000 až 15 000 €", r15_40: "15 000 až 40 000 €", nad40: "Nad 40 000 €", neviem: "Zatiaľ neviem" } },
     { k: "kde", t: "Kde sa byt alebo dom nachádza?", text: "mesto alebo obec" }
   ];
