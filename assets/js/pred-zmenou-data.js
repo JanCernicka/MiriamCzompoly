@@ -19,7 +19,7 @@
 
   /* Obsah verzií z jej PDF. Kroky, ktoré podľa otázky 3 už má za sebou: NÁVRH (Jano/Miriam potvrdia). */
   var VERZIE = {
-    a: { nazov: "Novostavba", hlavna: "Elektrika skôr než nábytok.",
+    a: { nazov: "Novostavba", hlavna: "Obklady a podlahu vyber, až keď vieš, ako bude celý byt vyzerať.",
       skratky: ["Ako budeš miestnosti používať", "Zásuvky, vypínače a svetlá", "Kuchyňa", "Podlahy, dvere, obklady", "Nábytok"],
       kroky: ["Ujasni si, ako budeš každú miestnosť používať: kde sa pracuje, kde je televízor, kde sa spí.",
         "Podľa toho rozhodni o zásuvkách, vypínačoch a svetlách. Klientske zmeny majú u developera termín.",
@@ -31,7 +31,7 @@
       pribeh: { nadpis: "Byt Štajnerka, Trnava", text: "Z hrubej stavby až po hotový byt.",
         pred: ["/assets/img/realizacie/stajnerka-pred-2.jpg", "Obytná miestnosť v hrubej stavbe"],
         po: ["/assets/img/realizacie/stajnerka-po.jpg", "Obývacia a jedálenská časť po premene"] } },
-    b: { nazov: "Prerobenie staršieho bytu alebo domu", hlavna: "Obklady a podlahu vyber, až keď vieš, ako bude celý byt vyzerať.",
+    b: { nazov: "Prerobenie staršieho bytu alebo domu", hlavna: "Rozloženie miestností skôr než obklady.",
       skratky: ["Čo ti v byte prekáža", "Búrať alebo presúvať", "Elektrika, voda, kúrenie", "Kuchyňa a kúpeľňa", "Povrchy a nábytok"],
       kroky: ["Spíš si, čo ti v byte dnes prekáža.",
         "Rozhodni, či sa búra alebo presúva, ešte pred oslovením majstrov.",

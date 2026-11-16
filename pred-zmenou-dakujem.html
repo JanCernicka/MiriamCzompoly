@@ -87,8 +87,8 @@
   (function () {
     "use strict";
     var $ = function (s) { return document.querySelector(s); }, P = window.PZ, esc = P.esc;
-    /* Bez vyplnených otázok (priamy odkaz na náhľad) ukáže ukážku: prerábanie, studená. */
-    var u = P.ulozene() || { o: { situacia: "b", kedy: "m36", hotove: "nic", rozpocet: "do5", kde: "Trnava" }, meno: "Lucia", email: "" };
+    /* Bez vyplnených otázok (priamy odkaz na náhľad) ukáže ukážku: novostavba, studená. */
+    var u = P.ulozene() || { o: { situacia: "a", kedy: "m36", hotove: "nic", rozpocet: "do5", kde: "Trnava" }, meno: "Lucia", email: "" };
     var v = P.VERZIE[u.o.situacia], pr = v.pribeh;
 
     $("#hore").innerHTML = '<div class="fajka" aria-hidden="true">&#10003;</div><h1>' + (u.meno ? esc(u.meno) + ", " : "") + '<strong>Tvoje poradie krokov</strong> ti práve odišlo do e-mailu</h1>' +
