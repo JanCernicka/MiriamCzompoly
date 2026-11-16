@@ -47,7 +47,8 @@ Názov služby „Izba podľa teba“ je pracovný, Miriam vyberá.
 - Po výbere: správa pre Miriam do WhatsAppu na odsúhlasenie.
 
 ## Naostro 16. 11. 2026 (Jano: „už to normálne daj do GHL-ka… čo odsúhlasila, to odsúhlasila“)
-Prehľad pre Jana (stránky, investičný byt, časový plán, všetkých 10 e-mailov): https://claude.ai/artifact/FbuzYGg2tZTfavo6hsW766
+Prehľad pre Jana (stránky, investičný byt, časový plán, všetkých 11 e-mailov): https://claude.ai/artifact/FbuzYGg2tZTfavo6hsW766
+Inštrukcie na videá pre druhý chat (14 videí prvej dávky, video nad otázkami a k hovoru, text reklamy): https://claude.ai/artifact/4Mnc1mjvJuXCEvG7jMcdBY . V prvej dávke je nový úvod PZ-P9 (investičný byt, Miriamin text 16. 11.) namiesto PZ-P3 Štajnerka, ktorá čaká na potvrdenie.
 
 Stránky sú na www (`/pred-zmenou`, `-dakujem`, `-hovor`, `-poradie`) bez náhľadových pruhov a bez miest na video. Videá na stránku zatiaľ nie sú, sekcia sa vráti, keď ich Miriam nahrá.
 
@@ -68,7 +69,8 @@ Pixel Lead: na nasledujúcej stránke cez `body[data-fb-event]` (príznak `pz-le
 - 8 záujmových, spúšťač `pz-zaujem-<vlazny|studeny>-<verzia>`: Z1 hneď, potom E2 až E4 v tých istých dňoch, **bez E5**. `pz-zaujem-iba`: len Z1.
 - `pz-zaujem` vyradí z 8 hlavných vlažných a studených (`c325a781`). `pz-hovor` vyradí zo všetkých 20 (`3e34a950`).
 - Všetkých 20 je aj v zozname STOP `d0e8c056` (odpoveď na e-mail, rezervácia diagnostiky, hovor z plánu). Zoznam má teraz 29 workflowov, spúšťače nezmenené.
-- E3 pre novostavbu (A) je zatiaľ príbeh investičného bytu (byt od developera). Keď Jano pošle FAPI odkaz na e-book za 19 €, vznikne E3a a v 4 workflowoch verzie A sa vymení šablóna.
+- E3 pre novostavbu (A): od 16. 11. večer E3a `6afb3cc2810e1cdd00a01bd9` „Kým podpíšeš preberací protokol“, tlačidlo na FAPI https://form.fapi.cz/?id=729f3fc7-48f0-4672-9a34-e0478e139e9c (19 €, len bankový prevod). Vymenené v 5 workflowoch verzie A (3 hlavné, 2 záujmové).
+- 🔴 Kód EBOOK19 (E3a sľubuje, že pri diagnostike odpočíta 19 €) nie je nikde v systéme: FAPI nákup sa do GHL nezapíše a pri rezervácii diagnostiky nie je pole na kód. Miriam ho musí odpočítať ručne.
 
 **Investičný byt na webe**: dlaždica „Byt na prenájom“ a okno `#cs-investicny` v Realizáciách (10 fotiek z Miriaminho Drive, pôdorys len pred). `main.js` otvára okno z adresy (`/#cs-starsia-pani`, `/#cs-vidiecky`, `/#cs-investicny`), na to vedú tlačidlá „Pozrieť celú premenu“ v E3 a na stránke s poradím.
 
