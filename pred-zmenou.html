@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Čo rozhodnúť skôr, než to bude drahé · Miriam Czompoly, Trnava</title>
+  <meta name="description" content="Kupuješ byt, prerábaš alebo sa sťahuješ? 5 krátkych otázok a interiérová dizajnérka Miriam Czompoly ti pošle Tvoje poradie krokov: čo rozhodnúť ako prvé a tri najdrahšie chyby v tvojej situácii. Zadarmo." />
+  <!-- NÁVRH B „Pred veľkou zmenou“ (12. 11. 2026, Jano: „išiel by som tým Bčkom“). Podľa Miriaminho PDF z 8. 11.
+       Len náhľad: nič sa neodosiela, nemeria, nezapisuje do GHL. Do reklamy ani do Googlu nepatrí. -->
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="theme-color" content="#262019" />
+  <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/css/profil.css" />
+  <style>
+    .nahlad-pruh{background:#2f6b4f;color:#fff;text-align:center;font-size:13.5px;line-height:1.4;padding:8px 16px}
+    .nahlad-pruh b{color:#fff}
+    .situacie{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;margin:0 0 14px}
+    .situacie span{font-size:13px;font-weight:600;color:var(--tma);background:var(--karta);border:1px solid var(--linka);border-radius:999px;padding:4px 11px}
+    .pole-pozn{font-size:13px;color:var(--sivy);margin:4px 0 0}
+    .jedna-miestnost{display:none;background:var(--karta);border:1px solid var(--linka);border-radius:14px;padding:12px 14px;font-size:15px;margin:-4px 0 14px}
+    .jedna-miestnost.vidno{display:block}
+    /* výsledok */
+    .vysledok{padding:30px 0 36px}
+    .vysledok[hidden]{display:none}
+    .vys-stitok{display:inline-block;font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--akcent-tmavy);margin-bottom:6px}
+    .vys-hlavna{font-family:var(--display);font-size:32px;line-height:1.08;color:var(--tma);margin:0 0 10px;text-wrap:balance}
+    .vys-cas{background:var(--zvyraznenie);border-radius:12px;padding:10px 14px;color:var(--tma);font-size:15.5px;margin:0 0 18px}
+    .vys-kroky{list-style:none;padding:0;margin:0 0 22px;display:grid;gap:8px;counter-reset:k}
+    .vys-kroky li{counter-increment:k;position:relative;padding:12px 14px 12px 50px;border:1px solid var(--linka);border-radius:14px;font-size:15.5px;line-height:1.45}
+    .vys-kroky li::before{content:counter(k);position:absolute;left:13px;top:11px;width:26px;height:26px;border-radius:50%;background:var(--tma);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13.5px}
+    .vys-kroky li.hotovo{color:var(--sivy);background:var(--karta)}
+    .vys-kroky li.hotovo::before{content:"✓";background:var(--zlata);color:var(--tma)}
+    .vys-kroky li.hotovo small{display:block;font-size:13px}
+    .vys-chyby{margin:0 0 22px;padding:14px 16px;border-left:3px solid var(--cervena);background:#fbf3f1;border-radius:0 12px 12px 0}
+    .vys-chyby h3{font-size:22px;margin:0 0 6px}
+    .vys-chyby ul{margin:0;padding-left:1.1em;display:grid;gap:4px}
+    .vys-pribeh{margin:0 0 22px}
+    .vys-pribeh h3{font-size:22px;margin:0 0 4px}
+    .vys-pribeh p{font-size:15px;color:var(--sivy);margin:0 0 10px}
+    .vys-pribeh .pred-po{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+    .vys-pribeh figure{margin:0}
+    .vys-pribeh figcaption{font-size:12.5px;color:var(--sivy);margin-top:4px}
+    .vys-dalej{border:1.5px solid var(--tma);border-radius:16px;padding:18px 16px}
+    .vys-dalej h3{font-size:24px;margin:0 0 6px}
+    .vys-dalej p{font-size:15.5px;margin:0 0 12px}
+    .vys-dalej .cena{font-weight:800;color:var(--tma)}
+    .nahlad-pozn{font-size:12.5px;color:var(--sivy);margin:8px 0 0;text-align:center}
+      /* Tvoje poradie krokov má v nadpisoch vyčnievať (Jano 16. 11.): zvyšok nadpisu tenší, názov hrubý. */
+    h1:has(strong),h2:has(strong){font-weight:500}
+    h1 strong,h2 strong{font-weight:700}
+  </style>
+</head>
+<body>
+
+  <div class="pruh">
+    <div class="obal">
+      <span class="zive"><i></i>Zadarmo</span>
+      <span class="co"><strong>Tvoje poradie krokov</strong></span>
+      <span class="cas">5 otázok</span>
+    </div>
+  </div>
+
+  <main>
+    <section class="hero">
+      <div class="obal">
+        <div class="situacie" aria-label="Pre koho to je"><span>Novostavba</span><span>Prerábanie</span><span>Sťahovanie</span><span>Byt na prenájom</span></div>
+        <h1>Čo rozhodnúť ako prvé, <em>kým to nie je drahé</em></h1>
+        <p class="sub">Kupuješ byt, prerábaš alebo sa sťahuješ? Odpovedz na 5 krátkych otázok a dostaneš <strong>Tvoje poradie krokov</strong>: čo vyriešiť ako prvé, v akom poradí ísť ďalej a tri najdrahšie chyby v tvojej situácii. <strong>Zadarmo.</strong></p>
+        <a class="btn" href="#formular">Chcem <strong>Tvoje poradie krokov</strong></a>
+        <div class="kopa" id="kopa"></div>
+      </div>
+    </section>
+
+    <section id="formular" class="formular-sekcia">
+      <div class="obal">
+        <h2><strong>Tvoje poradie krokov</strong> za minútu</h2>
+        <p class="uvod">Päť otázok, každá na jedno kliknutie. Na konci meno a e-mail.</p>
+        <form id="zmenaForm" novalidate>
+          <div id="otazky"></div>
+          <p class="jedna-miestnost" id="jednaMiestnost">Pre jednu miestnosť mám kratší plán na víkend: <a href="/profil">plán pre jednu miestnosť</a>.</p>
+          <fieldset class="otazka kontakt-karta">
+            <legend><span class="poradie">Posledný krok</span><span class="text">Komu mám poslať <strong>Tvoje poradie krokov</strong>?</span></legend>
+            <div class="kontakt-polia">
+              <div class="pole"><label for="meno">Krstné meno</label><input id="meno" type="text" autocomplete="given-name" required></div>
+              <div class="pole"><label for="email">E-mail</label><input id="email" type="email" inputmode="email" autocomplete="email" required></div>
+            </div>
+          </fieldset>
+          <div aria-hidden="true" style="position:absolute;left:-5000px;width:1px;height:1px;overflow:hidden"><label>Nevypĺňaj<input type="text" id="website" tabindex="-1" autocomplete="off"></label></div>
+          <p class="chyba" id="chyba" role="alert"></p>
+          <button class="btn" type="submit" id="odoslat">Získať <strong>Tvoje poradie krokov</strong></button>
+          <p class="drobne">E-mail použijem na <strong>Tvoje poradie krokov</strong> a občas na tip k bývaniu. Odhlásiť sa môžeš jedným klikom. Viac o <a href="/gdpr" target="_blank" rel="noopener">ochrane údajov</a>.</p>
+        </form>
+      </div>
+    </section>
+
+
+    <section>
+      <div class="obal">
+        <h2>Čo nájdeš v <strong>Tvojom poradí krokov</strong></h2>
+        <ul class="body">
+          <li><b>Jednu vec, ktorú treba vyriešiť ako prvú</b><span>Podľa toho, čo ťa čaká: novostavba, prerábanie, sťahovanie alebo byt na prenájom.</span></li>
+          <li><b>Päť rozhodnutí v správnom poradí</b><span>Bez krokov, ktoré už máš za sebou, a s tým, čo stihneš do svojho termínu.</span></li>
+          <li><b>Tri najdrahšie chyby v tvojej situácii</b><span>Tie, ktoré vidím najčastejšie a ktoré sa po stavbe už nedajú lacno opraviť.</span></li>
+          <li><b>Ako to riešila klientka v podobnej situácii</b><span>Skutočný byt pred a po, nie obrázok z internetu.</span></li>
+        </ul>
+        <a class="btn" href="#formular">Chcem <strong>Tvoje poradie krokov</strong></a>
+      </div>
+    </section>
+
+    <section>
+      <div class="obal">
+        <div class="o-mne">
+          <img src="https://assets.cdn.filesafe.space/o86atLjsdR9IoUTWgYna/media/69e7d02403c24196d247704c.png" alt="Miriam Czompoly, interiérová dizajnérka" width="84" height="84" loading="lazy" />
+          <h2>Som Miriam, interiérová dizajnérka z&nbsp;Trnavy</h2>
+        </div>
+        <p>Od roku 2010 navrhujem interiéry podľa toho, ako v nich ľudia naozaj žijú. Najviac viem ušetriť, keď ma zavoláš skôr, než sú hotové rozvody a objednaná kuchyňa. Vtedy sa ešte dá zmeniť takmer všetko bez búrania.</p>
+        <a class="btn" href="#formular">Chcem <strong>Tvoje poradie krokov</strong></a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="paticka">
+    <div class="obal">
+      <div><b>Miriam Czompoly</b>, interiérový dizajn</div>
+      <div>J. Hlubíka 42, 917 01 Trnava · IČO 45714088</div>
+      <nav><a href="/gdpr" target="_blank" rel="noopener">Ochrana osobných údajov</a></nav>
+    </div>
+  </footer>
+
+  <script src="/assets/js/profil-data.js"></script>
+  <script src="/assets/js/pred-zmenou-data.js"></script>
+  <script src="/assets/js/consent.js" defer></script>
+  <script>
+  (function () {
+    "use strict";
+    var P = window.PZ, OTAZKY = P.OTAZKY, VERZIE = P.VERZIE, teplota = P.teplota, esc = P.esc;
+
+    var form = document.getElementById("zmenaForm"), otazky = document.getElementById("otazky");
+    otazky.innerHTML = OTAZKY.map(function (q, i) {
+      var hlava = '<legend><span class="poradie">Otázka ' + (i + 1) + ' z 5</span><span class="text">' + esc(q.t) + "</span></legend>";
+      if (q.text) return '<fieldset class="otazka" data-k="' + q.k + '">' + hlava +
+        '<div class="pole"><label for="kde">Mesto alebo obec</label><input id="kde" type="text" autocomplete="address-level2" placeholder="napríklad Trnava"></div></fieldset>';
+      return '<fieldset class="otazka typ-zoznam" data-k="' + q.k + '">' + hlava + '<p class="otazka-chyba">Vyber jednu možnosť.</p><div class="moznosti">' +
+        Object.keys(q.z).map(function (k) {
+          return '<label class="moznost"><input type="radio" name="' + q.k + '" value="' + k + '"><span class="vol vol-zoznam"><span class="kruzok" aria-hidden="true"></span><span class="nazov">' + esc(q.z[k]) + "</span></span></label>";
+        }).join("") + "</div></fieldset>";
+    }).join("");
+
+    /* Reklama na konkrétnu situáciu môže predvyplniť otázku 1: ?verzia=a až d */
+    var pred = new URLSearchParams(location.search).get("verzia");
+    if (pred && VERZIE[pred]) { var r0 = form.querySelector('input[name="situacia"][value="' + pred + '"]'); if (r0) r0.checked = true; }
+
+    function odpovede() {
+      var o = {}; OTAZKY.forEach(function (q) { var x = form.querySelector('input[name="' + q.k + '"]:checked'); if (x) o[q.k] = x.value; });
+      o.kde = (document.getElementById("kde").value || "").trim(); return o;
+    }
+    function obnov() {
+      var o = odpovede();
+      document.getElementById("jednaMiestnost").classList.toggle("vidno", o.situacia === "jedna");
+      form.querySelectorAll("fieldset[data-k]").forEach(function (f) { if (form.querySelector('input[name="' + f.dataset.k + '"]:checked')) f.classList.add("hotova"); });
+    }
+    form.addEventListener("change", obnov); obnov();
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var o = odpovede(), chyba = document.getElementById("chyba"), chyba1 = null;
+      ["situacia", "kedy", "hotove", "rozpocet"].forEach(function (k) {
+        var f = form.querySelector('fieldset[data-k="' + k + '"]'); var ok = !!o[k]; f.classList.toggle("chybna", !ok);
+        f.querySelector(".otazka-chyba").style.display = ok ? "none" : "block"; if (!ok && !chyba1) chyba1 = f; });
+      var meno = document.getElementById("meno").value.trim(), email = document.getElementById("email").value.trim();
+      if (chyba1) { chyba1.scrollIntoView({ behavior: "smooth", block: "center" }); return; }
+      if (o.situacia === "jedna") { location.href = "/profil"; return; }
+      if (!meno || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { chyba.textContent = "Doplň krstné meno a e-mail, nech viem, komu poslať Tvoje poradie krokov."; chyba.classList.add("vidno"); return; }
+      chyba.classList.remove("vidno");
+      /* Naostro (16. 11. 2026): /api/zmena zapíše kontakt do GHL a pošle E1 s poradím krokov.
+         Horúci (podľa rozpočtu a termínu) idú potom na podstránku s úvodným hovorom, ostatní na ďakovnú stránku. */
+      var btn = document.getElementById("odoslat"); btn.disabled = true;
+      var q = new URLSearchParams(location.search), utm = {};
+      ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term"].forEach(function (k) { if (q.get(k)) utm[k] = q.get(k); });
+      fetch("/api/zmena", { method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ meno: meno, email: email, odpovede: o, utm: utm, website: document.getElementById("website").value }) })
+        .then(function (r) { return r.json().catch(function () { return {}; }).then(function (x) { return { ok: r.ok && x.ok, x: x }; }); })
+        .then(function (v) {
+          if (!v.ok) throw new Error((v.x && v.x.error) || "chyba");
+          try { sessionStorage.setItem("pz", JSON.stringify({ o: o, meno: meno, email: email })); } catch (e) {}
+          /* Lead sa pošle na nasledujúcej stránke (body data-fb-event), aby ho presmerovanie neodrezalo */
+          try { if (!v.x.test) sessionStorage.setItem("pz-lead", "1"); } catch (e) {}
+          location.href = (v.x.teplota || teplota(o)) === "horuca" ? "/pred-zmenou-hovor" : "/pred-zmenou-dakujem";
+        })
+        .catch(function (err) {
+          btn.disabled = false;
+          chyba.textContent = String(err.message) === "bad_contact" ? "Skontroluj prosím meno a e-mail."
+            : "Nepodarilo sa odoslať, skús to prosím ešte raz o chvíľu. Ak to nepôjde, napíš mi na dizajn@miriamczompoly.sk.";
+          chyba.classList.add("vidno");
+        });
+    });
+
+    try { PROFIL.recenzie("#kopa", 4); } catch (e) { /* stránka beží aj bez recenzií */ }
+  })();
+  </script>
+</body>
+</html>

@@ -86,6 +86,13 @@
       openModal(trigger.getAttribute('data-modal'));
     });
   });
+  /* Odkaz priamo na premenu, napr. z e-mailu: miriamczompoly.sk/#cs-investicny otvorí jej okno (16. 11. 2026) */
+  function otvorZAdresy() {
+    var h = (window.location.hash || '').slice(1), el = /^cs-[a-z0-9-]+$/.test(h) && document.getElementById(h);
+    if (el && el.classList.contains('modal')) openModal(h);
+  }
+  otvorZAdresy();
+  window.addEventListener('hashchange', otvorZAdresy);
   if (overlay) {
     overlay.addEventListener('click', function (e) {
       if (e.target === overlay) closeModal();

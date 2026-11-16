@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Hotovo · Miriam Czompoly, Trnava</title>
+  <!-- NÁVRH B „Pred veľkou zmenou“: stránka po otázkach pre vlažných a studených.
+       Jano 12. 11.: menej textu, žiadny tvrdý predaj hneď, ponuka ako „mám pre teba riešenie“ s postupom,
+       presviedčať e-mailami (vybral jemnú variantu, ostatné dve sú zrušené).
+       Miriam 13. 11.: namiesto služby za 400 € diagnostika, podnadpis a popis rovnaký ako v e-maile Z1.
+       Miriam 16. 11.: vrch stránky podľa jej znenia, „Tvoje poradie krokov“ všade s veľkým T a tučne, veta o poradí pred nadpisom diagnostiky.
+       Celé poradie krokov je na /pred-zmenou-poradie (aj odkaz z e-mailu). Len náhľad. -->
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="theme-color" content="#262019" />
+  <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/css/profil.css" />
+  <style>
+    .nahlad-pruh{background:#2f6b4f;color:#fff;text-align:center;font-size:13.5px;line-height:1.4;padding:8px 16px}
+    main section{border-top:0}
+    .hotovo{padding:34px 0 8px;text-align:center}
+    .fajka{width:54px;height:54px;border-radius:50%;background:#e7f3ec;color:#2f6b4f;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;font-size:26px;font-weight:800}
+    .hotovo h1{font-size:30px;line-height:1.1;margin:0 0 8px;text-wrap:balance}
+    .hotovo .mail{font-size:15px;color:var(--sivy);margin:0}
+    .teaser{margin:26px 0 0;padding:22px 20px;border-radius:18px;background:var(--karta);text-align:center}
+    .teaser .stitok{display:block;font-size:12px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--akcent-tmavy);margin-bottom:6px}
+    .teaser .hlavna{font-family:var(--display);font-size:30px;line-height:1.1;color:var(--tma);margin:0 0 10px;text-wrap:balance}
+    .teaser .viac{font-size:14.5px;color:var(--sivy);margin:0}
+    .teaser a{font-weight:700}
+    .teaser .btn{margin-top:14px}
+    /* Tvoje poradie krokov má v nadpise vyčnievať (Jano 16. 11.): zvyšok nadpisu tenší, názov hrubý. */
+    .hotovo h1{font-weight:500}
+    .hotovo h1 strong{font-weight:700}
+    .riesenie strong{font-weight:700}
+    .pp{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:16px 0 6px}
+    .pp figure{margin:0;position:relative}
+    .pp img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:12px;display:block;background:#eee}
+    .pp img[src*="podorys"]{object-fit:contain;background:#fff;border:1px solid var(--linka)}
+    .pp b{position:absolute;left:8px;top:8px;font-size:11px;letter-spacing:.06em;text-transform:uppercase;background:rgba(255,255,255,.92);color:var(--tma);padding:2px 8px;border-radius:999px}
+    .pp figure + figure b{background:var(--tma);color:#fff}
+    .pp-popis{font-size:13.5px;color:var(--sivy);margin:0}
+    .riesenie{padding:34px 0 44px}
+    .riesenie .kopa{margin:6px 0 22px}
+    .riesenie .pp{margin-top:0}
+    .medzi{height:1px;background:var(--linka);margin:26px 0}
+    .riesenie .stitok{display:block;text-align:center;font-size:12px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--akcent-tmavy);margin-bottom:6px}
+    .riesenie h2{text-align:center;font-size:34px;margin:0 0 4px}
+    .riesenie .podnadpis{text-align:center;font-size:16.5px;font-weight:600;color:var(--tma);margin:0 0 14px}
+    .riesenie .uvod-r{text-align:center;font-size:16px;color:var(--text);margin:0 auto 22px;max-width:30em}
+    .postup{list-style:none;padding:0;margin:0 0 22px;display:grid;gap:0;counter-reset:p}
+    .postup li{counter-increment:p;display:grid;grid-template-columns:40px 1fr;gap:12px;position:relative;padding-bottom:16px}
+    .postup li::before{content:counter(p);width:36px;height:36px;border-radius:50%;border:1.5px solid var(--tma);color:var(--tma);font-weight:800;display:flex;align-items:center;justify-content:center;background:#fff;z-index:1}
+    .postup li:not(:last-child)::after{content:"";position:absolute;left:17px;top:36px;bottom:0;width:1.5px;background:var(--linka)}
+    .postup p{margin:0;padding-top:7px;font-size:15.5px;line-height:1.45;color:var(--text)}
+    .postup p b{color:var(--tma)}
+    .ceny{display:flex;justify-content:center;gap:12px 34px;flex-wrap:wrap;margin:4px 0 8px}
+    .ceny div{display:flex;flex-direction:column;align-items:center}
+    .ceny .suma{font-family:var(--display);font-size:42px;font-weight:600;color:var(--tma);line-height:1}
+    .ceny .k{font-size:14.5px;color:var(--sivy);margin-top:4px}
+    .cena-pozn{text-align:center;font-size:14.5px;color:var(--sivy);margin:0 auto 18px;max-width:28em}
+    .bez{text-align:center;font-size:13.5px;color:var(--sivy);margin:10px 0 0}
+    .odpoved{display:none;background:#eef6f1;border:1px solid #cfe5d8;border-radius:14px;padding:14px 16px;color:var(--tma);font-size:15.5px;margin-top:12px}
+    .odpoved.vidno{display:block}
+    .odpoved b{display:block;margin-bottom:2px}
+    .nahlad-pozn{font-size:12.5px;color:var(--sivy);margin:8px 0 0}
+  </style>
+</head>
+<body>
+
+  <main>
+    <section class="hotovo"><div class="obal" id="hore"></div></section>
+    <section class="riesenie" id="riesenie"><div class="obal" id="dole"></div></section>
+  </main>
+
+  <footer class="paticka">
+    <div class="obal">
+      <div><b>Miriam Czompoly</b>, interiérový dizajn · Trnava</div>
+      <nav><a href="/gdpr" target="_blank" rel="noopener">Ochrana osobných údajov</a></nav>
+    </div>
+  </footer>
+
+  <script src="/assets/js/profil-data.js"></script>
+  <script src="/assets/js/pred-zmenou-data.js"></script>
+  <script src="/assets/js/consent.js" defer></script>
+  <script>
+  (function () {
+    "use strict";
+    var $ = function (s) { return document.querySelector(s); }, P = window.PZ, esc = P.esc;
+    /* Lead pre Metu: len raz, hneď po odoslaní otázok (príznak z /pred-zmenou). consent.js ho pošle až po súhlase s cookies. */
+    try { if (sessionStorage.getItem("pz-lead") === "1") { sessionStorage.removeItem("pz-lead"); document.body.setAttribute("data-fb-event", "Lead"); } } catch (e) {}
+    var u = P.ulozene();
+    if (!u) { location.replace("/pred-zmenou"); return; }   // bez odoslaných otázok tu nemá čo vidieť
+    var v = P.VERZIE[u.o.situacia], pr = v.pribeh;
+
+    $("#hore").innerHTML = '<div class="fajka" aria-hidden="true">&#10003;</div><h1>' + (u.meno ? esc(u.meno) + ", " : "") + '<strong>Tvoje poradie krokov</strong> ti práve odišlo do e-mailu</h1>' +
+      '<p class="mail">' + (u.email ? "Na " + esc(u.email) + ". " : "") + 'Ak ho do pár minút nevidíš, pozri aj do spamu.</p>' +
+      '<div class="teaser"><span class="stitok">Ako prvé</span><p class="hlavna">' + esc(v.hlavna) + '</p>' +
+      '<p class="viac">V e-maile nájdeš päť krokov v poradí a tri najdrahšie chyby v tvojej situácii.</p>' +
+      '<a class="btn btn--obrys" href="/pred-zmenou-poradie?' + P.doAdresy(u.o, u.meno) + '">Pozrieť&nbsp;<strong>Tvoje poradie krokov</strong></a></div>';
+
+    /* Texty diagnostiky sú Miriamine z 13. 11. (e-mail Z1 a E5), doslova. */
+    $("#dole").innerHTML =
+      '<p class="uvod-r"><strong>Tvoje poradie krokov</strong> ti povie, v akom poradí rozhodovať. Nepovie, čo konkrétne urobiť u teba. To riešim na diagnostike.</p>' +
+      '<h2>Interiérová diagnostika</h2>' +
+      '<p class="podnadpis">90-minútová konzultácia u teba doma alebo online</p>' +
+      '<div class="pp"><figure><b>Pred</b><img src="' + pr.pred[0] + '" alt="' + esc(pr.pred[1]) + '"></figure><figure><b>Po</b><img src="' + pr.po[0] + '" alt="' + esc(pr.po[1]) + '"></figure></div>' +
+      '<p class="pp-popis">' + esc(pr.nadpis) + ": " + esc(pr.text) + "</p>" +
+      '<div class="medzi" aria-hidden="true"></div>' +
+      '<ol class="postup">' +
+        '<li><p><b>Prejdeme spolu celý priestor</b> a povieš mi, ako v ňom chceš žiť.</p></li>' +
+        '<li><p><b>Pomenujem, čo v ňom nefunguje</b> a prečo.</p></li>' +
+        '<li><p><b>Do 3 dní dostaneš písomné zhrnutie:</b> čo riešiť prvé, čo počká a čo prestať kupovať.</p></li></ol>' +
+      '<div class="kopa" id="kopa"></div>' +
+      '<div class="ceny"><div><span class="suma">290 €</span><span class="k">u teba doma</span></div><div><span class="suma">250 €</span><span class="k">online</span></div></div>' +
+      '<p class="cena-pozn">Do 25 km od Trnavy je cesta v cene. Ak potom pokračuješ projektom, sumu ti odpočítam.</p>' +
+      '<button class="btn btn--obrys" type="button" id="zaujem">Chcem vedieť viac</button>' +
+      '<p class="bez">Podrobnosti a voľné termíny ti pošlem e-mailom a rozhodneš sa, keď budeš chcieť.</p>' +
+      '<div class="odpoved" id="odpoved"><b>&#10003; Pošlem ti všetko e-mailom</b>Nájdeš tam, ako diagnostika prebieha, a odkaz na voľné termíny.</div>';
+
+    /* „Chcem vedieť viac“: značka pz-zaujem v GHL, workflow pošle hneď e-mail Z1 (16. 11. 2026). */
+    $("#zaujem").addEventListener("click", function () {
+      var b = this; b.disabled = true;
+      fetch("/api/zmena-zaujem", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ email: u.email || "" }) })
+        .then(function (r) { if (!r.ok) throw new Error(String(r.status)); })
+        .then(function () { b.hidden = true; $(".bez").hidden = true; $("#odpoved").classList.add("vidno"); })
+        .catch(function () { b.disabled = false; $(".bez").textContent = "Nepodarilo sa, skús to prosím ešte raz. Alebo mi napíš na dizajn@miriamczompoly.sk."; });
+    });
+    try { PROFIL.recenzie("#kopa", 3); } catch (e) { /* stránka beží aj bez recenzií */ }
+  })();
+  </script>
+</body>
+</html>

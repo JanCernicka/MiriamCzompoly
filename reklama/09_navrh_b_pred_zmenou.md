@@ -45,3 +45,29 @@ Názov služby „Izba podľa teba“ je pracovný, Miriam vyberá.
 - Video: overiť faktá pri P2 až P8, N1 (90 cm), M3. Vyrobiť AI premenu Štajnerky (P3).
 - Stránka /diagnostika na webe nemá presne podnadpis „90-minútová konzultácia u teba doma alebo online“ (H1: „Interiérová diagnostika na mieste: za 90 minút vieš, čo s tvojím priestorom.“). Nemenené, beží na nej A/B test.
 - Po výbere: správa pre Miriam do WhatsAppu na odsúhlasenie.
+
+## Naostro 16. 11. 2026 (Jano: „už to normálne daj do GHL-ka… čo odsúhlasila, to odsúhlasila“)
+Stránky sú na www (`/pred-zmenou`, `-dakujem`, `-hovor`, `-poradie`) bez náhľadových pruhov a bez miest na video. Videá na stránku zatiaľ nie sú, sekcia sa vráti, keď ich Miriam nahrá.
+
+**Web → GHL**
+| Kde | Čo robí |
+|---|---|
+| `functions/api/zmena.js` | kontakt s poľami `pz_odkaz`, `pz_krok1`, `pz_hlavna`, `pz_odpovede`, značky `pz-lead`, `pz-<teplota>`, `pz-<teplota>-<verzia>`, poznámka s odpoveďami a reklamou, karta v lead magnete, hneď E1 |
+| `functions/api/zmena-zaujem.js` | „Chcem vedieť viac“: `pz-zaujem` + `pz-zaujem-<teplota>-<verzia>` (alebo `pz-zaujem-iba`) |
+| `functions/api/zmena-hovor.js` | úvodný hovor v kalendári krátkych hovorov, `pz-hovor`, karta Krátky hovor, potvrdenie SMS a e-mailom, SMS Miriam |
+| `functions/_lib/pz.js` | id polí, značky, text E1 (Miriamin, doslova) |
+
+Pixel Lead: na nasledujúcej stránke cez `body[data-fb-event]` (príznak `pz-lead` v sessionStorage), len raz a len po súhlase s cookies.
+
+**GHL šablóny** (9, „Pred zmenou: … (Claude)“): H1 `6afb39df5973f95b07afe640`, H2 `6afb39e121faac6f200d6171`, E2 `6afb39e34c28808e5219e924`, E3 prerábanie `6afb39e431e0f04d2fa862a4`, E3 sťahovanie `6afb39e64c28808e5219e9e3`, E3 investičný `6afb39e831e0f04d2fa86329`, E4 `6afb39e94c28808e5219ea83`, E5 `6afb39eb31e0f04d2fa86395`, Z1 `6afb39edf303b8cc00796826`.
+
+**GHL workflowy** (23, zverejnené, „Pred zmenou: … (Claude)“)
+- 12 hlavných, spúšťač `pz-<teplota>-<verzia>`. Horúci: 2 h (len 8 až 20 h) H1, 1. deň H2, 3. deň E2, 5. E3, 7. E4, 9. E5. Vlažní: 1., 3., 5., 7. deň E2 až E5. Studení: 3., 7., 14., 21. deň.
+- 8 záujmových, spúšťač `pz-zaujem-<vlazny|studeny>-<verzia>`: Z1 hneď, potom E2 až E4 v tých istých dňoch, **bez E5**. `pz-zaujem-iba`: len Z1.
+- `pz-zaujem` vyradí z 8 hlavných vlažných a studených (`c325a781`). `pz-hovor` vyradí zo všetkých 20 (`3e34a950`).
+- Všetkých 20 je aj v zozname STOP `d0e8c056` (odpoveď na e-mail, rezervácia diagnostiky, hovor z plánu). Zoznam má teraz 29 workflowov, spúšťače nezmenené.
+- E3 pre novostavbu (A) je zatiaľ príbeh investičného bytu (byt od developera). Keď Jano pošle FAPI odkaz na e-book za 19 €, vznikne E3a a v 4 workflowoch verzie A sa vymení šablóna.
+
+**Investičný byt na webe**: dlaždica „Byt na prenájom“ a okno `#cs-investicny` v Realizáciách (10 fotiek z Miriaminho Drive, pôdorys len pred). `main.js` otvára okno z adresy (`/#cs-starsia-pani`, `/#cs-vidiecky`, `/#cs-investicny`), na to vedú tlačidlá „Pozrieť celú premenu“ v E3 a na stránke s poradím.
+
+**Ostrý test 16. 11. 17:20** (team@, vlažná, prerábanie, „Chcem vedieť viac“): značky, polia, poznámka aj E1 sedia, Z1 odišiel z workflowu o 6 s. Neoverené: či `pz-zaujem` naozaj vyradil z hlavnej sekvencie (17. 11. má team@ dostať E2 **raz**, nie dvakrát). Rezervácia úvodného hovoru otestovaná len na náhľade (naostro by odišla SMS Miriam).
