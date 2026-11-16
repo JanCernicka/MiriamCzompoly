@@ -47,6 +47,8 @@ Názov služby „Izba podľa teba“ je pracovný, Miriam vyberá.
 - Po výbere: správa pre Miriam do WhatsAppu na odsúhlasenie.
 
 ## Naostro 16. 11. 2026 (Jano: „už to normálne daj do GHL-ka… čo odsúhlasila, to odsúhlasila“)
+Prehľad pre Jana (stránky, investičný byt, časový plán, všetkých 10 e-mailov): https://claude.ai/artifact/FbuzYGg2tZTfavo6hsW766
+
 Stránky sú na www (`/pred-zmenou`, `-dakujem`, `-hovor`, `-poradie`) bez náhľadových pruhov a bez miest na video. Videá na stránku zatiaľ nie sú, sekcia sa vráti, keď ich Miriam nahrá.
 
 **Web → GHL**
