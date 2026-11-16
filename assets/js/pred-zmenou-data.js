@@ -31,7 +31,7 @@
       pribeh: { nadpis: "Byt Štajnerka, Trnava", text: "Z hrubej stavby až po hotový byt.",
         pred: ["/assets/img/realizacie/stajnerka-pred-2.jpg", "Obytná miestnosť v hrubej stavbe"],
         po: ["/assets/img/realizacie/stajnerka-po.jpg", "Obývacia a jedálenská časť po premene"] } },
-    b: { nazov: "Prerobenie staršieho bytu alebo domu", hlavna: "Rozloženie miestností skôr než obklady.",
+    b: { nazov: "Prerobenie staršieho bytu alebo domu", hlavna: "Obklady a podlahu vyber, až keď vieš, ako bude celý byt vyzerať.",
       skratky: ["Čo ti v byte prekáža", "Búrať alebo presúvať", "Elektrika, voda, kúrenie", "Kuchyňa a kúpeľňa", "Povrchy a nábytok"],
       kroky: ["Spíš si, čo ti v byte dnes prekáža.",
         "Rozhodni, či sa búra alebo presúva, ešte pred oslovením majstrov.",
@@ -91,7 +91,7 @@
     var kroky = v.kroky.map(function (t, i) {
       return hotove.indexOf(i) >= 0 ? '<li class="hotovo">' + esc(t) + "<small>Toto už máš za sebou.</small></li>" : "<li>" + esc(t) + "</li>";
     }).join("");
-    return '<span class="vys-stitok">' + esc(meno) + ", tvoje poradie krokov · " + esc(v.nazov) + "</span>" +
+    return '<span class="vys-stitok">' + esc(meno) + ", Tvoje poradie krokov · " + esc(v.nazov) + "</span>" +
       '<h1 class="vys-hlavna">' + esc(v.hlavna) + "</h1>" +
       '<p class="vys-cas">' + esc(CAS[o.kedy]) + "</p>" +
       '<ol class="vys-kroky">' + kroky + "</ol>" +

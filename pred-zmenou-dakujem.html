@@ -8,13 +8,14 @@
        Jano 12. 11.: menej textu, žiadny tvrdý predaj hneď, ponuka ako „mám pre teba riešenie“ s postupom,
        presviedčať e-mailami (vybral jemnú variantu, ostatné dve sú zrušené).
        Miriam 13. 11.: namiesto služby za 400 € diagnostika, podnadpis a popis rovnaký ako v e-maile Z1.
+       Miriam 16. 11.: vrch stránky podľa jej znenia, „Tvoje poradie krokov“ všade s veľkým T a tučne, veta o poradí pred nadpisom diagnostiky.
        Celé poradie krokov je na /pred-zmenou-poradie (aj odkaz z e-mailu). Len náhľad. -->
   <meta name="robots" content="noindex, nofollow" />
   <meta name="theme-color" content="#262019" />
   <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/assets/css/profil.css" />
   <style>
     .nahlad-pruh{background:#2f6b4f;color:#fff;text-align:center;font-size:13.5px;line-height:1.4;padding:8px 16px}
@@ -28,6 +29,8 @@
     .teaser .hlavna{font-family:var(--display);font-size:30px;line-height:1.1;color:var(--tma);margin:0 0 10px;text-wrap:balance}
     .teaser .viac{font-size:14.5px;color:var(--sivy);margin:0}
     .teaser a{font-weight:700}
+    .teaser .btn{margin-top:14px}
+    .hotovo h1 strong,.riesenie strong{font-weight:700}
     .pp{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:16px 0 6px}
     .pp figure{margin:0;position:relative}
     .pp img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:12px;display:block;background:#eee}
@@ -84,18 +87,18 @@
     /* Bez vyplnených otázok (priamy odkaz na náhľad) ukáže ukážku: prerábanie, studená. */
     var u = P.ulozene() || { o: { situacia: "b", kedy: "m36", hotove: "nic", rozpocet: "do5", kde: "Trnava" }, meno: "Lucia", email: "" };
     var v = P.VERZIE[u.o.situacia], pr = v.pribeh;
-    var meno = u.meno ? esc(u.meno) + ", p" : "P";
 
-    $("#hore").innerHTML = '<div class="fajka" aria-hidden="true">&#10003;</div><h1>' + meno + 'oradie krokov ti práve odišlo do e-mailu</h1>' +
+    $("#hore").innerHTML = '<div class="fajka" aria-hidden="true">&#10003;</div><h1>' + (u.meno ? esc(u.meno) + ", " : "") + '<strong>Tvoje poradie krokov</strong> ti práve odišlo do e-mailu</h1>' +
       '<p class="mail">' + (u.email ? "Na " + esc(u.email) + ". " : "") + 'Ak ho do pár minút nevidíš, pozri aj do spamu.</p>' +
       '<div class="teaser"><span class="stitok">Ako prvé</span><p class="hlavna">' + esc(v.hlavna) + '</p>' +
-      '<p class="viac">V e-maile nájdeš päť krokov v poradí a tri najdrahšie chyby v tvojej situácii. <a href="/pred-zmenou-poradie">Pozrieť celé poradie</a></p></div>';
+      '<p class="viac">V e-maile nájdeš päť krokov v poradí a tri najdrahšie chyby v tvojej situácii.</p>' +
+      '<a class="btn btn--obrys" href="/pred-zmenou-poradie">Pozrieť&nbsp;<strong>Tvoje poradie krokov</strong></a></div>';
 
     /* Texty diagnostiky sú Miriamine z 13. 11. (e-mail Z1 a E5), doslova. */
     $("#dole").innerHTML =
-      '<span class="stitok">Mám pre teba riešenie</span><h2>Interiérová diagnostika</h2>' +
+      '<p class="uvod-r"><strong>Tvoje poradie krokov</strong> ti povie, v akom poradí rozhodovať. Nepovie, čo konkrétne urobiť u teba. To riešim na diagnostike.</p>' +
+      '<h2>Interiérová diagnostika</h2>' +
       '<p class="podnadpis">90-minútová konzultácia u teba doma alebo online</p>' +
-      '<p class="uvod-r">Poradie krokov ti povie, v akom poradí rozhodovať. Nepovie, čo konkrétne urobiť u teba. To riešim na diagnostike.</p>' +
       '<div class="pp"><figure><b>Pred</b><img src="' + pr.pred[0] + '" alt="' + esc(pr.pred[1]) + '"></figure><figure><b>Po</b><img src="' + pr.po[0] + '" alt="' + esc(pr.po[1]) + '"></figure></div>' +
       '<p class="pp-popis">' + esc(pr.nadpis) + ": " + esc(pr.text) + "</p>" +
       '<div class="medzi" aria-hidden="true"></div>' +
