@@ -84,6 +84,12 @@ mark.over{background:var(--warn-fill);color:var(--warn-fg);border-radius:3px;pad
 .mail-telo{padding:16px 18px;display:flex;flex-direction:column;gap:10px;max-width:68ch}
 .mail-telo .predmet{font-weight:700}
 .mail-telo p{font-family:var(--display);font-size:1.06rem;line-height:1.55}
+.mail-obr{display:block;width:100%;border-radius:8px;border:1px solid var(--line)}
+.mail-pp{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.mail-pp figure{margin:0}
+.mail-pp img{display:block;width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:8px;border:1px solid var(--line);background:#fff}
+.mail-pp img[src*="podorys"]{object-fit:contain}
+.mail-pp figcaption{font-family:var(--ui);font-size:.78rem;color:var(--muted);margin-top:3px}
 .tlacidlo{display:inline-block;align-self:flex-start;background:var(--fg);color:var(--bg);border-radius:10px;padding:8px 16px;font-family:var(--ui);font-weight:600;font-size:.92rem}
 .mail-pozn{padding:10px 18px 14px;font-size:.86rem;color:var(--muted);border-top:1px dashed var(--line)}
 .dalsi{background:var(--soft);border-radius:12px;padding:18px 20px;display:flex;flex-direction:column;gap:8px}
@@ -186,6 +192,7 @@ mark.over{background:var(--warn-fill);color:var(--warn-fg);border-radius:3px;pad
       <p>Ahoj {{meno}},</p>
       <p><mark class="nase">chcem ti ukázať byt, ktorý bol v podobnej situácii ako ty.</mark></p>
       <p><b>Byt pre staršiu pani v Trnave</b></p>
+      <img class="mail-obr" src="/assets/img/realizacie/starsia-pani-podorys-pred-po.jpg" alt="Pôdorys bytu pred a po prerobení">
       <p>Dvojizbový byt už mal čo-to za sebou, a tak sa rodina rozhodla prerobiť ho pre mamu. Vyhodili sme umakartové jadro a zrušili zbytočnú chodbu. Kúpeľňa sa tým zväčšila a cez úzky svetlík medzi kúpeľňou a kuchyňou má teraz denné svetlo. Do kuchyne sa prechádza cez obývačku s jedálňou a tam, kde bola chodba do kuchyne, je botník s miestom na sedenie.</p>
       <p>Kuchynskú linku sme nedali až po strop, aj keď je to dnes moderné. Mama by na najvyššie skrinky bez schodíkov nedočiahla a nad linkou zostal priestor na svetlo do kúpeľne.</p>
       <p>Prvýkrát sa v tomto byte našlo miesto na jedálenský stôl, kde sa celá rodina zmestí spolu.</p>
@@ -194,12 +201,37 @@ mark.over{background:var(--warn-fill);color:var(--warn-fg);border-radius:3px;pad
       <p><mark class="nase">Ak riešiš niečo podobné, odpíš mi, rada si to prečítam.</mark></p>
       <p>Miriam</p>
     </div>
-    <div class="mail-pozn">Príbeh je Miriamin zo 16. 11., doslova. Modré je náš rámec z predošlej verzie: úvodná veta, tlačidlo na premenu na jej webe a záverečná veta.</div></div>
-  <div class="mail"><div class="mail-hlava"><span class="kod">E3b</span><span class="komu">sťahovanie a investičný byt, vlažní 3. deň, studení 7. deň</span></div>
+    <div class="mail-pozn">Text je Miriamin zo 16. 11. Obrázok je jej pôdorys pred a po z Drive („0_vzor príspevok pred a po“). Modré je náš rámec: úvodná a záverečná veta. Tlačidlo vedie na premenu na jej webe.</div></div>
+  <div class="mail"><div class="mail-hlava"><span class="kod">E3b</span><span class="komu">sťahovanie, vlažní 3. deň, studení 7. deň</span></div>
     <div class="mail-telo"><p class="predmet">Predmet: Ako to riešila klientka v tvojej situácii</p>
-      <p><mark class="over">Text o klientke pri sťahovaní a o investičnom byte ešte doplní Miriam.</mark></p>
+      <p>Ahoj {{meno}},</p>
+      <p><mark class="nase">chcem ti ukázať byt, ktorý bol v podobnej situácii ako ty.</mark></p>
+      <p><b>Vidiecky byt v Trnave</b></p>
+      <div class="mail-pp"><figure><img src="/assets/img/realizacie/vidiecky-pred.jpg" alt="obývacia izba"><figcaption>Pred: obývacia izba</figcaption></figure><figure><img src="/assets/img/realizacie/vidiecky-po.jpg" alt="tá istá izba"><figcaption>Po: tá istá izba</figcaption></figure></div>
+      <p>Rodina sa sťahovala z domu do paneláku a veľa nábytku si brala so sebou. Najprv som presne zamerala všetok nábytok, ktorý chceli zobrať. Na niekoľkohodinových stretnutiach som spoznávala, ako rodina žije, čo je pre ňu dôležité a čím sa rada obklopuje. Do návrhu som potom vymodelovala pôvodný nábytok a k nemu nový, ktorý sa dá naozaj kúpiť. Pekná vizualizácia nestačí.</p>
+      <p>Počas prerábky bývali majitelia v prenájme a veci mali uložené v skladovacích kontajneroch. Byt sme vypratali doslova až po podlahu. Kúpeľňu sme presunuli a na jej mieste je teraz vidiecka kuchyňa s ostrovčekom. Vidiecky štýl som navrhla tak, aby v paneláku nepôsobil nepatrične. Starý nábytok zostal a dostal okolo seba nový.</p>
+      <p>Rodina mi potom napísala: „Perfektne zladila starý nábytok s novým. Napriek tomu, že sme sa presťahovali z domu do paneláku, cítime sa v ňom oveľa lepšie.“</p>
+      <span class="tlacidlo">Pozrieť celú premenu</span>
+      <p><mark class="nase">Ak riešiš niečo podobné, odpíš mi, rada si to prečítam.</mark></p>
+      <p>Miriam</p>
     </div>
-    <div class="mail-pozn">Miriam v PDF zo 16. 11.: „Texty o klientkach a o investičnom byte ešte doplním.“</div></div>
+    <div class="mail-pozn">Text je Miriamin zo 16. 11. Fotky pred a po sú tie, ktoré už má na webe. Modré je náš rámec ako pri prerábaní. Tlačidlo vedie na premenu na jej webe.</div></div>
+  <div class="mail"><div class="mail-hlava"><span class="kod">E3b</span><span class="komu">investičný byt, vlažní 3. deň, studení 7. deň</span></div>
+    <div class="mail-telo"><p class="predmet">Predmet: Ako to riešila klientka v tvojej situácii</p>
+      <p>Ahoj {{meno}},</p>
+      <p><mark class="nase">chcem ti ukázať byt, ktorý bol v podobnej situácii ako ty.</mark></p>
+      <p><b>Jednoizbový byt na prenájom</b></p>
+      <div class="mail-pp"><figure><img src="/assets/img/realizacie/investicny-podorys-pred.jpg" alt="pôdorys od developera"><figcaption>Pred: pôdorys od developera</figcaption></figure><figure><img src="/assets/img/realizacie/investicny-po.jpg" alt="byt po zariadení"><figcaption>Po: byt po zariadení</figcaption></figure></div>
+      <p>Zadanie bolo zariadiť byt tak, aby sa v ňom dobre cítil muž aj žena a aby lacnejšie zariadenie neznamenalo horšie bývanie.</p>
+      <p>Ako prvé som zmenila nepraktické rozloženie od developera. Posteľ som presunula na opačnú stranu, aby vznikol voľný prechod od vchodu na veľkú terasu, kde nájomníci trávia veľkú časť dňa.</p>
+      <p>Otvorené regály medzi kuchyňou a spálňou oddeľujú zóny a práve s nimi pribudlo viac úložného miesta. Zrkadlové skrinky a priehľadné stoličky priestor opticky zväčšujú. Do rámov si nájomník môže dať vlastné obrázky.</p>
+      <p>Minimalizmus som oživila vzorom na koberci a jemnou terakotovou farbou na nočných stolíkoch, konferenčnom stolíku, niekoľkých doplnkoch a v kúpeľni.</p>
+      <p>Prvá nájomníčka povedala, že byt je naživo ešte krajší ako na fotkách v inzeráte, a nasťahovala sa hneď na druhý deň.</p>
+      <span class="tlacidlo">Pozrieť celú premenu</span>
+      <p><mark class="nase">Ak riešiš niečo podobné, odpíš mi, rada si to prečítam.</mark></p>
+      <p>Miriam</p>
+    </div>
+    <div class="mail-pozn">Text aj tlačidlo sú Miriamine zo 16. 11. Pôdorys a fotka sú z jej Drive. Modré je náš rámec ako pri prerábaní. Tento byt zatiaľ nie je na jej webe, takže tlačidlo „Pozrieť celú premenu“ nemá kam viesť.</div></div>
 </section>
 
 <section>
@@ -248,7 +280,7 @@ mark.over{background:var(--warn-fill);color:var(--warn-fg);border-radius:3px;pad
   <div class="sec-head"><span class="eyebrow">Pred spustením</span><h2>Čo treba od Miriam a čo postavíme my</h2></div>
   <div class="dvojica">
     <div class="box"><h3>Od Miriam</h3><ul>
-      <li>E3b pre sťahovanie a investičný byt. Prerábanie už je.</li>
+      <li>Kam má viesť „Pozrieť celú premenu“ pri investičnom byte, keď na webe ešte nie je.</li>
       <li>Krátke video k úvodnému hovoru, ak ho chce na stránke mať.</li>
     </ul></div>
     <div class="box"><h3>Postavíme my</h3><ul>

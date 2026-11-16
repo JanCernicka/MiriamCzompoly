@@ -64,10 +64,10 @@
         "Priprav byt tak, aby dobre vyzeral na fotkách do inzerátu."],
       chyby: ["Zariaďovať podľa svojho vkusu.", "Lacné veci, ktoré sa o rok menia.", "Málo úložného priestoru."],
       hotove: { rozvody: [1], kuchyna: [1, 2], nabytok: [1, 2] },
-      /* 🔴 overiť s Miriam, či garsónka v Hlohovci bola byt na prenájom; inak vymeniť */
-      pribeh: { nadpis: "Garsónka, Hlohovec", text: "Jeden priestor, v ktorom je spanie, kuchyňa aj pracovné miesto.",
-        pred: ["/assets/img/realizacie/garsonka-po.jpg", "Spanie a kuchynská linka v jednom priestore"],
-        po: ["/assets/img/realizacie/garsonka-5.jpg", "Pracovné miesto pri okne"] } }
+      /* Miriam 16. 11.: skutočný byt na prenájom (namiesto garsónky z Hlohovca), fotky a pôdorys z jej Drive. */
+      pribeh: { nadpis: "Jednoizbový byt na prenájom", text: "Posteľ som presunula na opačnú stranu, aby vznikol voľný prechod od vchodu na veľkú terasu.",
+        pred: ["/assets/img/realizacie/investicny-podorys-pred.jpg", "Pôvodný pôdorys od developera"],
+        po: ["/assets/img/realizacie/investicny-po.jpg", "Byt po zariadení, regály oddeľujú spanie od obývačky"] } }
   };
 
   /* Veta podľa otázky 2. Prvá je z PDF, ďalšie dve sú NÁVRH. */
