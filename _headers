@@ -13,3 +13,7 @@ https://plan.miriamczompoly.sk/*
 /sprava-realizacii
   X-Robots-Tag: noindex, nofollow
   Cache-Control: no-store
+
+# Návod k správcovi realizácií (17. 11. 2026): pre Miriam, do Googlu nepatrí.
+/navod/sprava-realizacii.pdf
+  X-Robots-Tag: noindex, nofollow

@@ -3,11 +3,12 @@
      { heslo, akcia: "nacitaj" }                      realizácie zo statického index.html, posledné nastavenie, história
      { heslo, akcia: "uloz", nastavenie, poznamka }    overí a uloží novú verziu, hneď platí na www
      { heslo, akcia: "vrat", verzia }                 znova uloží staršiu verziu (verzia 0 = pôvodné poradie z kódu)
-   Každé uloženie je nový riadok, nič sa neprepisuje, takže sa dá vrátiť ku ktorejkoľvek verzii. */
-import { tabulka, zabezpecTabulku, posledne, zoznam, over } from "../_lib/realizacie.js";
+   Každé uloženie je nový riadok, nič sa neprepisuje, takže sa dá vrátiť ku ktorejkoľvek verzii.
+   Fotky sa nahrávajú zvlášť cez /api/realizacie-foto, tu sa len overí, že v D1 naozaj sú. */
+import { tabulka, zabezpecTabulku, posledne, zoznam, over, overNove, pridajNove, idFotiek, tabulkaFotiek, zabezpecFotky } from "../_lib/realizacie.js";
 
 const json = (d, s = 200) => new Response(JSON.stringify(d), { status: s, headers: { "content-type": "application/json; charset=utf-8", "cache-control": "no-store" } });
-const KLUCE = ["poradie", "skryte", "obalky", "fotky"];
+const KLUCE = ["poradie", "skryte", "obalky", "fotky", "nove", "pridane"];
 
 function cisti(n) {
   const o = {};
@@ -26,8 +27,8 @@ export async function onRequestPost({ request, env }) {
     await new Promise((r) => setTimeout(r, 800));
     return json({ ok: false, chyba: "Nesprávne heslo." }, 401);
   }
-  const statika = await env.ASSETS.fetch(new Request(new URL("/", request.url)));
-  const skupiny = zoznam(await statika.text());
+  const statika = await (await env.ASSETS.fetch(new Request(new URL("/", request.url)))).text();
+  const skupiny = zoznam(statika);
   if (!skupiny.length) return json({ ok: false, chyba: "Galériu na webe sa nepodarilo prečítať." }, 500);
   await zabezpecTabulku(env);
   const T = tabulka(env), teraz = new Date().toISOString();
@@ -43,7 +44,19 @@ export async function onRequestPost({ request, env }) {
       if (!r) return json({ ok: false, chyba: "Taká verzia neexistuje." }, 404);
       n = JSON.parse(r.nastavenie); poznamka = `vrátená verzia č. ${Number(b.verzia)}`;
     }
-    const chyby = Object.keys(n).length ? over(skupiny, n) : [];
+    let chyby = Object.keys(n).length ? overNove(skupiny, n) : [];
+    if (!chyby.length && Object.keys(n).length) chyby = over(zoznam(pridajNove(statika, n)), n);
+    const ids = idFotiek(n);
+    if (!chyby.length && ids.length) {
+      await zabezpecFotky(env);
+      const mam = new Set();
+      for (let i = 0; i < ids.length; i += 40) {
+        const kus = ids.slice(i, i + 40);
+        const r = await env.DB.prepare(`SELECT id FROM ${tabulkaFotiek(env)} WHERE id IN (${kus.map(() => "?").join(",")})`).bind(...kus.map((x) => x + "-m")).all();
+        for (const x of r.results || []) mam.add(x.id.replace(/-m$/, ""));
+      }
+      if (ids.some((x) => !mam.has(x))) chyby = ["niektorá fotka sa nenahrala, nahraj ju prosím znova"];
+    }
     if (chyby.length) return json({ ok: false, chyba: chyby.join(". ") + "." }, 400);
     await env.DB.prepare(`INSERT INTO ${T} (kedy, nastavenie, poznamka) VALUES (?, ?, ?)`).bind(teraz, JSON.stringify(n), poznamka).run();
   }
