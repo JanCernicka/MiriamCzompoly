@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Správca realizácií · Miriam Czompoly</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <!-- Správca realizácií (17. 11. 2026): Miriam si tu nastaví poradie realizácií, úvodnú fotku, čo sa zobrazuje
+       a poradie fotiek v okne. Ukladá cez /api/realizacie do D1, functions/index.js podľa toho skladá galériu.
+       Heslo je to isté ako do konzoly. -->
+  <style>
+    :root{--papier:#ffffff;--plocha:#f6f2ec;--tma:#262019;--sivy:#6f6658;--linka:#e4d9c6;--mosadz:#856a44;--mosadz-sv:#c9a876;
+      --ok:#2f6b4f;--ok-bg:#e7f2eb;--chyba:#9b2c1f;--chyba-bg:#fbe9e6;--disp:"Cormorant Garamond",Georgia,serif;--telo:Inter,system-ui,-apple-system,"Segoe UI",sans-serif}
+    *{box-sizing:border-box}
+    [hidden]{display:none!important}
+    .karta>*,.fk>*,.telo>*{min-width:0}
+    body{margin:0;background:var(--papier);color:var(--tma);font:16px/1.5 var(--telo);padding-bottom:96px}
+    .obal{max-width:1180px;margin:0 auto;padding:28px max(16px,env(safe-area-inset-left,0px)) 24px max(16px,env(safe-area-inset-right,0px));display:grid;gap:28px}
+    h1{font:600 clamp(30px,4vw,42px)/1.1 var(--disp);margin:0}
+    h2{font:600 26px/1.2 var(--disp);margin:0}
+    .uvod{margin:6px 0 0;color:var(--sivy);max-width:70ch}
+    .hlava{display:flex;flex-wrap:wrap;gap:12px 24px;align-items:flex-end;justify-content:space-between}
+    a{color:var(--mosadz)}
+    button{font:600 14px var(--telo);cursor:pointer;border-radius:8px;border:1px solid var(--linka);background:#fff;color:var(--tma);padding:8px 12px;min-height:38px}
+    button:hover:not(:disabled){border-color:var(--mosadz)}
+    button:focus-visible,input:focus-visible{outline:2px solid var(--mosadz);outline-offset:2px}
+    button:disabled{opacity:.4;cursor:default}
+    .hlavne{background:var(--tma);color:#fff;border-color:var(--tma)}
+    .prihlasenie{max-width:420px;border:1px solid var(--linka);border-radius:14px;padding:22px;display:grid;gap:12px}
+    .prihlasenie input{font:16px var(--telo);padding:10px 12px;border:1px solid var(--linka);border-radius:8px;width:100%}
+    .chyba{color:var(--chyba);background:var(--chyba-bg);border-radius:8px;padding:10px 12px;margin:0}
+    .skupina{display:grid;gap:14px}
+    .skupina-hlava{display:flex;gap:12px;align-items:baseline;flex-wrap:wrap}
+    .skupina-hlava span{color:var(--sivy);font-size:14px}
+    .mriezka{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px}
+    .karta{border:1px solid var(--linka);border-radius:12px;overflow:hidden;background:#fff;display:grid;grid-template-rows:auto 1fr;min-width:0}
+    .karta.skryta .foto img{opacity:.35;filter:grayscale(1)}
+    .foto{position:relative;aspect-ratio:4/3;background:var(--plocha)}
+    .foto img{width:100%;height:100%;object-fit:cover;display:block}
+    .poradie{position:absolute;top:8px;left:8px;background:var(--tma);color:#fff;font-weight:700;font-size:13px;border-radius:999px;min-width:28px;height:28px;display:grid;place-items:center;padding:0 8px}
+    .stitok-skryta{position:absolute;top:8px;right:8px;background:#fff;color:var(--tma);font-size:12px;font-weight:700;border-radius:999px;padding:3px 10px}
+    .telo{padding:12px;display:grid;gap:10px;align-content:start}
+    .nazov{font-weight:600}
+    .riadok{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+    .riadok button{flex:1 1 auto}
+    label.prepinac{display:flex;gap:8px;align-items:center;font-size:14px;cursor:pointer}
+    label.prepinac input{width:18px;height:18px;accent-color:var(--tma)}
+    .lista{position:fixed;left:0;right:0;bottom:0;background:#fff;border-top:1px solid var(--linka);z-index:20;padding:12px max(16px,env(safe-area-inset-right,0px)) calc(12px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
+    .lista-vnutro{max-width:1180px;margin:0 auto;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+    #stav{flex:1 1 220px;font-size:14px;color:var(--sivy)}
+    #stav.ok{color:var(--ok)} #stav.zle{color:var(--chyba)}
+    .historia{border-top:1px solid var(--linka);padding-top:20px;display:grid;gap:10px}
+    .historia ol{margin:0;padding:0;list-style:none;display:grid;gap:8px}
+    .historia li{display:flex;gap:12px;align-items:center;flex-wrap:wrap;border:1px solid var(--linka);border-radius:10px;padding:8px 12px;font-size:14px}
+    .historia li span{flex:1 1 220px;min-width:0}
+    .test{background:#fff4d6;border:1px solid #e9cf86;border-radius:10px;padding:10px 14px;margin:0;font-size:14px}
+    dialog{border:0;border-radius:14px;padding:0;width:min(980px,calc(100vw - 24px));max-height:calc(100vh - 24px)}
+    dialog::backdrop{background:rgba(38,32,25,.55)}
+    .dlg-hlava{position:sticky;top:0;background:#fff;border-bottom:1px solid var(--linka);padding:14px 18px;display:flex;gap:12px;align-items:center;justify-content:space-between;z-index:2}
+    .dlg-hlava h3{font:600 22px var(--disp);margin:0}
+    .dlg-telo{padding:16px 18px 20px;display:grid;gap:12px}
+    .dlg-telo p{margin:0;color:var(--sivy);font-size:14px}
+    .fotky{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
+    .fk{border:1px solid var(--linka);border-radius:10px;overflow:hidden;display:grid;min-width:0}
+    .fk.obalka{border:2px solid var(--mosadz)}
+    .fk.skryta img{opacity:.3}
+    .fk .foto .tag{position:absolute;top:6px;left:6px;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;border-radius:6px;padding:2px 7px;background:#fff;color:var(--tma)}
+    .fk .foto .tag.po{background:var(--mosadz-sv)}
+    .fk .foto .hviezda{position:absolute;top:6px;right:6px;font-size:11px;font-weight:700;border-radius:6px;padding:2px 7px;background:var(--mosadz);color:#fff}
+    .fk .telo{padding:8px;gap:8px}
+    .fk .alt{font-size:12.5px;color:var(--sivy);line-height:1.35}
+    @media (max-width:520px){.mriezka{grid-template-columns:1fr}.fotky{grid-template-columns:1fr 1fr}}
+    @media (prefers-reduced-motion:no-preference){.karta,.fk{transition:box-shadow .2s}}
+  </style>
+</head>
+<body>
+  <div class="obal">
+    <div class="hlava">
+      <div>
+        <h1>Správca realizácií</h1>
+        <p class="uvod">Poradie realizácií, úvodná fotka každej z nich, ktoré sa na webe zobrazujú a poradie fotiek v okne. Po uložení sa to na webe zmení hneď.</p>
+      </div>
+      <a href="https://www.miriamczompoly.sk/#realizacie" target="_blank" rel="noopener">Pozrieť realizácie na webe</a>
+    </div>
+
+    <form class="prihlasenie" id="prihlasenie" hidden>
+      <label for="heslo"><b>Heslo</b> (to isté ako do konzoly)</label>
+      <input id="heslo" type="password" autocomplete="current-password" required />
+      <p class="chyba" id="chybaPrihlasenia" hidden></p>
+      <button class="hlavne" type="submit">Prihlásiť</button>
+    </form>
+
+    <p class="test" id="test" hidden>Toto je náhľad. Uloženie sa na ostrom webe neprejaví.</p>
+    <div id="skupiny"></div>
+
+    <section class="historia" id="historia" hidden>
+      <h2>Predošlé verzie</h2>
+      <p class="uvod">Každé uloženie je nová verzia. Ktorúkoľvek sa dá vrátiť jedným klikom.</p>
+      <ol id="verzie"></ol>
+      <div><button type="button" id="povodne">Vrátiť pôvodné poradie a fotky</button></div>
+    </section>
+  </div>
+
+  <div class="lista" id="lista" hidden>
+    <div class="lista-vnutro">
+      <span id="stav" role="status">Žiadne zmeny.</span>
+      <button type="button" id="zahod" disabled>Zahodiť zmeny</button>
+      <button type="button" class="hlavne" id="uloz" disabled>Uložiť a zverejniť</button>
+    </div>
+  </div>
+
+  <dialog id="dlg" aria-labelledby="dlgNazov">
+    <div class="dlg-hlava"><h3 id="dlgNazov"></h3><button type="button" class="hlavne" id="dlgHotovo">Hotovo</button></div>
+    <div class="dlg-telo">
+      <p>Úvodná fotka je tá, ktorú ľudia vidia na dlaždici. Šípkami meníš poradie fotiek v okne, ktoré sa otvorí po kliknutí. Skrytá fotka sa v okne nezobrazí.</p>
+      <div class="fotky" id="dlgFotky"></div>
+    </div>
+  </dialog>
+
+  <script>
+  (function () {
+    "use strict";
+    var $ = function (s) { return document.querySelector(s); };
+    var esc = function (s) { return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/"/g, "&quot;"); };
+    var heslo = "", skupiny = [], zaklad = {}, praca = {}, otvorene = null;
+    try { heslo = sessionStorage.getItem("sr_heslo") || ""; } catch (e) {}
+
+    function api(telo) {
+      telo.heslo = heslo;
+      return fetch("/api/realizacie", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(telo) })
+        .then(function (r) { return r.json().catch(function () { return { ok: false, chyba: "Server neodpovedá." }; }).then(function (d) { d._status = r.status; return d; }); });
+    }
+    var kopia = function (o) { return JSON.parse(JSON.stringify(o || {})); };
+    var dlazdica = function (id) { for (var i = 0; i < skupiny.length; i++) for (var j = 0; j < skupiny[i].dlazdice.length; j++) if (skupiny[i].dlazdice[j].id === id) return skupiny[i].dlazdice[j]; };
+
+    /* Poradie v skupine: najprv podľa nastavenia, čo v ňom nie je, ide na koniec v pôvodnom poradí. */
+    function zorad(polozky, kluc, poradie) {
+      var idx = {}; (poradie || []).forEach(function (k, i) { idx[k] = i; });
+      return polozky.map(function (p, i) { return [p, kluc(p) in idx ? idx[kluc(p)] : 1e6 + i]; })
+        .sort(function (a, b) { return a[1] - b[1]; }).map(function (x) { return x[0]; });
+    }
+    function poradieSkupiny(s) { return zorad(s.dlazdice, function (d) { return d.id; }, praca.poradie); }
+    function fotkyDlazdice(d) { var f = (praca.fotky || {})[d.id] || {}; return zorad(d.fotky, function (x) { return x.src; }, f.poradie); }
+    var jeSkryta = function (id) { return (praca.skryte || []).indexOf(id) >= 0; };
+    var obalka = function (d) { return (praca.obalky || {})[d.id] || d.obalka; };
+    var fotkaSkryta = function (d, src) { return (((praca.fotky || {})[d.id] || {}).skryte || []).indexOf(src) >= 0; };
+
+    /* Uložiť sa má celé poradie a len to, čo sa líši od kódu (úvodné fotky, fotky v okne). */
+    function zostav() {
+      var n = { poradie: [], skryte: (praca.skryte || []).slice(), obalky: {}, fotky: {} };
+      skupiny.forEach(function (s) { poradieSkupiny(s).forEach(function (d) {
+        n.poradie.push(d.id);
+        if ((praca.obalky || {})[d.id] && praca.obalky[d.id] !== d.obalka) n.obalky[d.id] = praca.obalky[d.id];
+        var f = (praca.fotky || {})[d.id];
+        if (f) {
+          var por = fotkyDlazdice(d).map(function (x) { return x.src; }), povod = d.fotky.map(function (x) { return x.src; });
+          var sk = (f.skryte || []).filter(function (x) { return povod.indexOf(x) >= 0; });
+          if (por.join("|") !== povod.join("|") || sk.length) n.fotky[d.id] = { poradie: por, skryte: sk };
+        }
+      }); });
+      return n;
+    }
+    var podpis = function (n) { var m = kopia(n); delete m.poradie; m.p = n.poradie; return JSON.stringify(m); };
+    function zmenene() {
+      var povodne = kopia(praca); praca = kopia(zaklad); var a = podpis(zostav()); praca = povodne;
+      return a !== podpis(zostav());
+    }
+
+    function vykresli() {
+      $("#skupiny").innerHTML = skupiny.map(function (s, si) {
+        var por = poradieSkupiny(s), vidno = por.filter(function (d) { return !jeSkryta(d.id); }).length, poc = 0;
+        return '<section class="skupina"><div class="skupina-hlava"><h2>' + esc(s.nazov) + "</h2><span>na webe " + vidno + " z " + por.length + "</span></div>" +
+          '<div class="mriezka">' + por.map(function (d, i) {
+            var sk = jeSkryta(d.id); if (!sk) poc++;
+            return '<article class="karta' + (sk ? " skryta" : "") + '"><div class="foto"><img src="/' + esc(obalka(d)) + '" alt="" loading="lazy">' +
+              '<span class="poradie">' + (sk ? "-" : poc) + "</span>" + (sk ? '<span class="stitok-skryta">Skrytá</span>' : "") + "</div>" +
+              '<div class="telo"><div class="nazov">' + esc(d.nazov) + "</div>" +
+              '<div class="riadok"><button type="button" data-posun="' + si + ":" + i + ':-1" ' + (i === 0 ? "disabled" : "") + ' aria-label="Posunúť ' + esc(d.nazov) + ' dopredu">&#8592; Dopredu</button>' +
+              '<button type="button" data-posun="' + si + ":" + i + ':1" ' + (i === por.length - 1 ? "disabled" : "") + ' aria-label="Posunúť ' + esc(d.nazov) + ' dozadu">Dozadu &#8594;</button></div>' +
+              '<label class="prepinac"><input type="checkbox" data-zobraz="' + d.id + '"' + (sk ? "" : " checked") + "> Zobrazovať na webe</label>" +
+              '<button type="button" data-fotky="' + d.id + '">Úvodná fotka a fotky (' + d.fotky.length + ")</button></div></article>";
+          }).join("") + "</div></section>";
+      }).join("");
+      var zm = zmenene();
+      $("#uloz").disabled = !zm; $("#zahod").disabled = !zm;
+      if (zm) { $("#stav").className = ""; $("#stav").textContent = "Máš neuložené zmeny."; }
+    }
+
+    function posun(si, i, smer) {
+      var por = poradieSkupiny(skupiny[si]).map(function (d) { return d.id; }), j = i + smer;
+      if (j < 0 || j >= por.length) return;
+      var t = por[i]; por[i] = por[j]; por[j] = t;
+      var vsetky = []; skupiny.forEach(function (s, k) { vsetky = vsetky.concat(k === si ? por : poradieSkupiny(s).map(function (d) { return d.id; })); });
+      praca.poradie = vsetky; vykresli();
+    }
+
+    function dialog(id) {
+      otvorene = id; var d = dlazdica(id), ob = obalka(d), fs = fotkyDlazdice(d);
+      $("#dlgNazov").textContent = d.nazov;
+      $("#dlgFotky").innerHTML = fs.map(function (f, i) {
+        var sk = fotkaSkryta(d, f.src), je = f.src === ob;
+        return '<div class="fk' + (je ? " obalka" : "") + (sk ? " skryta" : "") + '"><div class="foto"><img src="/' + esc(f.src) + '" alt="" loading="lazy">' +
+          (f.tag ? '<span class="tag ' + esc(f.tag) + '">' + (f.tag === "pred" ? "Pred" : "Po") + "</span>" : "") + (je ? '<span class="hviezda">Úvodná</span>' : "") + "</div>" +
+          '<div class="telo"><div class="alt">' + esc(f.alt) + "</div>" +
+          '<button type="button" data-obalka="' + esc(f.src) + '"' + (je ? " disabled" : "") + ">" + (je ? "Toto je úvodná fotka" : "Nastaviť ako úvodnú") + "</button>" +
+          '<div class="riadok"><button type="button" data-fposun="' + i + ':-1"' + (i === 0 ? " disabled" : "") + ' aria-label="Fotku dopredu">&#8592;</button>' +
+          '<button type="button" data-fposun="' + i + ':1"' + (i === fs.length - 1 ? " disabled" : "") + ' aria-label="Fotku dozadu">&#8594;</button></div>' +
+          '<label class="prepinac"><input type="checkbox" data-fskry="' + esc(f.src) + '"' + (sk ? "" : " checked") + "> Zobrazovať v okne</label></div></div>";
+      }).join("");
+      if (!$("#dlg").open) $("#dlg").showModal();
+    }
+    function fotkyNast(id) { praca.fotky = praca.fotky || {}; praca.fotky[id] = praca.fotky[id] || {}; return praca.fotky[id]; }
+
+    document.addEventListener("click", function (e) {
+      var t = e.target.closest("button"); if (!t) return;
+      if (t.dataset.posun) { var p = t.dataset.posun.split(":").map(Number); posun(p[0], p[1], p[2]); }
+      else if (t.dataset.fotky) dialog(t.dataset.fotky);
+      else if (t.dataset.obalka) { praca.obalky = praca.obalky || {}; praca.obalky[otvorene] = t.dataset.obalka; dialog(otvorene); vykresli(); }
+      else if (t.dataset.fposun) {
+        var q = t.dataset.fposun.split(":").map(Number), d = dlazdica(otvorene), por = fotkyDlazdice(d).map(function (x) { return x.src; }), j = q[0] + q[1];
+        var x = por[q[0]]; por[q[0]] = por[j]; por[j] = x; fotkyNast(otvorene).poradie = por; dialog(otvorene); vykresli();
+      }
+    });
+    document.addEventListener("change", function (e) {
+      var t = e.target;
+      if (t.dataset.zobraz) {
+        var id = t.dataset.zobraz, sk = (praca.skryte || []).filter(function (x) { return x !== id; });
+        if (!t.checked) {
+          sk.push(id);
+          var s = skupiny.filter(function (g) { return g.dlazdice.some(function (d) { return d.id === id; }); })[0];
+          if (s.dlazdice.every(function (d) { return sk.indexOf(d.id) >= 0; })) { t.checked = true; stav("V skupine " + s.nazov + " musí ostať aspoň jedna realizácia.", "zle"); return; }
+        }
+        praca.skryte = sk; vykresli();
+      } else if (t.dataset.fskry) {
+        var d = dlazdica(otvorene), f = fotkyNast(otvorene), src = t.dataset.fskry, zoz = (f.skryte || []).filter(function (x) { return x !== src; });
+        if (!t.checked) {
+          if (src === obalka(d)) { t.checked = true; stav("Úvodnú fotku nemôžeš skryť. Najprv nastav inú ako úvodnú.", "zle"); return; }
+          zoz.push(src);
+          if (d.fotky.every(function (x) { return zoz.indexOf(x.src) >= 0; })) { t.checked = true; stav("V okne musí ostať aspoň jedna fotka.", "zle"); return; }
+        }
+        f.skryte = zoz; dialog(otvorene); vykresli();
+      }
+    });
+    $("#dlgHotovo").addEventListener("click", function () { $("#dlg").close(); });
+
+    function stav(t, trieda) { $("#stav").textContent = t; $("#stav").className = trieda || ""; }
+    function nacitane(d) {
+      skupiny = d.skupiny; zaklad = kopia(d.nastavenie); praca = kopia(d.nastavenie);
+      $("#prihlasenie").hidden = true; $("#lista").hidden = false; $("#historia").hidden = false; $("#test").hidden = !d.test;
+      $("#verzie").innerHTML = (d.verzie || []).map(function (v, i) {
+        var kedy = new Date(v.kedy).toLocaleString("sk-SK", { day: "numeric", month: "numeric", year: "numeric", hour: "2-digit", minute: "2-digit" });
+        return "<li><span><b>" + kedy + "</b> · " + esc(v.poznamka || "") + (i === 0 ? " · <b>teraz na webe</b>" : "") + "</span>" +
+          (i === 0 ? "" : '<button type="button" data-vrat="' + v.id + '">Vrátiť túto verziu</button>') + "</li>";
+      }).join("") || "<li><span>Zatiaľ nič uložené, na webe je pôvodné poradie.</span></li>";
+      vykresli();
+    }
+    function nacitaj() {
+      stav("Načítavam…");
+      api({ akcia: "nacitaj" }).then(function (d) {
+        if (!d.ok) { heslo = ""; try { sessionStorage.removeItem("sr_heslo"); } catch (e) {} ukazPrihlasenie(d._status === 401 ? null : d.chyba); return; }
+        nacitane(d); stav("Žiadne zmeny.");
+      }, function () { ukazPrihlasenie("Server neodpovedá, skús to o chvíľu."); });
+    }
+    function ukazPrihlasenie(chyba) {
+      $("#prihlasenie").hidden = false; $("#lista").hidden = true;
+      $("#chybaPrihlasenia").hidden = !chyba; $("#chybaPrihlasenia").textContent = chyba || "";
+    }
+    $("#prihlasenie").addEventListener("submit", function (e) {
+      e.preventDefault(); heslo = $("#heslo").value;
+      api({ akcia: "nacitaj" }).then(function (d) {
+        if (!d.ok) { ukazPrihlasenie(d.chyba || "Nesprávne heslo."); return; }
+        try { sessionStorage.setItem("sr_heslo", heslo); } catch (x) {}
+        nacitane(d); stav("Žiadne zmeny.");
+      });
+    });
+    function poUlozeni(d, sprava) {
+      if (!d.ok) { stav(d.chyba || "Uloženie zlyhalo.", "zle"); $("#uloz").disabled = false; return; }
+      nacitane(d); stav(sprava, "ok");
+    }
+    $("#uloz").addEventListener("click", function () {
+      $("#uloz").disabled = true; stav("Ukladám…");
+      api({ akcia: "uloz", nastavenie: zostav() }).then(function (d) { poUlozeni(d, "Uložené. Na webe to je už teraz."); },
+        function () { stav("Uloženie zlyhalo, skús to znova.", "zle"); $("#uloz").disabled = false; });
+    });
+    $("#zahod").addEventListener("click", function () { praca = kopia(zaklad); vykresli(); stav("Zmeny sú zahodené."); });
+    document.addEventListener("click", function (e) {
+      var t = e.target.closest("button[data-vrat]"); if (!t) return;
+      if (zmenene()) { stav("Najprv ulož alebo zahoď rozpracované zmeny.", "zle"); return; }
+      api({ akcia: "vrat", verzia: Number(t.dataset.vrat) }).then(function (d) { poUlozeni(d, "Vrátené. Na webe to je už teraz."); });
+    });
+    $("#povodne").addEventListener("click", function () {
+      if (zmenene()) { stav("Najprv ulož alebo zahoď rozpracované zmeny.", "zle"); return; }
+      api({ akcia: "vrat", verzia: 0 }).then(function (d) { poUlozeni(d, "Na webe je znova pôvodné poradie a fotky."); });
+    });
+    window.addEventListener("beforeunload", function (e) { if (skupiny.length && zmenene()) { e.preventDefault(); e.returnValue = ""; } });
+
+    if (heslo) nacitaj(); else ukazPrihlasenie(null);
+  })();
+  </script>
+</body>
+</html>

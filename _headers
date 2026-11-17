@@ -8,3 +8,8 @@ https://:hash.miriam-web-staging.pages.dev/*
 # Lievik „Plán od Miriam“ na poddoméne pre reklamu (28. 10. 2026): do Googlu nepatrí.
 https://plan.miriamczompoly.sk/*
   X-Robots-Tag: noindex, nofollow
+
+# Správca realizácií pre Miriam (17. 11. 2026): do Googlu nepatrí a nemá sa kešovať.
+/sprava-realizacii
+  X-Robots-Tag: noindex, nofollow
+  Cache-Control: no-store

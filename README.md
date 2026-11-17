@@ -8,6 +8,7 @@ Znovupoužiteľné princípy a nástroje pre GoHighLevel žijú v samostatnom re
 | cesta | obsah |
 |--|--|
 | `index.html` · `diagnostika.html` · `5-chyb.html` · `assets/` · `robots.txt` | **živý web** (nasadený na Cloudflare Pages, s napojeným GHL kalendárom, formulárom a Meta Pixelom) |
+| `sprava-realizacii.html` · `functions/api/realizacie.js` · `functions/_lib/realizacie.js` · `functions/index.js` | **správca realizácií pre Miriam** (17. 11. 2026): www.miriamczompoly.sk/sprava-realizacii, heslo ako do konzoly (secret `SPRAVA_HESLO`). Poradie, skrytie, úvodná fotka dlaždice a poradie fotiek v okne. Ukladá do D1 (`realizacie_nastavenie`, každé uloženie je nová verzia), `functions/index.js` podľa toho skladá galériu pri každom zobrazení úvodnej stránky. Statický `index.html` je pôvodná podoba a núdzová záloha. 🔴 Nová realizácia v kóde sa v galérii objaví na konci, kým ju Miriam nepresunie. |
 | `ghl/00-master-brief.md` | zadanie a priebežný log celej zákazky |
 | `ghl/reports/` | všetky analýzy, plány a záznamy o tom, čo bolo nasadené naživo |
 | `ghl/ebook/` | lead magnet „5 najdrahších chýb…" + skript, ktorý ho generuje |
